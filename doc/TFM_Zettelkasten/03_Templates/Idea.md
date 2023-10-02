@@ -1,4 +1,4 @@
-Fecha: {{date}} {{time}}
+Fecha: {{date}} {{time}}  
 Status: #Idea
 
 # {{title}}
