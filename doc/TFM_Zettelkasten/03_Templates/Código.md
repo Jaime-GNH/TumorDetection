@@ -1,5 +1,5 @@
 Fecha: {{date}} {{time}}  
-Status: #Cógido
+Status: #Código
 
 # {{title}}
 
