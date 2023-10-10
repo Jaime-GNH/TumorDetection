@@ -1,6 +1,5 @@
 /venv/
 .ssh
-.obsidian
 /resources
 # Byte-compiled / optimized / DLL files
 __pycache__/
