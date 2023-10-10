@@ -1,0 +1,166 @@
+{
+  "main": {
+    "id": "c22cd5fe6d89f33b",
+    "type": "split",
+    "children": [
+      {
+        "id": "8bbecc84ddbbf1f0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6f4c2c2748268249",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00_Zettelkasten/Proyecto TFM.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "38b29e051a555c0a",
+    "type": "split",
+    "children": [
+      {
+        "id": "7d7f7671fbaa9415",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d37478f78573867f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "603e444643f2e983",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "222fc7bba83a3333",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bea1ccb1757328ec",
+    "type": "split",
+    "children": [
+      {
+        "id": "f4237eab5739aef0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d52830f068ccf034",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "00_Zettelkasten/Proyecto TFM.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ee12f4bf73019772",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "00_Zettelkasten/Proyecto TFM.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ecb7f574d59b84e8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "ef6f14e0d38c9095",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "00_Zettelkasten/Proyecto TFM.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "6f4c2c2748268249",
+  "lastOpenFiles": [
+    "00_Zettelkasten/().md",
+    "00_Zettelkasten/Proyecto TFM.md",
+    "02_References/TFM_RL.bib",
+    "02_References/Library.json",
+    "03_Templates/Bibliografía.md",
+    "03_Templates/Código.md",
+    "03_Templates/Idea.md",
+    "03_Templates/Reunión.md",
+    "03_Templates/Teoría.md",
+    "00_Zettelkasten/Untitled 1.md",
+    "02_References",
+    "03_Templates",
+    "01_Attachements",
+    "00_Zettelkasten"
+  ]
+}
