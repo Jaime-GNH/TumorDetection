@@ -48,6 +48,14 @@ class DataPath(DictClass):
     ][0]
 
 
+class ViewerClsParams(DictClass):
+    win_title = 'Viewer'
+    mask_colormap = cv2.COLORMAP_RAINBOW
+    mask_alpha_weight = 0.3
+    mask_beta_weight = 0.7
+    mask_gamma_weight = 0
+
+
 class ReadingModes(DictClass):
     gray = cv2.IMREAD_GRAYSCALE
     color = cv2.IMREAD_COLOR
@@ -65,3 +73,8 @@ class ImageLoaderCall(DictClass):
     read_mode = 'gray'
     class_values = ClassValues.to_dict()
 
+
+class PreprocessorCall(DictClass):
+    invert_grayscale = True
+    adjust_exposure = True
+    clip_hist_percent = 25
