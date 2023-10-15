@@ -8,9 +8,10 @@ setup(
     ),
     include_package_data=True,
     install_requires=[
+        'pip==23.2.1',
         'torch==2.1.0',
         'opencv-python==4.8.1.78',
-        'pip==23.2.1',
+        'numpy==1.26.0',
         'requests',
         'importlib-metadata; python_version == "3.10.9"',
     ],
