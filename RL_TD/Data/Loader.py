@@ -1,5 +1,6 @@
 from RL_TD.Utils.DictClasses import DataPathsCall, ImageLoaderCall
 from RL_TD.Utils.BaseClass import BaseClass
+from RL_TD.Utils.Utils import apply_function2list
 
 import glob
 import cv2
@@ -95,10 +96,13 @@ class ImageLoader(BaseClass):
         """
         # paths_classes = path_classes
         kwargs = self._default_config(ImageLoaderCall, **kwargs)
-        return list(map(lambda tup: self._process_tuple(tup,
-                                                        kwargs.get('read_mode'),
-                                                        kwargs.get('class_values')),
-                        paths_classes))
+        return apply_function2list(paths_classes,
+                                   self._process_tuple,
+                                   **kwargs)
+        # return list(map(lambda tup: self._process_tuple(tup,
+        #                                                 kwargs.get('read_mode'),
+        #                                                 kwargs.get('class_values')),
+        #                 paths_classes))
 
     def _process_tuple(self, tup, read_mode, class_values):
         """
@@ -139,18 +143,22 @@ class ImageLoader(BaseClass):
 
 
 if __name__ == '__main__':
-    from Utils.DictClasses import DataPath, ReadingModes
-    from RL_TD.Utils.DictClasses import BaseClassMap, MappedClassValues
-    from RL_TD.Utils.Viewer import show_images
+    import os
     import random
+    from RL_TD.Utils.DictClasses import DataPath, ReadingModes
+    from RL_TD.Utils.DictClasses import BaseClassMap, MappedClassValues
+    from RL_TD.Utils.Viewer import Viewer
+    from RL_TD.Data.Preprocess import Preprocessor
 
     Dp = DataPaths(dir_path=DataPath.get('dir_path'))
     paths_classes = Dp(map_classes=BaseClassMap.to_dict())
 
     result = ImageLoader()(paths_classes, class_values=MappedClassValues.to_dict())
+    images = Preprocessor()([r[2] for r in result])
 
     idx = random.choice(range(len(result)))
-    show_images(result[idx][2], 'Image')
-    show_images(result[idx][3]*255, 'Mask')
-    show_images([result[idx][2], result[idx][3]*255],
-                win_title='Image: {result[idx][0].split("\\")[-1]}. {result[idx][1]')
+    Viewer.show_masked_image(result[idx][2], result[idx][3],
+                             win_title=f'Image: {os.path.splitext(os.path.basename(result[idx][0]))[0]}.'
+                                       f' Class: {result[idx][1][0]}')
+
+
