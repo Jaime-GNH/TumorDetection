@@ -10,6 +10,22 @@
           {
             "id": "6f4c2c2748268249",
             "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "graph",
+              "state": {},
+              "pinned": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "1a9bdc2e987df80d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cb3b65a96520b52b",
+            "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
@@ -18,8 +34,57 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "76d0e652f33cbfb2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00_Zettelkasten/Solución final.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "5b75ed36496f676f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00_Zettelkasten/Solución Graph Neural Network.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "1ae30840fbdb9a62",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00_Zettelkasten/Solución Reinforcement Learning.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "2155bb59b493e35e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "00_Zettelkasten/Solución Multi-step.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -69,7 +134,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "bea1ccb1757328ec",
@@ -85,7 +151,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "00_Zettelkasten/Proyecto TFM.md",
+                "file": "00_Zettelkasten/Solución final.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +168,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "00_Zettelkasten/Proyecto TFM.md",
+                "file": "00_Zettelkasten/Solución final.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +191,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "00_Zettelkasten/Proyecto TFM.md"
+                "file": "00_Zettelkasten/Solución final.md"
               }
             }
           }
@@ -146,11 +212,21 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6f4c2c2748268249",
+  "active": "76d0e652f33cbfb2",
   "lastOpenFiles": [
-    "00_Zettelkasten/().md",
-    "00_Zettelkasten/Proyecto TFM.md",
+    "00_Zettelkasten/Solución final.md",
+    "00_Zettelkasten/Solución Multi-step.md",
+    "00_Zettelkasten/Sesgo de los datos.md",
+    "02_References/TFM.bib",
     "02_References/TFM_RL.bib",
+    "00_Zettelkasten/Solución Graph Neural Network.md",
+    "00_Zettelkasten/Proyecto TFM.md",
+    "00_Zettelkasten/Solución Reinforcement Learning.md",
+    "02_References/TFM.json",
+    "00_Zettelkasten/Untitled.md",
+    "00_Zettelkasten/Reinforcement.md",
+    "00_Zettelkasten/Librería.md",
+    "00_Zettelkasten/().md",
     "02_References/Library.json",
     "03_Templates/Bibliografía.md",
     "03_Templates/Código.md",
