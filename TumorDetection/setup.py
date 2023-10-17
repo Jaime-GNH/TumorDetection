@@ -4,7 +4,7 @@ setup(
     name='RL_TumorDetection',
     version='0.0.0.0',
     packages=find_packages(
-        where='RL_TD'
+        where='TumorDetection'
     ),
     include_package_data=True,
     install_requires=[

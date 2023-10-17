@@ -1,4 +1,4 @@
-from RL_TD.Utils.DictClasses import DictClass
+from TumorDetection.Utils.DictClasses import DictClass
 
 
 class BaseClass:

@@ -1,6 +1,6 @@
-from RL_TD.Utils.DictClasses import DataPathsCall, ImageLoaderCall
-from RL_TD.Utils.BaseClass import BaseClass
-from RL_TD.Utils.Utils import apply_function2list
+from TumorDetection.Utils.DictClasses import DataPathsCall, ImageLoaderCall
+from TumorDetection.Utils.BaseClass import BaseClass
+from TumorDetection.Utils.Utils import apply_function2list
 
 import glob
 import cv2
@@ -145,10 +145,10 @@ class ImageLoader(BaseClass):
 if __name__ == '__main__':
     import os
     import random
-    from RL_TD.Utils.DictClasses import DataPath, ReadingModes
-    from RL_TD.Utils.DictClasses import BaseClassMap, MappedClassValues
-    from RL_TD.Utils.Viewer import Viewer
-    from RL_TD.Data.Preprocess import Preprocessor
+    from TumorDetection.Utils.DictClasses import DataPath, ReadingModes
+    from TumorDetection.Utils.DictClasses import BaseClassMap, MappedClassValues
+    from TumorDetection.Utils.Viewer import Viewer
+    from TumorDetection.Data.Preprocess import Preprocessor
 
     Dp = DataPaths(dir_path=DataPath.get('dir_path'))
     paths_classes = Dp(map_classes=BaseClassMap.to_dict())

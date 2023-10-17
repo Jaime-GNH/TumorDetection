@@ -1,6 +1,6 @@
-from RL_TD.Utils.BaseClass import BaseClass
-from RL_TD.Utils.DictClasses import PreprocessorCall
-from RL_TD.Utils.Utils import apply_function2list
+from TumorDetection.Utils.BaseClass import BaseClass
+from TumorDetection.Utils.DictClasses import PreprocessorCall
+from TumorDetection.Utils.Utils import apply_function2list
 
 
 import numpy as np

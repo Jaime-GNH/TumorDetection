@@ -1,4 +1,4 @@
-from RL_TD.Utils.DictClasses import ViewerClsParams
+from TumorDetection.Utils.DictClasses import ViewerClsParams
 
 import cv2
 
