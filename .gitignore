@@ -1,6 +1,6 @@
 /venv/
 .ssh
-*/doc/TFM_Zettelkasten/.obsidian/
+/doc/TFM_Zettelkasten/.obsidian/
 *.obsidian/
 # Byte-compiled / optimized / DLL files
 __pycache__/
