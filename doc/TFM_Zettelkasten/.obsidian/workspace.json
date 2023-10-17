@@ -34,57 +34,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "76d0e652f33cbfb2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00_Zettelkasten/Solución final.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5b75ed36496f676f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00_Zettelkasten/Solución Graph Neural Network.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "1ae30840fbdb9a62",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00_Zettelkasten/Solución Reinforcement Learning.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "2155bb59b493e35e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "00_Zettelkasten/Solución Multi-step.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -151,7 +102,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "00_Zettelkasten/Solución final.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -168,7 +118,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "00_Zettelkasten/Solución final.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -190,9 +139,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "00_Zettelkasten/Solución final.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -212,10 +159,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "76d0e652f33cbfb2",
+  "active": "6f4c2c2748268249",
   "lastOpenFiles": [
-    "02_References/TFM_RL.bib",
     "00_Zettelkasten/Solución final.md",
+    "02_References/TFM_RL.bib",
     "00_Zettelkasten/Solución Multi-step.md",
     "00_Zettelkasten/Sesgo de los datos.md",
     "02_References/TFM.bib",
