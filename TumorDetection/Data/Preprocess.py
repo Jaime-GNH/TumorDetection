@@ -26,24 +26,55 @@ class Preprocessor(BaseClass):
             Adjust or not the exposure (brightness and contrast)
         :keyword clip_hist_percent: (int)
             Histogram clipping percent. Only used if adjust_exposure is True.
-        :return:
+        :return: (dict(list))
+            Dictionary with applied transforms
         """
         kwargs = self._default_config(PreprocessorCall, **kwargs)
-
+        result = {'original': images}
         # 1. Scale inversion
         if kwargs.get('invert_grayscale'):
-            images = apply_function2list(images,
-                                         Preprocessor.invert_grayscale)
+            result.update({
+                'inverted': apply_function2list(
+                    result['original'],
+                    Preprocessor.invert_grayscale)
+            })
 
         # 2. Exposure correction
         if kwargs.get('adjust_exposure'):
-            images, _, _ = apply_function2list(
-                images,
-                Preprocessor.automatic_brightness_and_contrast,
-                clip_hist_percent=kwargs.get('clip_hist_percent')
-            )
+            result.update({
+                'adjusted': apply_function2list(
+                    result[list(result)[-1]],
+                    Preprocessor.automatic_brightness_and_contrast,
+                    clip_hist_percent=kwargs.get('clip_hist_percent'))
+            })
 
-        return images
+        # 3. Contrast enhancing
+        if kwargs.get('apply_clahe'):
+            result.update({
+                'clahe': apply_function2list(
+                    result[list(result)[-1] if kwargs.get('clahe_over_last') else list(result)[-2]],
+                    Preprocessor.apply_clahe,
+                    clip_limit=kwargs.get('clip_limit'))
+            })
+
+        # 4. Masks aproximation
+        if kwargs.get('apply_threshold'):
+            for threshold_std in kwargs.get('img_thresholds_std'):
+                result.update({
+                    f'threshold_{threshold_std:.2f}': apply_function2list(
+                        result[[k for k in list(result) if not k.startswith(('threshold', 'contour'))][-1]],
+                        Preprocessor.apply_threshold,
+                        threshold_std=((-1)**(1 ^ kwargs.get('invert_grayscale')))*threshold_std)
+                })
+
+                if kwargs.get('detect_contours'):
+                    result.update({
+                        f'contour_{threshold_std:.2f}': apply_function2list(
+                            result[list(result)[-1]],
+                            Preprocessor.detect_countours)
+                    })
+
+        return result
 
     @classmethod
     def invert_grayscale(cls, img):
@@ -110,4 +141,42 @@ class Preprocessor(BaseClass):
         beta = -minimum_gray * alpha
 
         auto_result = cls.convert_scale(img, alpha=alpha, beta=beta)
-        return auto_result, alpha, beta
+        return auto_result
+
+    @classmethod
+    def apply_threshold(cls, img, threshold_std=1):
+        """
+        Given a threshold param any value over is set to 255 and any below set to 0
+        :param img: (np.ndarray)
+            image
+        :param threshold_std: (float, None)
+            threshold = mean(img) + threshold_std*std(img)
+        :return: (np.ndarray)
+            new_image
+        """
+        threshold = np.mean(img) + threshold_std*np.std(img)
+        _, thresh = cv2.threshold(img, threshold, 255, cv2.THRESH_BINARY)
+        return thresh
+
+    @classmethod
+    def detect_countours(cls, thresh):
+        """
+        Given a thresholded images extracts the contours
+        :param thresh: (np.ndarray)
+            Thresholded image
+        :return: (np.ndarray)
+            Contoured image
+        """
+        return cv2.dilate(src=cv2.Canny(thresh, 0, 255),
+                          kernel=np.ones((1, 1), np.uint8))
+
+    @classmethod
+    def apply_clahe(cls, img, clip_limit):
+        """
+
+        :param img
+        :param clip_limit:
+        :return:
+        """
+        clahe = cv2.createCLAHE(clipLimit=clip_limit)
+        return clahe.apply(img)

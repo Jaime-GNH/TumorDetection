@@ -40,7 +40,7 @@ class BaseClassMap(DictClass):
 
 
 # [PARAMS]
-class DataPath(DictClass):
+class DataPathDir(DictClass):
     dir_path = [
         os.path.join(dir_path, 'Dataset_BUSI_with_GT')
         for dir_path, dir_name, _ in os.walk(os.getcwd())
@@ -63,7 +63,7 @@ class ReadingModes(DictClass):
 
 
 # [DEFAULT CONFIGS]
-class DataPathsCall(DictClass):
+class DataPathLoaderCall(DictClass):
     find_masks = True
     map_classes = None  # {'bening': 'tumor','malignant': 'tumor', 'normal': normal}
     pair_masks = True
@@ -77,4 +77,11 @@ class ImageLoaderCall(DictClass):
 class PreprocessorCall(DictClass):
     invert_grayscale = True
     adjust_exposure = True
+    apply_clahe = True
+    apply_threshold = False
+    detect_contours = False
+    clahe_over_last = True
+    img_thresholds_std = [0, 1/4, 1/2, 1]
     clip_hist_percent = 25
+    clip_limit = 5.0
+

@@ -1,4 +1,4 @@
-from TumorDetection.Utils.DictClasses import DataPathsCall, ImageLoaderCall
+from TumorDetection.Utils.DictClasses import DataPathLoaderCall, ImageLoaderCall, ReadingModes
 from TumorDetection.Utils.BaseClass import BaseClass
 from TumorDetection.Utils.Utils import apply_function2list
 
@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 
 
-class DataPaths(BaseClass):
+class DataPathLoader(BaseClass):
     """
     Class for definind the path for images, masks and class in BUSI Dataset.
     Dataset BUSI available on: https://scholar.cu.edu.eg/?q=afahmy/pages/dataset
@@ -23,7 +23,7 @@ class DataPaths(BaseClass):
         :return: list(str, list(str), (int))
             List of (images paths, list of possible masks, classes for each mask)
         """
-        kwargs = self._default_config(DataPathsCall, **kwargs)
+        kwargs = self._default_config(DataPathLoaderCall, **kwargs)
         if kwargs.get('find_masks', True):
             self.masks_paths = self._find_masks()
             self.classes = [[path.split('\\')[-2] for path in mask_paths] for mask_paths in self.masks_paths]
@@ -99,10 +99,6 @@ class ImageLoader(BaseClass):
         return apply_function2list(paths_classes,
                                    self._process_tuple,
                                    **kwargs)
-        # return list(map(lambda tup: self._process_tuple(tup,
-        #                                                 kwargs.get('read_mode'),
-        #                                                 kwargs.get('class_values')),
-        #                 paths_classes))
 
     def _process_tuple(self, tup, read_mode, class_values):
         """
@@ -140,25 +136,3 @@ class ImageLoader(BaseClass):
                 for path, clas_ in zip(paths, classes)
             ]
         )), axis=-1)
-
-
-if __name__ == '__main__':
-    import os
-    import random
-    from TumorDetection.Utils.DictClasses import DataPath, ReadingModes
-    from TumorDetection.Utils.DictClasses import BaseClassMap, MappedClassValues
-    from TumorDetection.Utils.Viewer import Viewer
-    from TumorDetection.Data.Preprocess import Preprocessor
-
-    Dp = DataPaths(dir_path=DataPath.get('dir_path'))
-    paths_classes = Dp(map_classes=BaseClassMap.to_dict())
-
-    result = ImageLoader()(paths_classes, class_values=MappedClassValues.to_dict())
-    images = Preprocessor()([r[2] for r in result])
-
-    idx = random.choice(range(len(result)))
-    Viewer.show_masked_image(result[idx][2], result[idx][3],
-                             win_title=f'Image: {os.path.splitext(os.path.basename(result[idx][0]))[0]}.'
-                                       f' Class: {result[idx][1][0]}')
-
-

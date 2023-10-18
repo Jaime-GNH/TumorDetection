@@ -24,9 +24,12 @@ class Viewer:
         """
         if win_title is None:
             win_title = cls.params.get('win_title')
-        cv2.imshow(win_title, image)
-        cv2.waitKey(0)
-        cv2.destroyWindow(win_title)
+        try:
+            cv2.imshow(win_title, image)
+            cv2.waitKey(0)
+            cv2.destroyWindow(win_title)
+        except cv2.error:
+            pass
 
     @classmethod
     def show_masked_image(cls, image, mask, win_title, **kwargs):
