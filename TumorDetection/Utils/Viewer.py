@@ -13,7 +13,7 @@ class Viewer:
     params = ViewerClsParams.to_dict()
 
     @classmethod
-    def show_image(cls, image, win_title):
+    def show_image(cls, image, win_title=None):
         """
         Function to show an image
         :param image: (np.ndarray)
