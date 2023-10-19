@@ -11,12 +11,6 @@ class Preprocessor(BaseClass):
     """
     Class with methods for preprocessing images.
     """
-    def __init__(self):
-        """
-        Class Constructor
-        """
-        pass
-
     def __call__(self, images, **kwargs):
         """
         Main function.
