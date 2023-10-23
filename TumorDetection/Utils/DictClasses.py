@@ -123,6 +123,17 @@ class PreprocessorCall(DictClass):
     img_thresholds_std = [0, 1/4, 1/2, 1]
     clip_hist_percent = 25
     clip_limit = 5.0
+    mode = 'stacked'
+
+
+class ImageToGraphCall(DictClass):
+    images_tup_idx = 2
+    mask_tup_idx = 3
+    train = True
+    train_test_split = 0.2
+    deterministic = True
+    seed = 42
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
 class GNNModelInit(DictClass):
@@ -136,7 +147,7 @@ class LightningModelInit(DictClass):
         'accuracy': accuracy,
         'jaccard': jaccard_index
     }
-    optimizer = torch.optim.Adam(**OptimizerParams.to_dict())
+    optimizer = torch.optim.Adam
     save_hyperparameters = True
     resume_training = False
     use_earlystopping = True
