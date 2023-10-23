@@ -3,7 +3,10 @@ Status: #Proyecto
 
 # Proyecto TFM
 
-[**Gitlab**](https://gitlab.com/jgonzalez4900/rl_tumordetection)
+Repositorio en Gitlab:
+- [**TumorDetection**](https://gitlab.com/jgonzalez4900/rl_tumordetection)
+- Usuario: *jgonzalez4900*
+
 Autor: [[Jaime González-Novo Hueso]]
 Tutor: [[José Manuel Cuadra Troncoso]].
 Universidad: [[Universidad Nacional de Educación a Distancia|UNED]]
@@ -24,3 +27,16 @@ Las cuales pueden ser la totalidad o parte de la [[Solución final|solución fin
 
 Código puramente en Python basado en [[Librería Open CV|Open CV]] y [[Libraría Pytorch|Pytorch]].
 
+---
+## Formato de presentación
+
+Se presentará la [[Memoria del Trabajo de Fin de Master|memoria]] en [[Formato artículo científico|formato artículo científico]].
+
+Por otro lado, la [[Presentación del Trabajo de Fin de Master|presentación]] se realizará utilizando *Windows PowerPoint*.
+
+---
+## Requisitos Globales
+
+El alumno ha tenido iniciativa a la hora de tomar decisiones importantes en el transcurso del trabajo.
+
+El trabajo ha capacitado al estudiante para la realización de tareas de investigación.
