@@ -3,7 +3,8 @@ from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint
 from lightning.pytorch.utilities.types import ReduceLROnPlateau
 
 from TumorDetection.Utils.BaseClass import BaseClass
-from TumorDetection.Utils.DictClasses import LightningModelInit, GNNModelInit, TrainerInit, ModelCkptDir, Verbosity
+from TumorDetection.Utils.DictClasses import (LightningModelInit, GNNModelInit, TrainerInit, ModelCkptDir,
+                                              Verbosity, OptimizerParams)
 
 
 class LightningModel(pl.LightningModule, BaseClass):
@@ -100,7 +101,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         return callbacks
 
     def configure_optimizers(self):
-        optimizer = self.optimizer
+        optimizer = self.optimizer(self.model.parameters(), **OptimizerParams.to_dict())
         return {
             "optimizer": optimizer,
             "lr_scheduler": {
