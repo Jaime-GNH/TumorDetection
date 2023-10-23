@@ -67,8 +67,15 @@ class Preprocessor(BaseClass):
                             result[list(result)[-1]],
                             Preprocessor.detect_countours)
                     })
-
-        return result
+        if kwargs.get('mode') == 'stacked':
+            images = apply_function2list(
+                list(map(list, zip(*result.values()))),
+                np.dstack)
+        elif kwargs.get('mode') == 'last':
+            images = result.get(list(result)[-1])
+        else:
+            raise ValueError(f'param mode: {kwargs.get("mode")} not contemplated')
+        return images
 
     @classmethod
     def invert_grayscale(cls, img):
