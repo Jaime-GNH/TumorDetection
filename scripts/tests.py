@@ -41,3 +41,20 @@ graphs = Ig(result)
 # 3.1.3 TRAIN PERFORMANCE
 
 # 3.1.4 VALIDATION PERFORMANCE
+
+# ----------
+import torch
+from Utils.Utils import build_edge_kernel
+
+dilations = [1, 3, 5, 7]
+edge_index = None
+for d in dilations:
+    edge_kernel = build_edge_kernel(d)
+    if edge_index is None:
+        edge_index = torch.stack([r, c])
+    else:
+        edge_index = torch.cat(
+            tensors=(edge_index,
+                     row_col.view(2, -1)),
+            dim=1
+        )
