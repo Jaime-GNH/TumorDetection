@@ -5,7 +5,7 @@ Status: #Idea
 
 Utilizar la función [torch_geometric.utils.grid](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.grid) para crear kernels de [[Enlace|enlaces]].
 
-Un kernel de enlace puede ser:
+Un [[Kernel de enlace|kernel de enlace]] puede ser:
 
 ```python
 k = (3,3)
