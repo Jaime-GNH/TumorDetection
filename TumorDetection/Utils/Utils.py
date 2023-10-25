@@ -44,20 +44,48 @@ def tup2graph(tup, img_idx, mask_idx=None, dilations=(1, 3, 5, 7), device='cpu')
     graph = Data(
         x=x,
         y=y,
-        edge_index=torch.empty(),
+        edge_index=None,
         pos=pos
     ).to(device=device)
 
     for d in dilations:
-        (row, col) = tg.utils.grid(3 + d, 3 + d)
-        graph.edge_index = torch.cat(
-            tensors=(graph.edge_index,
-                     torch.stack([row[::d], col[::d]])),
-            dim=1
-        )
+        edge_kernel = build_edge_kernel(d)
+        if graph.edge_index is None:
+            graph.edge_index = None
+            # TODO:
+        else:
+            # TODO:
+            pass
         graph.remove_self_loops()
         graph.to_undirected()
         graph.coalesce()
 
     graph.info = [l for i, l in enumerate(tup) if i not in [img_idx, mask_idx]]
     return graph
+
+
+def build_edge_kernel(dilation):
+    """
+    Returns an edge_kernel with dilation
+    :param dilation: (int)
+        blocks to step over -1
+    :return: (tensor)
+        kernel.
+    """
+    (row, _), _ = tg.utils.grid(2 * dilation + 1, 2 * dilation + 1)
+    dst = (
+        row[torch.where(
+            (row % (2 * dilation + 1) == 0) |
+            ((row + 1) % (2 * dilation + 1) == 0) |
+            ((row - dilation) % (2 * dilation + 1) == 0) &
+            (row % 3 == 0)
+        )].unique()
+    )
+    dst = dst[torch.where(dst % 3 == 0)]
+    src = torch.tensor([row.max() // 2] * torch.numel(dst))
+    return torch.stack([src, dst])
+
+
+def apply_edge_kernel(graph):
+    # TODO
+    pass
