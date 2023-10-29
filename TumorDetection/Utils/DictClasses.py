@@ -54,6 +54,22 @@ class DataPathDir(DictClass):
     ][0]
 
 
+class ResourcesPathDir(DictClass):
+    dir_path = [
+        os.path.join(dir_path, 'resources')
+        for dir_path, dir_name, _ in os.walk(os.getcwd())
+        if 'resources' in dir_name
+    ][0]
+
+
+class ReportingPathDir(DictClass):
+    dir_path = [
+        os.path.join(dir_path, 'reporting')
+        for dir_path, dir_name, _ in os.walk(os.getcwd())
+        if 'reporting' in dir_name
+    ][0]
+
+
 class ViewerClsParams(DictClass):
     win_title = 'Viewer'
     mask_colormap = cv2.COLORMAP_RAINBOW
@@ -129,6 +145,7 @@ class PreprocessorCall(DictClass):
 class ImageToGraphCall(DictClass):
     images_tup_idx = 2
     mask_tup_idx = 3
+    dilations = (1, 2, 6)
     train = True
     train_test_split = 0.2
     deterministic = True
@@ -173,3 +190,35 @@ class TrainerInit(DictClass):
     gradient_clip_val = None
     gradient_clip_algorithm = 'norm'
     deterministic = False
+
+
+class BaseUpdateLayout(DictClass):
+    """
+    Configuration for base_update_layout
+    """
+    title = dict(text='figure',
+                 font=dict(family='arial',
+                           size=14),
+                 x=0.5, y=0.96,
+                 xref='paper', yref='container'
+    )
+    paper_bgcolor = 'white'
+    plot_bgcolor = 'white'
+    margin = dict(t=30,
+                  b=3,
+                  r=3,
+                  l=3)
+    xaxis = dict(title=dict(text='xaxis',
+                            font=dict(
+                                family='arial',
+                                size=12)),
+                 showgrid=False
+                 )
+    yaxis = dict(title=dict(text='yaxis',
+                            font=dict(
+                                family='arial',
+                                size=12)
+                            ),
+                 showgrid=False
+                 )
+    format = 'png'
