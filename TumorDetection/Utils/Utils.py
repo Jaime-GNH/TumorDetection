@@ -16,11 +16,10 @@ def apply_function2list(lst, fun, **kwargs):
     :return: (list)
         Transformed result
     """
-    # TODO: Add multiprocessing ORDERED
     return list(map(lambda x: fun(x, **kwargs), lst))
 
 
-def tup2graph(tup, img_idx, mask_idx=None, dilations=(1, 3, 5, 7), device='cpu'):
+def tup2graph(tup, img_idx, mask_idx=None, dilations=(1, 2, 6), device='cpu'):
     """
     Converts a tuple with an image to a graph.
     :param tup: tuple
@@ -31,6 +30,7 @@ def tup2graph(tup, img_idx, mask_idx=None, dilations=(1, 3, 5, 7), device='cpu')
     :param device:
     :return: graph
     """
+    assert all([d > 0 for d in dilations]), f'dilations must be all grater than 0. Got {dilations}'
     image = tup[img_idx]
     if len(image.shape) < 3:
         image = np.expand_dims(image, -1)
@@ -40,7 +40,8 @@ def tup2graph(tup, img_idx, mask_idx=None, dilations=(1, 3, 5, 7), device='cpu')
     else:
         y = None
 
-    pos = torch.as_tensor([[i, j] for i in range(image.shape[0]) for j in range(image.shape[1])])
+    pos = torch.as_tensor([[i, j] for i in range(image.shape[0]) for j in range(image.shape[1])],
+                          dtype=torch.int16)
     graph = Data(
         x=x,
         y=y,
@@ -49,43 +50,48 @@ def tup2graph(tup, img_idx, mask_idx=None, dilations=(1, 3, 5, 7), device='cpu')
     ).to(device=device)
 
     for d in dilations:
-        edge_kernel = build_edge_kernel(d)
-        if graph.edge_index is None:
-            graph.edge_index = None
-            # TODO:
-        else:
-            # TODO:
-            pass
-        graph.remove_self_loops()
-        graph.to_undirected()
-        graph.coalesce()
+        dst = [torch.where(
+            ((pos[:, 0] == pos[i, 0]) & (abs(pos[:, 1] - pos[i, 1]) == d)) |
+            ((abs(pos[:, 0] - pos[i, 0]) == d) & (pos[:, 1] == pos[i, 1])) |
+            ((abs(pos[:, 0] - pos[i, 0]) == d) & (abs(pos[:, 1] - pos[i, 1]) == d))
+        )[0]
+                 for i in range(graph.num_nodes)]
+
+        srcdst = [[torch.tensor([i] * len(dst_i)), dst_i] for i, dst_i in enumerate(dst)]
+        edge_index = torch.cat([torch.stack([src, dst]) for src, dst in srcdst], dim=1)
+        # src = torch.tensor([i for i in range(graph.num_nodes)]).flatten()
+        # for src_i in src:
+        #     dst_i = torch.where(
+        #         ((pos[:, 0] == pos[src_i, 0]) & (abs(pos[:, 1] - pos[src_i, 1]) == d)) |
+        #         ((abs(pos[:, 0] - pos[src_i, 0]) == d) & (pos[:, 1] == pos[src_i, 1])) |
+        #         ((abs(pos[:, 0] - pos[src_i, 0]) == d) & (abs(pos[:, 1] - pos[src_i, 1]) == d))
+        #     )[0]
+        #     edge_index_i = torch.stack([
+        #         torch.tensor([src_i] * len(dst_i)).flatten(),
+        #         dst_i
+        #     ])
+        #     graph.edge_index = (
+        #         edge_index_i if graph.edge_index is None else
+        #         torch.cat(tensors=[graph.edge_index, edge_index_i],
+        #                   dim=1))
+        graph.edge_index = (
+            edge_index if graph.edge_index is None else
+            torch.cat(tensors=[graph.edge_index, edge_index],
+                      dim=1))
+
+    graph.edge_index = tg.utils.to_undirected(edge_index=graph.edge_index)
+    graph.edge_index, _ = tg.utils.remove_self_loops(edge_index=graph.edge_index)
+    graph.coalesce()
 
     graph.info = [l for i, l in enumerate(tup) if i not in [img_idx, mask_idx]]
     return graph
 
-
-def build_edge_kernel(dilation):
-    """
-    Returns an edge_kernel with dilation
-    :param dilation: (int)
-        blocks to step over -1
-    :return: (tensor)
-        kernel.
-    """
-    (row, _), _ = tg.utils.grid(2 * dilation + 1, 2 * dilation + 1)
-    dst = (
-        row[torch.where(
-            (row % (2 * dilation + 1) == 0) |
-            ((row + 1) % (2 * dilation + 1) == 0) |
-            ((row - dilation) % (2 * dilation + 1) == 0) &
-            (row % 3 == 0)
-        )].unique()
-    )
-    dst = dst[torch.where(dst % 3 == 0)]
-    src = torch.tensor([row.max() // 2] * torch.numel(dst))
-    return torch.stack([src, dst])
-
-
-def apply_edge_kernel(graph):
-    # TODO
-    pass
+##
+# dst_i = [torch.where(
+#     ((pos[:, 0] == pos[i, 0]) & (abs(pos[:, 1] - pos[i, 1]) == d)) |
+#     ((abs(pos[:, 0] - pos[i, 0]) == d) & (pos[:, 1] == pos[i, 1])) |
+#     ((abs(pos[:, 0] - pos[i, 0]) == d) & (abs(pos[:, 1] - pos[i, 1]) == d))
+# )[0]
+# for i in range(num_nodes)]
+# srcdst=[[torch.tensor([i]*len(dst)), dst] for i, dst in enumerate(dst_i)]
+# edge_index = torch.cat([torch.stack([a,b]) for a,b in srcdst[:10]])
