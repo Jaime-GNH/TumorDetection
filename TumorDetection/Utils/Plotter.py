@@ -32,8 +32,8 @@ def plot_graph(graph, path=None, show=True, **kwargs):
     :param kwargs:
     :return:
     """
-    pos = graph.pos.numpy()
-    edges = graph.edge_index
+    pos = graph.pos.to('cpu').numpy()
+    edges = graph.edge_index.to('cpu')
     edges_show = kwargs.get('edges_show', [0, pos.max()//2, pos.max()-1,
                                            len(pos)//2, len(pos)//2 + (pos.max()//2),
                                            len(pos)//2 + pos.max(),
@@ -45,7 +45,7 @@ def plot_graph(graph, path=None, show=True, **kwargs):
             y=pos[:, 1],
             mode='markers',
             marker=dict(
-                color=graph.x[:, 0].to(torch.int32).numpy()/255.,
+                color=graph.x[:, 0].to(torch.int32).to('cpu').numpy()/255.,
                 colorscale='gray',
                 showscale=False,
                 size=15,
