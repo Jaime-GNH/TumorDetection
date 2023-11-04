@@ -7,33 +7,37 @@ class ImageToGraph(BaseClass):
     """
     Image (np.ndarray) to graph (torch_geometric.Data) converter
     """
-    def __init__(self):
-        """
-        Class constructor.
-        """
-        pass
-
     def __call__(self, data, **kwargs):
         """
         Main function.
-        :param data: list(tuple)
-        :param kwargs:
+        :param data: (list(tuple), tuple)
+        :param kwargs: ImageToGraphCall
         :return: list(torch_geometric.Data)
         """
         kwargs = self._default_config(ImageToGraphCall, **kwargs)
-        self.train = kwargs.get('train')
+        mask = kwargs.get('mask')
         images_tup_idx = kwargs.get('images_tup_idx')
         mask_tup_idx = kwargs.get('mask_tup_idx')
         device = kwargs.get('device')
+        kernel_kind = kwargs.get('kernel_kind')
         dilations = kwargs.get('dilations')
-        if isinstance(dilations, int):
-            dilations = (dilations, )
-        graphs = apply_function2list(
-            data,
-            tup2graph,
-            dilations=dilations,
-            img_idx=images_tup_idx,
-            mask_idx=mask_tup_idx if self.train else None,
-            device=device
-        )
-        return graphs
+        if isinstance(data, tuple) and not isinstance(data[0], tuple):
+            return tup2graph(data,
+                             img_idx=images_tup_idx,
+                             mask_idx=mask_tup_idx if mask else None,
+                             dilations=dilations,
+                             kernel_kind=kernel_kind,
+                             device=device
+                             )
+        elif isinstance(data, list) and isinstance(data[0], tuple):
+            return apply_function2list(
+                data,
+                tup2graph,
+                img_idx=images_tup_idx,
+                mask_idx=mask_tup_idx if mask else None,
+                dilations=dilations,
+                kernel_kind=kernel_kind,
+                device=device
+            )
+        else:
+            raise ValueError(f'data must be list of tuples or single tuple. Got {type(data)}')
