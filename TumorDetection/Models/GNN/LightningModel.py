@@ -3,7 +3,7 @@ from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint
 from lightning.pytorch.utilities.types import ReduceLROnPlateau
 
 from TumorDetection.Utils.BaseClass import BaseClass
-from TumorDetection.Utils.DictClasses import (LightningModelInit, GNNModelInit, TrainerInit, ModelCkptDir,
+from TumorDetection.Utils.DictClasses import (LightningModelInit, HyperGNNInit, TrainerInit, ModelCkptDir,
                                               Verbosity, OptimizerParams)
 
 
@@ -35,7 +35,7 @@ class LightningModel(pl.LightningModule, BaseClass):
             self.save_hyperparameters()
         if isinstance(model, type):
             # Not initialized class
-            model_kwargs = self._default_config(GNNModelInit, **kwargs.get('model_kwargs'))
+            model_kwargs = self._default_config(HyperGNNInit, **kwargs.get('model_kwargs'))
             self.model = model(**model_kwargs)
         else:
             # Initialized class
