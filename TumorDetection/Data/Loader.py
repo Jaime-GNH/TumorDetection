@@ -96,9 +96,14 @@ class ImageLoader(BaseClass):
         """
         # paths_classes = path_classes
         kwargs = self._default_config(ImageLoaderCall, **kwargs)
-        return apply_function2list(paths_classes,
-                                   self._process_tuple,
-                                   **kwargs)
+        if isinstance(paths_classes, tuple) and not isinstance(paths_classes[0], tuple):
+            return self._process_tuple(paths_classes, **kwargs)
+        elif isinstance(paths_classes, list) and isinstance(paths_classes[0], tuple):
+            return apply_function2list(paths_classes,
+                                       self._process_tuple,
+                                       **kwargs)
+        else:
+            raise ValueError(f'paths_classes must be list of tuples or single tuple. Got {type(paths_classes)}')
 
     def _process_tuple(self, tup, read_mode, class_values):
         """
