@@ -1,7 +1,12 @@
 import os
 import cv2
 import torch
+from datetime import datetime
+import multiprocessing as mp
+import torch_geometric as tg
 from torchmetrics.functional import accuracy, jaccard_index
+
+from TumorDetection.Utils.WorkingDir import WorkingDir
 
 
 class DictClass:
@@ -46,10 +51,22 @@ class Verbosity(DictClass):
     verbose = 1
 
 
+class Mask(DictClass):
+    mask = True
+
+
+class Train(DictClass):
+    train = True
+
+
+class Device(DictClass):
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+
 class DataPathDir(DictClass):
     dir_path = [
         os.path.join(dir_path, 'Dataset_BUSI_with_GT')
-        for dir_path, dir_name, _ in os.walk(os.getcwd())
+        for dir_path, dir_name, _ in os.walk(WorkingDir.getwd_from_path(os.getcwd()))
         if 'Dataset_BUSI_with_GT' in dir_name
     ][0]
 
@@ -57,7 +74,7 @@ class DataPathDir(DictClass):
 class ResourcesPathDir(DictClass):
     dir_path = [
         os.path.join(dir_path, 'resources')
-        for dir_path, dir_name, _ in os.walk(os.getcwd())
+        for dir_path, dir_name, _ in os.walk(WorkingDir.getwd_from_path(os.getcwd()))
         if 'resources' in dir_name
     ][0]
 
@@ -65,9 +82,22 @@ class ResourcesPathDir(DictClass):
 class ReportingPathDir(DictClass):
     dir_path = [
         os.path.join(dir_path, 'reporting')
-        for dir_path, dir_name, _ in os.walk(os.getcwd())
+        for dir_path, dir_name, _ in os.walk(WorkingDir.getwd_from_path(os.getcwd()))
         if 'reporting' in dir_name
     ][0]
+
+
+class PicklePathDir(DictClass):
+    dir_path = [
+        os.path.join(dir_path, 'pickled_objects')
+        for dir_path, dir_name, _ in os.walk(WorkingDir.getwd_from_path(os.getcwd()))
+        if 'pickled_objects' in dir_name
+    ][0]
+
+
+class Files(DictClass):
+    pickle_loader = 'BUSI_Graphs_stacked_3classes_780_1-29-227.pkl'
+    # BUSI_Graphs_{preproceso_mode}_{num_classes}classes_{len}.pkl
 
 
 class ViewerClsParams(DictClass):
@@ -119,9 +149,9 @@ class ModelCkptDir(DictClass):
 
 # [DEFAULT CONFIGS]
 class DataPathLoaderCall(DictClass):
-    find_masks = True
-    map_classes = None  # {'bening': 'tumor','malignant': 'tumor', 'normal': normal}
-    pair_masks = True
+    find_masks = Mask.get('mask')
+    map_classes = None  # BaseClassMap.to_dict() {'bening': 'tumor','malignant': 'tumor', 'normal': normal}
+    pair_masks = True*Mask.get('mask')
 
 
 class ImageLoaderCall(DictClass):
@@ -145,20 +175,36 @@ class PreprocessorCall(DictClass):
 class ImageToGraphCall(DictClass):
     images_tup_idx = 2
     mask_tup_idx = 3
-    dilations = (1, 2, 6)
-    train = True
-    train_test_split = 0.2
-    deterministic = True
-    seed = 42
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    dilations = (1, 29, 227)
+    mask = True
+    kernel_kind = 'hex'
+    device = Device.get('device')
 
 
-class GNNModelInit(DictClass):
+class GraphDatasetInit(DictClass):
+    train = Train.get('train')
+    train_test_split = 0.129  # 780 / 100 -> 100 test samples.
+    inference = False
+    datapathloader_transforms = DataPathLoaderCall.to_dict()
+    imageloader_transforms = ImageLoaderCall.to_dict()
+    preprocessor_transforms = PreprocessorCall.to_dict()
+    image2graph_transforms = ImageToGraphCall.to_dict()
+
+
+class GraphDataLoaderCall(DictClass):
+    batch_size = 16
+    num_workers = 0
+    shuffle = True
+    drop_last = True
+
+
+class HyperGNNInit(DictClass):
     h_size = [32, 64, 128]
+    layer_type = tg.nn.GATConv
 
 
 class LightningModelInit(DictClass):
-    model_name = 'model'
+    model_name = 'model_' + datetime.now().strftime('%d%m%Y_%H%M')
     criterion = torch.nn.functional.cross_entropy
     metrics = {
         'accuracy': accuracy,
@@ -172,7 +218,7 @@ class LightningModelInit(DictClass):
     use_reducelronplateau = True
     es_kwargs = EarlyStoppingParams.to_dict()
     rlr_kwargs = ReduceLROnPLateauParams.to_dict()
-    model_kwargs = GNNModelInit.to_dict()
+    model_kwargs = HyperGNNInit.to_dict()
 
 
 class TrainerInit(DictClass):
@@ -201,7 +247,7 @@ class BaseUpdateLayout(DictClass):
                            size=14),
                  x=0.5, y=0.96,
                  xref='paper', yref='container'
-    )
+                 )
     paper_bgcolor = 'white'
     plot_bgcolor = 'white'
     margin = dict(t=30,
