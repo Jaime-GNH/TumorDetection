@@ -1,10 +1,11 @@
 import lightning.pytorch as pl
-from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint
-from lightning.pytorch.utilities.types import ReduceLROnPlateau
+import torch
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torch_geometric.profile import get_gpu_memory_from_nvidia_smi, get_data_size
 
 from TumorDetection.Utils.BaseClass import BaseClass
-from TumorDetection.Utils.DictClasses import (LightningModelInit, HyperGNNInit, TrainerInit, ModelCkptDir,
-                                              Verbosity, OptimizerParams)
+from TumorDetection.Utils.DictClasses import (LightningModelInit, BaseGNNInit,
+                                              OptimizerParams)
 
 
 class LightningModel(pl.LightningModule, BaseClass):
@@ -22,133 +23,108 @@ class LightningModel(pl.LightningModule, BaseClass):
         super().__init__()
         kwargs = self._default_config(LightningModelInit, **kwargs)
         self.model_name = kwargs.get('model_name')
+        self.description = kwargs.get('description')
         self.criterion = kwargs.get('criterion')
         self.metrics = kwargs.get('metrics')
-        self.use_earlystopping = kwargs.get('use_earlystopping')
-        self.earlystopping_params = kwargs.get('es_kwargs')
-        self.reducelronplateau_params = kwargs.get('rlr_kwargs')
-        self.use_modelcheckpoint = kwargs.get('use_modelcheckpoint')
-        self.use_reducelronplateau = kwargs.get('use_reducelronplateau')
         self.optimizer = kwargs.get('optimizer')
         self.resume_training = kwargs.get('resume_training')
+        self.reducelronplateau_params = kwargs.get('rlr_kwargs')
+        self.use_reducelronplateau = kwargs.get('use_reducelronplateau')
         if kwargs.get('save_hyperparameters'):
-            self.save_hyperparameters()
+            self.save_hyperparameters(ignore=['criterion'])
         if isinstance(model, type):
             # Not initialized class
-            model_kwargs = self._default_config(HyperGNNInit, **kwargs.get('model_kwargs'))
-            self.model = model(**model_kwargs)
+            gnn_kwargs = self._default_config(BaseGNNInit, **kwargs.get('gnn_kwargs'))
+            self.model = model(**gnn_kwargs)
         else:
             # Initialized class
             self.model = model
-
-    def forward(self, x):
-        """
-        Forward inference pass
-        :param x:
-        :return:
-        """
-        # TODO: This is the forward pass for inference. Should lead into a mask image.
-        #  By now it leads to a graph representation.
-        return self.model(x)
+        # try:
+        #     self.model = torch.compile(self.model)
+        # except RuntimeError:
+        #     pass
 
     def training_step(self, batch, batch_idx):
         """
         Training step. Overriden.
         """
-        x, y = batch
-        y_hat = self.model(x)
-        loss = self.criterion(y_hat, y)
+        y_hat = self.model(batch)
+        ratio = (torch.count_nonzero(batch.y == 1, dim=0)/batch.y.size(0)).to(self.device)
+        loss = ratio*self.criterion(y_hat, batch.y)
+        metrics = {}
+        for metric in self.metrics:
+            metrics.update({
+                f'train_' + metric: self.metrics.get(metric)(y_hat, batch.y, task='multiclass',
+                                                             num_classes=self.model.num_classes)
+            })
+        metrics = {**metrics, **{f"train_loss": loss}}
+        self.log('Data Mb: ', float(get_data_size(batch)), on_step=True)
+        try:
+            self.log('Nvidia usage Mb: ', get_gpu_memory_from_nvidia_smi()[1], on_step=True)
+        except Exception as e:
+            pass
+        for k, v in metrics.items():
+            self.log(k, v.item(), prog_bar=True, on_step=True, on_epoch=True, batch_size=batch.size(0))
         return loss
 
     def validation_step(self, batch, batch_idx):
         """
         Validation step. Overriden.
         """
-        self._shared_eval_step(batch, batch_idx, 'val')
+        y_hat = self.model(batch)
+        ratio = (torch.count_nonzero(batch.y == 1, dim=0) / batch.y.size(0)).to(self.device)
+        loss = self.criterion(y_hat, batch.y)
+        metrics = {}
+        for metric in self.metrics:
+            metrics.update({
+                f'val_' + metric: self.metrics.get(metric)(y_hat, batch.y, task='multiclass',
+                                                           num_classes=self.model.num_classes)
+            })
+        metrics = {**metrics, **{f"val_loss": loss}}
+        self.log('Data Mb: ', float(get_data_size(batch)), on_step=True)
+        try:
+            self.log('Nvidia usage Mb: ', get_gpu_memory_from_nvidia_smi()[1], on_step=True)
+        except Exception as e:
+            pass
+        for k, v in metrics.items():
+            self.log(k, v.item(), prog_bar=True, on_step=True, on_epoch=True, batch_size=batch.size(0))
+        return loss
 
     def test_step(self, batch, batch_idx):
         """
         Test step. Overriden.
         """
-        self._shared_eval_step(batch, batch_idx, 'test')
-
-    def predict_step(self, batch, batch_idx, dataloader_idx=0):
-        # this calls forward
-        return self(batch)
-
-    def _shared_eval_step(self, batch, batch_idx, prefix):
-        x, y = batch
-        y_hat = self.model(x)
-        loss = self.criterion(y_hat, y)
+        y_hat = self.model(batch)
+        loss = self.criterion(y_hat, batch.y)
         metrics = {}
         for metric in self.metrics:
             metrics.update({
-                f'{prefix}_'+metric: self.metrics.get(metric)(y_hat, y)
+                f'test_' + metric: self.metrics.get(metric)(y_hat, batch.y, task='multiclass',
+                                                            num_classes=self.model.num_classes)
             })
-        metrics = {**metrics, **{f"{prefix}_loss": loss}}
-        self.log_dict(metrics)
+        metrics = {**metrics, **{f"test_loss": loss}}
+        self.log('Data Mb: ', float(get_data_size(batch)), on_step=True)
+        try:
+            self.log('Nvidia usage Mb: ', get_gpu_memory_from_nvidia_smi()[1], on_step=True)
+        except Exception as e:
+            pass
+        for k, v in metrics.items():
+            self.log(k, v.item(), prog_bar=True, on_step=True, on_epoch=True, batch_size=batch.size(0))
+        return loss
 
-    def configure_callbacks(self):
-        callbacks = []
-        if self.use_earlystopping:
-            callbacks.append(EarlyStopping(**self.earlystopping_params))
-        if self.use_modelcheckpoint:
-            callbacks.append(ModelCheckpoint(
-                dirpath=ModelCkptDir.get('ckpt_dir'),
-                filename=f'{self.model_name}',
-                monitor="val_loss"
-            ))
-        return callbacks
+    def predict_step(self, batch, batch_idx, dataloader_idx=0):
+        # this calls forward
+        return self.model(batch)
 
     def configure_optimizers(self):
         optimizer = self.optimizer(self.model.parameters(), **OptimizerParams.to_dict())
-        return {
-            "optimizer": optimizer,
-            "lr_scheduler": {
-                "scheduler": ReduceLROnPlateau(optimizer, **self.reducelronplateau_params),
+        if self.use_reducelronplateau:
+            scheduler = {
+                "scheduler": ReduceLROnPlateau(optimizer, **{k: v for k, v in self.reducelronplateau_params.items()
+                                                             if k not in ['frequency', 'monitor']}),
                 "monitor": self.reducelronplateau_params['monitor'],
-            } if self.use_reducelronplateau else {}
-        }
-
-    def set_trainer(self, **kwargs):
-        kwargs = self._default_config(TrainerInit, **kwargs)
-        self.trainer = pl.Trainer(**kwargs)
-
-    def fit(self, train_dataloaders=None, val_dataloaders=None, **kwargs):
-        """
-        Fit the model
-        :param train_dataloaders: (torch.DataLoader)
-        :param val_dataloaders: (torch.DataLoader)
-        :param kwargs: (dict)
-        :return:
-        """
-        if not hasattr(self, 'trainer'):
-            self.set_trainer(**kwargs)
-        self.trainer.fit(self.model, train_dataloaders, val_dataloaders,
-                         ckpt_path=ModelCkptDir.get('ckpt_dir')+f'{self.model_name}' if self.resume_training else None)
-
-    def validate(self, dataloaders, **kwargs):
-        """
-        Validate model
-        :param dataloaders:
-        :param kwargs:
-        :return:
-        """
-        if not hasattr(self, 'trainer'):
-            self.set_trainer(**kwargs)
-        self.trainer.validate(self.model, dataloaders,
-                              ckpt_path=ModelCkptDir.get('ckpt_dir')+f'{self.model_name}',
-                              verbose=Verbosity.get('verbose') > 0)
-
-    def test(self, dataloaders, **kwargs):
-        """
-        Validate model
-        :param dataloaders:
-        :param kwargs:
-        :return:
-        """
-        if not hasattr(self, 'trainer'):
-            self.set_trainer(**kwargs)
-        self.trainer.test(self.model, dataloaders,
-                          ckpt_path=ModelCkptDir.get('ckpt_dir') + f'{self.model_name}',
-                          verbose=Verbosity.get('verbose') > 0)
+                "frequency": self.reducelronplateau_params['frequency']
+            }
+            return [optimizer], [scheduler]
+        else:
+            return [optimizer]

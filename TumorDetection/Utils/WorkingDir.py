@@ -14,9 +14,11 @@ class WorkingDir:
         Sets the working directory at the top of the project.
         :return:
         """
+        current_path = os.path.abspath(os.getcwd())
         os.chdir(
             cls.default_path
         )
+        return current_path
 
     @classmethod
     def getwd_from_path(cls, path):
