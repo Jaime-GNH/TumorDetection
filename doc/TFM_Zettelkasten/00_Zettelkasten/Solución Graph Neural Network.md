@@ -16,6 +16,15 @@ Sea una imagen definida como un conjunto de [[Nodo|nodos]] conectados por [[Enla
 1. El coste computacional es alto.
 2. Es compleja de implementar.
 
+## Descartada
+
+Utilizar una GNN para imágenes tan grandes es inviable. Demasiados enlaces.
+
+## Nueva vía de desarrollo
+
+[[Solución Reinforcement Learning con Hipergrafos]]
+
+
 ---
 ## Referencias 
 
