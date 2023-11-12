@@ -1,29 +1,31 @@
 import os
 import cv2
 import random
+import pickle
 
 import torch
 from time import perf_counter
-from torch_geometric.loader import DataLoader
-from torch_geometric.data import Batch
+from torch_geometric.data import Batch, Data
 
+from TumorDetection.Utils.WorkingDir import WorkingDir
+WorkingDir.set_wd()
 from TumorDetection.Data.Loader import ImageLoader, DataPathLoader
-from TumorDetection.Utils.DictClasses import (DataPathDir, ReportingPathDir,
+from TumorDetection.Utils.DictClasses import (DataPathDir, ReportingPathDir,ResourcesPathDir,
                                               BaseClassMap, MappedClassValues,
-                                              ImageToGraphCall, GraphDataLoaderCall)
+                                              ImageToGraphCall)
 from TumorDetection.Utils.Utils import calculate_dilations
 from TumorDetection.Utils.Viewer import Viewer
 from TumorDetection.Data.Preprocess import Preprocessor
 from TumorDetection.Models.GNN.ImageToGraph import ImageToGraph
-from TumorDetection.Data.GraphDataset import GraphDataset
+from TumorDetection.Data.GraphData import GraphDataLoader
 from TumorDetection.Utils.Plotter import plot_graph
 
-VIEW_IMAGES = False
+VIEW_IMAGES = True
 VIEW_GRAPHS = False
 REDUCE_DIM = False
 CHECK_KERNEL_TIME = False
 NORMALLOADER = True
-CALCULATE_DILATIONS = True
+CALCULATE_DILATIONS = False
 CALCULATE_ALL_GRAPHS = False
 CHECK_BATCHES = False
 GRAPHDATALOADER = False
@@ -100,7 +102,13 @@ if __name__ == "__main__":
         elif CALCULATE_ALL_GRAPHS:
             it = perf_counter()
             graphs = Ig(image2graph, dilations=dilations)
+            idx = random.Random(1234567890).choices(range(len(graphs)), k=680)
             print(f'Elapsed time: {round(perf_counter()-it, 5)} s')
+            os.makedirs(ResourcesPathDir.get('dir_path')+'/pickle')
+            with open(ResourcesPathDir.get('dir_path') + '/pickle/train.pkl', 'wb') as f:
+                pickle.dump(graphs[idx], f)
+            with open(ResourcesPathDir.get('dir_path') + '/pickle/test.pkl', 'wb') as f:
+                pickle.dump(graphs[~idx], f)
         else:
             graphs = Ig(image2graph[:16], dilations=dilations)
         if not isinstance(graphs, list):
@@ -124,20 +132,12 @@ if __name__ == "__main__":
 
     # 3.1.2 DATALOADERS
     if GRAPHDATALOADER:
-        train_dataloader = DataLoader(GraphDataset(DataPathDir.get('dir_path'),
-                                                   train=True),
-                                      **GraphDataLoaderCall.to_dict())
-        test_dataloader = DataLoader(GraphDataset(DataPathDir.get('dir_path'),
-                                                  train=False),
-                                     **GraphDataLoaderCall.to_dict())
-        print('dataloaders done!')
-        it = perf_counter()
-        next_iter_tr = next(iter(train_dataloader))
-        print(next_iter_tr)
-        print(f'Iter', round(perf_counter()-it, 5), 's')
-        next_iter_ts = next(iter(test_dataloader))
-        print(next_iter_ts)
-        print(f'Equals: {next_iter_tr == next_iter_ts}')
+        train_dataloader = GraphDataLoader(DataPathDir.get('dir_path'),
+                                           mode='train'
+                                           )
+        test_dataloader = GraphDataLoader(DataPathDir.get('dir_path'),
+                                          mode='test',
+                                          batch_size=1)
 
     # 3.1.3 MODEL
 
