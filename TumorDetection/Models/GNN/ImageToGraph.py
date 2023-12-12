@@ -30,7 +30,7 @@ class ImageToGraph(BaseClass):
                                       image_idx=images_tup_idx,
                                       current_solution_idx=mask_tup_idx+1,
                                       mask_idx=mask_tup_idx,
-                                      hypernode_patch_div=kwargs.get('hypernode_patch_div'),
+                                      hypernode_patch_dim=kwargs.get('hypernode_patch_dim'),
                                       kernel_kind=kernel_kind,
                                       device=device
                                       )

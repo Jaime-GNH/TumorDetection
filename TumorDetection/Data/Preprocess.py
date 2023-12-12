@@ -2,7 +2,6 @@ from TumorDetection.Utils.BaseClass import BaseClass
 from TumorDetection.Utils.DictClasses import PreprocessorCall
 from TumorDetection.Utils.Utils import apply_function2list
 
-
 import numpy as np
 import cv2
 
@@ -11,6 +10,7 @@ class Preprocessor(BaseClass):
     """
     Class with methods for preprocessing images.
     """
+
     def __call__(self, images, **kwargs):
         """
         Main function.
@@ -25,6 +25,15 @@ class Preprocessor(BaseClass):
         """
         kwargs = self._default_config(PreprocessorCall, **kwargs)
         result = {'original': images}
+        if kwargs.get('resize'):
+            result.update({
+                'original': apply_function2list(
+                    result['original'],
+                    Preprocessor.resize,
+                    dim=kwargs['resize_dim'],
+                    interpolation=kwargs['interpolation_method']
+                )
+            })
         # 1. Scale inversion
         if kwargs.get('invert_grayscale'):
             result.update({
@@ -58,7 +67,7 @@ class Preprocessor(BaseClass):
                     f'threshold_{threshold_std:.2f}': apply_function2list(
                         result[[k for k in list(result) if not k.startswith(('threshold', 'contour'))][-1]],
                         Preprocessor.apply_threshold,
-                        threshold_std=((-1)**(1 ^ kwargs.get('invert_grayscale')))*threshold_std)
+                        threshold_std=((-1) ** (1 ^ kwargs.get('invert_grayscale'))) * threshold_std)
                 })
 
                 if kwargs.get('detect_contours'):
@@ -76,6 +85,21 @@ class Preprocessor(BaseClass):
         else:
             raise ValueError(f'param mode: {kwargs.get("mode")} not contemplated')
         return images
+
+    @classmethod
+    def resize(cls, img, dim, interpolation):
+        """
+        resizes image
+        :param img: (np.ndarray)
+            Image to be resized
+        :param dim: (tuple)
+            Dimension to get
+        :param interpolation: cv2.INTERPOLATION
+            How to interpolate pixels
+        :return: ()
+            New image
+        """
+        return cv2.resize(img, dim, interpolation=interpolation)
 
     @classmethod
     def invert_grayscale(cls, img):
@@ -155,7 +179,7 @@ class Preprocessor(BaseClass):
         :return: (np.ndarray)
             new_image
         """
-        threshold = np.mean(img) + threshold_std*np.std(img)
+        threshold = np.mean(img) + threshold_std * np.std(img)
         _, thresh = cv2.threshold(img, threshold, 255, cv2.THRESH_BINARY)
         return thresh
 

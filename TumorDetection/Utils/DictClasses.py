@@ -141,7 +141,7 @@ class LightningTrainerParms(DictClass):
     num_sanity_val_steps = 0
     precision = '16-mixed'
     log_every_n_steps = 1
-    accumulate_grad_batches = 16
+    accumulate_grad_batches = 1
     enable_progress_bar = True
     enable_model_summary = False
     gradient_clip_val = None
@@ -162,26 +162,31 @@ class ModelCkptDir(DictClass):
 # [DEFAULT CONFIGS]
 class DataPathLoaderCall(DictClass):
     find_masks = Mask.get('mask')
-    map_classes = None  # BaseClassMap.to_dict() {'bening': 'tumor','malignant': 'tumor', 'normal': normal}
+    map_classes = BaseClassMap.to_dict()  # {'bening': 'tumor','malignant': 'tumor', 'normal': 'normal'} # None
     pair_masks = True*Mask.get('mask')
 
 
 class ImageLoaderCall(DictClass):
     read_mode = 'gray'
-    class_values = ClassValues.to_dict()
+    class_values = (ClassValues.to_dict()
+                    if DataPathLoaderCall.get('map_classes') is None else
+                    MappedClassValues.to_dict())
 
 
 class PreprocessorCall(DictClass):
+    resize = False
     invert_grayscale = True
     adjust_exposure = True
-    apply_clahe = True
+    apply_clahe = False
     apply_threshold = False
     detect_contours = False
     clahe_over_last = True
+    resize_dim = (512, 512)
+    interpolation_method = cv2.INTER_AREA
     img_thresholds_std = [0, 1/4, 1/2, 1]
     clip_hist_percent = 25
     clip_limit = 5.0
-    mode = 'stacked'  # 'last'
+    mode = 'last'  # stacked
 
 
 class ImageToGraphCall(DictClass):
@@ -190,7 +195,7 @@ class ImageToGraphCall(DictClass):
     dilations = 1
     mask = True
     hypergraph = True
-    hypernode_patch_div = 5
+    hypernode_patch_dim = 128
     kernel_kind = 'corner'
     device = Device.get('device')
 
@@ -205,51 +210,61 @@ class GraphDatasetInit(DictClass):
     seed = 1234567890
 
 
+class ImageDatasetInit(DictClass):
+    train_test_split = 0.129  # 780 / 100 -> 100 test samples.
+    datapathloader_transforms = DataPathLoaderCall.to_dict()
+    imageloader_transforms = ImageLoaderCall.to_dict()
+    preprocessor_transforms = PreprocessorCall.to_dict()
+    crop_dim = (256, 256)
+    seed = 1234567890
+
+
 class GraphDataLoaderInit(DictClass):
     graph_dataset_kwargs = GraphDatasetInit.to_dict()
-    batch_size = 16
+    batch_size = 128
     num_workers = 0
     drop_last = True
 
 
-class NeighborGraphDataLoaderInit(DictClass):
-    num_nodes = int(1e4)
-    subgraph_type = 'subgraph'
+class ImageDataLoaderInit(DictClass):
+    image_dataset_kwargs = ImageDatasetInit.to_dict()
+    batch_size = 64
+    drop_last = True
+    num_workers = 0  # os.cpu_count()//2
+    pin_memory = False  # Device.get('device') != 'cpu'
+    persistent_workers = False  # True
 
 
 class ConvLayerKwargs(DictClass):
     dropout = 0.2
-    act = 'gelu'
+    act = 'relu'
     act_first = False
     act_kwargs = None
     norm = None
     norm_kwargs = None
     num_layers = 1
-    jk = 'max'
-
-
-class HyperConvLayerKwargs(DictClass):
-    dropout = 0.2
-    use_attention = False
-    attention_mode = 'node'
-    heads = 4
-    concat = True
-    negative_slope = 0.2
-    bias = True
+    jk = None
 
 
 class BaseGNNInit(DictClass):
-    num_classes = len(ClassValues.to_dict()) if DataPathLoaderCall.get('map_classes') is None\
-        else len(set(DataPathLoaderCall.get('map_classes').values()))
-    h_size = [16, 32, 64, 128, 16]
+    h_size = [64, 32, 16, 8]
     conv_layer_type = tg.nn.GraphSAGE
     conv_layer_kwargs = ConvLayerKwargs.to_dict()
 
 
+class ImageGNNInit(DictClass):
+    h_size = [256, 128, 64, 32]
+    conv_layer_type = tg.nn.GraphSAGE
+    conv_layer_kwargs = ConvLayerKwargs.to_dict()
+    hypernode_patch_dims = [64, 16, 4, 1]
+    kernel_kind = 'corner'
+    last_kernel = 'star'
+
+
 class LightningModelInit(DictClass):
-    model_name = 'model_' + 'GraphSAGE-d(1)-b(16)-patch(128)-jk-cw'  # + datetime.now().strftime('%d%m%Y_%H%M')
-    description = 'SAGE Conv con dilataciones (1,32) batch de 16, patch_dim de 128, jumpingknowledge y classweight'
-    criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+    model_name = 'model_' + 'GraphSAGE-patch(64)-hyperpixel-iterative_multiloss'  # + datetime.now().strftime('%d%m%Y_%H%M')
+    description = 'SAGE Conv con batch de 128, hypernode_patch_dim de 64 y una pérdida por nivel.'
+    criterion = len(ImageGNNInit.get('hypernode_patch_dims'))*[torch.nn.BCEWithLogitsLoss(reduction='mean')]
     metrics = {
         'accuracy': accuracy,
         'jaccard': jaccard_index
@@ -259,7 +274,7 @@ class LightningModelInit(DictClass):
     resume_training = False
     use_reducelronplateau = True
     rlr_kwargs = ReduceLROnPLateauParams.to_dict()
-    gnn_kwargs = BaseGNNInit.to_dict()
+    gnn_kwargs = ImageGNNInit.to_dict()
 
 
 class TrainerInit(DictClass):

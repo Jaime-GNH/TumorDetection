@@ -9,7 +9,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'pip==23.2.1',
-        'torch==2.1.0',
+        'torch==2.1.1',
         'torchmetrics==1.2.0',
         'torch_geometric==2.4.0',
         'lightning==2.1.0',

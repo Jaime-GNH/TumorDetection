@@ -43,7 +43,7 @@ def tup2graph(tup, img_idx, mask_idx=None,
     if len(image.shape) < 3:
         image = np.expand_dims(image, -1)
     if image.dtype == 'uint8' or np.max(image) > 1:
-        image = image.astype('float')/255.
+        image = image.astype('float') / 255.
     x = torch.as_tensor(np.vstack(image), dtype=torch.float32)
     if mask_idx is not None:
         y = torch.as_tensor(tup[mask_idx]).flatten().to(torch.long).to(device)
@@ -81,8 +81,7 @@ def tup2graph(tup, img_idx, mask_idx=None,
 
 
 def tup2hypergraph(tup, image_idx, current_solution_idx=None, mask_idx=None,
-                   hypernode_patch_div=5, kernel_kind='star',
-                   device='cpu'):
+                   hypernode_patch_dim=32, kernel_kind='star'):
     """
     Converts a tuple with an image to a hypergraph.
     :param tup: (tuple)
@@ -93,75 +92,93 @@ def tup2hypergraph(tup, image_idx, current_solution_idx=None, mask_idx=None,
         Current solution index in tuple.
     :param mask_idx: (int, None)
         target mask index in tuple.
-    :param hypernode_patch_div: (int, 128)
+    :param hypernode_patch_dim: (int, 128)
         (dim, dim) patch for creating hypernodes.
     :param kernel_kind: (str, 'star')
         Kernel type
-    :param device: (str, 'cpu')
-        torch device
     :return: (torch.data.Data)
         Homogeneous graph.
     """
     image = tup[image_idx]
     current_solution = tup[current_solution_idx]
     mask = tup[mask_idx]
-    if len(image.shape) < 3:
-        image = np.expand_dims(image, -1)
-    if image.dtype == 'uint8' or np.max(image) > 1:
-        image = image.astype('float')/255.
-    x = torch.as_tensor(np.vstack(image), dtype=torch.float32)
-    if current_solution is None:
-        current_solution = np.ones(image.shape)
-    current_solution = torch.as_tensor(np.vstack(image), dtype=torch.float32)
+    if isinstance(image, np.ndarray):
+        device = 'cpu'
+        if image.dtype == 'uint8' or np.max(image) > 1:
+            image = image.astype('float') / 255.
+        x = torch.as_tensor(image, dtype=torch.float32, device=device)
+        if current_solution is None:
+            current_solution = np.ones(image.shape)
+        current_solution = torch.as_tensor(current_solution, dtype=torch.float32, device=device)
+    elif isinstance(image, torch.Tensor):
+        device = image.device
+        if image.max() > 1.:
+            image = image / 255.
+        x = image.to(torch.float32)
+        if current_solution is None:
+            current_solution = torch.ones(image.size(), device=device)
+        current_solution = current_solution.to(torch.float32)
+    else:
+        raise ValueError(f'image must be a np.ndarray or torch.Tensor. Got {type(image)}')
+
     if mask is not None:
-        y = torch.as_tensor(mask).flatten().to(torch.long).to(device)
+        if isinstance(mask, np.ndarray):
+            y = torch.as_tensor(mask, device=device).to(torch.long)
+        else:
+            y = mask.to(torch.long)
     else:
         y = None
 
-    patches = (torch.as_tensor(image)
-               .unfold(0, image.shape[0]//hypernode_patch_div, image.shape[0]//hypernode_patch_div)
-               .unfold(1, image.shape[1]//hypernode_patch_div, image.shape[1]//hypernode_patch_div)
-               .permute(0, 1, 3, 4, 2))
+    mask_hypernodes = (current_solution
+                       .unfold(0, hypernode_patch_dim, hypernode_patch_dim)
+                       .unfold(1, hypernode_patch_dim, hypernode_patch_dim)
+                       .flatten(0, 1)
+                       .flatten(1)
+                       .max(1)).values
 
-    pos = torch.as_tensor([[i, j] for i in range(image.shape[0]) for j in range(image.shape[1])],
-                          dtype=torch.int16).to(device)
-    pos_idx = torch.as_tensor(list(range(pos.size(dim=0))), dtype=torch.int32).to(device)
+    hypernodes_x = (x
+                    .unfold(0, hypernode_patch_dim, hypernode_patch_dim)
+                    .unfold(1, hypernode_patch_dim, hypernode_patch_dim)
+                    .flatten(0, 1)
+                    .flatten(1)).to(device=device)
+    y = (y
+         .unfold(0, hypernode_patch_dim, hypernode_patch_dim)
+         .unfold(1, hypernode_patch_dim, hypernode_patch_dim)
+         .flatten(0, 1)
+         .flatten(1)
+         .max(1).values).to(device=device, dtype=torch.float)
 
-    hyperpos = torch.as_tensor([[i, j] for i in range(patches.size(0)) for j in range(patches.size(0))],
-                               dtype=torch.int16).to(device)
-    hyperpos_idx = torch.as_tensor(list(range(hyperpos.size(dim=0))), dtype=torch.int32).to(device)
+    # pos = torch.as_tensor([[i, j] for i in range(image.shape[0]) for j in range(image.shape[1])],
+    #                       dtype=torch.int16, device=device)
 
-    hyperedge_index = None
+    hyperpos = torch.as_tensor([[i, j]
+                                for i in range(image.shape[0] // hypernode_patch_dim)
+                                for j in range(image.shape[1] // hypernode_patch_dim)],
+                               dtype=torch.int16,
+                               device=device)
+    hyperpos_idx = torch.as_tensor(list(range(hyperpos.size(dim=0))), dtype=torch.int32, device=device)
+
+    edge_index = None
     kernel = build_edge_kernel(1, kernel_kind, device)
     for direction in kernel:
-        hyperedge_index = apply_kernel(hyperedge_index, direction, hyperpos, hyperpos_idx, device)
-    hyperedge_index = tg.utils.to_undirected(edge_index=hyperedge_index)
-    hyperedge_index, _ = tg.utils.remove_self_loops(edge_index=hyperedge_index)
-    hypernodes_x = (x
-                    .unfold(0, image.shape[0]//hypernode_patch_div, image.shape[0]//hypernode_patch_div)
-                    .unfold(0, image.shape[1]//hypernode_patch_div, image.shape[1]//hypernode_patch_div)
-                    .flatten(2)
-                    .permute(0, 2, 1))
-    y = ((y
-         .unfold(0, image.shape[0] // hypernode_patch_div, image.shape[0] // hypernode_patch_div)
-         .unfold(0, image.shape[1] // hypernode_patch_div, image.shape[1] // hypernode_patch_div))
-         .flatten(1)
-         .max(1).values)
+        edge_index = apply_kernel(edge_index, direction, hyperpos, hyperpos_idx, device)
+    edge_index = tg.utils.to_undirected(edge_index=edge_index)
+    edge_index, _ = tg.utils.remove_self_loops(edge_index=edge_index)
 
     graph = Data(
         x=hypernodes_x,
         y=y,
-        edge_index=hyperedge_index.to(torch.int64),
-        pos=pos,
-        hypernode_patch_div=hypernode_patch_div
+        # pos=pos,
+        # hyperpos=hyperpos,
+        edge_index=edge_index.to(torch.int64),
+        hypernode_patch_dim=hypernode_patch_dim
     )
-
+    graph = graph.subgraph((mask_hypernodes > 0).nonzero().flatten().to(device=device)).clone()
     graph.coalesce()
 
-    graph.info = [l for i, l in enumerate(tup) if i not in [image_idx, mask_idx, mask_idx+1]]
+    # graph.info = [l for i, l in enumerate(tup) if i not in [image_idx, mask_idx, mask_idx + 1]]
     graph.original_shape = image.shape
-    graph.to(device=device, non_blocking=True)
-    return graph.detach(pos)
+    return graph.to(device, non_blocking=True), mask_hypernodes
 
 
 def build_edge_kernel(d, kind='star', device='cpu'):
@@ -177,17 +194,17 @@ def build_edge_kernel(d, kind='star', device='cpu'):
         Kernel
     """
     if kind == 'corner':
-        return torch.as_tensor([[d, 0], [0, d]]).to(device)
+        return torch.as_tensor([[d, 0], [0, d]], device=device)
     elif kind == 'hex':
-        return torch.as_tensor([[-d, d], [d, d]]).to(device)
+        return torch.as_tensor([[-d, d], [d, d]], device=device)
     elif kind == 'star':
         return torch.cat([build_edge_kernel(d, kind='corner', device=device),
                           build_edge_kernel(d, kind='hex', device=device)])
     elif kind == 'square':
         kernel = torch.as_tensor(sum([[[i, j], [-i, j], [i, -j], [-i, -j],
                                        [i, i], [i, -i], [-i, i], [-i, -i]] for i, j in
-                                      zip(range(d + 1), range(d, -1, -1))], [])).unique(dim=0).to(device)
-        return torch.cat([kernel[:kernel.size(dim=0)//2], kernel[kernel.size(dim=0)//2:]])
+                                      zip(range(d + 1), range(d, -1, -1))], []), device=device).unique(dim=0)
+        return torch.cat([kernel[:kernel.size(dim=0) // 2], kernel[kernel.size(dim=0) // 2:]])
     else:
         raise ValueError(f'value {kind} for kernel kind is not valid.')
 
@@ -236,13 +253,13 @@ def calculate_dilations(image_shape, num_hops, kernel_kind):
         Dilations with len between 1 an 3
     """
     dilations = [1]
-    dy, dx = int((image_shape[0])/num_hops), int((image_shape[1])/num_hops)
+    dy, dx = int((image_shape[0]) / num_hops), int((image_shape[1]) / num_hops)
     diag = min(dy, dx)
     offset = max(dy, dx) - diag
     if kernel_kind == 'corner':
-        dilations += [2*diag, offset]
+        dilations += [2 * diag, offset]
     elif kernel_kind == 'hex':
-        dilations += [diag, 2*offset]
+        dilations += [diag, 2 * offset]
     else:
         dilations += [diag, offset]
     return tuple(sorted(set([d for d in dilations if d > 0])))

@@ -1,9 +1,11 @@
 import os.path
 
 import lightning.pytorch as pl
+import torch
 from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 from lightning.pytorch.loggers import TensorBoardLogger
 from torch_geometric.profile import count_parameters, get_model_size
+from torch_geometric.nn import summary
 import warnings
 
 from TumorDetection.Utils.BaseClass import BaseClass
@@ -58,6 +60,7 @@ class Trainer(BaseClass):
             self.model = model
 
         print(self.model)
+        # print(summary(self.model, next(iter(train_dataloader))))
 
         with warnings.catch_warnings():
             warnings.filterwarnings('ignore',
