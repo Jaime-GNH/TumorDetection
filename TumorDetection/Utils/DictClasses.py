@@ -1,7 +1,10 @@
 import os
+os.environ['KERAS_BACKEND'] = 'torch'
 import cv2
 import torch
-from datetime import datetime
+from keras.optimizers import Adam, schedules as ksh
+from keras.losses import SparseCategoricalCrossentropy
+from keras.metrics import SparseCategoricalAccuracy, MeanIoU
 import torch_geometric as tg
 from torchmetrics.functional import accuracy, jaccard_index
 
@@ -109,9 +112,10 @@ class ReadingModes(DictClass):
 class EarlyStoppingParams(DictClass):
     monitor = 'val_loss'
     mode = 'min'
-    patience = 15
-    min_delta = 1e-5
-    verbose = Verbosity.get('verbose') > 0
+    patience = 50
+    min_delta = 1e-7
+    verbose = 1 if Verbosity.get('verbose') > 0 else 0
+    restore_best_weights = True
 
 
 class ReduceLROnPLateauParams(DictClass):
@@ -121,12 +125,47 @@ class ReduceLROnPLateauParams(DictClass):
     patience = 3
     threshold = 1e-4
     factor = 1e-1
-    verbose = Verbosity.get('verbose') > 0
+    verbose = 1 if Verbosity.get('verbose') > 0 else 0
     min_lr = 1e-7
 
 
+class ModelCheckpointParams(DictClass):
+    save_best_only = True
+    save_weights_only = True
+    verbose = 1 if Verbosity.get('verbose') > 0 else 0
+
+
+class CompileParams(DictClass):
+    optimizer = Adam(
+        learning_rate=ksh.PolynomialDecay(
+            initial_learning_rate=5e-4,
+            end_learning_rate=1e-7,
+            decay_steps=2000,
+            cycle=True
+        ),
+        weight_decay=0.0004,
+        ema_momentum=0.9
+    )
+    class_weights = [1., 6, 5]
+    ignore_index = -100
+
+
+class TrainParams(DictClass):
+    epochs = 1000
+    batch_size = 32
+    # precision = 'mixed_float16'
+    shuffle = True
+    use_reducelronplateau = False
+    use_earlystopping = True
+    use_modelcheckpoint = True
+    log_tensorboard = False
+    rlr_kwargs = ReduceLROnPLateauParams.to_dict()
+    es_kwargs = EarlyStoppingParams.to_dict()
+    ckpt_params = ModelCheckpointParams.to_dict()
+
+
 class OptimizerParams(DictClass):
-    lr = 1e-3
+    lr = 5e-4
     betas = (0.9, 0.999)
     eps = 1e-8
     weight_decay = 0.
@@ -149,6 +188,19 @@ class LightningTrainerParms(DictClass):
     deterministic = False
 
 
+class DropoutPathParams(DictClass):
+    p = 0.2
+    walks_per_node = 1
+    walk_length = 4
+    num_nodes = None
+    is_sorted = False
+
+
+class DropoutEdgeParams(DictClass):
+    p = 0.3
+    force_undirected = False
+
+
 class ModelCkptDir(DictClass):
     cw = WorkingDir.set_wd()
     ckpt_dir = [
@@ -162,7 +214,7 @@ class ModelCkptDir(DictClass):
 # [DEFAULT CONFIGS]
 class DataPathLoaderCall(DictClass):
     find_masks = Mask.get('mask')
-    map_classes = BaseClassMap.to_dict()  # {'bening': 'tumor','malignant': 'tumor', 'normal': 'normal'} # None
+    map_classes = None  # BaseClassMap.to_dict()
     pair_masks = True*Mask.get('mask')
 
 
@@ -171,6 +223,31 @@ class ImageLoaderCall(DictClass):
     class_values = (ClassValues.to_dict()
                     if DataPathLoaderCall.get('map_classes') is None else
                     MappedClassValues.to_dict())
+
+
+class PatchDatasetCall(DictClass):
+    normalize = True
+    resize = True
+    resize_dim = (512, 512)
+    interpolation_method = cv2.INTER_AREA
+    patch_dim = (256, 256)
+    patch_step = 64
+    test_size = 0.1
+    mode = 'patches'
+    shuffle = True
+    random_state = 1234567890
+    filter_empty = True
+
+
+class TorchDatasetInit(DictClass):
+    resize_dim = (512, 512)
+    crop_dim = (256, 256)
+    rotation_degrees = 45
+    max_brightness = 5
+    max_contrast = 5
+    max_saturation = 5
+    horizontal_flip_prob = 0.5
+    vertical_flip_prob = 0.5
 
 
 class PreprocessorCall(DictClass):
@@ -192,9 +269,9 @@ class PreprocessorCall(DictClass):
 class ImageToGraphCall(DictClass):
     images_tup_idx = 2
     mask_tup_idx = 3
-    dilations = 1
+    dilations = (1, 4, 16, 64)
     mask = True
-    hypergraph = True
+    hypergraph = False
     hypernode_patch_dim = 128
     kernel_kind = 'corner'
     device = Device.get('device')
@@ -228,14 +305,14 @@ class GraphDataLoaderInit(DictClass):
 
 class ImageDataLoaderInit(DictClass):
     image_dataset_kwargs = ImageDatasetInit.to_dict()
-    batch_size = 64
+    batch_size = 32
     drop_last = True
     num_workers = 0  # os.cpu_count()//2
     pin_memory = False  # Device.get('device') != 'cpu'
     persistent_workers = False  # True
 
 
-class ConvLayerKwargs(DictClass):
+class ConvLayerParams(DictClass):
     dropout = 0.2
     act = 'relu'
     act_first = False
@@ -247,24 +324,53 @@ class ConvLayerKwargs(DictClass):
 
 
 class BaseGNNInit(DictClass):
-    h_size = [64, 32, 16, 8]
+    h_size = [16, 32, 64, 128]
+    num_classes = len(ImageLoaderCall.get('class_values'))
     conv_layer_type = tg.nn.GraphSAGE
-    conv_layer_kwargs = ConvLayerKwargs.to_dict()
+    use_dropoutpath = True
+    use_dropoutedge = True
+    dilations = (1, 4, 16, 64)
+    dropoutpath_params = DropoutPathParams.to_dict()
+    dropoutedge_params = DropoutEdgeParams.to_dict()
+    conv_layer_kwargs = ConvLayerParams.to_dict()
 
 
 class ImageGNNInit(DictClass):
     h_size = [256, 128, 64, 32]
     conv_layer_type = tg.nn.GraphSAGE
-    conv_layer_kwargs = ConvLayerKwargs.to_dict()
+    conv_layer_kwargs = ConvLayerParams.to_dict()
     hypernode_patch_dims = [64, 16, 4, 1]
     kernel_kind = 'corner'
     last_kernel = 'star'
 
 
+class EfficientNetInit(DictClass):
+    groups = 2
+    dr_rate = 0.2
+    num_factorized_blocks = 4
+    num_super_sdc_blocks = 2
+    max_filters = 128
+    activation_layer = 'prelu'
+    kernel_initializer = 'he_uniform'
+    use_bias = False
+
+
+class EFSNetModelInit(DictClass):
+    verbose = Verbosity.get('verbose')
+    input_shape = (*PatchDatasetCall.get('patch_dim'), 1)
+    num_classes = len(ImageLoaderCall.get('class_values'))
+    EfficientNetInit = EfficientNetInit.to_dict()
+    compile_params = CompileParams.to_dict()
+    train_params = TrainParams.to_dict()
+    model_name = 'EFSNet_torch'
+
+
 class LightningModelInit(DictClass):
-    model_name = 'model_' + 'GraphSAGE-patch(64)-hyperpixel-iterative_multiloss'  # + datetime.now().strftime('%d%m%Y_%H%M')
-    description = 'SAGE Conv con batch de 128, hypernode_patch_dim de 64 y una pérdida por nivel.'
-    criterion = len(ImageGNNInit.get('hypernode_patch_dims'))*[torch.nn.BCEWithLogitsLoss(reduction='mean')]
+    model_name = 'model_' + 'GraphSAGE-droplinking'  # + datetime.now().strftime('%d%m%Y_%H%M')
+    description = 'SAGE Conv con eliminación aleatoria de enlaces en el entrenamiento.'
+    # criterion = len(ImageGNNInit.get('hypernode_patch_dims'))*[torch.nn.BCEWithLogitsLoss(reduction='mean',
+    #                                                                                       pos_weight=torch.tensor(10))]
+    criterion = torch.nn.CrossEntropyLoss(reduction='mean')
     metrics = {
         'accuracy': accuracy,
         'jaccard': jaccard_index
@@ -274,7 +380,7 @@ class LightningModelInit(DictClass):
     resume_training = False
     use_reducelronplateau = True
     rlr_kwargs = ReduceLROnPLateauParams.to_dict()
-    gnn_kwargs = ImageGNNInit.to_dict()
+    gnn_kwargs = BaseGNNInit.to_dict()  # ImageGNNInit.to_dict()
 
 
 class TrainerInit(DictClass):

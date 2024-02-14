@@ -1,4 +1,6 @@
 import numpy as np
+import skimage
+import cv2
 import torch
 from torch_geometric.data import Data
 import torch_geometric as tg
@@ -19,34 +21,102 @@ def apply_function2list(lst, fun, **kwargs):
     return list(map(lambda x: fun(x, **kwargs), lst))
 
 
-def tup2graph(tup, img_idx, mask_idx=None,
-              dilations=(1, 2, 6), kernel_kind='star',
-              device='cpu'):
+def tup2superpixel(tup, image_idx, mask_idx=None,
+                   n_segments=10, compactness=10, sigma=0):
+    """
+    https://github.com/aryan-at-ul/imgraph/blob/main/imgraph/data/make_graph.py
+    Converts a tuple with an image to a superpixel graph.
+    :param tup:
+    :param image_idx:
+    :param mask_idx:
+    :param n_segments:
+    :param compactness:
+    :param sigma:
+    :return:
+    """
+    image = tup[image_idx]
+    mask = tup[mask_idx]
+    if isinstance(image, np.ndarray):
+        device = 'cpu'
+        if image.dtype == 'uint8' or np.max(image) > 1:
+            image = image.astype('int')
+        # x = torch.as_tensor(image, dtype=torch.float32, device=device)
+    elif isinstance(image, torch.Tensor):
+        raise ValueError(f'image must be a np.ndarray or torch.Tensor. Got {type(image)}')
+        device = image.device
+        if image.max() > 1.:
+            image = image / 255.
+        x = image.to(torch.float32)
+    else:
+        raise ValueError(f'image must be a np.ndarray or torch.Tensor. Got {type(image)}')
+
+    if mask is not None:
+        if isinstance(mask, np.ndarray):
+            y = mask
+            # y = torch.as_tensor(mask, device=device).to(torch.long)
+        else:
+            y = mask.to(torch.long)
+    else:
+        y = None
+
+    segments = skimage.segmentation.slic(image, n_segments=n_segments,
+                                         compactness=compactness, sigma=sigma,
+                                         channel_axis=None
+                                         )
+    print(segments)
+    print('with mask')
+    print(skimage.filters.sobel(image, mask=y))
+    print('without mask')
+    print(skimage.filters.sobel(image))
+    rag_img = skimage.graph.rag_boundary(segments,
+                                         edge_map=skimage.filters.sobel(image)
+                                         )
+    rag_mask = skimage.graph.rag_boundary(segments,
+                                          edge_map=skimage.filters.sobel(y)
+                                          )
+    # rag_y = skimage.graph.rag_boundary(segments,
+    #                                    edge_map=y
+    #                                    ) if y is not None else None
+
+    return rag_img, rag_mask
+
+
+def tup2graph(tup, img_idx, mask_idx,
+              dilations=(1, 2, 6), kernel_kind='star'):
     """
     Converts a tuple with an image to a graph.
     :param tup: (tuple)
         Tuple containing image, mask and additional information for graph
     :param img_idx: (int)
         Index for image to be transformed in tuple
-    :param mask_idx: (int, None)
+    :param mask_idx: (int)
         Index of target mask in tuple
     :param dilations: ((tup(int), int), (1, 2, 6))
         Number of dilations
     :param kernel_kind: (str, 'star')
         Kernel type
-    :param device: (str, 'cpu')
-        torch device
     :return: (torch.data.Data)
         Homogeneous graph.
     """
     image = tup[img_idx]
-    if len(image.shape) < 3:
-        image = np.expand_dims(image, -1)
-    if image.dtype == 'uint8' or np.max(image) > 1:
-        image = image.astype('float') / 255.
-    x = torch.as_tensor(np.vstack(image), dtype=torch.float32)
-    if mask_idx is not None:
-        y = torch.as_tensor(tup[mask_idx]).flatten().to(torch.long).to(device)
+    if isinstance(image, np.ndarray):
+        device = 'cpu'
+        if image.dtype == 'uint8' or np.max(image) > 1:
+            image = image.astype('float') / 255.
+        x = torch.as_tensor(np.vstack(image), dtype=torch.float32)
+    elif isinstance(image, torch.Tensor):
+        device = image.device
+        if image.max() > 1.:
+            image = image / 255.
+        x = torch.unsqueeze(image.flatten(), -1)
+    else:
+        raise ValueError(f'image must be a np.ndarray or torch.Tensor. Got {type(image)}')
+
+    if tup[mask_idx] is not None:
+        if isinstance(tup[mask_idx], np.ndarray):
+            y = torch.as_tensor(tup[mask_idx], device=device).to(torch.long)
+        else:
+            y = tup[mask_idx].flatten().to(torch.long)
     else:
         y = None
 
@@ -61,6 +131,7 @@ def tup2graph(tup, img_idx, mask_idx=None,
     for d in dilations:
         kernel = build_edge_kernel(d, kernel_kind, device)
         for k in kernel:
+            # apply_kernel(edge_index, direction, hyperpos, hyperpos_idx, device)
             edge_index = apply_kernel(edge_index, k, pos, pos_idx, device)
     edge_index = tg.utils.to_undirected(edge_index=edge_index)
     edge_index, _ = tg.utils.remove_self_loops(edge_index=edge_index)
@@ -69,15 +140,15 @@ def tup2graph(tup, img_idx, mask_idx=None,
         x=x,
         y=y,
         edge_index=edge_index.to(torch.int64),
-        pos=pos
+        # pos=pos
     )
 
     graph.coalesce()
 
-    graph.info = [l for i, l in enumerate(tup) if i not in [img_idx, mask_idx]]
-    graph.original_shape = image.shape
+    # graph.info = [l for i, l in enumerate(tup) if i not in [img_idx, mask_idx]]
+    # graph.original_shape = image.shape
     graph.to(device=device, non_blocking=True)
-    return graph.detach(pos)
+    return graph
 
 
 def tup2hypergraph(tup, image_idx, current_solution_idx=None, mask_idx=None,
@@ -104,17 +175,17 @@ def tup2hypergraph(tup, image_idx, current_solution_idx=None, mask_idx=None,
     mask = tup[mask_idx]
     if isinstance(image, np.ndarray):
         device = 'cpu'
-        if image.dtype == 'uint8' or np.max(image) > 1:
-            image = image.astype('float') / 255.
-        x = torch.as_tensor(image, dtype=torch.float32, device=device)
+        # if image.dtype == 'uint8' or np.max(image) > 1:
+            # image = image.astype('float') / 255.
+        x = torch.as_tensor(image, dtype=torch.uint8, device=device)
         if current_solution is None:
             current_solution = np.ones(image.shape)
         current_solution = torch.as_tensor(current_solution, dtype=torch.float32, device=device)
     elif isinstance(image, torch.Tensor):
         device = image.device
-        if image.max() > 1.:
-            image = image / 255.
-        x = image.to(torch.float32)
+        # if image.max() > 1.:
+        #     image = image / 255.
+        x = image
         if current_solution is None:
             current_solution = torch.ones(image.size(), device=device)
         current_solution = current_solution.to(torch.float32)
@@ -136,11 +207,21 @@ def tup2hypergraph(tup, image_idx, current_solution_idx=None, mask_idx=None,
                        .flatten(1)
                        .max(1)).values
 
+    # hypernodes_x = (x
+    #                 .unfold(0, hypernode_patch_dim, hypernode_patch_dim)
+    #                 .unfold(1, hypernode_patch_dim, hypernode_patch_dim)
+    #                 .flatten(0, 1)
+    #                 .flatten(1)).to(device=device)
     hypernodes_x = (x
                     .unfold(0, hypernode_patch_dim, hypernode_patch_dim)
-                    .unfold(1, hypernode_patch_dim, hypernode_patch_dim)
-                    .flatten(0, 1)
-                    .flatten(1)).to(device=device)
+                    .unfold(1, hypernode_patch_dim, hypernode_patch_dim).flatten(0, 1))
+    if hypernode_patch_dim > 1:
+        descs = []
+        for hnx in hypernodes_x.cpu().numpy():
+            descs.append(cv2.calcHist(hnx, [0], None, [hypernode_patch_dim//4], [0, 256]).flatten())
+        hypernodes_x = torch.as_tensor(np.array(descs).astype('float32')/255., dtype=torch.float32, device=device)
+    else:
+        hypernodes_x = hypernodes_x.flatten(1).to(device=device, dtype=torch.float32)/255.
     y = (y
          .unfold(0, hypernode_patch_dim, hypernode_patch_dim)
          .unfold(1, hypernode_patch_dim, hypernode_patch_dim)

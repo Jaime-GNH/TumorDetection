@@ -167,7 +167,7 @@ class ImageDataset(Dataset, BaseClass):
                         item_load[3],
                         self.preprocessor_transforms.get('resize_dim'),
                         cv2.INTER_NEAREST_EXACT) if self.preprocessor_transforms.get('resize') else item_load[3]}
-        if any(s < self.crop_dim[0] for s in new_item['image'].shape):
+        if self.crop_dim is not None and any(s < self.crop_dim[0] for s in new_item['image'].shape):
             new_item.update({'image': self.preprocessor.resize(new_item['image'], self.crop_dim,
                                                                cv2.INTER_AREA),
                              'mask': self.preprocessor.resize(new_item['mask'], self.crop_dim,
@@ -177,8 +177,7 @@ class ImageDataset(Dataset, BaseClass):
                          'mask': mask})
         return new_item
 
-    @staticmethod
-    def transform(image, mask, output_size):
+    def transform(self, image, mask, output_size):
         """
 
         :param image:
@@ -191,10 +190,11 @@ class ImageDataset(Dataset, BaseClass):
         if not isinstance(mask, torch.Tensor):
             mask = torch.as_tensor(mask)
         # Random crop
-        i, j, h, w = transforms.RandomCrop.get_params(
-            image, output_size=output_size)
-        image = tf.crop(image, i, j, h, w)
-        mask = tf.crop(mask, i, j, h, w)
+        if self.crop_dim is not None:
+            i, j, h, w = transforms.RandomCrop.get_params(
+                image, output_size=output_size)
+            image = tf.crop(image, i, j, h, w)
+            mask = tf.crop(mask, i, j, h, w)
         return image, mask
 
 
@@ -205,7 +205,7 @@ class GraphDataLoader(DataLoader, BaseClass):
     def __init__(self, root_dir, mode, **kwargs):
         kwargs = self._default_config(GraphDataLoaderInit, **kwargs)
         batch_size = kwargs.get('batch_size')
-        self.dataset = GraphDataset(root_dir, mode, batch_size=batch_size if mode == 'train' else 1,
+        self.dataset = GraphDataset(root_dir, mode, batch_size=1,  # batch_size if mode == 'train' else 1,
                                     **kwargs['graph_dataset_kwargs'])
         kwargs.pop('collate_fn', None)
         self.collator = ListCollater(self.dataset)

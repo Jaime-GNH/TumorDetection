@@ -12,9 +12,12 @@ class DataPathLoader(BaseClass):
     Class for definind the path for images, masks and class in BUSI Dataset.
     Dataset BUSI available on: https://scholar.cu.edu.eg/?q=afahmy/pages/dataset
     """
-    def __init__(self, dir_path):
+    def __init__(self, dir_path, substring_filter=None):
         self.dir_path = dir_path
-        self.imgs_paths = glob.glob(dir_path + r'\*\*).png')
+        if substring_filter is None:
+            self.imgs_paths = glob.glob(dir_path + r'\*\*).png')
+        else:
+            self.imgs_paths = [x for x in glob.glob(dir_path + r'\*\*).png') if substring_filter not in x]
 
     def __call__(self, **kwargs):
         """

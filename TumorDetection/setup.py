@@ -10,6 +10,8 @@ setup(
     install_requires=[
         'pip==23.2.1',
         'torch==2.1.1',
+        'keras==3.0.2',
+        'patchify==0.2.3',
         'torchmetrics==1.2.0',
         'torch_geometric==2.4.0',
         'lightning==2.1.0',

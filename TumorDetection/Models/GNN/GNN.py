@@ -1,9 +1,9 @@
 import torch_geometric as tg
 import torch
 
-from TumorDetection.Utils.Utils import tup2hypergraph, apply_function2list
+from TumorDetection.Utils.Utils import tup2hypergraph, tup2graph, apply_function2list
 from TumorDetection.Utils.BaseClass import BaseClass
-from TumorDetection.Utils.DictClasses import BaseGNNInit, ImageGNNInit, ConvLayerKwargs
+from TumorDetection.Utils.DictClasses import BaseGNNInit, ImageGNNInit, ConvLayerParams
 
 
 class BaseGNN(torch.nn.Module, BaseClass):
@@ -16,25 +16,36 @@ class BaseGNN(torch.nn.Module, BaseClass):
         Layer definitions
         :param conv_layer_kwargs: (dict)
         """
+        # TODO: IMPLEMENT IMAGE TO GRAPH IN FORWARD!!!
         super().__init__()
         kwargs = self._default_config(BaseGNNInit, **kwargs)
         h_dims = kwargs.get('h_size')
+        self.num_classes = kwargs.get('num_classes')
         conv_layers = kwargs.get('conv_layer_type')
         if not isinstance(conv_layers, list):
             conv_layers = [conv_layers]
         if len(conv_layers) < len(h_dims):
             conv_layers = [conv_layers[0]]*len(h_dims)
 
+        self.use_dropoutpath = kwargs.get('use_dropoutpath')
+        if self.use_dropoutpath:
+            self.dropoutpath_params = kwargs.get('dropoutpath_params')
+
+        self.use_dropoutedge = kwargs.get('use_dropoutedge')
+        if self.use_dropoutedge:
+            self.dropoutedge_params = kwargs.get('dropoutedge_params')
+
+        self.dilations = kwargs.get('dilations')
         if conv_layer_kwargs is None:
             conv_layer_kwargs = {}
-        conv_layer_kwargs = self._default_config(ConvLayerKwargs, **conv_layer_kwargs)
+        conv_layer_kwargs = self._default_config(ConvLayerParams, **conv_layer_kwargs)
         self.convs = torch.nn.ModuleList([
             *[cl(in_channels=-1, out_channels=h_dims[i],
                  hidden_channels=h_dims[i],
                  **conv_layer_kwargs)
               for i, cl in enumerate(conv_layers)]
         ])
-        self.out = tg.nn.Linear(h_dims[-1], 1)  # Binary classification
+        self.out = tg.nn.Linear(h_dims[-1], self.num_classes)
 
     def forward(self, batch):
         """
@@ -42,11 +53,42 @@ class BaseGNN(torch.nn.Module, BaseClass):
         :param batch:
         :return:
         """
-        x, edge_index = batch.x, batch.edge_index
+        batch = self.image2graph(batch, self.dilations)
+        if self.use_dropoutpath:
+            batch.edge_index, _ = tg.utils.dropout_path(batch.edge_index,
+                                                        **self.dropoutpath_params,
+                                                        training=self.training)
+        if self.use_dropoutedge:
+            batch.edge_index, _ = tg.utils.dropout_edge(batch.edge_index,
+                                                        **self.dropoutedge_params,
+                                                        training=self.training)
         for i, conv in enumerate(self.convs):
-            x = conv(x, edge_index)
+            batch.x = conv(batch.x, batch.edge_index)
 
-        return self.out(x).clamp(-4, 4)
+        return self.out(batch.x).clamp(-4, 4), batch.y
+
+    @staticmethod
+    def image2graph(batch, dilations, kernel_kind='corner'):
+        """
+        Converts a batch of images to a Data Batch
+        :param batch: dict
+            (img, mask)
+        :param dilations: (int)
+        :param kernel_kind: (str)
+        :return:
+        """
+        new_batch = list((i, m) for i, m in zip(batch.get('image'),
+                                                batch.get('mask'))
+                         )
+        graph = apply_function2list(
+            new_batch,
+            tup2graph,
+            img_idx=0,
+            mask_idx=1,
+            dilations=dilations,
+            kernel_kind=kernel_kind
+        )
+        return tg.data.Batch.from_data_list(graph)
 
 
 class ImageGNN(torch.nn.Module, BaseClass):
@@ -71,7 +113,7 @@ class ImageGNN(torch.nn.Module, BaseClass):
             conv_layers = [conv_layers[0]]*len(h_dims)
         if conv_layer_kwargs is None:
             conv_layer_kwargs = {}
-        conv_layer_kwargs = self._default_config(ConvLayerKwargs, **conv_layer_kwargs)
+        conv_layer_kwargs = self._default_config(ConvLayerParams, **conv_layer_kwargs)
         self.convs = torch.nn.ModuleList([
             torch.nn.ModuleList([
                 cl(in_channels=-1, out_channels=h_dims[i],
@@ -186,11 +228,11 @@ class ImageGNN(torch.nn.Module, BaseClass):
         :param solution:
         :return:
         """
-        zeros = torch.zeros((node_mask.size(0), batch.x.size(1)),
-                            device=node_mask.device,
-                            dtype=batch.x.dtype)
-        zeros[node_mask > 0] = batch.x
-        batch_imgs = zeros.reshape(len(batch.original_shape), *batch.original_shape[0])
+        img = torch.zeros((node_mask.size(0), batch.x.size(1)),
+                          device=node_mask.device,
+                          dtype=batch.x.dtype)
+        img[node_mask > 0] = batch.x
+        batch_imgs = img.reshape(len(batch.original_shape), *batch.original_shape[0])
 
         if solution is not None:
             zeros = torch.zeros((node_mask.size(0), solution.size(1)), device=node_mask.device)
@@ -209,7 +251,8 @@ class ImageGNN(torch.nn.Module, BaseClass):
                     hypernode_dim,
                     dim=2)
             )
-            return {'image': batch_imgs, 'mask': batch_mask, 'current_solution': batch_solution}
+            return {'image': ((batch_imgs+4)*255/8).to(torch.uint8), 'mask': batch_mask,
+                    'current_solution': batch_solution}
         else:
-            return {'image': batch_imgs, 'mask': batch_mask}
+            return {'image': ((batch_imgs+4)*255/8).to(torch.uint8), 'mask': batch_mask}
 

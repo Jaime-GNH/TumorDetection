@@ -31,8 +31,7 @@ class ImageToGraph(BaseClass):
                                       current_solution_idx=mask_tup_idx+1,
                                       mask_idx=mask_tup_idx,
                                       hypernode_patch_dim=kwargs.get('hypernode_patch_dim'),
-                                      kernel_kind=kernel_kind,
-                                      device=device
+                                      kernel_kind=kernel_kind
                                       )
             elif isinstance(data, list) and isinstance(data[0], tuple):
                 return apply_function2list(
@@ -42,8 +41,7 @@ class ImageToGraph(BaseClass):
                     current_solution_idx=mask_tup_idx + 1,
                     mask_idx=mask_tup_idx,
                     hypernode_patch_dim=kwargs.get('hypernode_patch_dim'),
-                    kernel_kind=kernel_kind,
-                    device=device
+                    kernel_kind=kernel_kind
                 )
             else:
                 raise ValueError(f'data must be list of tuples or single tuple. Got {type(data)}')
@@ -53,8 +51,7 @@ class ImageToGraph(BaseClass):
                                  img_idx=images_tup_idx,
                                  mask_idx=mask_tup_idx if mask else None,
                                  dilations=dilations,
-                                 kernel_kind=kernel_kind,
-                                 device=device
+                                 kernel_kind=kernel_kind
                                  )
             elif isinstance(data, list) and isinstance(data[0], tuple):
                 return apply_function2list(
@@ -63,8 +60,7 @@ class ImageToGraph(BaseClass):
                     img_idx=images_tup_idx,
                     mask_idx=mask_tup_idx if mask else None,
                     dilations=dilations,
-                    kernel_kind=kernel_kind,
-                    device=device
+                    kernel_kind=kernel_kind
                 )
             else:
                 raise ValueError(f'data must be list of tuples or single tuple. Got {type(data)}')
