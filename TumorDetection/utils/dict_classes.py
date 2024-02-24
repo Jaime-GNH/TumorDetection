@@ -213,12 +213,20 @@ class EfficientNetInit(DictClass):
 
 class EFSNetInit(DictClass):
     verbose = Verbosity.get('verbose')
-    input_shape = (*TorchDatasetInit.get('output_dim'), 1)
+    input_shape = (1, *TorchDatasetInit.get('output_dim'))
     num_classes = len(ImageLoaderCall.get('class_values'))
-    pos_weight = 5
-    ignore_index = -100
-    class_weights = [1., 3., 3.]
-    EfficientNetInit = EfficientNetInit.to_dict()
+    filters = 128
+    dr_rate = 0.2
+    groups = 2
+    bias = False
+    num_factorized_blocks = 4
+    num_super_sdc_blocks = 2
+    num_sdc_per_supersdc = 4
+    # pos_weight = 5
+    # ignore_index = -100
+    # class_weights = [1., 3., 3.]
+    # EfficientNetInit = EfficientNetInit.to_dict()
+    device = Device.get('device')
     name = 'EFSNet'
 
 

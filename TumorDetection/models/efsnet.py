@@ -14,6 +14,7 @@ import torch.nn.functional as tfn
 from torch.utils.data import DataLoader
 
 from TumorDetection.utils.base import BaseClass
+from TumorDetection.models.layers import Encoder, Decoder, DownsamplingBlock
 from TumorDetection.utils.dict_classes import EFSNetInit, ReportingPathDir, Device
 
 # TODO: SUBCLASS MODEL FROM Keras.Model
@@ -22,7 +23,55 @@ from TumorDetection.utils.dict_classes import EFSNetInit, ReportingPathDir, Devi
 #  3. Convert other functions in utilities (train_model, compile_model,...).
 
 
-class EFSNet(keras.Model, BaseClass):
+class EFSNet(torch.nn.Module, BaseClass):
+    """
+    Efficient Segmentation Network from https://ieeexplore.ieee.org/document/9063469
+    """
+    def __init__(self, **kwargs):
+        super().__init__()
+        kwargs = self._default_config(EFSNetInit, **kwargs)
+        self.name = kwargs.get('name')
+        self.device = kwargs.get('device')
+        self.input_shape = kwargs.get('input_shape')
+        self.num_classes = kwargs.get('num_classes')
+        self.encoder = Encoder(in_channels=self.input_shape[0], filters=kwargs.get('filters'),
+                               dr_rate=kwargs.get('dr_rate'), bias=kwargs.get('bias'), groups=kwargs.get('groups'),
+                               num_factorized_blocks=kwargs.get('num_factorized_blocks'),
+                               num_super_sdc_blocks=kwargs.get('num_super_sdc_blocks', 2),
+                               num_sdc_per_supersdc=kwargs.get('num_sdc_per_supersdc', 4), name=self.name+'_Encoder',
+                               device=self.device)
+
+        self.label_ds = DownsamplingBlock(in_channels=kwargs.get('filters'), filters=kwargs.get('filters') // 16,
+                                          dr_rate=kwargs.get('dr_rate'), bias=kwargs.get('bias'),
+                                          name=self.name + '_Label_DS', device=self.device)
+        self.label_fl = torch.nn.Flatten()
+        self.labeler = torch.nn.Linear(
+            in_features=(kwargs.get('filters') // 16)*(self.input_shape[-2]//8)*(self.input_shape[-1]//8),
+            out_features=self.num_classes, device=self.device
+        )
+
+        self.decoder = Decoder(in_channels=kwargs.get('filters'), dr_rate=kwargs.get('dr_rate'),
+                               bias=kwargs.get('bias'), groups=kwargs.get('groups'),
+                               num_shufflenet=kwargs.get('num_shufflenet', 2),
+                               name=self.name + '_Decoder', device=self.device)
+        self.segment = torch.nn.ConvTranspose2d(in_channels=kwargs.get('filters') // 16, out_channels=2,
+                                                kernel_size=(3, 3), stride=2, padding=1, output_padding=1,
+                                                device=self.device)
+
+    def forward(self, x):
+        x1, x2, x3 = self.encoder(x)
+        x = self.decoder(x1, x2, x3)
+        xl = self.label_ds(x3)
+        xl = self.label_fl(xl)
+        label = self.labeler(xl)
+        segment = self.segment(x)
+
+        return segment, label
+
+
+
+
+class EFSNet_keras(keras.Model, BaseClass):
     """
     Efficient Segmentation Network from https://ieeexplore.ieee.org/document/9063469
     """
@@ -902,8 +951,8 @@ def train_model(model, dataset_train, dataset_test, **kwargs):
 
 if __name__ == '__main__':
     Efsmodel = EFSNet()
-    Efsmodel = compile_model(Efsmodel, 'adam')
+    # Efsmodel = compile_model(Efsmodel, 'adam')
     Efsmodel.summary()
-    seg, label = Efsmodel(torch.rand((1, 256, 256, 1)))
+    seg, lab = Efsmodel(torch.rand((1, 1, 256, 256)))
     print(seg.shape)
-    print(label.shape)
+    print(lab.shape)
