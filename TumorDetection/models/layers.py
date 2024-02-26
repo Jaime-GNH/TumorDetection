@@ -318,10 +318,10 @@ class Decoder(torch.nn.Module):
             for sh in range(num_shufflenet)
         ])
 
-        self.upsample_module2 = UpsamplingBlock(in_channels=in_channels // 2, filters=in_channels // 16,
+        self.upsample_module2 = UpsamplingBlock(in_channels=in_channels // 2, filters=16,
                                                 dr_rate=dr_rate, bias=bias, name=self.name + '_US2', device=device)
         self.shufflenet2 = torch.nn.Sequential(*[
-            ShuffleNet(in_channels=in_channels // 16, filters=in_channels // 16, dr_rate=dr_rate,
+            ShuffleNet(in_channels=16, filters=16, dr_rate=dr_rate,
                        bias=bias, groups=groups // 2, name=self.name + f'_SN2_{sh + 1}', device=device)
             for sh in range(num_shufflenet)
         ])
