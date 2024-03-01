@@ -30,17 +30,29 @@ class SeparableConv2d(torch.nn.Module):
     """
     Separable DepthWise Conv.
     """
-    def __init__(self, in_channels, out_channels, kernel_size, bias=False):
+    def __init__(self, in_channels, out_channels, kernel_size, bias, device):
         super().__init__()
         self.depthwise = torch.nn.Conv2d(in_channels, in_channels, kernel_size=kernel_size,
-                                         groups=in_channels, bias=bias, padding=1)
+                                         groups=in_channels, bias=bias, padding=1, device=device)
         self.pointwise = torch.nn.Conv2d(in_channels, out_channels,
-                                         kernel_size=1, bias=bias)
+                                         kernel_size=1, bias=bias, device=device)
 
     def forward(self, x):
         out = self.depthwise(x)
         out = self.pointwise(out)
         return out
+
+
+def channel_shuffle(x, groups):
+    """
+    Channel Shuffle -> torch.nn.Channel Shuffle: `RuntimeError: derivative for channel_shuffle is not implemented`
+    """
+    batch, in_channels, height, width = x.shape
+    channels_per_group = in_channels // groups
+    x = torch.reshape(x, [batch, groups, channels_per_group, height, width])
+    x = torch.permute(x, (0, 2, 1, 3, 4))
+    x = torch.reshape(x, (batch, in_channels, height, width))
+    return x
 
 
 class InitialBlock(torch.nn.Module):
@@ -57,7 +69,7 @@ class InitialBlock(torch.nn.Module):
 
     def forward(self, x):
         x1 = self.cb11(x)
-        x1 = self.spr1(x1)
+        x1 = self.spr11(x1)
         x2 = self.mxp21(x)
         return torch.cat([x1, x2], dim=1)
 
@@ -74,8 +86,8 @@ class DownsamplingBlock(torch.nn.Module):
         self.cb11 = ConvBlock(in_channels=in_channels, out_channels=filters, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, bias=bias, device=device, use_act=False)
 
-        self.cb21 = ConvBlock(in_channels=filters, out_channels=filters // 4, kernel_size=(2, 2),
-                              padding=1, stride=2, dilation=1, bias=bias, device=device)
+        self.cb21 = ConvBlock(in_channels=in_channels, out_channels=filters // 4, kernel_size=(2, 2),
+                              padding=0, stride=2, dilation=1, bias=bias, device=device)
         self.cb22 = ConvBlock(in_channels=filters // 4, out_channels=filters // 4, kernel_size=(3, 3),
                               padding='same', stride=1, dilation=1, bias=bias, device=device)
         self.cb23 = ConvBlock(in_channels=filters // 4, out_channels=filters, kernel_size=(1, 1),
@@ -89,7 +101,6 @@ class DownsamplingBlock(torch.nn.Module):
         x1 = self.mxp11(x)
         x1 = self.bn11(x1)
         x1 = self.cb11(x1)
-        x1 = self.bn12(x1)
 
         # PATH
         x2 = self.cb21(x)
@@ -141,10 +152,10 @@ class SDCBlock(torch.nn.Module):
     def __init__(self, in_channels, filters, dr_rate, bias, groups, dilation, name, device):
         super().__init__()
         self.name = name
-
+        self.groups = groups
         self.cb11 = ConvBlock(in_channels=in_channels, out_channels=filters // 4, kernel_size=(1, 1),
                               stride=1, groups=groups, padding='same', dilation=1, bias=bias, device=device)
-        self.chs11 = torch.nn.ChannelShuffle(groups=groups)
+        # self.chs11 = torch.nn.ChannelShuffle(groups=groups)
 
         self.cb12 = ConvBlock(in_channels=filters // 4, out_channels=filters // 4, kernel_size=(3, 3),
                               stride=1, padding='same', dilation=dilation, bias=bias, device=device,
@@ -158,7 +169,8 @@ class SDCBlock(torch.nn.Module):
     def forward(self, x):
         # PATH
         x1 = self.cb11(x)
-        x1 = self.chs11(x1)
+        # x1 = self.chs11(x1)
+        x1 = channel_shuffle(x1, self.groups)
         x1 = self.cb12(x1)
         x1 = self.cb13(x1)
         x1 = self.spr11(x1)
@@ -200,10 +212,10 @@ class UpsamplingBlock(torch.nn.Module):
                                  stride=None, padding=None, dilation=None, bias=None, device=device,
                                  apply_conv=False)
 
-        self.cb21 = ConvBlock(in_channels=filters, out_channels=filters, kernel_size=(1, 1),
+        self.cb21 = ConvBlock(in_channels=in_channels, out_channels=filters, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, bias=bias, device=device)
         self.ct21 = ConvBlock(in_channels=filters, out_channels=filters, kernel_size=(2, 2),
-                              stride=2, padding=1, dilation=1, bias=bias, device=device,
+                              stride=2, padding=0, dilation=1, bias=bias, device=device,
                               transpose=True)
         self.spr21 = torch.nn.Dropout2d(p=dr_rate)
         self.act_f = torch.nn.PReLU(device=device)
@@ -229,13 +241,14 @@ class ShuffleNet(torch.nn.Module):
     def __init__(self, in_channels, filters, dr_rate, bias, groups, name, device):
         super().__init__()
         self.name = name
+        self.groups = groups
         self.cb11 = ConvBlock(in_channels=in_channels, out_channels=filters // 4, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, groups=groups, bias=bias, device=device,
                               use_act=False)
         self.act11 = torch.nn.ReLU()
-        self.chs11 = torch.nn.ChannelShuffle(groups)
+        # self.chs11 = torch.nn.ChannelShuffle(groups)
         self.scb11 = SeparableConv2d(in_channels=filters // 4, out_channels=filters // 4, kernel_size=(3, 3),
-                                     bias=False)
+                                     bias=False, device=device)
         self.bn11 = torch.nn.BatchNorm2d(filters // 4, device=device)
         self.cb12 = ConvBlock(in_channels=filters // 4, out_channels=filters, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, bias=bias, device=device)
@@ -246,7 +259,8 @@ class ShuffleNet(torch.nn.Module):
         # PATH
         x1 = self.cb11(x)
         x1 = self.act11(x1)
-        x1 = self.chs11(x1)
+        # x1 = self.chs11(x1)
+        x1 = channel_shuffle(x1, self.groups)
         x1 = self.scb11(x1)
         x1 = self.bn11(x1)
         x1 = self.cb12(x1)
@@ -318,7 +332,7 @@ class Decoder(torch.nn.Module):
             for sh in range(num_shufflenet)
         ])
 
-        self.upsample_module2 = UpsamplingBlock(in_channels=in_channels // 2, filters=16,
+        self.upsample_module2 = UpsamplingBlock(in_channels=in_channels // 2, filters=8,
                                                 dr_rate=dr_rate, bias=bias, name=self.name + '_US2', device=device)
         self.shufflenet2 = torch.nn.Sequential(*[
             ShuffleNet(in_channels=16, filters=16, dr_rate=dr_rate,

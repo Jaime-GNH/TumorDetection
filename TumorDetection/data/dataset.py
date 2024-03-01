@@ -3,6 +3,7 @@ import numpy as np
 import random
 import torch
 from torch.utils.data import Dataset
+import torch.nn.functional as tfn
 import torchvision.transforms as tt
 import torchvision.transforms.functional as tf
 
@@ -92,7 +93,10 @@ class TorchDataset(Dataset, BaseClass):
                 image = tf.vflip(image)
                 mask = tf.vflip(mask)
 
-        label = torch.tensor(self.class_values[self.classes[item][0]]) if mask.sum() > 0 else torch.tensor(0)
+        mask = tfn.one_hot(mask.to(torch.long).squeeze(),
+                           num_classes=2).double().permute(2, 1, 0)
+        label = (torch.tensor(self.class_values[self.classes[item][0]])
+                 if mask.sum() > 0 else torch.tensor(0))
 
         return (image,
                 mask,

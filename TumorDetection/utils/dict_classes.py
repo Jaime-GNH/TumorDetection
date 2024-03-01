@@ -131,10 +131,9 @@ class CompileParams(DictClass):
     pos_weight = 5
 
 
-class CyclicLRParams(DictClass):
-    base_lr = 5e-4
-    max_lr = 1e-3
-    step_size_up = 2000
+class PolyLRParams(DictClass):
+    power = 0.9
+    total_iters = 10
 
 
 class OptimizerParams(DictClass):
@@ -151,7 +150,7 @@ class LightningTrainerParms(DictClass):
     devices = -1
     max_epochs = 1000
     num_sanity_val_steps = 0
-    precision = '16-mixed'
+    precision = '32'
     log_every_n_steps = 1
     accumulate_grad_batches = 1
     enable_progress_bar = True
@@ -232,15 +231,20 @@ class EFSNetInit(DictClass):
 
 class LightningModelInit(DictClass):
     model_name = 'EFSNet'
-    description = 'efsnet with HardAttention'
+    description = 'EFSNet base'
     metrics = {
         'accuracy': accuracy,
         'jaccard': jaccard_index
     }
     optimizer = torch.optim.Adam
+    monitor = 'val_loss'
+    frequency = 1
+    pos_weight = 5
+    ignore_index = -100
+    class_weights = [1., 3., 3.]
     save_hyperparameters = True
     resume_training = False
-    model_kwargs = EfficientNetInit.to_dict()
+    model_kwargs = EFSNetInit.to_dict()
 
 
 class TrainerInit(DictClass):
@@ -251,7 +255,10 @@ class TrainerInit(DictClass):
 
 
 class TrainerCall(DictClass):
+    verbose = Verbosity.get('verbose')
+    summary_depth = 3
     model_kwargs = LightningModelInit.to_dict()
+    batch_size = 32
     resume_training = False
 
 

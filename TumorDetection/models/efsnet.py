@@ -46,7 +46,7 @@ class EFSNet(torch.nn.Module, BaseClass):
                                           name=self.name + '_Label_DS', device=self.device)
         self.label_fl = torch.nn.Flatten()
         self.labeler = torch.nn.Linear(
-            in_features=(kwargs.get('filters') // 16)*(self.input_shape[-2]//8)*(self.input_shape[-1]//8),
+            in_features=(kwargs.get('filters') // 16) * (self.input_shape[-2] // 16) * (self.input_shape[-1] // 16),
             out_features=self.num_classes, device=self.device
         )
 
@@ -54,21 +54,19 @@ class EFSNet(torch.nn.Module, BaseClass):
                                bias=kwargs.get('bias'), groups=kwargs.get('groups'),
                                num_shufflenet=kwargs.get('num_shufflenet', 2),
                                name=self.name + '_Decoder', device=self.device)
-        self.segment = torch.nn.ConvTranspose2d(in_channels=kwargs.get('filters') // 16, out_channels=2,
+        self.segment = torch.nn.ConvTranspose2d(in_channels=16, out_channels=2,
                                                 kernel_size=(3, 3), stride=2, padding=1, output_padding=1,
                                                 device=self.device)
 
     def forward(self, x):
         x1, x2, x3 = self.encoder(x)
-        x = self.decoder(x1, x2, x3)
+        xs = self.decoder(x1, x2, x3)
         xl = self.label_ds(x3)
         xl = self.label_fl(xl)
         label = self.labeler(xl)
-        segment = self.segment(x)
+        segment = self.segment(xs)
 
         return segment, label
-
-
 
 
 class EFSNet_keras(keras.Model, BaseClass):
@@ -950,9 +948,15 @@ def train_model(model, dataset_train, dataset_test, **kwargs):
 
 
 if __name__ == '__main__':
+    from torchinfo import summary
     Efsmodel = EFSNet()
     # Efsmodel = compile_model(Efsmodel, 'adam')
-    Efsmodel.summary()
-    seg, lab = Efsmodel(torch.rand((1, 1, 256, 256)))
+    summary(Efsmodel, (1, 256, 256), batch_dim=0,
+            col_names=("input_size", "output_size", "num_params", "params_percent"),
+            depth=3,
+            row_settings=["var_names"],
+            device=Device.get('device'),
+            verbose=1)
+    seg, lab = Efsmodel(torch.rand((1, 1, 256, 256)).to(device=Device.get('device')))
     print(seg.shape)
     print(lab.shape)
