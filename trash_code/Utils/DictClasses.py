@@ -51,6 +51,22 @@ class ReduceLROnPLateauParams(DictClass):
     min_lr = 1e-7
 
 
+class CompileParams(DictClass):
+    optimizer = Adam(
+        learning_rate=ksh.PolynomialDecay(
+            initial_learning_rate=5e-4,
+            end_learning_rate=1e-7,
+            decay_steps=2000,
+            cycle=True
+        ),
+        weight_decay=0.0004,
+        ema_momentum=0.9
+    )
+    class_weights = [1., 3, 3]
+    ignore_index = -100
+    pos_weight = 5
+
+
 class ModelCheckpointParams(DictClass):
     save_best_only = True
     save_weights_only = True
@@ -92,6 +108,30 @@ class ModelCkptDir(DictClass):
         if 'reporting' in dir_name
     ][0]
     os.chdir(cw)
+
+
+class ImageLoaderCall(DictClass):
+    """
+    ImageLoader __call__() keyweord arguments
+    """
+    read_mode = 'gray'
+    class_values = (ClassValues.to_dict()
+                    if DataPathLoaderCall.get('map_classes') is None else
+                    MappedClassValues.to_dict())
+
+
+class PatchDatasetCall(DictClass):
+    normalize = True
+    resize = True
+    resize_dim = (512, 512)
+    interpolation_method = cv2.INTER_AREA
+    patch_dim = (256, 256)
+    patch_step = 64
+    test_size = 0.1
+    mode = 'patches'
+    shuffle = True
+    random_state = 1234567890
+    filter_empty = True
 
 
 class PreprocessorCall(DictClass):
@@ -186,6 +226,17 @@ class ImageGNNInit(DictClass):
     hypernode_patch_dims = [64, 16, 4, 1]
     kernel_kind = 'corner'
     last_kernel = 'star'
+
+
+class EfficientNetInit(DictClass):
+    groups = 2
+    dr_rate = 0.2
+    num_factorized_blocks = 4
+    num_super_sdc_blocks = 2
+    max_filters = 128
+    activation_layer = 'prelu'
+    kernel_initializer = 'he_uniform'
+    use_bias = False
 
 
 class EFSNetModelInit(DictClass):

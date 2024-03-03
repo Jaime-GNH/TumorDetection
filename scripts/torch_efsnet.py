@@ -30,6 +30,7 @@ summary(model, (1, 256, 256), batch_dim=0,
         row_settings=["var_names"],
         device=Device.get('device'),
         verbose=1)
+print(f'Device: {model.device}')
 seg, lab = model(torch.rand((1, 1, 256, 256)).to(device=Device.get('device')))
 images = 1000
 it = perf_counter()
@@ -38,4 +39,3 @@ for _ in range(images):
 et = perf_counter()
 print(f'Time per 100 images: {et-it:.3f}')
 print(f'FPS: {images/(et-it):.3f}')
-

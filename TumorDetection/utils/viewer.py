@@ -1,23 +1,21 @@
-from TumorDetection.utils.dict_classes import ViewerClsParams
-
+from typing import Optional
+import numpy as np
 import cv2
 
-# TODO: Superponer imágenes bien.
-#  Generar varias ventanas independientes.
-#  Mascaras:
-#   Escalar valores a 255.
-#   Ver como las sperpone la gente
+from TumorDetection.utils.dict_classes import ViewerClsParams
 
 
 class Viewer:
+    """
+    cv2 Visualizer
+    """
     params = ViewerClsParams.to_dict()
 
     @classmethod
-    def show_image(cls, image, win_title=None):
+    def show_image(cls, image: np.ndarray, win_title: Optional[str] = None):
         """
         Function to show an image
-        :param image: (np.ndarray)
-            image to show
+        :param image: np array to show
         :param win_title: (str)
             Window title
         :return:
@@ -32,15 +30,12 @@ class Viewer:
             pass
 
     @classmethod
-    def show_masked_image(cls, image, mask, win_title, **kwargs):
+    def show_masked_image(cls, image: np.ndarray, mask: np.ndarray, win_title: Optional[str], **kwargs):
         """
         Function to show a set of images
-        :param image: (np.ndarray)
-            image to show
-        :param mask: (np.ndarray)
-            mask to apply
-        :param win_title: (str)
-            Window title
+        :param image: np array to show
+        :param mask: mask to apply
+        :param win_title: Window title
         :keyword alpha_weight: (float)
             Alpha weight for combining image and mask
         :keyword beta_weight: (float)

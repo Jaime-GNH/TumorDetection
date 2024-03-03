@@ -2,6 +2,9 @@ import os
 
 
 class WorkingDir:
+    """
+    Working Directory finder and setter.
+    """
     default_path = '\\'.join(
         os.path.abspath(os.getcwd()).split('\\')[
             :os.path.abspath(os.getcwd()).split('\\').index('TumorDetection') + 1
@@ -9,10 +12,10 @@ class WorkingDir:
     )
 
     @classmethod
-    def set_wd(cls):
+    def set_wd(cls) -> str:
         """
         Sets the working directory at the top of the project.
-        :return:
+        :return: Current working directory.
         """
         current_path = os.path.abspath(os.getcwd())
         os.chdir(
@@ -21,10 +24,10 @@ class WorkingDir:
         return current_path
 
     @classmethod
-    def getwd_from_path(cls, path):
+    def getwd_from_path(cls, path: str) -> str:
         """
-
-        :return:
+        Get default working directory from another directory.
+        :return: working directory.
         """
         return os.path.abspath(
             os.path.join(os.getcwd(),

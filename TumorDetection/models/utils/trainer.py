@@ -1,6 +1,7 @@
 import os.path
-
+from typing import Union
 import lightning.pytorch as pl
+import torch.nn
 from lightning.pytorch.callbacks import ModelCheckpoint, LearningRateMonitor
 from lightning.pytorch.loggers import TensorBoardLogger
 from torch.utils.data import DataLoader, Dataset
@@ -8,17 +9,30 @@ from torchinfo import summary
 import warnings
 
 from TumorDetection.utils.base import BaseClass
-from TumorDetection.utils.dict_classes import TrainerInit, TrainerCall, ModelCkptDir
+from TumorDetection.utils.dict_classes import (TrainerInit, TrainerCall, ModelCkptDir,
+                                               LightningTrainerParms, LightningModelInit)
 from models.utils.lightning_model import LightningModel
 from models.utils.callbacks import ProgressBar
 
 
 class Trainer(BaseClass):
     """
+    Trainer wrapper for torch using pytorch Lightning.
     """
     def __init__(self, **kwargs):
+        """
+        Trainer class constructor
+        :keyword lightning_trainer_params: (dict, LightningTrainerParms)
+            Keyword arguments to use in ligning trainer.
+        :keyword use_modelcheckpoint: (bool)
+            Use model_checkpoint or not.
+        :keyword model_name: (str)
+            Lightning Model model_name.
+        :keyword logger: (bool)
+            Use TensorBoard logger ot not
+        """
         kwargs = self._default_config(TrainerInit, **kwargs)
-        self.trainer_params = kwargs.get('lightning_trainer_params')
+        self.trainer_params = self._default_config(LightningTrainerParms, **kwargs.get('lightning_trainer_params'))
         self.use_modelcheckpoint = kwargs.get('use_modelcheckpoint')
         callbacks = [ProgressBar(),
                      LearningRateMonitor(logging_interval='epoch')]
@@ -38,18 +52,29 @@ class Trainer(BaseClass):
                                   logger=logger,
                                   **self.trainer_params)
 
-    def __call__(self, model, train_data, test_data, **kwargs):
+    def __call__(self, model: Union[pl.LightningModule, torch.nn.Module, type],
+                 train_data: Union[Dataset, DataLoader],
+                 test_data: Union[Dataset, DataLoader], **kwargs) -> pl.LightningModule:
         """
-        Call
-        :param model:
-        :param train_data:
-        :param test_data:
-        :param kwargs:
-        :return:
+        Trainer main function.
+        :param model: Neural Network to use.
+        :param train_data: Train data to be fed
+        :param test_data: Test/Validation data to evaluate.
+        :keyword model_kwargs: (dict, LightningModelInit)
+            Lightning Model kweyword arguments.
+        :keyword verbose: (int, 1)
+            Verbosity level.
+        :keyword summary_depth: (int, 3)
+            Depth of the torchinfo.summary()
+        :keyword batch_size: (int, 32)
+            Batch_size to use.
+        :keyword resume_training: (bool, False)
+            Whether to resume training from checkpoint or not.
         """
         kwargs = self._default_config(TrainerCall, **kwargs)
         if not isinstance(model, pl.LightningModule):
-            self.model = LightningModel(model, **kwargs.get('model_kwargs'))
+            model_kwargs = self._default_config(LightningModelInit, **kwargs.get('model_kwargs'))
+            self.model = LightningModel(model, **model_kwargs)
         else:
             # Initialized class
             self.model = model
@@ -70,7 +95,8 @@ class Trainer(BaseClass):
                                    batch_size=kwargs.get('batch_size'),
                                    drop_last=True,
                                    shuffle=False)
-
+        if kwargs.get('verbose') > 0:
+            print(f'Training using device: {self.trainer.accelerator}')
         with warnings.catch_warnings():
             warnings.filterwarnings('ignore',
                                     r'.*does not have many workers.*|'
@@ -80,3 +106,4 @@ class Trainer(BaseClass):
                              train_data, test_data,
                              ckpt_path=ModelCkptDir.get(
                                  'ckpt_dir') + f'{self.model.model_name}' if kwargs.get('resume_training') else None)
+        return self.model

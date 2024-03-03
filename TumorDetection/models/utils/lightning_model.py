@@ -1,6 +1,6 @@
+from typing import Tuple, List
 import lightning.pytorch as pl
 import torch
-import torch.nn.functional as tfn
 from torch.optim.lr_scheduler import PolynomialLR
 
 from TumorDetection.utils.base import BaseClass
@@ -12,13 +12,32 @@ class LightningModel(pl.LightningModule, BaseClass):
     """
     Base Model wrapper for using EFSNet model
     """
-    def __init__(self, model, **kwargs):
+    def __init__(self, model: [torch.nn.Module, type], **kwargs):
         """
         Class constructor
-        :param model: (torch.Module)
-            Neural network initialized or not
-        :param kwargs: (dict)
-            GNNModelInit attributes.
+        :param model: EFSNet Neural network initialized or not
+        :keyword model_name: (str, 'EFSNet')
+            Model name identifier.
+        :keyword description: (Optional[str], 'EFSNet')
+            Description of current model.
+        :keyword pos_weight: (Union[int, float], 5)
+            Positive weight in segmentation binary crossentropy loss.
+        :keyword ignore_index: (int, -100)
+            Ignore class in classifier crossentropy loss
+        :keyword class_weights: (Tuple[Union[int, float],...])
+            Class Weight to give to classfier crosentropy loss.
+        :keyword metrics: (dict[str, Callable], {})
+            Metrics to watch.
+        :keyword optimizer: (torch.optim, torch.optim.Adam)
+            Optimizer to use.
+        :keyword monitor: (str, 'val_loss')
+            Metric to monitor while training
+        :keyword frequency: (int, 1)
+            Number of steps until monitoring again.
+        :keyword resume_training: (bool, False)
+            Resume training or not.
+        :keyword model_kwargs: (Optional[dict], EFSNetInit)
+            Params of EFSNet model if not built.
         """
         super().__init__()
         kwargs = self._default_config(LightningModelInit, **kwargs)
@@ -33,6 +52,8 @@ class LightningModel(pl.LightningModule, BaseClass):
                                    device=Device.get('device')))
         self.metrics = kwargs.get('metrics')
         self.optimizer = kwargs.get('optimizer')
+        self.optimizer_params = self._default_config(OptimizerParams, **kwargs.get('optimizer_params'))
+        self.scheduler_params = self._default_config(PolyLRParams, **kwargs.get('scheduler_params'))
         self.monitor = kwargs.get('monitor')
         self.frequency = kwargs.get('frequency')
         self.resume_training = kwargs.get('resume_training')
@@ -44,24 +65,25 @@ class LightningModel(pl.LightningModule, BaseClass):
             # Initialized class
             self.model = model
 
-    def forward(self, batch):
+    def forward(self, batch: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Runs forward
-        :param batch:
-        :return:
+        :param batch: torch images batch
+        :return: tuple of predictions for batch.
         """
         return self.model(batch)
 
-    def shared_eval_step(self, batch, name):
+    def shared_eval_step(self, batch: List[torch.Tensor, ...], name: str) -> dict:
         """
         Shared computation across training, validation, evaluation and testing.
-        :param batch:
-        :param name:
-        :return:
+        :param batch: List with evaluation batch as [images tensor, masks tensor, classes tensor]
+        :param name: Name of the step.
+        :return: Metrics evaluations for the step.
         """
         seg_logits, lab_logits = self.model.forward(batch[0])
-        loss_seg = self.loss_seg(seg_logits[torch.where(batch[2] > 0)],
-                                 batch[1][torch.where(batch[2] > 0)])
+        seg_loss_mask = torch.where(torch.as_tensor(batch[2] > 0))
+        loss_seg = self.loss_seg(seg_logits[seg_loss_mask],
+                                 batch[1][seg_loss_mask])
         loss_lab = self.loss_lab(lab_logits, batch[2])
         metrics = {}
         for metric in self.metrics:
@@ -81,9 +103,11 @@ class LightningModel(pl.LightningModule, BaseClass):
         metrics = {**metrics, **{f"{name}_loss": loss_lab + loss_seg}}
         return metrics
 
-    def training_step(self, batch, batch_idx):
+    def training_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor) -> torch.Tensor:
         """
         Training step. Overriden.
+        :param batch: Batch to pass.
+        :param batch_idx: Use in overriden function.
         """
         metrics = self.shared_eval_step(batch, 'train')
         for k, v in metrics.items():
@@ -91,9 +115,11 @@ class LightningModel(pl.LightningModule, BaseClass):
         return metrics['train_loss']
 
     @torch.no_grad()
-    def validation_step(self, batch, batch_idx):
+    def validation_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor) -> torch.Tensor:
         """
         Validation step. Overriden.
+        :param batch: Batch to pass.
+        :param batch_idx: Use in overriden function.
         """
         metrics = self.shared_eval_step(batch, 'val')
         for k, v in metrics.items():
@@ -101,25 +127,34 @@ class LightningModel(pl.LightningModule, BaseClass):
         return metrics['val_loss']
 
     @torch.no_grad()
-    def test_step(self, batch, batch_idx):
+    def test_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor) -> torch.Tensor:
         """
         Test step. Overriden.
+        :param batch: Batch to pass.
+        :param batch_idx: Use in overriden function.
         """
         metrics = self.shared_eval_step(batch, 'test')
         for k, v in metrics.items():
-            self.log(k, v, prog_bar=True, on_step=True, on_epoch=True, batch_size=len(batch['image']))
+            self.log(k, v, prog_bar=True, on_step=True, on_epoch=True, batch_size=len(batch[0]))
         return metrics['test_loss']
 
     @torch.no_grad()
-    def predict_step(self, batch, batch_idx, dataloader_idx=0):
+    def predict_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor,
+                     dataloader_idx: int = 0) -> torch.Tensor:
+        """
+        Prediction step. Overriden.
+        :param batch: Batch to pass.
+        :param batch_idx: Use in overriden function.
+        :param dataloader_idx: use in overriden function
+        """
         y_pred_logits, _ = torch.argmax(self.model(batch), -1)
         y_pred = torch.argmax(y_pred_logits, -1)
         return y_pred
 
     def configure_optimizers(self):
-        optimizer = self.optimizer(self.model.parameters(), **OptimizerParams.to_dict())
+        optimizer = self.optimizer(self.model.parameters(), **self.optimizer_params)
         scheduler = {
-            "scheduler": PolynomialLR(optimizer, **PolyLRParams.to_dict()),  # TODO Find better Scheduler
+            "scheduler": PolynomialLR(optimizer, **self.scheduler_params),
             "monitor": self.monitor,
             "frequency": self.frequency
         }

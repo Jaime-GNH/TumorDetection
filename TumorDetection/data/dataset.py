@@ -1,3 +1,4 @@
+from typing import List, Optional, Any
 import cv2
 import numpy as np
 import random
@@ -15,12 +16,27 @@ class TorchDataset(Dataset, BaseClass):
     """
     Torch Image Dataset from DataPathLoader
     """
-    def __init__(self, paths, **kwargs):
+    def __init__(self, paths: List[str, List[Optional[str]], List[Optional[int]]],
+                 **kwargs):
         """
-
+        Torch Dataset class constructor.
         :param paths: DataPathLoader __call__ output
-        :param kwargs:
-        :return:
+        :keyword resize_dim: (Tuple[int,int])
+            Image resize dimension.
+        :keyword output_dim: (Tuple[int,int])
+            Image output (model input) dimension.
+        :keyword rotation_degrees: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
+            Rotation degrees margins.
+        :keyword range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
+            Max brightness adjustement possible or range in min-max brightness
+        :keyword range_saturation: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
+            Max saturation adjustment possible or range in min-max saturation.
+        :keyword range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
+            Max contrast adjustment possible or range in min-max contrast.
+        :keyword horizontal_flip_prob: Optional[float]
+            Horizontal flip over image probability.
+        :keyword vertical_flip_prob: Optional[float]
+            Vertical flip over image probability.
         """
 
         self.kwargs = self._default_config(TorchDatasetInit, **kwargs)
@@ -61,35 +77,35 @@ class TorchDataset(Dataset, BaseClass):
                              antialias=None,
                              interpolation=tt.InterpolationMode.NEAREST_EXACT)(mask)
 
-        if self.kwargs.get('rotatation_degrees') is not None:
-            angle = tt.RandomRotation.get_params(self.kwargs.get('rotatation_degrees'))
+        if angle := self.kwargs.get('rotatation_degrees') is not None:
+            angle = self._get_random_param(angle, 'rotation_degrees')
             image = tf.rotate(image, angle, tt.InterpolationMode.BILINEAR)
             mask = tf.rotate(mask, angle, tt.InterpolationMode.NEAREST_EXACT)
 
-        if self.kwargs.get('max_brightness') is not None:
-            brightness = random.random()*self.kwargs.get('max_brightness')
+        if brightness := self.kwargs.get('range_brightness') is not None:
+            brightness = self._get_random_param(brightness, 'range_brightness')
             image = tf.adjust_brightness(image, brightness_factor=brightness)
             mask = tf.adjust_brightness(mask, brightness_factor=brightness)
 
-        if self.kwargs.get('max_contrast') is not None:
-            contrast = random.random() * self.kwargs.get('max_contrast')
+        if contrast := self.kwargs.get('range_contrast') is not None:
+            contrast = self._get_random_param(contrast, 'max_contrast')
             image = tf.adjust_contrast(image, contrast_factor=contrast)
             mask = tf.adjust_contrast(mask, contrast_factor=contrast)
 
-        if self.kwargs.get('max_saturation') is not None:
-            saturation = random.random() * self.kwargs.get('max_saturation')
+        if saturation := self.kwargs.get('range_saturation') is not None:
+            saturation = self._get_random_param(saturation, 'range_saturation')
             image = tf.adjust_saturation(image, saturation_factor=saturation)
             mask = tf.adjust_saturation(mask, saturation_factor=saturation)
 
         # Random horizontal flipping
-        if self.kwargs.get('horizontal_flip_prob') is not None:
-            if random.random() > self.kwargs.get('horizontal_flip_prob'):
+        if hflip_prob := self.kwargs.get('horizontal_flip_prob') is not None:
+            if random.random() > hflip_prob:
                 image = tf.hflip(image)
                 mask = tf.hflip(mask)
 
         # Random vertical flipping
-        if self.kwargs.get('vertical_flip_prob') is not None:
-            if random.random() > self.kwargs.get('vertical_flip_prob'):
+        if vflip_prob := self.kwargs.get('vertical_flip_prob') is not None:
+            if random.random() > vflip_prob:
                 image = tf.vflip(image)
                 mask = tf.vflip(mask)
 
@@ -101,3 +117,18 @@ class TorchDataset(Dataset, BaseClass):
         return (image,
                 mask,
                 label)
+
+    @staticmethod
+    def _get_random_param(param: Any, name: Optional[str] = None) -> float:
+        """
+        Check if specified param in __getitem__ is well typed and return the randomized parameter to use.
+        :param param: Parameter to be checked
+        :param name: Parameter name
+        :return: parameter to use.
+        """
+        if isinstance(param, int):
+            return random.random() * param
+        elif isinstance(param, tuple):
+            return param[0] + random.random() * (param[1] - param[0])
+        else:
+            raise TypeError(f'param {name} bust be None, int or tuple. Got {type(param)}')

@@ -10,10 +10,9 @@ setup(
     install_requires=[
         'pip==23.2.1',
         'torch==2.1.1',
-        'keras==3.0.2',
-        'patchify==0.2.3',
+        'torchvision==0.16.1',
         'torchmetrics==1.2.0',
-        'torch_geometric==2.4.0',
+        'torchinfo==1.8.0',
         'lightning==2.1.0',
         'opencv-python==4.8.1.78',
         'numpy==1.26.0',

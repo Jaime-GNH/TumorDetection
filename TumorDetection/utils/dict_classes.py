@@ -1,48 +1,55 @@
+from typing import Any
 import os
-os.environ['KERAS_BACKEND'] = 'torch'
 import cv2
 import torch
-from keras.optimizers import Adam, schedules as ksh
-from keras.losses import SparseCategoricalCrossentropy
-from keras.metrics import SparseCategoricalAccuracy, MeanIoU
-import torch_geometric as tg
-from torchmetrics.functional import accuracy, jaccard_index
+# from torchmetrics.functional import accuracy, jaccard_index
 
 from TumorDetection.utils.working_dir import WorkingDir
 
 
 class DictClass:
-
+    """
+    Dictionary as class
+    """
     @classmethod
-    def to_dict(cls):
+    def to_dict(cls) -> dict:
         """
-
-        :return:
+        Class to dictionary
+        :return: cls as dict
         """
         return {k: v for k, v in vars(cls).items() if not k.startswith('__')}
 
     @classmethod
-    def get(cls, name):
+    def get(cls, name: str) -> Any:
         """
-
-        :return:
+        Getter param
+        :return: Value from class.
         """
         return vars(cls)[name]
 
 
 # [MAPS]
 class ClassValues(DictClass):
+    """
+    Classes in BUSI dataset.
+    """
     normal = 0
     benign = 1
     malignant = 2
 
 
 class MappedClassValues(DictClass):
+    """
+    Mapping to get binary classification.
+    """
     normal = 0
     tumor = 1
 
 
 class BaseClassMap(DictClass):
+    """
+    Mapping from a class to another.
+    """
     normal = 'normal'
     benign = 'tumor'
     malignant = 'tumor'
@@ -50,18 +57,30 @@ class BaseClassMap(DictClass):
 
 # [PARAMS]
 class Verbosity(DictClass):
+    """
+    Verbosity level
+    """
     verbose = 1
 
 
 class Mask(DictClass):
+    """
+    Use Mask
+    """
     mask = True
 
 
 class Device(DictClass):
+    """
+    Device for computing torch.
+    """
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
 class DataPathDir(DictClass):
+    """
+    Data Path Directory
+    """
     cw = WorkingDir.set_wd()
     dir_path = [
         os.path.join(dir_path, 'Dataset_BUSI_with_GT')
@@ -72,6 +91,9 @@ class DataPathDir(DictClass):
 
 
 class ResourcesPathDir(DictClass):
+    """
+    Resources Path Directory
+    """
     cw = WorkingDir.set_wd()
     dir_path = [
         os.path.join(dir_path, 'resources')
@@ -82,6 +104,9 @@ class ResourcesPathDir(DictClass):
 
 
 class ReportingPathDir(DictClass):
+    """
+    Reporting Path Directory
+    """
     cw = WorkingDir.set_wd()
     dir_path = [
         os.path.join(dir_path, 'reporting')
@@ -92,6 +117,9 @@ class ReportingPathDir(DictClass):
 
 
 class ModelCkptDir(DictClass):
+    """
+    Model Checkpoint Path Directory
+    """
     cw = WorkingDir.set_wd()
     ckpt_dir = [
         os.path.join(dir_path, 'reporting/ckpt')
@@ -102,6 +130,9 @@ class ModelCkptDir(DictClass):
 
 
 class ViewerClsParams(DictClass):
+    """
+    cv2 module Viewer params.
+    """
     win_title = 'Viewer'
     mask_colormap = cv2.COLORMAP_RAINBOW
     mask_alpha_weight = 0.3
@@ -109,34 +140,18 @@ class ViewerClsParams(DictClass):
     mask_gamma_weight = 0
 
 
-class ModelCheckpointParams(DictClass):
-    save_best_only = True
-    save_weights_only = True
-    verbose = 1 if Verbosity.get('verbose') > 0 else 0
-
-
-class CompileParams(DictClass):
-    optimizer = Adam(
-        learning_rate=ksh.PolynomialDecay(
-            initial_learning_rate=5e-4,
-            end_learning_rate=1e-7,
-            decay_steps=2000,
-            cycle=True
-        ),
-        weight_decay=0.0004,
-        ema_momentum=0.9
-    )
-    class_weights = [1., 3, 3]
-    ignore_index = -100
-    pos_weight = 5
-
-
 class PolyLRParams(DictClass):
+    """
+    Poly Learning Rate Schedules Params.
+    """
     power = 0.9
-    total_iters = 10
+    total_iters = 10000
 
 
 class OptimizerParams(DictClass):
+    """
+    Optimizer torch.optim.Adam params.
+    """
     lr = 5e-4
     betas = (0.9, 0.999)
     eps = 1e-8
@@ -145,6 +160,9 @@ class OptimizerParams(DictClass):
 
 
 class LightningTrainerParms(DictClass):
+    """
+    Lightning Trainer Params.
+    """
     accelerator = 'auto'
     strategy = 'auto'
     devices = -1
@@ -162,81 +180,60 @@ class LightningTrainerParms(DictClass):
 
 # [DEFAULT CONFIGS]
 class DataPathLoaderCall(DictClass):
+    """
+    DataPathLoader __call__() keyword arguments
+    """
     find_masks = Mask.get('mask')
     map_classes = None  # BaseClassMap.to_dict()
     pair_masks = True*Mask.get('mask')
 
 
-class ImageLoaderCall(DictClass):
-    read_mode = 'gray'
-    class_values = (ClassValues.to_dict()
-                    if DataPathLoaderCall.get('map_classes') is None else
-                    MappedClassValues.to_dict())
-
-
-class PatchDatasetCall(DictClass):
-    normalize = True
-    resize = True
-    resize_dim = (512, 512)
-    interpolation_method = cv2.INTER_AREA
-    patch_dim = (256, 256)
-    patch_step = 64
-    test_size = 0.1
-    mode = 'patches'
-    shuffle = True
-    random_state = 1234567890
-    filter_empty = True
-
-
 class TorchDatasetInit(DictClass):
+    """
+    TorchDataset __init__() keyword arguments
+    """
     resize_dim = (512, 512)
     output_dim = (256, 256)
     rotation_degrees = 45
-    max_brightness = 5
-    max_contrast = 5
-    max_saturation = 5
+    range_brightness = (0.25, 5)
+    range_contrast = (0.25, 5)
+    range_saturation = (0.25, 5)
     horizontal_flip_prob = 0.5
     vertical_flip_prob = 0.5
 
 
-class EfficientNetInit(DictClass):
-    groups = 2
-    dr_rate = 0.2
-    num_factorized_blocks = 4
-    num_super_sdc_blocks = 2
-    max_filters = 128
-    activation_layer = 'prelu'
-    kernel_initializer = 'he_uniform'
-    use_bias = False
-
-
 class EFSNetInit(DictClass):
+    """
+    EFSNet __init__() keyword arguments
+    """
     verbose = Verbosity.get('verbose')
     input_shape = (1, *TorchDatasetInit.get('output_dim'))
-    num_classes = len(ImageLoaderCall.get('class_values'))
-    filters = 128
+    num_classes = len((ClassValues.to_dict()
+                       if DataPathLoaderCall.get('map_classes') is None else
+                       MappedClassValues.to_dict()))
+    out_channels = 128
     dr_rate = 0.2
     groups = 2
     bias = False
     num_factorized_blocks = 4
     num_super_sdc_blocks = 2
     num_sdc_per_supersdc = 4
-    # pos_weight = 5
-    # ignore_index = -100
-    # class_weights = [1., 3., 3.]
-    # EfficientNetInit = EfficientNetInit.to_dict()
     device = Device.get('device')
-    name = 'EFSNet'
 
 
 class LightningModelInit(DictClass):
+    """
+    LightiningModel __init__() keyword arguments
+    """
     model_name = 'EFSNet'
     description = 'EFSNet base'
     metrics = {
-        'accuracy': accuracy,
-        'jaccard': jaccard_index
+        # 'accuracy': accuracy,
+        # 'jaccard': jaccard_index
     }
     optimizer = torch.optim.Adam
+    optimizer_params = OptimizerParams.to_dict()
+    scheduler_params = PolyLRParams.to_dict()
     monitor = 'val_loss'
     frequency = 1
     pos_weight = 5
@@ -248,6 +245,9 @@ class LightningModelInit(DictClass):
 
 
 class TrainerInit(DictClass):
+    """
+    Trainer __init__() keyword arguments
+    """
     use_modelcheckpoint = True
     logger = True
     lightning_trainer_params = LightningTrainerParms.to_dict()
@@ -255,6 +255,9 @@ class TrainerInit(DictClass):
 
 
 class TrainerCall(DictClass):
+    """
+    Trainer __call__() keyword arguments
+    """
     verbose = Verbosity.get('verbose')
     summary_depth = 3
     model_kwargs = LightningModelInit.to_dict()
