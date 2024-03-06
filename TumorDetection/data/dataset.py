@@ -1,4 +1,4 @@
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Union
 import cv2
 import numpy as np
 import random
@@ -16,7 +16,7 @@ class TorchDataset(Dataset, BaseClass):
     """
     Torch Image Dataset from DataPathLoader
     """
-    def __init__(self, paths: List[str, List[Optional[str]], List[Optional[int]]],
+    def __init__(self, paths: List[Union[str, List[Optional[str]]]],
                  **kwargs):
         """
         Torch Dataset class constructor.

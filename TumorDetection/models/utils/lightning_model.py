@@ -1,6 +1,8 @@
+import os
 from typing import Tuple, List
 import lightning.pytorch as pl
 import torch
+from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import PolynomialLR
 
 from TumorDetection.utils.base import BaseClass
@@ -65,6 +67,17 @@ class LightningModel(pl.LightningModule, BaseClass):
             # Initialized class
             self.model = model
 
+    @classmethod
+    def load(cls, ckpt_dir: str, model_name: str,
+             model: type, nn_kwargs: dict) -> pl.LightningModule:
+        pretrained_filename = os.path.join(ckpt_dir, model_name + '.ckpt')
+        if os.path.isfile(pretrained_filename):
+            print(f'Found pretrained model: {os.path.basename(pretrained_filename)}')
+            return cls.load_from_checkpoint(pretrained_filename, model=model,
+                                            model_kwargs=nn_kwargs)
+        else:
+            raise ValueError(f'Could not find pretrained checkpoint: {pretrained_filename}')
+
     def forward(self, batch: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Runs forward
@@ -73,7 +86,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         """
         return self.model(batch)
 
-    def shared_eval_step(self, batch: List[torch.Tensor, ...], name: str) -> dict:
+    def shared_eval_step(self, batch: List[torch.Tensor], name: str) -> dict:
         """
         Shared computation across training, validation, evaluation and testing.
         :param batch: List with evaluation batch as [images tensor, masks tensor, classes tensor]
@@ -103,7 +116,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         metrics = {**metrics, **{f"{name}_loss": loss_lab + loss_seg}}
         return metrics
 
-    def training_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor) -> torch.Tensor:
+    def training_step(self, batch: List[torch.Tensor], batch_idx: torch.Tensor) -> torch.Tensor:
         """
         Training step. Overriden.
         :param batch: Batch to pass.
@@ -115,7 +128,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         return metrics['train_loss']
 
     @torch.no_grad()
-    def validation_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor) -> torch.Tensor:
+    def validation_step(self, batch: List[torch.Tensor], batch_idx: torch.Tensor) -> torch.Tensor:
         """
         Validation step. Overriden.
         :param batch: Batch to pass.
@@ -127,7 +140,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         return metrics['val_loss']
 
     @torch.no_grad()
-    def test_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor) -> torch.Tensor:
+    def test_step(self, batch: List[torch.Tensor], batch_idx: torch.Tensor) -> torch.Tensor:
         """
         Test step. Overriden.
         :param batch: Batch to pass.
@@ -139,7 +152,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         return metrics['test_loss']
 
     @torch.no_grad()
-    def predict_step(self, batch: List[torch.Tensor, ...], batch_idx: torch.Tensor,
+    def predict_step(self, batch: List[torch.Tensor], batch_idx: torch.Tensor,
                      dataloader_idx: int = 0) -> torch.Tensor:
         """
         Prediction step. Overriden.
@@ -147,8 +160,18 @@ class LightningModel(pl.LightningModule, BaseClass):
         :param batch_idx: Use in overriden function.
         :param dataloader_idx: use in overriden function
         """
-        y_pred_logits, _ = torch.argmax(self.model(batch), -1)
-        y_pred = torch.argmax(y_pred_logits, -1)
+        return self.model.forward(batch)
+
+    @torch.no_grad()
+    def predict(self, dataloader: DataLoader) -> List:
+        """
+
+        :param dataloader: Dataloader to predict
+        :return:
+        """
+        y_pred = []
+        for batch_idx, batch in enumerate(dataloader):
+            y_pred.extend(self.predict_step(batch=batch, batch_idx=batch_idx))
         return y_pred
 
     def configure_optimizers(self):

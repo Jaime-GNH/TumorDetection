@@ -439,7 +439,7 @@ class Encoder(torch.nn.Module):
             for _ in range(num_super_sdc_blocks)
         ])
 
-    def forward(self, x: torch.Tensor) -> List[torch.Tensor, torch.Tensor, torch.Tensor]:
+    def forward(self, x: torch.Tensor) -> List[torch.Tensor]:
         """
         Forward call
         :param x: incoming tensor

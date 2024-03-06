@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Union
 import glob
 
 
@@ -18,7 +18,7 @@ class DataPathLoader(BaseClass):
         else:
             self.imgs_paths = [x for x in glob.glob(dir_path + r'\*\*).png') if substring_filter not in x]
 
-    def __call__(self, **kwargs) -> List[str, List[Optional[str]], List[Optional[int]]]:
+    def __call__(self, **kwargs) -> List[Union[str, List[Optional[str]]]]:
         """
         Returns the image, masks, class pairings in BUSI Dataset.
         :keyword find_mask: (bool, True)

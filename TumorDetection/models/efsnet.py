@@ -39,6 +39,7 @@ class EFSNet(torch.nn.Module, BaseClass):
         """
         super().__init__()
         kwargs = self._default_config(EFSNetInit, **kwargs)
+        self.kwargs = kwargs
         self.device = kwargs.get('device')
         self.input_shape = kwargs.get('input_shape')
         self.num_classes = kwargs.get('num_classes')

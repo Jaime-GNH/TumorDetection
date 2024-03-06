@@ -11,8 +11,8 @@ import warnings
 from TumorDetection.utils.base import BaseClass
 from TumorDetection.utils.dict_classes import (TrainerInit, TrainerCall, ModelCkptDir,
                                                LightningTrainerParms, LightningModelInit)
-from models.utils.lightning_model import LightningModel
-from models.utils.callbacks import ProgressBar
+from TumorDetection.models.utils.lightning_model import LightningModel
+from TumorDetection.models.utils.callbacks import ProgressBar, PtModelCheckpoint
 
 
 class Trainer(BaseClass):
@@ -38,6 +38,11 @@ class Trainer(BaseClass):
                      LearningRateMonitor(logging_interval='epoch')]
         if self.use_modelcheckpoint:
             callbacks.append(ModelCheckpoint(
+                dirpath=ModelCkptDir.get('ckpt_dir'),
+                filename=kwargs.get('model_name'),
+                monitor="val_loss"
+            ))
+            callbacks.append(PtModelCheckpoint(
                 dirpath=ModelCkptDir.get('ckpt_dir'),
                 filename=kwargs.get('model_name'),
                 monitor="val_loss"
