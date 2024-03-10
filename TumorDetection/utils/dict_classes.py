@@ -60,7 +60,7 @@ class Verbosity(DictClass):
     """
     Verbosity level
     """
-    verbose = 1
+    verbose = 3
 
 
 class Mask(DictClass):
@@ -159,110 +159,6 @@ class OptimizerParams(DictClass):
     amsgrad = False
 
 
-class LightningTrainerParms(DictClass):
-    """
-    Lightning Trainer Params.
-    """
-    accelerator = 'auto'
-    strategy = 'auto'
-    devices = -1
-    max_epochs = 1000
-    num_sanity_val_steps = 0
-    precision = '32'
-    log_every_n_steps = 1
-    accumulate_grad_batches = 1
-    enable_progress_bar = True
-    enable_model_summary = False
-    gradient_clip_val = None
-    gradient_clip_algorithm = 'norm'
-    deterministic = False
-
-
-# [DEFAULT CONFIGS]
-class DataPathLoaderCall(DictClass):
-    """
-    DataPathLoader __call__() keyword arguments
-    """
-    find_masks = Mask.get('mask')
-    map_classes = None  # BaseClassMap.to_dict()
-    pair_masks = True*Mask.get('mask')
-
-
-class TorchDatasetInit(DictClass):
-    """
-    TorchDataset __init__() keyword arguments
-    """
-    resize_dim = (512, 512)
-    output_dim = (256, 256)
-    rotation_degrees = 45
-    range_brightness = (0.25, 5)
-    range_contrast = (0.25, 5)
-    range_saturation = (0.25, 5)
-    horizontal_flip_prob = 0.5
-    vertical_flip_prob = 0.5
-
-
-class EFSNetInit(DictClass):
-    """
-    EFSNet __init__() keyword arguments
-    """
-    verbose = Verbosity.get('verbose')
-    input_shape = (1, *TorchDatasetInit.get('output_dim'))
-    num_classes = len((ClassValues.to_dict()
-                       if DataPathLoaderCall.get('map_classes') is None else
-                       MappedClassValues.to_dict()))
-    out_channels = 128
-    dr_rate = 0.2
-    groups = 2
-    bias = False
-    num_factorized_blocks = 4
-    num_super_sdc_blocks = 2
-    num_sdc_per_supersdc = 4
-    device = Device.get('device')
-
-
-class LightningModelInit(DictClass):
-    """
-    LightiningModel __init__() keyword arguments
-    """
-    model_name = 'EFSNet'
-    description = 'EFSNet base'
-    metrics = {
-        # 'accuracy': accuracy,
-        # 'jaccard': jaccard_index
-    }
-    optimizer = torch.optim.Adam
-    optimizer_params = OptimizerParams.to_dict()
-    scheduler_params = PolyLRParams.to_dict()
-    monitor = 'val_loss'
-    frequency = 1
-    pos_weight = 5
-    ignore_index = -100
-    class_weights = [1., 3., 3.]
-    save_hyperparameters = True
-    resume_training = False
-    model_kwargs = EFSNetInit.to_dict()
-
-
-class TrainerInit(DictClass):
-    """
-    Trainer __init__() keyword arguments
-    """
-    use_modelcheckpoint = True
-    logger = True
-    lightning_trainer_params = LightningTrainerParms.to_dict()
-    model_name = LightningModelInit.get('model_name')
-
-
-class TrainerCall(DictClass):
-    """
-    Trainer __call__() keyword arguments
-    """
-    verbose = Verbosity.get('verbose')
-    summary_depth = 3
-    model_kwargs = LightningModelInit.to_dict()
-    batch_size = 32
-    resume_training = False
 
 
 class BaseUpdateLayout(DictClass):

@@ -1,8 +1,6 @@
 from typing import Optional, List, Union
 import glob
 
-
-from TumorDetection.utils.dict_classes import DataPathLoaderCall
 from TumorDetection.utils.base import BaseClass
 
 
@@ -18,23 +16,18 @@ class DataPathLoader(BaseClass):
         else:
             self.imgs_paths = [x for x in glob.glob(dir_path + r'\*\*).png') if substring_filter not in x]
 
-    def __call__(self, **kwargs) -> List[Union[str, List[Optional[str]]]]:
+    def __call__(self, find_masks: bool = True, map_classes: Optional[dict] = None,
+                 pair_masks: bool = True, **kwargs) -> List[Union[str, List[Optional[str]]]]:
         """
         Returns the image, masks, class pairings in BUSI Dataset.
-        :keyword find_mask: (bool, True)
-            Whether to find associated mask or not
-        :keyword map_classes: (Optional[bool])
-            A dicionary mapping each class value to an integer.
-        :keyword pair_masks: (bool, True)
-            If consider multiple mask of a single image as the same mask or not.
+        :keyword find_mask: Whether to find associated mask or not
+        :keyword map_classes: A dicionary mapping each class value to an integer.
+        :keyword pair_masks: If consider multiple mask of a single image as the same mask or not.
         :return: List of (images paths, list of possible masks, classes for each mask)
         """
-        kwargs = self._default_config(DataPathLoaderCall, **kwargs)
-        if kwargs.get('find_masks', True):
+        if find_masks:
             self.masks_paths = self._find_masks()
             self.classes = [[path.split('\\')[-2] for path in mask_paths] for mask_paths in self.masks_paths]
-            map_classes = kwargs.get('map_classes')
-            pair_masks = kwargs.get('pair_masks', True)
 
             if map_classes is not None:
                 self.classes = self._map_classes(map_classes)

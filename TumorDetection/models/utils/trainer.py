@@ -1,5 +1,5 @@
 import os.path
-from typing import Union
+from typing import Union, Optional
 import lightning.pytorch as pl
 import torch.nn
 from lightning.pytorch.callbacks import ModelCheckpoint, LearningRateMonitor
@@ -9,106 +9,173 @@ from torchinfo import summary
 import warnings
 
 from TumorDetection.utils.base import BaseClass
-from TumorDetection.utils.dict_classes import (TrainerInit, TrainerCall, ModelCkptDir,
-                                               LightningTrainerParms, LightningModelInit)
-from TumorDetection.models.utils.lightning_model import LightningModel
 from TumorDetection.models.utils.callbacks import ProgressBar, PtModelCheckpoint
+from TumorDetection.models.utils.lightning_model import LightningModel
+from TumorDetection.models.utils.load import load_model, load_ckpt
 
 
 class Trainer(BaseClass):
     """
     Trainer wrapper for torch using pytorch Lightning.
     """
-    def __init__(self, **kwargs):
+    def __init__(self, model_name: Optional[str] = 'EFSNet', max_epochs: int = 1001,
+                 use_model_ckpt: bool = True, ckpt_dir: str = os.getcwd(),
+                 force_ckpt_dir: bool = True,
+                 limit_train_batches: Optional[int] = None, limit_val_batches: Optional[int] = None,
+                 limit_test_batches: Optional[int] = None, greadient_clip_val: Optional[float] = None,
+                 accelerator: str = 'auto', logger: bool = True, seed: Optional[int] = None,
+                 verbose: int = 1):
         """
         Trainer class constructor
-        :keyword lightning_trainer_params: (dict, LightningTrainerParms)
-            Keyword arguments to use in ligning trainer.
-        :keyword use_modelcheckpoint: (bool)
-            Use model_checkpoint or not.
-        :keyword model_name: (str)
-            Lightning Model model_name.
-        :keyword logger: (bool)
-            Use TensorBoard logger ot not
+        :param model_name:
+        :param max_epochs:
+        :param use_model_ckpt:
+        :param ckpt_dir:
+        :param force_ckpt_dir:
+        :param limit_train_batches:
+        :param limit_val_batches:
+        :param limit_test_batches:
+        :param greadient_clip_val:
+        :param accelerator:
+        :param logger:
+        :param seed:
+        :param verbose:
         """
-        kwargs = self._default_config(TrainerInit, **kwargs)
-        self.trainer_params = self._default_config(LightningTrainerParms, **kwargs.get('lightning_trainer_params'))
-        self.use_modelcheckpoint = kwargs.get('use_modelcheckpoint')
-        callbacks = [ProgressBar(),
-                     LearningRateMonitor(logging_interval='epoch')]
-        if self.use_modelcheckpoint:
-            callbacks.append(ModelCheckpoint(
-                dirpath=ModelCkptDir.get('ckpt_dir'),
-                filename=kwargs.get('model_name'),
-                monitor="val_loss"
-            ))
-            callbacks.append(PtModelCheckpoint(
-                dirpath=ModelCkptDir.get('ckpt_dir'),
-                filename=kwargs.get('model_name'),
-                monitor="val_loss"
-            ))
-        if kwargs.get('logger'):
-            os.makedirs(os.path.abspath(os.path.join(ModelCkptDir.get('ckpt_dir'), kwargs.get('model_name'))),
+        self.model_name = model_name
+        self.verbose = verbose
+        self.ckpt_dir = os.path.abspath(ckpt_dir)
+        if force_ckpt_dir:
+            os.makedirs(self.ckpt_dir, exist_ok=True)
+        if seed is not None:
+            pl.seed_everything(seed)
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
+
+        if logger:
+            os.makedirs(os.path.abspath(os.path.join(self.ckpt_dir, self.model_name)),
                         exist_ok=True)
-            logger = TensorBoardLogger(save_dir=ModelCkptDir.get('ckpt_dir'), name=kwargs.get('model_name'))
+            logger = TensorBoardLogger(save_dir=ckpt_dir, name=model_name)
         else:
             logger = False
-        self.trainer = pl.Trainer(callbacks=callbacks,
-                                  logger=logger,
-                                  **self.trainer_params)
+        callbacks = [ProgressBar(),
+                     LearningRateMonitor(logging_interval='epoch')]
+        if use_model_ckpt:
+            callbacks.append(ModelCheckpoint(
+                dirpath=self.ckpt_dir,
+                filename=self.model_name,
+                monitor="val_loss", mode='min',
+                enable_version_counter=False,
+                verbose=self.verbose > 1
+            ))
+            callbacks.append(PtModelCheckpoint(
+                dirpath=self.ckpt_dir,
+                filename=self.model_name,
+                monitor="val_loss", mode='min',
+                verbose=self.verbose > 1
+            ))
+            self.ckpt_path = os.path.join(self.ckpt_dir, self.model_name + '.ckpt')
+        self.trainer = pl.Trainer(logger=logger, callbacks=callbacks,
+                                  accelerator=accelerator, max_epochs=max_epochs,
+                                  enable_model_summary=False, enable_progress_bar=True,
+                                  log_every_n_steps=1, num_sanity_val_steps=0,
+                                  limit_train_batches=limit_train_batches,
+                                  limit_val_batches=limit_val_batches,
+                                  limit_test_batches=limit_test_batches,
+                                  gradient_clip_val=greadient_clip_val)
 
     def __call__(self, model: Union[pl.LightningModule, torch.nn.Module, type],
                  train_data: Union[Dataset, DataLoader],
-                 test_data: Union[Dataset, DataLoader], **kwargs) -> pl.LightningModule:
+                 test_data: Union[Dataset, DataLoader],
+                 lightningmodel_params: Optional[dict] = None,
+                 torchmodel_params: Optional[dict] = None,
+                 batch_size: int = 32, from_checkpoint: bool = False,
+                 summary_depth: int = 3,
+                 validate_model: bool = False, test_model: bool = False) -> pl.LightningModule:
         """
         Trainer main function.
         :param model: Neural Network to use.
         :param train_data: Train data to be fed
         :param test_data: Test/Validation data to evaluate.
-        :keyword model_kwargs: (dict, LightningModelInit)
-            Lightning Model kweyword arguments.
-        :keyword verbose: (int, 1)
-            Verbosity level.
-        :keyword summary_depth: (int, 3)
-            Depth of the torchinfo.summary()
-        :keyword batch_size: (int, 32)
-            Batch_size to use.
-        :keyword resume_training: (bool, False)
-            Whether to resume training from checkpoint or not.
+        :param lightningmodel_params: Parameters for LightningModule for initializing if needed
+        :param torchmodel_params: Parameters for Torch Neural Network for initializing if needed
+        :param batch_size: batch size
+        :param from_checkpoint: load model from checkpoint
+        :param summary_depth: Model summary depth to observe
+        :param validate_model: Validate model previous to training
+        :param test_model: Test model after training
+        :return: model trained.
         """
-        kwargs = self._default_config(TrainerCall, **kwargs)
-        if not isinstance(model, pl.LightningModule):
-            model_kwargs = self._default_config(LightningModelInit, **kwargs.get('model_kwargs'))
-            self.model = LightningModel(model, **model_kwargs)
-        else:
-            # Initialized class
-            self.model = model
-        if kwargs.get('verbose') > 0:
-            summary(model, self.model.model.input_shape, batch_dim=0,
-                    col_names=("input_size", "output_size", "num_params", "params_percent"),
-                    depth=kwargs.get('summary_depth'),
-                    row_settings=["var_names"],
-                    device=self.model.device,
-                    verbose=1)
+        if isinstance(model, pl.LightningModule):
+            if self.model_name != model.model_name:
+                warnings.warn(f'Trainer model_name: {self.model_name} and '
+                              f'LightningModule model_name: {model.model_name} are not equal.'
+                              f' Cosidered as intended. Taking trainer model_name.',
+                              UserWarning)
+                model.model_name = self.model_name
+        elif isinstance(model, (torch.nn.Module, type)):
+            if isinstance(model, type):
+                warnings.warn(f'Got a type class but no torchmodule_params'
+                              f'Constructing with default values. Considered as intended.',
+                              UserWarning)
+                model = model(**torchmodel_params)
+            if lightningmodel_params is None:
+                warnings.warn(f'You passed a torch.nn.Module but no lightningmodule_params.'
+                              f'Constructing with default values. Considered as intended.',
+                              UserWarning)
+
+            model = LightningModel(model, lightningmodel_params)
+
+        if self.verbose > 2:
+            if torch.cuda.is_available() and self.trainer.accelerator != 'cpu':
+                print('Torch is using cuda')
+            else:
+                print('Torch is using cpu. Low performance is expected')
+                print('Torch cuda is available:', torch.cuda.is_available())
+                print('Trainer Accelerator:', self.trainer.accelerator)
         if isinstance(train_data, Dataset):
             train_data = DataLoader(train_data,
-                                    batch_size=kwargs.get('batch_size'),
+                                    batch_size=batch_size,
                                     drop_last=True,
                                     shuffle=True)
         if isinstance(test_data, Dataset):
             test_data = DataLoader(test_data,
-                                   batch_size=kwargs.get('batch_size'),
+                                   batch_size=batch_size,
                                    drop_last=True,
                                    shuffle=False)
-        if kwargs.get('verbose') > 0:
-            print(f'Training using device: {self.trainer.accelerator}')
+        if from_checkpoint:
+            model = load_model(self.ckpt_dir, self.model_name, model)
+
+        if self.verbose > 1:
+            print(summary(model, model.model.input_shape, batch_dim=0,
+                          col_names=("input_size", "output_size", "num_params", "params_percent"),
+                          depth=summary_depth,
+                          row_settings=["var_names"],
+                          device=model.device,
+                          verbose=min(1, self.verbose)))
         with warnings.catch_warnings():
             warnings.filterwarnings('ignore',
                                     r'.*does not have many workers.*|'
                                     r'.*exists and is not empty.*|'
                                     r'.*that has Tensor Cores.*')
-            self.trainer.fit(self.model,
-                             train_data, test_data,
-                             ckpt_path=ModelCkptDir.get(
-                                 'ckpt_dir') + f'{self.model.model_name}' if kwargs.get('resume_training') else None)
-        return self.model
+            if validate_model:
+                if self.verbose > 0:
+                    print('Validating model...')
+                self.trainer.validate(model, test_data, verbose=self.verbose > 0)
+            if self.verbose > 0:
+                print('Training model...')
+            self.trainer.fit(model,
+                             train_dataloaders=train_data,
+                             val_dataloaders=test_data)
+        torch.save(model,
+                   os.path.join(self.ckpt_dir, self.model_name + '.pt'))
+        model = load_ckpt(self.ckpt_dir,
+                          self.model_name,
+                          model)
+        if test_model:
+            with warnings.catch_warnings():
+                warnings.filterwarnings('ignore', '.*does not have many workers.*')
+                self.trainer.test(model,
+                                  dataloaders=test_data,
+                                  verbose=self.verbose > 0)
+
+        return model

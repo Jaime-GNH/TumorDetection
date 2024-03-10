@@ -14,8 +14,6 @@ paths = dp()
 tr_paths, val_paths = train_test_split(paths, test_size=100, random_state=0, shuffle=True)
 tr_td = TorchDataset(tr_paths)
 val_td = TorchDataset(val_paths)
-print(isinstance(tr_td, Dataset))
-print(isinstance(tr_td, TorchDataset))
 #
 from torch.utils.data import DataLoader
 train_dataloader = DataLoader(tr_td,

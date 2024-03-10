@@ -1,4 +1,4 @@
-from typing import List, Optional, Any, Union
+from typing import List, Optional, Any, Union, Tuple
 import cv2
 import numpy as np
 import random
@@ -8,7 +8,7 @@ import torch.nn.functional as tfn
 import torchvision.transforms as tt
 import torchvision.transforms.functional as tf
 
-from TumorDetection.utils.dict_classes import TorchDatasetInit, ClassValues
+from TumorDetection.utils.dict_classes import ClassValues
 from TumorDetection.utils.base import BaseClass
 
 
@@ -17,29 +17,34 @@ class TorchDataset(Dataset, BaseClass):
     Torch Image Dataset from DataPathLoader
     """
     def __init__(self, paths: List[Union[str, List[Optional[str]]]],
-                 **kwargs):
+                 resize_dim: Tuple[int, int] = (512, 512), output_dim: Tuple[int, int] = (256, 256),
+                 rotation_degrees: Optional[Union[int, float]] = 45,
+                 range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
+                 range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
+                 range_saturation: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
+                 horizontal_flip_prob: Optional[int] = 0.5, vertical_flip_prob: Optional[int] = 0.5):
         """
         Torch Dataset class constructor.
         :param paths: DataPathLoader __call__ output
-        :keyword resize_dim: (Tuple[int,int])
-            Image resize dimension.
-        :keyword output_dim: (Tuple[int,int])
-            Image output (model input) dimension.
-        :keyword rotation_degrees: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
-            Rotation degrees margins.
-        :keyword range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
-            Max brightness adjustement possible or range in min-max brightness
-        :keyword range_saturation: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
-            Max saturation adjustment possible or range in min-max saturation.
-        :keyword range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]]
-            Max contrast adjustment possible or range in min-max contrast.
-        :keyword horizontal_flip_prob: Optional[float]
-            Horizontal flip over image probability.
-        :keyword vertical_flip_prob: Optional[float]
-            Vertical flip over image probability.
+        :param resize_dim: Image resize dimension.
+        :param output_dim: Image output (model input) dimension.
+        :param rotation_degrees: Rotation degrees margins.
+        :param range_brightness: Max brightness adjustement possible or range in min-max brightness
+        :param range_contrast: Max contrast adjustment possible or range in min-max contrast.
+        :param range_saturation: Max saturation adjustment possible or range in min-max saturation.
+        :param horizontal_flip_prob: Horizontal flip over image probability.
+        :param vertical_flip_prob: Vertical flip over image probability.
         """
-
-        self.kwargs = self._default_config(TorchDatasetInit, **kwargs)
+        self.kwargs = {
+            'resize_dim': resize_dim,
+            'output_dim': output_dim,
+            'rotation_degrees': rotation_degrees,
+            'range_brightness': range_brightness,
+            'range_contrast': range_contrast,
+            'range_saturation': range_saturation,
+            'horizontal_flip_prob': horizontal_flip_prob,
+            'vertical_flip_prob': vertical_flip_prob
+        }
         self.imgs_paths = [x[0] for x in paths]
         self.masks_paths = [x[1] for x in paths]
         self.classes = [x[2] for x in paths]

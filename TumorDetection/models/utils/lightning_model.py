@@ -1,80 +1,93 @@
 import os
-from typing import Tuple, List
+from typing import Optional, Union, Tuple, List
 import lightning.pytorch as pl
 import torch
+from functools import partial
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import PolynomialLR
-
 from TumorDetection.utils.base import BaseClass
-from TumorDetection.utils.dict_classes import (LightningModelInit, EFSNetInit,
-                                               OptimizerParams, PolyLRParams, Device)
+from TumorDetection.utils.dict_classes import OptimizerParams, PolyLRParams, Device
 
 
 class LightningModel(pl.LightningModule, BaseClass):
     """
     Base Model wrapper for using EFSNet model
     """
-    def __init__(self, model: [torch.nn.Module, type], **kwargs):
+    def __init__(self, model: Union[torch.nn.Module, type],
+                 model_params: dict = None,
+                 model_name: str = 'EFSNet', description: Optional[str] = None,
+                 pos_weight: int = 1, ignore_index: int = 100, class_weights: Optional[List] = None,
+                 optimizer: Union[partial, type] = partial(torch.optim.Adam, **OptimizerParams.to_dict()),
+                 scheduler: Optional[Union[partial, type]] = partial(PolynomialLR, **PolyLRParams.to_dict()),
+                 monitor: Optional[str] = 'val_loss', frequency: Optional[int] = 1,
+                 resume_training: bool = False,
+                 metrics: Optional[dict] = None, device: str = Device.get('device'),
+                 ):
         """
         Class constructor
         :param model: EFSNet Neural network initialized or not
-        :keyword model_name: (str, 'EFSNet')
-            Model name identifier.
-        :keyword description: (Optional[str], 'EFSNet')
-            Description of current model.
-        :keyword pos_weight: (Union[int, float], 5)
-            Positive weight in segmentation binary crossentropy loss.
-        :keyword ignore_index: (int, -100)
-            Ignore class in classifier crossentropy loss
-        :keyword class_weights: (Tuple[Union[int, float],...])
-            Class Weight to give to classfier crosentropy loss.
-        :keyword metrics: (dict[str, Callable], {})
-            Metrics to watch.
-        :keyword optimizer: (torch.optim, torch.optim.Adam)
-            Optimizer to use.
-        :keyword monitor: (str, 'val_loss')
-            Metric to monitor while training
-        :keyword frequency: (int, 1)
-            Number of steps until monitoring again.
-        :keyword resume_training: (bool, False)
-            Resume training or not.
-        :keyword model_kwargs: (Optional[dict], EFSNetInit)
-            Params of EFSNet model if not built.
+        :param model_params: Params of EFSNet model if not built.
+        :param model_name: Model name identifier.
+        :param description: Description of current model.
+        :param pos_weight: Positive weight in segmentation binary crossentropy loss.
+        :param ignore_index: Ignore class in classifier crossentropy loss
+        :param class_weights: Class Weight to give to classfier crosentropy loss.
+        :param optimizer: partial scheduler initialization. Anything unless the params.
+        :param scheduler: partial scheduler initialization. Anything unless the optimizer param.
+        :param monitor: metric to monitor with scheduler
+        :param frequency: Number of steps until monitoring again.
+        :param resume_training:
+        :param metrics: Metrics to watch.
+        :param device: device to use for computing
         """
         super().__init__()
-        kwargs = self._default_config(LightningModelInit, **kwargs)
-        self.model_name = kwargs.get('model_name')
-        self.description = kwargs.get('description')
+        self.model_name = model_name
+        self.description = description
         self.loss_seg = torch.nn.BCEWithLogitsLoss(
-            pos_weight=torch.as_tensor([kwargs.get('pos_weight')] * 2, device=self.device)[:, None, None]
+            pos_weight=torch.as_tensor([pos_weight] * 2, device=self.device)[:, None, None]
         )
         self.loss_lab = torch.nn.CrossEntropyLoss(
-            ignore_index=kwargs.get('ignore_index'),
-            weight=torch.as_tensor(kwargs.get('class_weights'),
-                                   device=Device.get('device')))
-        self.metrics = kwargs.get('metrics')
-        self.optimizer = kwargs.get('optimizer')
-        self.optimizer_params = self._default_config(OptimizerParams, **kwargs.get('optimizer_params'))
-        self.scheduler_params = self._default_config(PolyLRParams, **kwargs.get('scheduler_params'))
-        self.monitor = kwargs.get('monitor')
-        self.frequency = kwargs.get('frequency')
-        self.resume_training = kwargs.get('resume_training')
+            ignore_index=ignore_index,
+            weight=torch.as_tensor(class_weights,
+                                   device=device) if class_weights is not None else None)
+        self.metrics = metrics if metrics is not None else {}
+        self.optimizer = optimizer
+
+        self.scheduler = scheduler if scheduler is not None else None
+        if self.scheduler is None:
+            assert all([monitor, frequency]),\
+                f'If using an scheduler you must pass a valid value for monitor ({monitor}) and frequency ({frequency})'
+
+        self.monitor = monitor
+        self.frequency = frequency
+        self.resume_training = resume_training
         if isinstance(model, type):
-            # Not initialized class
-            nn_kwargs = self._default_config(EFSNetInit, **kwargs.get('model_kwargs'))
-            self.model = model(**nn_kwargs)
+            assert model_params is not None, \
+                f'If using a non-initialized model you must pass a valid value for model_params. Got: None'
+            self.model = model(**model_params)
         else:
             # Initialized class
             self.model = model
+        self.save_hyperparameters(ignore=['model', 'loss_seg', 'loss_lab', 'metrics',
+                                          'optimizer', 'scheduler', 'monitor',
+                                          'frequency', 'resume_training'])
 
     @classmethod
     def load(cls, ckpt_dir: str, model_name: str,
-             model: type, nn_kwargs: dict) -> pl.LightningModule:
+             torchmodel: type, torchmodel_kwargs: dict) -> pl.LightningModule:
+        """
+        Load model from checkpoint (.ckpt) file
+        :param ckpt_dir: checkpoint directory
+        :param model_name: Model Name Identifier
+        :param torchmodel: Neural Network Architecture
+        :param torchmodel_kwargs: keyword arguments
+        :return:
+        """
         pretrained_filename = os.path.join(ckpt_dir, model_name + '.ckpt')
         if os.path.isfile(pretrained_filename):
             print(f'Found pretrained model: {os.path.basename(pretrained_filename)}')
-            return cls.load_from_checkpoint(pretrained_filename, model=model,
-                                            model_kwargs=nn_kwargs)
+            return cls.load_from_checkpoint(pretrained_filename, model=torchmodel,
+                                            model_params=torchmodel_kwargs)
         else:
             raise ValueError(f'Could not find pretrained checkpoint: {pretrained_filename}')
 
@@ -113,7 +126,10 @@ class LightningModel(pl.LightningModule, BaseClass):
                     task='multiclass',
                     num_classes=self.model.num_classes)
             })
-        metrics = {**metrics, **{f"{name}_loss": loss_lab + loss_seg}}
+        metrics = {**metrics,
+                   **{f"{name}_loss_lab": loss_lab,
+                      f"{name}_loss_seg": loss_seg,
+                      f"{name}_loss": loss_lab + loss_seg}}
         return metrics
 
     def training_step(self, batch: List[torch.Tensor], batch_idx: torch.Tensor) -> torch.Tensor:
@@ -163,7 +179,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         return self.model.forward(batch)
 
     @torch.no_grad()
-    def predict(self, dataloader: DataLoader) -> List:
+    def predict_dataloader(self, dataloader: DataLoader) -> List:
         """
 
         :param dataloader: Dataloader to predict
@@ -171,14 +187,20 @@ class LightningModel(pl.LightningModule, BaseClass):
         """
         y_pred = []
         for batch_idx, batch in enumerate(dataloader):
-            y_pred.extend(self.predict_step(batch=batch, batch_idx=batch_idx))
+            if isinstance(batch, list):
+                y_pred.extend(self.predict_step(batch=batch[0], batch_idx=torch.as_tensor(batch_idx)))
+            else:
+                y_pred.extend(self.predict_step(batch=batch, batch_idx=torch.as_tensor(batch_idx)))
         return y_pred
 
     def configure_optimizers(self):
-        optimizer = self.optimizer(self.model.parameters(), **self.optimizer_params)
-        scheduler = {
-            "scheduler": PolynomialLR(optimizer, **self.scheduler_params),
-            "monitor": self.monitor,
-            "frequency": self.frequency
-        }
-        return [optimizer], [scheduler]
+        optimizer = self.optimizer(self.model.parameters())
+        if self.scheduler is not None:
+            scheduler = {
+                "scheduler": self.scheduler(optimizer=optimizer),
+                "monitor": self.monitor,
+                "frequency": self.frequency
+            }
+            return [optimizer], [scheduler]
+        else:
+            return [optimizer]

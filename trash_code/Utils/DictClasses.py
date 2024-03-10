@@ -267,16 +267,45 @@ class LightningModelInit(DictClass):
     gnn_kwargs = BaseGNNInit.to_dict()  # ImageGNNInit.to_dict()
 
 
+class LightningModelInit(DictClass):
+    """
+    LightiningModel __init__() keyword arguments
+    """
+    model_name = 'EFSNet'
+    description = 'EFSNet base'
+    metrics = {
+        # 'accuracy': accuracy,
+        # 'jaccard': jaccard_index
+    }
+    optimizer = torch.optim.Adam
+    optimizer_params = OptimizerParams.to_dict()
+    scheduler_params = PolyLRParams.to_dict()
+    monitor = 'val_loss'
+    frequency = 1
+    pos_weight = 5
+    ignore_index = -100
+    class_weights = [1., 3., 3.]
+    save_hyperparameters = True
+    resume_training = False
+    model_kwargs = EFSNetInit.to_dict()
+
+
 class TrainerInit(DictClass):
-    use_earlystopping = True
+    """
+    Trainer __init__() keyword arguments
+    """
     use_modelcheckpoint = True
-    es_kwargs = EarlyStoppingParams.to_dict()
     logger = True
     lightning_trainer_params = LightningTrainerParms.to_dict()
     model_name = LightningModelInit.get('model_name')
 
 
 class TrainerCall(DictClass):
+    """
+    Trainer __call__() keyword arguments
+    """
+    verbose = Verbosity.get('verbose')
+    summary_depth = 3
     model_kwargs = LightningModelInit.to_dict()
+    batch_size = 32
     resume_training = False
-
