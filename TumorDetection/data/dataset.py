@@ -18,6 +18,7 @@ class TorchDataset(Dataset, BaseClass):
     """
     def __init__(self, paths: List[Union[str, List[Optional[str]]]],
                  resize_dim: Tuple[int, int] = (512, 512), output_dim: Tuple[int, int] = (256, 256),
+                 crop_prob: Optional[float] = 0.5,
                  rotation_degrees: Optional[Union[int, float]] = 45,
                  range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
                  range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
@@ -28,6 +29,7 @@ class TorchDataset(Dataset, BaseClass):
         :param paths: DataPathLoader __call__ output
         :param resize_dim: Image resize dimension.
         :param output_dim: Image output (model input) dimension.
+        :param crop_prob: Probability for cropping over resizing image.
         :param rotation_degrees: Rotation degrees margins.
         :param range_brightness: Max brightness adjustement possible or range in min-max brightness
         :param range_contrast: Max contrast adjustment possible or range in min-max contrast.
@@ -38,6 +40,7 @@ class TorchDataset(Dataset, BaseClass):
         self.kwargs = {
             'resize_dim': resize_dim,
             'output_dim': output_dim,
+            'crop_prob': crop_prob,
             'rotation_degrees': rotation_degrees,
             'range_brightness': range_brightness,
             'range_contrast': range_contrast,
@@ -63,18 +66,24 @@ class TorchDataset(Dataset, BaseClass):
         )), axis=-1)
         image = tf.to_tensor(image)
         mask = tf.to_tensor(mask)
+        if (crop_prob := self.kwargs.get('crop_prob')) is not None:
+            image = tt.Resize(self.kwargs.get('resize_dim'),
+                              antialias=None)(image)
+            mask = tt.Resize(self.kwargs.get('resize_dim'),
+                             antialias=None,
+                             interpolation=tt.InterpolationMode.NEAREST_EXACT)(mask)
 
-        image = tt.Resize(self.kwargs.get('resize_dim'),
-                          antialias=None)(image)
-        mask = tt.Resize(self.kwargs.get('resize_dim'),
-                         antialias=None,
-                         interpolation=tt.InterpolationMode.NEAREST_EXACT)(mask)
-
-        if random.random() > 0.5:
-            i, j, h, w = tt.RandomCrop.get_params(
-                image, output_size=self.kwargs.get('output_dim'))
-            image = tf.crop(image, i, j, h, w)
-            mask = tf.crop(mask, i, j, h, w)
+            if random.random() < crop_prob:
+                i, j, h, w = tt.RandomCrop.get_params(
+                    image, output_size=self.kwargs.get('output_dim'))
+                image = tf.crop(image, i, j, h, w)
+                mask = tf.crop(mask, i, j, h, w)
+            else:
+                image = tt.Resize(self.kwargs.get('output_dim'),
+                                  antialias=None)(image)
+                mask = tt.Resize(self.kwargs.get('output_dim'),
+                                 antialias=None,
+                                 interpolation=tt.InterpolationMode.NEAREST_EXACT)(mask)
         else:
             image = tt.Resize(self.kwargs.get('output_dim'),
                               antialias=None)(image)
@@ -82,40 +91,40 @@ class TorchDataset(Dataset, BaseClass):
                              antialias=None,
                              interpolation=tt.InterpolationMode.NEAREST_EXACT)(mask)
 
-        if angle := self.kwargs.get('rotatation_degrees') is not None:
+        if (angle := self.kwargs.get('rotatation_degrees')) is not None:
             angle = self._get_random_param(angle, 'rotation_degrees')
             image = tf.rotate(image, angle, tt.InterpolationMode.BILINEAR)
             mask = tf.rotate(mask, angle, tt.InterpolationMode.NEAREST_EXACT)
 
-        if brightness := self.kwargs.get('range_brightness') is not None:
+        if (brightness := self.kwargs.get('range_brightness')) is not None:
             brightness = self._get_random_param(brightness, 'range_brightness')
             image = tf.adjust_brightness(image, brightness_factor=brightness)
             mask = tf.adjust_brightness(mask, brightness_factor=brightness)
 
-        if contrast := self.kwargs.get('range_contrast') is not None:
+        if (contrast := self.kwargs.get('range_contrast')) is not None:
             contrast = self._get_random_param(contrast, 'max_contrast')
             image = tf.adjust_contrast(image, contrast_factor=contrast)
             mask = tf.adjust_contrast(mask, contrast_factor=contrast)
 
-        if saturation := self.kwargs.get('range_saturation') is not None:
+        if (saturation := self.kwargs.get('range_saturation')) is not None:
             saturation = self._get_random_param(saturation, 'range_saturation')
             image = tf.adjust_saturation(image, saturation_factor=saturation)
             mask = tf.adjust_saturation(mask, saturation_factor=saturation)
 
         # Random horizontal flipping
-        if hflip_prob := self.kwargs.get('horizontal_flip_prob') is not None:
+        if (hflip_prob := self.kwargs.get('horizontal_flip_prob')) is not None:
             if random.random() > hflip_prob:
                 image = tf.hflip(image)
                 mask = tf.hflip(mask)
 
         # Random vertical flipping
-        if vflip_prob := self.kwargs.get('vertical_flip_prob') is not None:
+        if (vflip_prob := self.kwargs.get('vertical_flip_prob')) is not None:
             if random.random() > vflip_prob:
                 image = tf.vflip(image)
                 mask = tf.vflip(mask)
 
-        mask = tfn.one_hot(mask.to(torch.long).squeeze(),
-                           num_classes=2).double().permute(2, 1, 0)
+        # mask = tfn.one_hot(mask.to(torch.long).squeeze(),
+        #                    num_classes=2).double().permute(2, 1, 0)
         label = (torch.tensor(self.class_values[self.classes[item][0]])
                  if mask.sum() > 0 else torch.tensor(0))
 

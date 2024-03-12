@@ -21,9 +21,6 @@ tr_paths, val_paths = train_test_split(paths, test_size=100, random_state=0, shu
 tr_td = TorchDataset(tr_paths)
 val_td = TorchDataset(val_paths)
 
-trainer = Trainer(model_name=MODEL_NAME,
-                  ckpt_dir=os.path.join(ReportingPathDir.get('dir_path'), 'ckpt'),
-                  verbose=VERBOSE)
 lighningmodel = LightningModel(model=EFSNet(device=DEVICE,
                                             verbose=VERBOSE),
                                model_name=MODEL_NAME,
@@ -31,6 +28,10 @@ lighningmodel = LightningModel(model=EFSNet(device=DEVICE,
                                class_weights=CLASS_WEIGHTS,
                                pos_weight=POS_WEIGHT,
                                device=DEVICE)
+
+trainer = Trainer(model_name=MODEL_NAME,
+                  ckpt_dir=os.path.join(ReportingPathDir.get('dir_path'), 'ckpt'),
+                  verbose=VERBOSE)
 trainer(model=lighningmodel,
         train_data=tr_td,
         test_data=val_td,

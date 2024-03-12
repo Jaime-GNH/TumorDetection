@@ -63,13 +63,6 @@ class Verbosity(DictClass):
     verbose = 3
 
 
-class Mask(DictClass):
-    """
-    Use Mask
-    """
-    mask = True
-
-
 class Device(DictClass):
     """
     Device for computing torch.
@@ -116,19 +109,6 @@ class ReportingPathDir(DictClass):
     os.chdir(cw)
 
 
-class ModelCkptDir(DictClass):
-    """
-    Model Checkpoint Path Directory
-    """
-    cw = WorkingDir.set_wd()
-    ckpt_dir = [
-        os.path.join(dir_path, 'reporting/ckpt')
-        for dir_path, dir_name, _ in os.walk(os.getcwd())
-        if 'reporting' in dir_name
-    ][0]
-    os.chdir(cw)
-
-
 class ViewerClsParams(DictClass):
     """
     cv2 module Viewer params.
@@ -157,8 +137,6 @@ class OptimizerParams(DictClass):
     eps = 1e-8
     weight_decay = 0.
     amsgrad = False
-
-
 
 
 class BaseUpdateLayout(DictClass):

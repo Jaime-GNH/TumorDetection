@@ -146,12 +146,12 @@ class Trainer(BaseClass):
             model = load_model(self.ckpt_dir, self.model_name, model)
 
         if self.verbose > 1:
-            print(summary(model, model.model.input_shape, batch_dim=0,
-                          col_names=("input_size", "output_size", "num_params", "params_percent"),
-                          depth=summary_depth,
-                          row_settings=["var_names"],
-                          device=model.device,
-                          verbose=min(1, self.verbose)))
+            summary(model, model.model.input_shape, batch_dim=0,
+                    col_names=("input_size", "output_size", "num_params", "params_percent"),
+                    depth=summary_depth,
+                    row_settings=["var_names"],
+                    device=model.device,
+                    verbose=min(1, self.verbose))
         with warnings.catch_warnings():
             warnings.filterwarnings('ignore',
                                     r'.*does not have many workers.*|'

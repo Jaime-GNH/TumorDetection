@@ -70,7 +70,7 @@ class EFSNet(torch.nn.Module, BaseClass):
                                bias=bias, groups=groups,
                                num_shufflenet=num_shufflenet,
                                device=self.device)
-        self.segment = torch.nn.ConvTranspose2d(in_channels=16, out_channels=2,
+        self.segment = torch.nn.ConvTranspose2d(in_channels=16, out_channels=1,
                                                 kernel_size=(3, 3), stride=2, padding=1, output_padding=1,
                                                 device=self.device)
 

@@ -44,7 +44,7 @@ class LightningModel(pl.LightningModule, BaseClass):
         self.model_name = model_name
         self.description = description
         self.loss_seg = torch.nn.BCEWithLogitsLoss(
-            pos_weight=torch.as_tensor([pos_weight] * 2, device=self.device)[:, None, None]
+            pos_weight=torch.as_tensor([pos_weight], device=self.device)
         )
         self.loss_lab = torch.nn.CrossEntropyLoss(
             ignore_index=ignore_index,
@@ -169,14 +169,17 @@ class LightningModel(pl.LightningModule, BaseClass):
 
     @torch.no_grad()
     def predict_step(self, batch: List[torch.Tensor], batch_idx: torch.Tensor,
-                     dataloader_idx: int = 0) -> torch.Tensor:
+                     dataloader_idx: int = 0) -> Tuple[torch.Tensor, ...]:
         """
         Prediction step. Overriden.
         :param batch: Batch to pass.
         :param batch_idx: Use in overriden function.
         :param dataloader_idx: use in overriden function
         """
-        return self.model.forward(batch)
+        seg, lab = self.model.forward(batch[0])
+        seg = torch.sigmoid(seg)
+        lab = torch.argmax(lab, dim=1)
+        return seg*lab.view(-1, 1, 1, 1), seg, lab
 
     @torch.no_grad()
     def predict_dataloader(self, dataloader: DataLoader) -> List:
