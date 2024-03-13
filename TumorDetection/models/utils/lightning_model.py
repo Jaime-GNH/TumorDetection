@@ -177,9 +177,9 @@ class LightningModel(pl.LightningModule, BaseClass):
         :param dataloader_idx: use in overriden function
         """
         seg, lab = self.model.forward(batch[0])
-        seg = torch.sigmoid(seg)
+        seg_proba = torch.sigmoid(seg)
         lab = torch.argmax(lab, dim=1)
-        return seg*lab.view(-1, 1, 1, 1), seg, lab
+        return torch.gt(seg_proba, 0.5).to(torch.int32)*lab.view(-1, 1, 1, 1), seg_proba, lab
 
     @torch.no_grad()
     def predict_dataloader(self, dataloader: DataLoader) -> List:
@@ -195,6 +195,21 @@ class LightningModel(pl.LightningModule, BaseClass):
             else:
                 y_pred.extend(self.predict_step(batch=batch, batch_idx=torch.as_tensor(batch_idx)))
         return y_pred
+
+    @torch.no_grad()
+    def predict(self, image: torch.Tensor) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[torch.Tensor]]:
+        """
+        Predicts image or images.
+        :param image: image or images to predict
+        :return: segmentation, segmentation probability and labels.
+        """
+        if len(image.shape) == 3:
+            # Convert to batch
+            image = image[None, :, :, :]
+        seg, lab = self.model.forward(image)
+        seg_proba = torch.sigmoid(seg)
+        lab = torch.argmax(lab, dim=1)
+        return torch.gt(seg_proba, 0.5).to(torch.int32) * lab.view(-1, 1, 1, 1), seg_proba, lab
 
     def configure_optimizers(self):
         optimizer = self.optimizer(self.model.parameters())

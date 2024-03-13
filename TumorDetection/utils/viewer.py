@@ -1,5 +1,6 @@
-from typing import Optional
+from typing import Optional, Union
 import numpy as np
+import torch
 import cv2
 
 from TumorDetection.utils.dict_classes import ViewerClsParams
@@ -12,7 +13,7 @@ class Viewer:
     params = ViewerClsParams.to_dict()
 
     @classmethod
-    def show_image(cls, image: np.ndarray, win_title: Optional[str] = None):
+    def show_image(cls, image: Union[np.ndarray, torch.Tensor], win_title: Optional[str] = None):
         """
         Function to show an image
         :param image: np array to show
@@ -30,7 +31,8 @@ class Viewer:
             pass
 
     @classmethod
-    def show_masked_image(cls, image: np.ndarray, mask: np.ndarray, win_title: Optional[str], **kwargs):
+    def show_masked_image(cls, image: Union[np.ndarray, torch.Tensor],
+                          mask: Union[np.ndarray, torch.Tensor], win_title: Optional[str], **kwargs):
         """
         Function to show a set of images
         :param image: np array to show
@@ -43,9 +45,29 @@ class Viewer:
         :keyword gamma_weight: (float)
             Gamma weight for combining image and mask
         """
-        assert all([s1 == s2 for s1, s2 in zip(image.shape[:2], mask.shape[:2])]),\
+
+        cls.show_image(cls.get_masked_image(image, mask, **kwargs), win_title)
+
+    @classmethod
+    def get_masked_image(cls, image: np.ndarray, mask: np.ndarray, **kwargs):
+        """
+        Function to show a set of images
+        :param image: np array to show
+        :param mask: mask to apply
+        :keyword alpha_weight: (float)
+            Alpha weight for combining image and mask
+        :keyword beta_weight: (float)
+            Beta weight for combining image and mask
+        :keyword gamma_weight: (float)
+            Gamma weight for combining image and mask
+        """
+        assert all([s1 == s2 for s1, s2 in zip(image.shape[:2], mask.shape[:2])]), \
             (f'Height and width of images and shapes must be equal.'
              f' Got image shape {image.shape} and mask shape {mask.shape}')
+        if isinstance(image, torch.Tensor):
+            image = cls.torch2numpy_image(torchimage=image)
+        if isinstance(mask, torch.Tensor):
+            mask = cls.torch2numpy_image(torchimage=mask)
         image = (
             cv2.cvtColor(
                 image,
@@ -60,4 +82,15 @@ class Viewer:
         roi_img = cv2.bitwise_and(mask_overlay, mask_overlay, mask=mask)
         roi_img[mask[:] == 0, ...] = image[mask[:] == 0, ...]
 
-        cls.show_image(roi_img, win_title)
+        return roi_img
+
+    @classmethod
+    def torch2numpy_image(cls, torchimage: torch.Tensor, scale: float = 255.) -> np.ndarray:
+        """
+        Converts a torchimage into a np cv2 image.
+        :param torchimage: image with (CxHxW) dimensions in torch.float32 scaled between 0,1
+        :param scale: scaling factor.
+        :return: new image
+        """
+        torchimage = torchimage.permute(1, 2, 0).cpu().numpy()
+        return (torchimage * scale).astype(np.uint8)
