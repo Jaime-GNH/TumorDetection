@@ -65,9 +65,9 @@ class Viewer:
             (f'Height and width of images and shapes must be equal.'
              f' Got image shape {image.shape} and mask shape {mask.shape}')
         if isinstance(image, torch.Tensor):
-            image = cls.torch2numpy_image(torchimage=image)
+            image = cls.torch2numpy_image(torchimage=image, scale=kwargs.get('scale', 255.))
         if isinstance(mask, torch.Tensor):
-            mask = cls.torch2numpy_image(torchimage=mask)
+            mask = cls.torch2numpy_image(torchimage=mask, scale=kwargs.get('mask_scale', 255.))
         image = (
             cv2.cvtColor(
                 image,

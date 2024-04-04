@@ -14,6 +14,7 @@ setup(
         'torchmetrics==1.2.0',
         'torchinfo==1.8.0',
         'lightning==2.1.0',
+        'scikit-learn==1.3.1',
         'opencv-python==4.8.1.78',
         'numpy==1.26.0',
         'requests',

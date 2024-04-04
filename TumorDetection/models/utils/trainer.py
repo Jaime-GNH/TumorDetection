@@ -10,7 +10,6 @@ import warnings
 
 from TumorDetection.utils.base import BaseClass
 from TumorDetection.models.utils.callbacks import ProgressBar, PtModelCheckpoint
-from TumorDetection.models.utils.lightning_model import LightningModel
 from TumorDetection.models.utils.load import load_model, load_ckpt
 
 
@@ -18,11 +17,11 @@ class Trainer(BaseClass):
     """
     Trainer wrapper for torch using pytorch Lightning.
     """
-    def __init__(self, model_name: Optional[str] = 'EFSNet', max_epochs: int = 1001,
+    def __init__(self, model_name: Optional[str] = 'EFSNet', max_epochs: int = 10001,
                  use_model_ckpt: bool = True, ckpt_dir: str = os.getcwd(),
                  force_ckpt_dir: bool = True,
                  limit_train_batches: Optional[int] = None, limit_val_batches: Optional[int] = None,
-                 limit_test_batches: Optional[int] = None, greadient_clip_val: Optional[float] = None,
+                 limit_test_batches: Optional[int] = None, gradient_clip_val: Optional[float] = None,
                  accelerator: str = 'auto', logger: bool = True, seed: Optional[int] = None,
                  verbose: int = 1):
         """
@@ -35,7 +34,7 @@ class Trainer(BaseClass):
         :param limit_train_batches:
         :param limit_val_batches:
         :param limit_test_batches:
-        :param greadient_clip_val:
+        :param gradient_clip_val:
         :param accelerator:
         :param logger:
         :param seed:
@@ -81,14 +80,16 @@ class Trainer(BaseClass):
                                   limit_train_batches=limit_train_batches,
                                   limit_val_batches=limit_val_batches,
                                   limit_test_batches=limit_test_batches,
-                                  gradient_clip_val=greadient_clip_val)
+                                  gradient_clip_val=gradient_clip_val)
 
     def __call__(self, model: Union[pl.LightningModule, torch.nn.Module, type],
                  train_data: Union[Dataset, DataLoader],
                  test_data: Union[Dataset, DataLoader],
+                 lightningmodel_cls: Optional[type] = None,
                  lightningmodel_params: Optional[dict] = None,
                  torchmodel_params: Optional[dict] = None,
-                 batch_size: int = 32, from_checkpoint: bool = False,
+                 train_batch_size: Optional[int] = 32, val_batch_size: Optional[int] = 32,
+                 from_checkpoint: bool = False,
                  summary_depth: int = 3,
                  validate_model: bool = False, test_model: bool = False) -> pl.LightningModule:
         """
@@ -96,9 +97,11 @@ class Trainer(BaseClass):
         :param model: Neural Network to use.
         :param train_data: Train data to be fed
         :param test_data: Test/Validation data to evaluate.
+        :param lightningmodel_cls: LightningModule Class if using a torch.nn.Module or type
         :param lightningmodel_params: Parameters for LightningModule for initializing if needed
         :param torchmodel_params: Parameters for Torch Neural Network for initializing if needed
-        :param batch_size: batch size
+        :param train_batch_size: batch size for training if passing a train_data of type Dataset
+        :param val_batch_size: batch size for validation and testing if passing a test_data of type Dataset
         :param from_checkpoint: load model from checkpoint
         :param summary_depth: Model summary depth to observe
         :param validate_model: Validate model previous to training
@@ -113,6 +116,8 @@ class Trainer(BaseClass):
                               UserWarning)
                 model.model_name = self.model_name
         elif isinstance(model, (torch.nn.Module, type)):
+            assert lightningmodel_cls, ('If passing a model of istance torch.nn.Module (initialized or not)'
+                                        ' you must pass a lightningmodel_cls')
             if isinstance(model, type):
                 warnings.warn(f'Got a type class but no torchmodule_params'
                               f'Constructing with default values. Considered as intended.',
@@ -123,7 +128,7 @@ class Trainer(BaseClass):
                               f'Constructing with default values. Considered as intended.',
                               UserWarning)
 
-            model = LightningModel(model, lightningmodel_params)
+            model = lightningmodel_cls(model, lightningmodel_params)
 
         if self.verbose > 2:
             if torch.cuda.is_available() and self.trainer.accelerator != 'cpu':
@@ -134,12 +139,12 @@ class Trainer(BaseClass):
                 print('Trainer Accelerator:', self.trainer.accelerator)
         if isinstance(train_data, Dataset):
             train_data = DataLoader(train_data,
-                                    batch_size=batch_size,
+                                    batch_size=train_batch_size,
                                     drop_last=True,
                                     shuffle=True)
         if isinstance(test_data, Dataset):
             test_data = DataLoader(test_data,
-                                   batch_size=batch_size,
+                                   batch_size=val_batch_size,
                                    drop_last=True,
                                    shuffle=False)
         if from_checkpoint:

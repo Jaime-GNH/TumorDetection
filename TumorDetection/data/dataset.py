@@ -4,7 +4,6 @@ import numpy as np
 import random
 import torch
 from torch.utils.data import Dataset
-import torch.nn.functional as tfn
 import torchvision.transforms as tt
 import torchvision.transforms.functional as tf
 
@@ -19,11 +18,10 @@ class TorchDataset(Dataset, BaseClass):
     def __init__(self, paths: List[Union[str, List[Optional[str]]]],
                  resize_dim: Tuple[int, int] = (512, 512), output_dim: Tuple[int, int] = (256, 256),
                  crop_prob: Optional[float] = 0.5,
-                 rotation_degrees: Optional[Union[int, float]] = 45,
-                 range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
-                 range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
-                 range_saturation: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = (0.25, 5),
-                 horizontal_flip_prob: Optional[int] = 0.5, vertical_flip_prob: Optional[int] = 0.5):
+                 rotation_degrees: Optional[Union[int, float]] = 180,
+                 range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = None,
+                 range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = None,
+                 horizontal_flip_prob: Optional[float] = 0.25, vertical_flip_prob: Optional[float] = 0.25):
         """
         Torch Dataset class constructor.
         :param paths: DataPathLoader __call__ output
@@ -33,7 +31,6 @@ class TorchDataset(Dataset, BaseClass):
         :param rotation_degrees: Rotation degrees margins.
         :param range_brightness: Max brightness adjustement possible or range in min-max brightness
         :param range_contrast: Max contrast adjustment possible or range in min-max contrast.
-        :param range_saturation: Max saturation adjustment possible or range in min-max saturation.
         :param horizontal_flip_prob: Horizontal flip over image probability.
         :param vertical_flip_prob: Vertical flip over image probability.
         """
@@ -44,7 +41,6 @@ class TorchDataset(Dataset, BaseClass):
             'rotation_degrees': rotation_degrees,
             'range_brightness': range_brightness,
             'range_contrast': range_contrast,
-            'range_saturation': range_saturation,
             'horizontal_flip_prob': horizontal_flip_prob,
             'vertical_flip_prob': vertical_flip_prob
         }
@@ -56,16 +52,13 @@ class TorchDataset(Dataset, BaseClass):
     def __len__(self):
         return len(self.imgs_paths)
 
-    def __getitem__(self, item):
-        image = cv2.imread(self.imgs_paths[item], cv2.IMREAD_GRAYSCALE)
-        mask = np.max(np.dstack(np.array(
-            [
-                (cv2.imread(path, cv2.IMREAD_GRAYSCALE)).astype(np.uint8)
-                for path, clas_ in zip(self.masks_paths[item], self.classes[item])
-            ]
-        )), axis=-1)
-        image = tf.to_tensor(image)
-        mask = tf.to_tensor(mask)
+    def _augment(self, image: torch.Tensor, mask: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        Augments an image
+        :param image: given image to augment
+        :param mask: associated mask
+        :return: new image and mask
+        """
         if (crop_prob := self.kwargs.get('crop_prob')) is not None:
             image = tt.Resize(self.kwargs.get('resize_dim'),
                               antialias=None)(image)
@@ -91,46 +84,32 @@ class TorchDataset(Dataset, BaseClass):
                              antialias=None,
                              interpolation=tt.InterpolationMode.NEAREST_EXACT)(mask)
 
-        if (angle := self.kwargs.get('rotatation_degrees')) is not None:
+        if (angle := self.kwargs.get('rotation_degrees')) is not None:
             angle = self._get_random_param(angle, 'rotation_degrees')
             image = tf.rotate(image, angle, tt.InterpolationMode.BILINEAR)
-            mask = tf.rotate(mask, angle, tt.InterpolationMode.NEAREST_EXACT)
+            mask = tf.rotate(mask, angle, tt.InterpolationMode.NEAREST)
 
         if (brightness := self.kwargs.get('range_brightness')) is not None:
             brightness = self._get_random_param(brightness, 'range_brightness')
             image = tf.adjust_brightness(image, brightness_factor=brightness)
-            mask = tf.adjust_brightness(mask, brightness_factor=brightness)
 
         if (contrast := self.kwargs.get('range_contrast')) is not None:
             contrast = self._get_random_param(contrast, 'max_contrast')
             image = tf.adjust_contrast(image, contrast_factor=contrast)
-            mask = tf.adjust_contrast(mask, contrast_factor=contrast)
-
-        if (saturation := self.kwargs.get('range_saturation')) is not None:
-            saturation = self._get_random_param(saturation, 'range_saturation')
-            image = tf.adjust_saturation(image, saturation_factor=saturation)
-            mask = tf.adjust_saturation(mask, saturation_factor=saturation)
 
         # Random horizontal flipping
         if (hflip_prob := self.kwargs.get('horizontal_flip_prob')) is not None:
-            if random.random() > hflip_prob:
+            if random.random() < hflip_prob:
                 image = tf.hflip(image)
                 mask = tf.hflip(mask)
 
         # Random vertical flipping
         if (vflip_prob := self.kwargs.get('vertical_flip_prob')) is not None:
-            if random.random() > vflip_prob:
+            if random.random() < vflip_prob:
                 image = tf.vflip(image)
                 mask = tf.vflip(mask)
 
-        # mask = tfn.one_hot(mask.to(torch.long).squeeze(),
-        #                    num_classes=2).double().permute(2, 1, 0)
-        label = (torch.tensor(self.class_values[self.classes[item][0]])
-                 if mask.sum() > 0 else torch.tensor(0))
-
-        return (image,
-                mask,
-                label)
+        return image, mask
 
     @staticmethod
     def _get_random_param(param: Any, name: Optional[str] = None) -> float:
@@ -141,8 +120,99 @@ class TorchDataset(Dataset, BaseClass):
         :return: parameter to use.
         """
         if isinstance(param, int):
-            return random.random() * param
-        elif isinstance(param, tuple):
-            return param[0] + random.random() * (param[1] - param[0])
+            return random.uniform(-param, param)
+        elif isinstance(param, (tuple, list)):
+            return random.uniform(param[0], param[1])
         else:
             raise TypeError(f'param {name} bust be None, int or tuple. Got {type(param)}')
+
+
+class TorchDatasetClfSeg(TorchDataset, BaseClass):
+    """
+    Torch Image Dataset from DataPathLoader
+    """
+    def __init__(self, paths: List[Union[str, List[Optional[str]]]],
+                 resize_dim: Tuple[int, int] = (512, 512), output_dim: Tuple[int, int] = (256, 256),
+                 crop_prob: Optional[float] = 0.5,
+                 rotation_degrees: Optional[Union[int, float]] = 180,
+                 range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = None,
+                 range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = None,
+                 horizontal_flip_prob: Optional[float] = 0.25, vertical_flip_prob: Optional[float] = 0.25):
+        """
+        Torch Dataset class constructor.
+        :param paths: DataPathLoader __call__ output
+        :param resize_dim: Image resize dimension.
+        :param output_dim: Image output (model input) dimension.
+        :param crop_prob: Probability for cropping over resizing image.
+        :param rotation_degrees: Rotation degrees margins.
+        :param range_brightness: Max brightness adjustement possible or range in min-max brightness
+        :param range_contrast: Max contrast adjustment possible or range in min-max contrast.
+        :param horizontal_flip_prob: Horizontal flip over image probability.
+        :param vertical_flip_prob: Vertical flip over image probability.
+        """
+        super().__init__(paths=paths, resize_dim=resize_dim, output_dim=output_dim, crop_prob=crop_prob,
+                         rotation_degrees=rotation_degrees, range_brightness=range_brightness,
+                         range_contrast=range_contrast, horizontal_flip_prob=horizontal_flip_prob,
+                         vertical_flip_prob=vertical_flip_prob)
+
+    def __getitem__(self, item):
+        image = cv2.imread(self.imgs_paths[item], cv2.IMREAD_GRAYSCALE)
+        mask = np.max(np.dstack(np.array(
+            [
+                (cv2.imread(path, cv2.IMREAD_GRAYSCALE)).astype(np.uint8)
+                for path, clas_ in zip(self.masks_paths[item], self.classes[item])
+            ]
+        )), axis=-1)
+        image = tf.to_tensor(image)
+        mask = tf.to_tensor(mask)
+        image, mask = self._augment(image, mask)
+        label = (torch.tensor(self.class_values[self.classes[item][0]])
+                 if mask.sum() > 0 else torch.tensor(0))
+
+        return (image,
+                mask,
+                label)
+
+
+class TorchDatasetSeg(TorchDataset, BaseClass):
+    """
+    Torch Image Dataset from DataPathLoader
+    """
+    def __init__(self, paths: List[Union[str, List[Optional[str]]]],
+                 resize_dim: Tuple[int, int] = (512, 512), output_dim: Tuple[int, int] = (256, 256),
+                 crop_prob: Optional[float] = 0.5,
+                 rotation_degrees: Optional[Union[int, float]] = 180,
+                 range_brightness: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = None,
+                 range_contrast: Optional[Union[int, float, Tuple[Union[int, float], Union[int, float]]]] = None,
+                 horizontal_flip_prob: Optional[float] = 0.25, vertical_flip_prob: Optional[float] = 0.25):
+        """
+        Torch Dataset class constructor.
+        :param paths: DataPathLoader __call__ output
+        :param resize_dim: Image resize dimension.
+        :param output_dim: Image output (model input) dimension.
+        :param crop_prob: Probability for cropping over resizing image.
+        :param rotation_degrees: Rotation degrees margins.
+        :param range_brightness: Max brightness adjustement possible or range in min-max brightness
+        :param range_contrast: Max contrast adjustment possible or range in min-max contrast.
+        :param horizontal_flip_prob: Horizontal flip over image probability.
+        :param vertical_flip_prob: Vertical flip over image probability.
+        """
+        super().__init__(paths=paths, resize_dim=resize_dim, output_dim=output_dim, crop_prob=crop_prob,
+                         rotation_degrees=rotation_degrees, range_brightness=range_brightness,
+                         range_contrast=range_contrast, horizontal_flip_prob=horizontal_flip_prob,
+                         vertical_flip_prob=vertical_flip_prob)
+
+    def __getitem__(self, item):
+        image = cv2.imread(self.imgs_paths[item], cv2.IMREAD_GRAYSCALE)
+        mask = np.max(np.dstack(np.array(
+            [
+                (cv2.imread(path, cv2.IMREAD_GRAYSCALE)).astype(np.uint8)
+                for path, clas_ in zip(self.masks_paths[item], self.classes[item])
+            ]
+        )), axis=-1)  # (0, 255)
+        image = tf.to_tensor(image)
+        mask = tf.to_tensor(mask)  # (0, 1)
+        mask[torch.where(torch.eq(mask, 1.))] = self.class_values[self.classes[item][0]]
+        image, mask = self._augment(image, mask)
+        return (image,
+                mask.squeeze().to(torch.long))
