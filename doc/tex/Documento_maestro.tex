@@ -1,0 +1,127 @@
+\documentclass[12pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+
+% \usepackage{hyphenat}
+% \hyphenation{apren-di-zaje pro-fun-do}
+
+\usepackage[left=2.5cm,right=2cm,top=2cm,bottom=1.7cm,includefoot,includehead,headheight=16pt]{geometry}
+
+\usepackage{lipsum}
+
+% Bibliografía
+% \usepackage[style=authoryear]{biblatex}
+% \addbibresource{bibliografia.bib}
+\usepackage[authoryear]{natbib}
+\bibliographystyle{unsrtnat}
+
+% Control sobre los márgenes
+\setlength{\topmargin}{-1cm}
+\setlength{\textheight}{24cm}
+\setlength{\linewidth}{3cm}
+
+% Estilo
+\usepackage{amsmath,amssymb,amsfonts,stackrel,hyperref}
+\usepackage{graphicx,color}
+\definecolor{verde}{RGB}{0, 83, 62}
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.2}
+
+
+% Tablas
+\usepackage{tabularx,multirow,rotating,longtable}
+
+% Código
+\usepackage{listings} 
+\usepackage[mathscr]{euscript}
+\lstdefinestyle{estiloMUICD}{
+    backgroundcolor=\color{black!5!white},
+    commentstyle=\color{green!60!black},
+    keywordstyle=\color{blue},
+    numberstyle=\footnotesize,
+    stringstyle=\color{black!40!white}\ttfamily,
+    basicstyle=\small\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=estiloMUICD}
+
+
+% Tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% Encabezados
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead{}
+\pagestyle{fancy}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO, RE]{\leftmark}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\pagestyle{empty}
+
+% Glosarios
+\usepackage[toc,nonumberlist]{glossaries}
+\input{otros/glosario}
+
+
+\begin{document}
+% \glsaddall
+\frontmatter
+\include{otros/portada}
+\cleardoublepage{}
+
+\include{otros/agradecimientos}
+
+\cleardoublepage{}
+\include{otros/resumen}
+
+\cleardoublepage{}
+\include{otros/abstract}
+
+%\newpage
+\printglossary
+
+
+\tableofcontents
+\listoffigures
+\renewcommand{\listtablename}{Índice de tablas}
+\listoftables
+
+
+%\newpage
+\mainmatter
+\pagestyle{fancy}
+
+\include{capitulos/1.introduccion}
+\include{capitulos/2.estado_del_arte}
+\include{capitulos/3.materiales_y_metodos}
+\include{capitulos/4.resultados}
+\include{capitulos/5.conclusiones}
+
+
+\newpage
+\addcontentsline{toc}{chapter}{Bibliografía y referencias} %Para 
+
+\bibliography{bibliografia}
+% \printbibliography
+% \nocite{*}
+\glsaddall
+
+
+% Apéndices
+\appendix
+\include{apendice_ejemplo}
+
+\end{document}

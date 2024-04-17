@@ -1,0 +1,80 @@
+\chapter{Ejemplos en \LaTeX}
+
+Este primer apéndice presenta ejemplos en \LaTeX de cómo incluir referencias, citas bibliográficas, figuras, tablas o código. Este apéndice se deberá eliminar de la memoria antes de entregar el trabajo. 
+
+\section{Referencias, citas y bibliografía}
+\subsection{Referencias}
+Para poder referenciar un elemento dentro de la memoria hay que marcarlo con una etiqueta (\verb|\label{[id]}|) que lo identifique inequívocamente. Es habitual utilizar identificadores  representativos, por ejemplo, para marcar la introducción podemos utilizar una etiqueta como \verb|\label{chap:introduccion}|
+
+Una vez marcado el elemento (capítulo, sección, figura, tabla, \ldots) en \LaTeX, utilizaremos el comando \verb|ref| indicando a qué etiqueta queremos referenciar (\verb|\ref{[id]}|). Por ejemplo, de esta manera podemos referenciar al capítulo de la introducción con \ref{chap:introduccion}. Podemos acompañarlo de un texto como ``\ldots como se vió en el capítulo~\ref{chap:introduccion}\ldots'' o bien utilizar el comando \verb|\autoref{[i]}|, que incluiría el tipo del elemento y aparecería en el texto como \autoref{chap:introduccion}, o incluso referenciarlo por el nombre del elemento con \verb|\nameref{[id]}|, lo que se mostraría como \nameref{chap:introduccion}. 
+
+\subsection{Bibliografía}
+Para añadir una cita bibliográfica al documento tendremos que asegurarnos que en el fichero de bibliografía (bibliografía.bib) se encuentre la entrada bibliográfica correspondiente. Una vez que tengamos nuestra entrada bibliográfica utilizaremos el comando de cita de \LaTeX indicando el identificador de la referencia bibliográfica, por ejemplo: 
+\verb|\cite{aikg}|, que se se visualizaría como \cite{aikg}.
+
+\section{Figuras}
+Para añadir una figura al documento utilizaremos el entorno figure, indicando la posición que debe tener dicha figura en el documento (h: here, t: top, b: botom; p: page), se recomienda en lo posible evitar de ``!'' que ignora todos los ajustes de los parámetros. El orden en el que se indiquen cada una de las opciones se tendrá en cuenta para colocar la figura, es decir si se indicase el orden [htbp] la figura primero se intentará colocar en el lugar que ocupa en el documento, si no se puede se intentará colocar al inicio (top) de la página, en caso que tampoco sea posible se intentará colocar al final (bottom) de la página y, por último en caso que no sea posible ninguna de las anteriores se colocará al inicio de una página nueva.
+
+\begin{figure}[ht]\label{fig:Ejemplo-de-figura}
+\begin{centering}
+\includegraphics[width=0.5\columnwidth]{imagenes/logo_informatica.png}
+\par\end{centering}
+
+\caption[Ejemplo de figura]{Esta figura tiene una descripción al pie muy larga, por lo que añadiremos un título breve utilizando para ello los corchetes tras el comando \textbackslash caption. La etiqueta de la figura (label) se incluirá al incio del flotante de la figura para que cualquier referencia cruzada (ref) a la misma lleve al inicio del flotante.}
+\end{figure}
+
+\section{Tablas}
+Para añadir una tabla se utilizará el entorno \verb|table|, indicando al incio de la tabla el título de la misma utilizando el \verb|caption|.
+
+\begin{table}[ht]
+\label{tab:Ejemplo-de-tabla}
+\centering
+\caption[Ejemplo de tabla]{Esta tabla presenta un ejemplo con tres columnas y formato formal.}
+% Alineación de cada columna: l = left; c = center; r = right
+\begin{tabular}[t]{lccccc}
+\hline
+Model & Accuracy & Precision & Recall & F1-score & AUC\\
+\hline
+Modelo 1 & $0.33$ & $0.75$ & $0.72$ & $0.42$ & $0.21$ \\
+Modelo 2 & $0.01$ & $0.63$ & $0.60$ & $0.50$ & $0.10$ \\
+Modelo 3 & $0.03$ & $0.93$ & $0.33$ & $0.04$ & $0.42$ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\section{Código}
+Para añadir código en la memoria utilizaremos el paquete \verb|listing|, que permite mostrar código formateado en diversos lenguajes (Java, Python, C, \ldots). 
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+    
+def incmatrix(genl1,genl2):
+    m = len(genl1)
+    n = len(genl2)
+    M = None #to become the incidence matrix
+    VT = np.zeros((n*m,1), int)  #dummy variable
+    
+    #compute the bitwise xor matrix
+    M1 = bitxormatrix(genl1)
+    M2 = np.triu(bitxormatrix(genl2),1) 
+
+    for i in range(m-1):
+        for j in range(i+1, m):
+            [r,c] = np.where(M2 == M1[i,j])
+            for k in range(len(r)):
+                VT[(i)*n + r[k]] = 1;
+                VT[(i)*n + c[k]] = 1;
+                VT[(j)*n + r[k]] = 1;
+                VT[(j)*n + c[k]] = 1;
+                
+                if M is None:
+                    M = np.copy(VT)
+                else:
+                    M = np.concatenate((M, VT), 1)
+                
+                VT = np.zeros((n*m,1), int)
+    
+    return M
+\end{lstlisting}
