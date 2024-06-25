@@ -125,7 +125,7 @@ class PolyLRParams(DictClass):
     Poly Learning Rate Schedules Params.
     """
     power = 0.9
-    total_iters = 10000
+    total_iters = 5000
 
 
 class OptimizerParams(DictClass):

@@ -1,0 +1,424 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options false
+\maintain_unincluded_children false
+\language spanish
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+chapter{IntroducciÃ³n}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:introduccion"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Motivación
+\end_layout
+
+\begin_layout Standard
+El trabajo que a continuación se presenta tiene es una clara apuesta por
+ la eficiencia y optimización de las técnicas comúnmente utilizadas en Inteligen
+cia Artificial en el campo de la biomedicina.
+ Esta apuesta se fundamenta en la accesibilidad por por parte de grupos
+ sociales y entidades médicas con bajo nivel de recursos a técnicas avanzadas
+ de diagnóstico de enfermedades -
+\emph on
+particularmente detección de tumores en ecografías mamarias-
+\emph default
+ que actualmente mayoritariamente poseen entidades privadas beneficiando
+ a grupos sociales que pertenecen a los estratos más altos.
+\end_layout
+
+\begin_layout Standard
+Adicionalmente, la reducción de parámetros en las redes neuronales favorece
+ otras mejores prácticas en términos éticos y morales.
+ Comenzando por la eficiencia energética, la reducción del coste computacional
+ del algoritmo requiere de menor energía para ser ejecutada reduciendo:
+ las emisiones derivadas de la obtención de dicha energía, el coste monetario
+ y los requisitos de hardware.
+ Esta vía de desarrollo ha sido tomada en los últimos años por las grandes
+ empresas del sector como 
+\emph on
+OpenAI, Meta 
+\emph default
+o 
+\emph on
+Google
+\emph default
+ que han logrado una Inteligencia Artificial Generativa con mayor potencia
+ predictiva y menor número de parámetros haciendo uso de técnicas como el
+ Modelo de Expertos
+\emph on
+[REF], MoE,
+\emph default
+ estrategias de ajuste fino con eficiencia de parámetros [REF](PaFi, LoRA),
+ 
+\emph on
+PEFT,
+\emph default
+ cuantización de parámetros (BitNet[REF] y QLoRA [REFs]) y destilación de
+ conocimiento y podado de modelo (EPSD, PFDD, Prune Before Distill).
+ El problema es que estas empresas han optado por la optimización únicamente
+ con la finalidad de reducir costes y aumentar beneficios -
+\emph on
+y el potencial green-washing-
+\emph default
+.
+ En consecuencia, la eficiencia energética es necesaria pero no suficiente
+ y, por tanto, es necesario un requisito adicional: ser fiel a la filosofía
+ 
+\emph on
+open-source
+\emph default
+ del lenguaje de programación sobre el que se sustentan estas tecnologías
+ (
+\emph on
+Python).
+ 
+\emph default
+Las entidades mencionadas evitan este concepto por miedo a la competencia
+ ofuscando sus avances, evitando la replicación y utilización de sus técnicas
+ por terceras partes y, por tanto, lastrando la ciencia que les ha permitido
+ implementar y desplegar dichas tecnologías.
+ Este trabajo servirá como guía para la replicación de la red neuronal presentad
+a de forma que cualquier entidad o individuo sea capaz de implementarla
+ y utilizarla.
+ Finalmente, la mejora de eficiencia en términos de número de parámetros
+ permite una disminución en la latencia de la respuesta, tanto es así que
+ es posible realizar predicciones en tiempo real.
+ La posibilidad de predicciones en tiempo real facilita el uso ya que no
+ es necesario hacer capturas de los momentos que el personal médico experto
+ considere más relevantes, además suaviza errores debido a que en predicciones
+ consecutivas las aberraciones de las predicciones serán diferentes pero
+ el conjunto objetivo 
+\emph on
+-tumor-
+\emph default
+ no, y permite una integración sencilla en el 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+streaming
+\begin_inset Quotes erd
+\end_inset
+
+
+\emph default
+ del ecógrafo.
+\end_layout
+
+\begin_layout Section
+Propuesta y objetivos
+\end_layout
+
+\begin_layout Standard
+Se propone una red neuronal tipo EFSNet[REF] con 
+\begin_inset Formula $180k$
+\end_inset
+
+ parámetros entrenada con los datos abiertos de BUSI [REF] para obtener
+ un modelo eficiente en el problema de la segmentación semántica de tumores
+ en ecografías mamarias que pueda ser ejecutado y reentrenado de forma sencilla
+ (
+\emph on
+previo conocimiento técnico
+\emph default
+) en cualquier centro médico que disponga de un aparato de ultrasonidos
+ aplicable a la detección de tumores en mamas y un ordenador.
+ La arquitectura EFSNet se fundamenta en la eficiencia vía optimización
+ de recursos -
+\emph on
+parámetros
+\emph default
+- sacrificando el mínimo desempeño posible en las tareas de visión artificial
+ explotando las virtudes de técnicas conocidas como los bloques residuales
+ [REF], la regularización 
+\emph on
+dropout
+\emph default
+ [REF], la dilatación en convoluciones [REF] o la normalización por lotes
+ -
+\emph on
+BatchNorm
+\emph default
+- [REF] de una forma inteligente y efectiva.
+ Este motivo es fundamental en la elección de esta red neuronal para la
+ detección tumores en ecografías mamarias en tiempo real.
+ Por otro lado, la reciente presentación de esta arquitectura [AÑO][REF]
+ junto con sus resultados la sitúa por encima de otras arquitecturas que
+ han surgido en esta línea como EFNet, ENet o MobileNet.
+ Finalmente, los aspectos novedosos en cuestión de arquitectura han posicionado
+ esta red por encima de otras que obtienen la mejora de rendimiento con
+ base en la utilización de lenguajes de programación diferentes a 
+\emph on
+Python
+\emph default
+ como 
+\emph on
+C
+\emph default
+ o 
+\emph on
+Rust 
+\emph default
+para la compilación de modelos pre-entrenados ya que esta técnica de transferenc
+ia de lenguaje sigue siendo aplicable a EFSNet en un futuro.
+\end_layout
+
+\begin_layout Standard
+La mejora en la precisión respecto de otros modelos no ha sido el punto
+ principal de la investigación.
+ Es evidente que otras redes con mayor capacidad y mayor cantidad de datos
+ pueden obtener mejores métricas de evaluación.
+ En contraparte, la inferencia en tiempo real permite al humano discriminar
+ con mayor certeza los posibles errores del modelo mientras que si se hace
+ uso de un modelo 
+\emph on
+pesado
+\emph default
+ habrá que elegir previamente qué imagen o conjunto de imágenes son de interés.
+ Por lo tanto, la posible comparación de métricas no es honesta.
+ Conociendo este hecho, se ha apostado por obtener la mejor precisión -
+\emph on
+accuracy
+\emph default
+- posible para la segmentación semántica de las imágenes en las categorías:
+ 
+\emph on
+normal, benigno, maligno,
+\emph default
+ así como en las categorías: 
+\emph on
+normal, tumor
+\emph default
+; para lo que se han tomado en consideración varias vías de procesamiento
+ y aumento de la cantidad de datos.
+\end_layout
+
+\begin_layout Standard
+Los prinicpales retos que se han debido afrontar han sido: la baja cantidad
+ de muestras disponibles, el desbalance de clases, la calidad del dato y
+ la implementación de la red neuronal desde el esquema teórico propuesto
+ por los autores.
+ A lo largo del trabajo se presentarán soluciones y decisiones tomadas al
+ respecto que han hecho viable la obtención de una solución aceptable.
+\end_layout
+
+\begin_layout Section
+Estructura del documento
+\end_layout
+
+\begin_layout Standard
+La memoria presentada se divide en cinco secciones.
+ Una vez vista la 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Introducción
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+[REF], la sección actual, se continúa con el 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Estado del Arte
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+[REF] donde se exponen los avances que han dado lugar a la obtención del
+ modelo de Inteligencia Artificial presentado, además se realizará una comparaci
+ón teórica de la solución implementada con respecto a otras soluciones propuesta
+s con el fin de contextualizar el trabajo y exponer las ventajas y limitaciones.
+ En tercer lugar, se realiza una descripción detallada de la solución implementa
+da en la sección de 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Materiales y Métodos
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+[REF] en la que se detallan los datos utilizados para el ajuste del modelo,
+ sus características y preprocesamiento, y la arquitectura detallada de
+ la red neuronal EFSNet junto con metodología de implementación y uso en
+ términos algorítmicos, de hardware y de software, de manera que se puedan
+ replicar el experimento realizado.
+ En la cuarta sección, 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Resultados
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+[REF] se detallarán los resultados numéricos obtenidos exponiendo las fortalezas
+ y debilidades de la aplicación de la EFSNet al conjunto de datos mencionado.
+ Finalmente, se cuenta con la sección de 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Conclusiones
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ en la que se evalua el cumplimiento de las propuestas y objetivos y se
+ establecen vías de desarrollo.
+\end_layout
+
+\begin_layout Standard
+Las secciones principales mencionadas están acomapañadas de las secciones
+ de: 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Referencias
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Apéndice
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ y 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Agradecimientos
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ en la que se puede encontrar información adicional sobre otros trabajos,
+ procedimientos específicos o personas relevantes para la consecución de
+ esta memoria.
+\end_layout
+
+\end_body
+\end_document

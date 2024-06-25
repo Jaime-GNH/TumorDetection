@@ -19,6 +19,7 @@
 @IEEEtranBSTCTL{Zhang2019,
   abstract = {Semantic segmentation is a challenging problem in computer vision. Many applications, such as autonomous driving and robot navigation with urban road scene, need accurate and efficient segmentation. Most state-of-the-art methods focus on accuracy, rather than efficiency. In this paper, we propose a more efficient neural network architecture, which has fewer parameters, for semantic segmentation in the urban road scene. An asymmetric encoder-decoder structure based on ResNet is used in our model. In the first stage of encoder, we use continuous factorized block to extract low-level features. Continuous dilated block is applied in the second stage, which ensures that the model has a larger view field, while keeping the model small-scale and shallow. The down sampled features from encoder are up sampled with decoder to the same-size output as the input image and the details refined. Our model can achieve end-to-end and pixel-to-pixel training without pretraining from scratch. The parameters of our model are only 0.2M, 100× less than those of others such as SegNet, etc. Experiments are conducted on five public road scene datasets (CamVid, CityScapes, Gatech, KITTI Road Detection, and KITTI Semantic Segmentation), and the results demonstrate that our model can achieve better performance.},
   author   = {Zhang, Xuetao and Chen, Zhenxue and Wu, Q. M. Jonathan and Cai, Lei and Lu, Dan and Li, Xianming},
+  comment  = {FSSNet},
   doi      = {10.1109/TII.2018.2849348},
   issn     = {1941-0050},
   journal  = {IEEE Transactions on Industrial Informatics},
@@ -29,13 +30,6 @@
   title    = {Fast Semantic Segmentation for Scene Perception},
   volume   = {15},
   year     = {2019},
-}
-
-@Article{ronneberger2015u,
-  author  = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
-  journal = {arXiv preprint arXiv:1505.04597},
-  title   = {U-Net: Convolutional networks for biomedical image segmentation. arXiv 2015},
-  year    = {2015},
 }
 
 @Article{7803544,
@@ -49,6 +43,7 @@
   pages    = {2481-2495},
   volume   = {39},
   abstract = {We present a novel and practical deep fully convolutional neural network architecture for semantic pixel-wise segmentation termed SegNet. This core trainable segmentation engine consists of an encoder network, a corresponding decoder network followed by a pixel-wise classification layer. The architecture of the encoder network is topologically identical to the 13 convolutional layers in the VGG16 network [1] . The role of the decoder network is to map the low resolution encoder feature maps to full input resolution feature maps for pixel-wise classification. The novelty of SegNet lies is in the manner in which the decoder upsamples its lower resolution input feature map(s). Specifically, the decoder uses pooling indices computed in the max-pooling step of the corresponding encoder to perform non-linear upsampling. This eliminates the need for learning to upsample. The upsampled maps are sparse and are then convolved with trainable filters to produce dense feature maps. We compare our proposed architecture with the widely adopted FCN [2] and also with the well known DeepLab-LargeFOV [3] , DeconvNet [4] architectures. This comparison reveals the memory versus accuracy trade-off involved in achieving good segmentation performance. SegNet was primarily motivated by scene understanding applications. Hence, it is designed to be efficient both in terms of memory and computational time during inference. It is also significantly smaller in the number of trainable parameters than other competing architectures and can be trained end-to-end using stochastic gradient descent. We also performed a controlled benchmark of SegNet and other architectures on both road scenes and SUN RGB-D indoor scene segmentation tasks. These quantitative assessments show that SegNet provides good performance with competitive inference time and most efficient inference memory-wise as compared to other architectures. We also provide a Caffe implementation of SegNet and a web demo at http://mi.eng.cam.ac.uk/projects/segnet/.},
+  comment  = {SegNet. Benchmark. History.},
   doi      = {10.1109/TPAMI.2016.2644615},
   keywords = {Decoding;Neural networks;Training;Computer architecture;Image segmentation;Semantics;Convolutional codes;Deep convolutional neural networks;semantic pixel-wise segmentation;indoor scenes;road scenes;encoder;decoder;pooling;upsampling},
 }
@@ -61,6 +56,7 @@
   month     = {June},
   pages     = {770-778},
   abstract  = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8× deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC & COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
+  comment   = {Bottleneck unit},
   doi       = {10.1109/CVPR.2016.90},
   issn      = {1063-6919},
   keywords  = {Training;Degradation;Complexity theory;Image recognition;Neural networks;Visualization;Image segmentation},
@@ -90,6 +86,753 @@
   publisher = {Springer International Publishing},
   abstract  = {Currently, the neural network architecture design is mostly guided by the indirect metric of computation complexity, i.e., FLOPs. However, the direct metric, e.g., speed, also depends on the other factors such as memory access cost and platform characterics. Thus, this work proposes to evaluate the direct metric on the target platform, beyond only considering FLOPs. Based on a series of controlled experiments, this work derives several practical guidelines for efficient network design. Accordingly, a new architecture is presented, called ShuffleNet V2. Comprehensive ablation experiments verify that our model is the state-of-the-art in terms of speed and accuracy tradeoff.},
   isbn      = {978-3-030-01264-9},
+}
+
+@InProceedings{Loni2019,
+  author    = {Mohammad Loni and Ali Zoljodi and Sima Sinaei and Masoud Daneshtalab and Mikael Sj{\"o}din},
+  booktitle = {International Conference on Artificial Neural Networks},
+  title     = {NeuroPower: Designing Energy Efficient Convolutional Neural Network Architecture for Embedded Systems},
+  year      = {2019},
+  comment   = {Sobre consumo de energía por tamaño de los modelos},
+  url       = {https://api.semanticscholar.org/CorpusID:202402304},
+}
+
+@Article{Shin2016,
+  author        = {Hoo{-}Chang Shin and Holger R. Roth and Mingchen Gao and Le Lu and Ziyue Xu and Isabella Nogues and Jianhua Yao and Daniel J. Mollura and Ronald M. Summers},
+  journal       = {CoRR},
+  title         = {Deep Convolutional Neural Networks for Computer-Aided Detection: {CNN} Architectures, Dataset Characteristics and Transfer Learning},
+  year          = {2016},
+  volume        = {abs/1602.03409},
+  archiveprefix = {arXiv},
+  bibsource     = {dblp computer science bibliography, https://dblp.org},
+  biburl        = {https://dblp.org/rec/journals/corr/ShinRGLXNYMS16.bib},
+  eprint        = {1602.03409},
+  timestamp     = {Fri, 07 Oct 2022 14:19:05 +0200},
+  url           = {http://arxiv.org/abs/1602.03409},
+}
+
+@Article{Chenna2023,
+  author  = {Chenna, Dwith},
+  journal = {arXiv preprint arXiv:2311.12816},
+  title   = {Evolution of Convolutional Neural Network (CNN): Compute vs Memory bandwidth for Edge AI},
+  year    = {2023},
+  comment = {Ojo preprint!
+Evolucion de las CNNs},
+}
+
+@Article{Krizhevsky2012,
+  author  = {Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E},
+  journal = {Advances in neural information processing systems},
+  title   = {Imagenet classification with deep convolutional neural networks},
+  year    = {2012},
+  volume  = {25},
+  comment = {AlexNet. History DCNN},
+}
+
+@Article{Network1989,
+  author    = {Network, Back-Propagation},
+  title     = {Handwritten digit recognition with},
+  year      = {1989},
+  comment   = {Densa clasificacion. Historia.},
+  publisher = {Citeseer},
+}
+
+@Article{turaga2010convolutional,
+  author    = {Turaga, Srinivas C and Murray, Joseph F and Jain, Viren and Roth, Fabian and Helmstaedter, Moritz and Briggman, Kevin and Denk, Winfried and Seung, H Sebastian},
+  journal   = {Neural computation},
+  title     = {Convolutional networks can learn to generate affinity graphs for image segmentation},
+  year      = {2010},
+  number    = {2},
+  pages     = {511--538},
+  volume    = {22},
+  comment   = {Image Segmentation},
+  publisher = {MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA journals-info~…},
+}
+
+@Article{Siddique2021,
+  author   = {Siddique, Nahian and Paheding, Sidike and Elkin, Colin P. and Devabhaktuni, Vijay},
+  journal  = {IEEE Access},
+  title    = {U-Net and Its Variants for Medical Image Segmentation: A Review of Theory and Applications},
+  year     = {2021},
+  pages    = {82031-82057},
+  volume   = {9},
+  comment  = {U-Net history in Image segmentation},
+  doi      = {10.1109/ACCESS.2021.3086020},
+  keywords = {Image segmentation;Convolution;Biomedical imaging;Three-dimensional displays;Logic gates;Deep learning;Computer architecture;Biomedical imaging;deep learning;neural network architecture;segmentation;U-net},
+}
+
+@Article{Du2020,
+  author  = {Du, Getao and Cao, Xu and Liang, Jimin and Chen, Xueli and Zhan, Yonghua},
+  journal = {Journal of Imaging Science \& Technology},
+  title   = {Medical Image Segmentation based on U-Net: A Review.},
+  year    = {2020},
+  number  = {2},
+  volume  = {64},
+  comment = {U-Net Medical Image Segmentation},
+}
+
+@Article{Guo2018,
+  author    = {Guo, Yanming and Liu, Yu and Georgiou, Theodoros and Lew, Michael S},
+  journal   = {International journal of multimedia information retrieval},
+  title     = {A review of semantic segmentation using deep neural networks},
+  year      = {2018},
+  pages     = {87--93},
+  volume    = {7},
+  comment   = {Semantic Segmentation History},
+  publisher = {Springer},
+}
+
+@Article{Islam2022,
+  author  = {Islam, Khawar},
+  journal = {arXiv preprint arXiv:2203.01536},
+  title   = {Recent advances in vision transformer: A survey and outlook of recent work},
+  year    = {2022},
+  comment = {Vision Transformer History},
+}
+
+@Article{Jiang2022,
+  author  = {Baode Jiang and Xiaoya An and Shaofen Xu and Zhanlong Chen},
+  journal = {Journal of the Indian Society of Remote Sensing},
+  title   = {Intelligent Image Semantic Segmentation: A Review Through Deep Learning Techniques for Remote Sensing Image Analysis},
+  year    = {2022},
+  pages   = {1865-1878},
+  volume  = {51},
+  url     = {https://api.semanticscholar.org/CorpusID:246075398},
+}
+
+@Article{Yang2022,
+  author  = {Cheng Yang and Hongjun Guo},
+  journal = {Mathematical Problems in Engineering},
+  title   = {A Method of Image Semantic Segmentation Based on PSPNet},
+  year    = {2022},
+  comment = {Pyramid Semantic Segmentation History},
+  url     = {https://api.semanticscholar.org/CorpusID:251511103},
+}
+
+@InBook{Rojas1996,
+  author    = {Rojas, Ra{\'u}l},
+  pages     = {149--182},
+  publisher = {Springer Berlin Heidelberg},
+  title     = {The Backpropagation Algorithm},
+  year      = {1996},
+  address   = {Berlin, Heidelberg},
+  isbn      = {978-3-642-61068-4},
+  abstract  = {We saw in the last chapter that multilayered networks are capable of computing a wider range of Boolean functions than networks with a single layer of computing units. However the computational effort needed for finding the correct combination of weights increases substantially when more parameters and more complicated topologies are considered. In this chapter we discuss a popular learning method capable of handling such large learning problems---the backpropagation algorithm. This numerical method was used by different research communities in different contexts, was discovered and rediscovered, until in 1985 it found its way into connectionist AI mainly through the work of the PDP group [382]. It has been one of the most studied and used algorithms for neural networks learning ever since.},
+  booktitle = {Neural Networks: A Systematic Introduction},
+  comment   = {History NNs},
+  doi       = {10.1007/978-3-642-61068-4_7},
+  url       = {https://doi.org/10.1007/978-3-642-61068-4_7},
+}
+
+@Article{LeCun1989,
+  author  = {LeCun, Yann and Boser, Bernhard and Denker, John and Henderson, Donnie and Howard, Richard and Hubbard, Wayne and Jackel, Lawrence},
+  journal = {Advances in neural information processing systems},
+  title   = {Handwritten digit recognition with a back-propagation network},
+  year    = {1989},
+  volume  = {2},
+  comment = {First CNN
+
+This 1989 paper, published in the proceedings of the Neural Information Processing Systems (NIPS) conference, is considered the first work to use backpropagation to train the convolution kernels of a CNN for image recognition tasks like handwritten digit classification
+
+The CNN architecture used in this paper was later named LeNet-5 and published in 1995.},
+}
+
+@Article{LeCun1995,
+  author  = {LeCun, Yann and Jackel, Lawrence D and Bottou, L{\'e}on and Cortes, Corinna and Denker, John S and Drucker, Harris and Guyon, Isabelle and Muller, Urs A and Sackinger, Eduard and Simard, Patrice and others},
+  journal = {Neural networks: the statistical mechanics perspective},
+  title   = {Learning algorithms for classification: A comparison on handwritten digit recognition},
+  year    = {1995},
+  number  = {276},
+  pages   = {2},
+  volume  = {261},
+  comment = {LeNet primeras CNNs.},
+}
+
+@InProceedings{Ronneberger2015,
+  author       = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  booktitle    = {Medical image computing and computer-assisted intervention--MICCAI 2015: 18th international conference, Munich, Germany, October 5-9, 2015, proceedings, part III 18},
+  title        = {U-net: Convolutional networks for biomedical image segmentation},
+  year         = {2015},
+  organization = {Springer},
+  pages        = {234--241},
+  comment      = {Primera U-Net en medicina. History DCNN.
+
+U-Net benchmark},
+}
+
+@Article{Krogh1991,
+  author  = {Krogh, Anders and Hertz, John},
+  journal = {Advances in neural information processing systems},
+  title   = {A simple weight decay can improve generalization},
+  year    = {1991},
+  volume  = {4},
+  comment = {Weight Decay},
+}
+
+@InProceedings{Nair2010,
+  author    = {Nair, Vinod and Hinton, Geoffrey E},
+  booktitle = {Proceedings of the 27th international conference on machine learning (ICML-10)},
+  title     = {Rectified linear units improve restricted boltzmann machines},
+  year      = {2010},
+  pages     = {807--814},
+  comment   = {ReLU activation},
+}
+
+@Article{Lee2020,
+  author    = {Lee, Sanghun and Lee, Chulhee},
+  journal   = {Multimedia Tools and Applications},
+  title     = {Revisiting spatial dropout for regularizing convolutional neural networks},
+  year      = {2020},
+  number    = {45},
+  pages     = {34195--34207},
+  volume    = {79},
+  comment   = {Spatial Dropout paper.
+
+"...dropout between channels in the CNNs can be functionally similar to dropout in the FCNNs, and spatial dropout can be an effective way to take advantage of the dropout technique for regularizing."},
+  publisher = {Springer},
+}
+
+@InProceedings{Ioffe2015,
+  author       = {Ioffe, Sergey and Szegedy, Christian},
+  booktitle    = {International conference on machine learning},
+  title        = {Batch normalization: Accelerating deep network training by reducing internal covariate shift},
+  year         = {2015},
+  organization = {pmlr},
+  pages        = {448--456},
+  comment      = {BatchNormalization paper},
+}
+
+@Article{Ba2016,
+  author  = {Ba, Jimmy Lei and Kiros, Jamie Ryan and Hinton, Geoffrey E},
+  journal = {arXiv preprint arXiv:1607.06450},
+  title   = {Layer normalization},
+  year    = {2016},
+  comment = {Layer Normalization},
+}
+
+@InProceedings{He2015,
+  author    = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  booktitle = {Proceedings of the IEEE international conference on computer vision},
+  title     = {Delving deep into rectifiers: Surpassing human-level performance on imagenet classification},
+  year      = {2015},
+  pages     = {1026--1034},
+  comment   = {Parametrized Rectified Linear Unit, Kaiming Uniform.},
+}
+
+@Article{Kingma2014,
+  author  = {Kingma, Diederik P and Ba, Jimmy},
+  journal = {arXiv preprint arXiv:1412.6980},
+  title   = {Adam: A method for stochastic optimization},
+  year    = {2014},
+}
+
+@InProceedings{Redmon2016,
+  author    = {Redmon, Joseph and Divvala, Santosh and Girshick, Ross and Farhadi, Ali},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {You only look once: Unified, real-time object detection},
+  year      = {2016},
+  pages     = {779--788},
+  comment   = {YOLO history},
+}
+
+@InProceedings{Long2015,
+  author    = {Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {Fully convolutional networks for semantic segmentation},
+  year      = {2015},
+  pages     = {3431--3440},
+  comment   = {Semantic Segmentation History.
+
+FCN.},
+}
+
+@Article{Ren2015,
+  author  = {Ren, Shaoqing and He, Kaiming and Girshick, Ross and Sun, Jian},
+  journal = {Advances in neural information processing systems},
+  title   = {Faster r-cnn: Towards real-time object detection with region proposal networks},
+  year    = {2015},
+  volume  = {28},
+  comment = {Faster-R-CNN. Real time object detection.},
+}
+
+@InProceedings{Girshick2015,
+  author    = {Girshick, Ross},
+  booktitle = {Proceedings of the IEEE international conference on computer vision},
+  title     = {Fast r-cnn},
+  year      = {2015},
+  pages     = {1440--1448},
+  comment   = {Fast R-CNN. History.},
+}
+
+@InProceedings{Girshick2014,
+  author    = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {Rich feature hierarchies for accurate object detection and semantic segmentation},
+  year      = {2014},
+  pages     = {580--587},
+  comment   = {R-CNN. History.},
+}
+
+@Article{He2015a,
+  author    = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  journal   = {IEEE transactions on pattern analysis and machine intelligence},
+  title     = {Spatial pyramid pooling in deep convolutional networks for visual recognition},
+  year      = {2015},
+  number    = {9},
+  pages     = {1904--1916},
+  volume    = {37},
+  comment   = {Spatial Pyramid Pooling. HIstory.},
+  publisher = {IEEE},
+}
+
+@Article{Chen2014,
+  author  = {Chen, Liang-Chieh and Papandreou, George and Kokkinos, Iasonas and Murphy, Kevin and Yuille, Alan L},
+  journal = {arXiv preprint arXiv:1412.7062},
+  title   = {Semantic image segmentation with deep convolutional nets and fully connected crfs},
+  year    = {2014},
+  comment = {Semantic Image Segmentation DCNN. History.},
+}
+
+@Article{Farabet2012,
+  author    = {Farabet, Clement and Couprie, Camille and Najman, Laurent and LeCun, Yann},
+  journal   = {IEEE transactions on pattern analysis and machine intelligence},
+  title     = {Learning hierarchical features for scene labeling},
+  year      = {2012},
+  number    = {8},
+  pages     = {1915--1929},
+  volume    = {35},
+  comment   = {Learning hierarchical features.},
+  publisher = {IEEE},
+}
+
+@Article{Srivastava2014,
+  author    = {Srivastava, Nitish and Hinton, Geoffrey and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan},
+  journal   = {The journal of machine learning research},
+  title     = {Dropout: a simple way to prevent neural networks from overfitting},
+  year      = {2014},
+  number    = {1},
+  pages     = {1929--1958},
+  volume    = {15},
+  comment   = {Dropout first paper. History.},
+  publisher = {JMLR. org},
+}
+
+@InProceedings{Szegedy2016,
+  author    = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jon and Wojna, Zbigniew},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {Rethinking the inception architecture for computer vision},
+  year      = {2016},
+  pages     = {2818--2826},
+  comment   = {Rethinking Inception. Influencia clave para la EFSNet.},
+}
+
+@InProceedings{Szegedy2017,
+  author    = {Szegedy, Christian and Ioffe, Sergey and Vanhoucke, Vincent and Alemi, Alexander},
+  booktitle = {Proceedings of the AAAI conference on artificial intelligence},
+  title     = {Inception-v4, inception-resnet and the impact of residual connections on learning},
+  year      = {2017},
+  number    = {1},
+  volume    = {31},
+  comment   = {Inception v-4. Influencia para las residual connections de EFSNet.},
+}
+
+@InProceedings{He2016,
+  author       = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  booktitle    = {Computer Vision--ECCV 2016: 14th European Conference, Amsterdam, The Netherlands, October 11--14, 2016, Proceedings, Part IV 14},
+  title        = {Identity mappings in deep residual networks},
+  year         = {2016},
+  organization = {Springer},
+  pages        = {630--645},
+  comment      = {Identity mappings. Influencia para los residual blocks de EFSNet.},
+}
+
+@Article{Jaderberg2015,
+  author  = {Jaderberg, Max and Simonyan, Karen and Zisserman, Andrew and others},
+  journal = {Advances in neural information processing systems},
+  title   = {Spatial transformer networks},
+  year    = {2015},
+  volume  = {28},
+  comment = {Spatial transformers. Vía de desarrollo descartada.},
+}
+
+@InProceedings{Szegedy2015,
+  author    = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and Sermanet, Pierre and Reed, Scott and Anguelov, Dragomir and Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {Going deeper with convolutions},
+  year      = {2015},
+  pages     = {1--9},
+  comment   = {GoogLeNet. Residual Blocks influence.},
+}
+
+@Article{Simonyan2014,
+  author  = {Simonyan, Karen and Zisserman, Andrew},
+  journal = {arXiv preprint arXiv:1409.1556},
+  title   = {Very deep convolutional networks for large-scale image recognition},
+  year    = {2014},
+  comment = {ConvNet. History.},
+}
+
+@Misc{Ma2018a,
+  author = {Ningning Ma and Xiangyu Zhang and Haitao Zheng and Jian Sun},
+  title  = {ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Design},
+  year   = {2018},
+}
+
+@Misc{Zhang2017,
+  author = {Xiangyu Zhang and Xinyu Zhou and Mengxiao Lin and Jian Sun},
+  title  = {ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices},
+  year   = {2017},
+}
+
+@InProceedings{Mehta2018,
+  author    = {Mehta, Sachin and Rastegari, Mohammad and Caspi, Anat and Shapiro, Linda and Hajishirzi, Hannaneh},
+  booktitle = {Proceedings of the european conference on computer vision (ECCV)},
+  title     = {Espnet: Efficient spatial pyramid of dilated convolutions for semantic segmentation},
+  year      = {2018},
+  pages     = {552--568},
+  comment   = {ESPNet. Influencia EFSNet.},
+}
+
+@Article{Howard2017,
+  author  = {Howard, Andrew G and Zhu, Menglong and Chen, Bo and Kalenichenko, Dmitry and Wang, Weijun and Weyand, Tobias and Andreetto, Marco and Adam, Hartwig},
+  journal = {arXiv preprint arXiv:1704.04861},
+  title   = {Mobilenets: Efficient convolutional neural networks for mobile vision applications},
+  year    = {2017},
+  comment = {MobileNet. Real-time history.},
+}
+
+@Article{Chen2024,
+  author  = {Chen, Dong and Liu, Ning and Zhu, Yichen and Che, Zhengping and Ma, Rui and Zhang, Fachao and Mou, Xiaofeng and Chang, Yi and Tang, Jian},
+  journal = {arXiv preprint arXiv:2402.00084},
+  title   = {EPSD: Early Pruning with Self-Distillation for Efficient Model Compression},
+  year    = {2024},
+  comment = {EPSD. Introducción.},
+}
+
+@InProceedings{Zhou2022,
+  author    = {Zhou, ZhaoJing and Zhou, Yun and Jiang, Zhuqing and Men, Aidong and Wang, Haiying},
+  booktitle = {ICASSP 2022 - 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  title     = {An Efficient Method for Model Pruning Using Knowledge Distillation with Few Samples},
+  year      = {2022},
+  pages     = {2515-2519},
+  comment   = {PFDD. Introducción},
+  doi       = {10.1109/ICASSP43922.2022.9746024},
+  keywords  = {Training;Measurement;Deep learning;Image coding;Convolution;Conferences;Neural networks;Network compression;knowledge distillation;few samples},
+}
+
+@InProceedings{Park2022,
+  author       = {Park, Jinhyuk and No, Albert},
+  booktitle    = {European Conference on Computer Vision},
+  title        = {Prune your model before distill it},
+  year         = {2022},
+  organization = {Springer},
+  pages        = {120--136},
+  comment      = {Prune before distill. Introduction.},
+}
+
+@Article{Liao2023,
+  author  = {Liao, Baohao and Meng, Yan and Monz, Christof},
+  journal = {arXiv preprint arXiv:2305.16742},
+  title   = {Parameter-efficient fine-tuning without introducing new latency},
+  year    = {2023},
+  comment = {PaFi. Introducción.},
+}
+
+@Article{Hu2021,
+  author  = {Hu, Edward J and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
+  journal = {arXiv preprint arXiv:2106.09685},
+  title   = {Lora: Low-rank adaptation of large language models},
+  year    = {2021},
+  comment = {LoRA. Introducción},
+}
+
+@Article{Dettmers2024,
+  author  = {Dettmers, Tim and Pagnoni, Artidoro and Holtzman, Ari and Zettlemoyer, Luke},
+  journal = {Advances in Neural Information Processing Systems},
+  title   = {Qlora: Efficient finetuning of quantized llms},
+  year    = {2024},
+  volume  = {36},
+  comment = {QLoRA. Introducción.},
+}
+
+@Article{Wang2023,
+  author  = {Wang, Hongyu and Ma, Shuming and Dong, Li and Huang, Shaohan and Wang, Huaijie and Ma, Lingxiao and Yang, Fan and Wang, Ruiping and Wu, Yi and Wei, Furu},
+  journal = {arXiv preprint arXiv:2310.11453},
+  title   = {Bitnet: Scaling 1-bit transformers for large language models},
+  year    = {2023},
+  comment = {BitNet. Introducción.},
+}
+
+@Article{AlDhabyani2020,
+  author    = {Al-Dhabyani, Walid and Gomaa, Mohammed and Khaled, Hussien and Fahmy, Aly},
+  journal   = {Data in brief},
+  title     = {Dataset of breast ultrasound images},
+  year      = {2020},
+  pages     = {104863},
+  volume    = {28},
+  comment   = {BUSI Dataset},
+  publisher = {Elsevier},
+}
+
+@Article{Pawlowska2024,
+  author   = {Pawłowska, Anna and Ćwierz-Pieńkowska, Anna and Domalik, Agnieszka and Jaguś, Dominika and Kasprzak, Piotr and Matkowski, Rafał and Fura, Łukasz and Nowicki, Andrzej and Żołek, Norbert},
+  journal  = {Scientific Data},
+  title    = {Curated benchmark dataset for ultrasound based breast lesion analysis},
+  year     = {2024},
+  issn     = {2052-4463},
+  number   = {1},
+  pages    = {148},
+  volume   = {11},
+  abstract = {A new detailed dataset of breast ultrasound scans (BrEaST) containing images of benign and malignant lesions as well as normal tissue examples, is presented. The dataset consists of 256 breast scans collected from 256 patients. Each scan was manually annotated and labeled by a radiologist experienced in breast ultrasound examination. In particular, each tumor was identified in the image using a freehand annotation and labeled according to BIRADS features and lexicon. The histopathological classification of the tumor was also provided for patients who underwent a biopsy. The BrEaST dataset is the first breast ultrasound dataset containing patient-level labels, image-level annotations, and tumor-level labels with all cases confirmed by follow-up care or core needle biopsy result. To enable research into breast disease detection, tumor segmentation and classification, the BrEaST dataset is made publicly available with the CC-BY 4.0 license.},
+  comment  = {BrEaST},
+  doi      = {10.1038/s41597-024-02984-z},
+  refid    = {Pawłowska2024},
+  url      = {https://doi.org/10.1038/s41597-024-02984-z},
+}
+
+@Article{Pawlowska2023,
+  author    = {Paw{\l}owska, Anna and Karwat, Piotr and {\.Z}o{\l}ek, Norbert},
+  journal   = {Data in Brief},
+  title     = {re:“[dataset of breast ultrasound images by w. al-dhabyani, m. gomaa, h. khaled \& a. fahmy, data in brief, 2020, 28, 104863]”},
+  year      = {2023},
+  volume    = {48},
+  comment   = {BUSI-BrEaST beef},
+  publisher = {Elsevier},
+}
+
+@Article{PiotrzkowskaWroblewska2017,
+  author   = {Piotrzkowska-Wróblewska, Hanna and Dobruch-Sobczak, Katarzyna and Byra, Michał and Nowicki, Andrzej},
+  journal  = {Medical Physics},
+  title    = {Open access database of raw ultrasonic signals acquired from malignant and benign breast lesions},
+  year     = {2017},
+  number   = {11},
+  pages    = {6105-6109},
+  volume   = {44},
+  abstract = {Purpose The aim of this paper is to provide access to a database consisting of the raw radio-frequency ultrasonic echoes acquired from malignant and benign breast lesions. The database is freely available for study and signal analysis. Acquisition and validation methods The ultrasonic radio-frequency echoes were recorded from breast focal lesions of patients of the Institute of Oncology in Warsaw. The data were collected between 11/2013 and 10/2015. Patients were examined by a radiologist with 18 yr' experience in the ultrasonic examination of breast lesions. The set of data includes scans from 52 malignant and 48 benign breast lesions recorded in a group of 78 women. For each lesion, two individual orthogonal scans from the pathological region were acquired with the Ultrasonix SonixTouch Research ultrasound scanner using the L14-5/38 linear array transducer. All malignant lesions were histologically assessed by core needle biopsy. In the case of benign lesions, part of them was histologically assessed and another part was observed over a 2-year period. Data format and usage notes The radio-frequency echoes were stored in Matlab file format. For each scan, the region of interest was provided to correctly indicate the lesion area. Moreover, for each lesion, the BI-RADS category and the lesion class were included. Two code examples of data manipulation are presented. The data can be downloaded via the Zenodo repository (https://doi.org/10.5281/zenodo.545928) or the website http://bluebox.ippt.gov.pl/~hpiotrzk. Potential applications The database can be used to test quantitative ultrasound techniques and ultrasound image processing algorithms, or to develop computer-aided diagnosis systems.},
+  comment  = {OASBUD},
+  doi      = {https://doi.org/10.1002/mp.12538},
+  eprint   = {https://aapm.onlinelibrary.wiley.com/doi/pdf/10.1002/mp.12538},
+  keywords = {breast lesions, dataset, ultrasonic signals, ultrasonography},
+  url      = {https://aapm.onlinelibrary.wiley.com/doi/abs/10.1002/mp.12538},
+}
+
+@InProceedings{Ribeiro2016,
+  author    = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
+  booktitle = {Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining},
+  title     = {" Why should i trust you?" Explaining the predictions of any classifier},
+  year      = {2016},
+  pages     = {1135--1144},
+  comment   = {Wolf-Husky image prediction snow bias.},
+}
+
+@InProceedings{Shah2016,
+  author    = {Shah, Anish and Kadam, Eashan and Shah, Hena and Shinde, Sameer and Shingade, Sandip},
+  booktitle = {Proceedings of the third international symposium on computer vision and the internet},
+  title     = {Deep residual networks with exponential linear unit},
+  year      = {2016},
+  pages     = {59--65},
+  comment   = {BatchNorm ELU. Vanishing Gradients.},
+}
+
+@Article{Yu2015,
+  author  = {Yu, Fisher and Koltun, Vladlen},
+  journal = {arXiv preprint arXiv:1511.07122},
+  title   = {Multi-scale context aggregation by dilated convolutions},
+  year    = {2015},
+  comment = {Dilated convolution.},
+}
+
+@InProceedings{Chollet2017,
+  author    = {Chollet, Fran{\c{c}}ois},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {Xception: Deep learning with depthwise separable convolutions},
+  year      = {2017},
+  pages     = {1251--1258},
+  comment   = {DepthWise Convolution},
+}
+
+@InProceedings{Mannor2005,
+  author  = {Mannor, Shie and Peleg, Dori and Rubinstein, Reuven},
+  title   = {The cross entropy method for classification},
+  year    = {2005},
+  month   = {01},
+  pages   = {561-568},
+  comment = {CrossEntropy Loss},
+  doi     = {10.1145/1102351.1102422},
+}
+
+@Article{Reddi2019,
+  author  = {Reddi, Sashank J and Kale, Satyen and Kumar, Sanjiv},
+  journal = {arXiv preprint arXiv:1904.09237},
+  title   = {On the convergence of adam and beyond},
+  year    = {2019},
+  comment = {AMSGRAD. Adam Variant.},
+}
+
+@Article{Bansal2023,
+  author  = {Bansal, Satish},
+  journal = {International Journal on Recent and Innovation Trends in Computing and Communication},
+  title   = {Breast Tumor Recognition by Semantic Segmentation of Multiclass Ultrasound Images},
+  year    = {2023},
+  month   = {10},
+  pages   = {938-946},
+  volume  = {11},
+  comment = {V-Net. Mal paper. Decir que no es fiable.},
+  doi     = {10.17762/ijritcc.v11i9.8986},
+}
+
+@Article{Oktay2018,
+  author  = {Oktay, Ozan and Schlemper, Jo and Folgoc, Loic Le and Lee, Matthew and Heinrich, Mattias and Misawa, Kazunari and Mori, Kensaku and McDonagh, Steven and Hammerla, Nils Y and Kainz, Bernhard and others},
+  journal = {arXiv preprint arXiv:1804.03999},
+  title   = {Attention u-net: Learning where to look for the pancreas},
+  year    = {2018},
+  comment = {Attention U-Net},
+}
+
+@Article{Chen2017,
+  author  = {Chen, Liang-Chieh and Papandreou, George and Schroff, Florian and Adam, Hartwig},
+  journal = {arXiv preprint arXiv:1706.05587},
+  title   = {Rethinking atrous convolution for semantic image segmentation},
+  year    = {2017},
+  comment = {DeepLabv3+},
+}
+
+@Article{Xu2023,
+  author   = {Xu, Meng and Huang, Kuan and Qi, Xiaojun},
+  journal  = {IEEE Access},
+  title    = {A Regional-Attentive Multi-Task Learning Framework for Breast Ultrasound Image Segmentation and Classification},
+  year     = {2023},
+  pages    = {5377-5392},
+  volume   = {11},
+  comment  = {Comparación de métricas BUSI},
+  doi      = {10.1109/ACCESS.2023.3236693},
+  keywords = {Tumors;Image segmentation;Multitasking;Ultrasonic imaging;Feature extraction;Breast;Biomedical imaging;Multitasking;Regional attention;multi-task learning;segmentation;classification;breast ultrasound},
+}
+
+@Article{Amiri2020,
+  author    = {Amiri, Mina and Brooks, Rupert and Behboodi, Bahareh and Rivaz, Hassan},
+  journal   = {International journal of computer assisted radiology and surgery},
+  title     = {Two-stage ultrasound image segmentation using U-Net and test time augmentation},
+  year      = {2020},
+  pages     = {981--988},
+  volume    = {15},
+  comment   = {Two Stage. State of the art. Historia.},
+  publisher = {Springer},
+}
+
+@InProceedings{Xu2021,
+  author       = {Xu, Meng and Huang, Kuan and Chen, Qiuxiao and Qi, Xiaojun},
+  booktitle    = {2021 IEEE 18th international symposium on biomedical imaging (ISBI)},
+  title        = {Mssa-net: Multi-scale self-attention network for breast ultrasound image segmentation},
+  year         = {2021},
+  organization = {IEEE},
+  pages        = {827--831},
+  comment      = {MSSA-Net Comparison},
+}
+
+@Article{Zhang2023,
+  author         = {Zhang, Shuai and Niu, Yanmin},
+  journal        = {Bioengineering},
+  title          = {LcmUNet: A Lightweight Network Combining CNN and MLP for Real-Time Medical Image Segmentation},
+  year           = {2023},
+  issn           = {2306-5354},
+  number         = {6},
+  volume         = {10},
+  abstract       = {In recent years, UNet and its improved variants have become the main methods for medical image segmentation. Although these models have achieved excellent results in segmentation accuracy, their large number of network parameters and high computational complexity make it difficult to achieve medical image segmentation in real-time therapy and diagnosis rapidly. To address this problem, we introduce a lightweight medical image segmentation network (LcmUNet) based on CNN and MLP. We designed LcmUNet’s structure in terms of model performance, parameters, and computational complexity. The first three layers are convolutional layers, and the last two layers are MLP layers. In the convolution part, we propose an LDA module that combines asymmetric convolution, depth-wise separable convolution, and an attention mechanism to reduce the number of network parameters while maintaining a strong feature-extraction capability. In the MLP part, we propose an LMLP module that helps enhance contextual information while focusing on local information and improves segmentation accuracy while maintaining high inference speed. This network also covers skip connections between the encoder and decoder at various levels. Our network achieves real-time segmentation results accurately in extensive experiments. With only 1.49 million model parameters and without pre-training, LcmUNet demonstrated impressive performance on different datasets. On the ISIC2018 dataset, it achieved an IoU of 85.19%, 92.07% recall, and 92.99% precision. On the BUSI dataset, it achieved an IoU of 63.99%, 79.96% recall, and 76.69% precision. Lastly, on the Kvasir-SEG dataset, LcmUNet achieved an IoU of 81.89%, 88.93% recall, and 91.79% precision.},
+  article-number = {712},
+  comment        = {LCM Unet.},
+  doi            = {10.3390/bioengineering10060712},
+  pubmedid       = {37370643},
+  url            = {https://www.mdpi.com/2306-5354/10/6/712},
+}
+
+@Article{Byra2020,
+  author    = {Byra, Michal and Jarosik, Piotr and Szubert, Aleksandra and Galperin, Michael and Ojeda-Fournier, Haydee and Olson, Linda and O’Boyle, Mary and Comstock, Christopher and Andre, Michael},
+  journal   = {Biomedical Signal Processing and Control},
+  title     = {Breast mass segmentation in ultrasound with selective kernel U-Net convolutional neural network},
+  year      = {2020},
+  pages     = {102027},
+  volume    = {61},
+  comment   = {Sk-U-Net},
+  publisher = {Elsevier},
+}
+
+@Article{Shareef2022,
+  author         = {Shareef, Bryar and Vakanski, Aleksandar and Freer, Phoebe E. and Xian, Min},
+  journal        = {Healthcare},
+  title          = {ESTAN: Enhanced Small Tumor-Aware Network for Breast Ultrasound Image Segmentation},
+  year           = {2022},
+  issn           = {2227-9032},
+  number         = {11},
+  volume         = {10},
+  abstract       = {Breast tumor segmentation is a critical task in computer-aided diagnosis (CAD) systems for breast cancer detection because accurate tumor size, shape, and location are important for further tumor quantification and classification. However, segmenting small tumors in ultrasound images is challenging due to the speckle noise, varying tumor shapes and sizes among patients, and the existence of tumor-like image regions. Recently, deep learning-based approaches have achieved great success in biomedical image analysis, but current state-of-the-art approaches achieve poor performance for segmenting small breast tumors. In this paper, we propose a novel deep neural network architecture, namely the Enhanced Small Tumor-Aware Network (ESTAN), to accurately and robustly segment breast tumors. The Enhanced Small Tumor-Aware Network introduces two encoders to extract and fuse image context information at different scales, and utilizes row-column-wise kernels to adapt to the breast anatomy. We compare ESTAN and nine state-of-the-art approaches using seven quantitative metrics on three public breast ultrasound datasets, i.e., BUSIS, Dataset B, and BUSI. The results demonstrate that the proposed approach achieves the best overall performance and outperforms all other approaches on small tumor segmentation. Specifically, the Dice similarity coefficient (DSC) of ESTAN on the three datasets is 0.92, 0.82, and 0.78, respectively; and the DSC of ESTAN on the three datasets of small tumors is 0.89, 0.80, and 0.81, respectively.},
+  article-number = {2262},
+  comment        = {ESTAN Net},
+  doi            = {10.3390/healthcare10112262},
+  pubmedid       = {36421586},
+  url            = {https://www.mdpi.com/2227-9032/10/11/2262},
+}
+
+@Article{Zhang2023a,
+  author   = {Zhang, Jie and Zhang, Zhichao and Liu, Hua and Xu, Shiqiang},
+  journal  = {IET Image Processing},
+  title    = {SaTransformer: Semantic-aware transformer for breast cancer classification and segmentation},
+  year     = {2023},
+  number   = {13},
+  pages    = {3789-3800},
+  volume   = {17},
+  abstract = {Abstract Breast cancer classification and segmentation play an important role in identifying and detecting benign and malignant breast lesions. However, segmentation and classification still face many challenges: 1) The characteristics of cancer itself, such as fuzzy edges, complex backgrounds, and significant changes in size, shape, and intensity distribution make accurate segment and classification challenges. 2) Existing methods ignore the potential relationship between classification and segmentation tasks, due to the classification and segmentation being treated as two separate tasks. To overcome these challenges, in this paper, a novel Semantic-aware transformer (SaTransformer) for breast cancer classification and segmentation is proposed. Specifically, the SaTransformer enables doing the two takes simultaneously through one unified framework. Unlike existing well-known methods, the segmentation and classification information are semantically interactive, reinforcing each other during feature representation learning and improving the ability of feature representation learning while consuming less memory and computational complexity. The SaTransformer is validated on two publicly available breast cancer datasets – BUSI and UDIAT. Experimental results and quantitative evaluations (accuracy: 97.97\%, precision: 98.20\%, DSC: 86.34\%) demonstrate that the SaTransformer outperforms other state-of-the-art methods.},
+  comment  = {SaTransformer benchmark},
+  doi      = {https://doi.org/10.1049/ipr2.12897},
+  eprint   = {https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/ipr2.12897},
+  keywords = {biomedical imaging, cancer, computer vision, convolutional neural nets, diseases, image classification, image segmentation},
+  url      = {https://ietresearch.onlinelibrary.wiley.com/doi/abs/10.1049/ipr2.12897},
+}
+
+@Article{Cho2022,
+  author   = {Se Woon Cho and Na Rae Baek and Kang Ryoung Park},
+  journal  = {Journal of King Saud University - Computer and Information Sciences},
+  title    = {Deep Learning-based Multi-stage segmentation method using ultrasound images for breast cancer diagnosis},
+  year     = {2022},
+  issn     = {1319-1578},
+  number   = {10, Part B},
+  pages    = {10273-10292},
+  volume   = {34},
+  abstract = {Globally, breast cancer occurs frequently in women and has the highest mortality rate. Owing to the increased need for a rapid and reliable initial diagnosis of breast cancer, several breast tumor segmentation methods based on ultrasound images have attracted research attention. Most conventional methods use a single network and demonstrate high performance by accurately classifying tumor-containing and normal image pixels. However, tests performed using normal images have revealed the occurrence of many false-positive errors. To address this limitation, this study proposes a multistage-based breast tumor segmentation technique based on the classification and segmentation of ultrasound images. In our method, a breast tumor ensemble classification network (BTEC-Net) is designed to classify whether an ultrasound image contains breast tumors or not. In the segmentation stage, a residual feature selection UNet (RFS-UNet) is used to exclusively segment images classified as abnormal by the BTEC-Net. The proposed multistage segmentation method can be adopted as a fully automated diagnosis system because it can classify images as tumor-containing or normal and effectively specify the breast tumor regions.},
+  comment  = {Attention U-Net. Benchmark},
+  doi      = {https://doi.org/10.1016/j.jksuci.2022.10.020},
+  keywords = {Breast cancer, Ultrasound image, Breast tumor segmentation, BTEC-Net, RFS-UNet},
+  url      = {https://www.sciencedirect.com/science/article/pii/S1319157822003718},
+}
+
+@InProceedings{Chen2018,
+  author    = {Chen, Liang-Chieh and Zhu, Yukun and Papandreou, George and Schroff, Florian and Adam, Hartwig},
+  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+  title     = {Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation},
+  year      = {2018},
+  month     = {September},
+  comment   = {DeepLab v3+},
+}
+
+@InProceedings{Zhao2017,
+  author    = {Zhao, Hengshuang and Shi, Jianping and Qi, Xiaojuan and Wang, Xiaogang and Jia, Jiaya},
+  booktitle = {Proceedings of the IEEE conference on computer vision and pattern recognition},
+  title     = {Pyramid scene parsing network},
+  year      = {2017},
+  pages     = {2881--2890},
+  comment   = {PSP Net.},
+}
+
+@Article{Cho2022a,
+  author    = {Cho, Se Woon and Baek, Na Rae and Park, Kang Ryoung},
+  journal   = {Journal of King Saud University-Computer and Information Sciences},
+  title     = {Deep Learning-based Multi-stage segmentation method using ultrasound images for breast cancer diagnosis},
+  year      = {2022},
+  number    = {10},
+  pages     = {10273--10292},
+  volume    = {34},
+  comment   = {Benchmark base. RFS-UNet.},
+  publisher = {Elsevier},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

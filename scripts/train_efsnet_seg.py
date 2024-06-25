@@ -8,12 +8,12 @@ from TumorDetection.models.efsnet import EFSNetSeg
 from TumorDetection.models.utils.lightning_model import LightningModelSeg
 from TumorDetection.models.utils.trainer import Trainer
 
-MODEL_NAME = 'EFSNet_seg_v1'
+MODEL_NAME = 'EFSNet_seg_v2'
 
 DESCRIPTION = 'EFSNet with classification and multiclass segmentation'
 VERBOSE = Verbosity.get('verbose')
 DEVICE = Device.get('device')
-EPOCHS = 10000
+EPOCHS = 2500
 CLASS_WEIGHT = [1., 5., 5.]
 BATCH_SIZE = 64
 TEST_SIZE = 100
@@ -55,6 +55,6 @@ trainer(model=lighningmodel,
         val_batch_size=TEST_SIZE,
         train_data=tr_td,
         test_data=val_td,
-        from_checkpoint=False,
+        from_checkpoint=True,
         validate_model=True,
         test_model=True)
