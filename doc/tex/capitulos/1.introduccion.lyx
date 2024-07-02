@@ -4,13 +4,13 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass book
 \use_default_options false
 \maintain_unincluded_children false
 \language spanish
-\language_package none
-\inputencoding auto
-\fontencoding default
+\language_package default
+\inputencoding utf8
+\fontencoding T1
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -28,24 +28,33 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
-\use_hyperref false
-\papersize default
-\use_geometry false
-\use_package amsmath 1
-\use_package amssymb 0
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
 \use_package cancel 0
 \use_package esint 1
 \use_package mathdots 0
 \use_package mathtools 0
 \use_package mhchem 0
-\use_package stackrel 0
+\use_package stackrel 2
 \use_package stmaryrd 0
 \use_package undertilde 0
-\cite_engine basic
-\cite_engine_type default
-\biblio_style plain
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style unsrtnat
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -57,17 +66,18 @@
 \shortcut idx
 \color #008000
 \end_index
+\headheight 16pt
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
-\paperpagestyle default
+\papersides 2
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -77,20 +87,11 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-chapter{IntroducciÃ³n}
+\begin_layout Chapter
+Introducción
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:introduccion"
@@ -105,25 +106,59 @@ Motivación
 \end_layout
 
 \begin_layout Standard
-El trabajo que a continuación se presenta tiene es una clara apuesta por
- la eficiencia y optimización de las técnicas comúnmente utilizadas en Inteligen
-cia Artificial en el campo de la biomedicina.
- Esta apuesta se fundamenta en la accesibilidad por por parte de grupos
- sociales y entidades médicas con bajo nivel de recursos a técnicas avanzadas
- de diagnóstico de enfermedades -
+El trabajo que a continuación se presenta es una clara apuesta por la eficiencia
+ y optimización de las técnicas comúnmente utilizadas en Inteligencia Artificial
+ en el campo de la biomedicina.
+ Esta apuesta se fundamenta en la accesibilidad por parte de grupos sociales
+ y entidades médicas con bajo nivel de recursos a técnicas avanzadas de
+ diagnóstico de enfermedades -
 \emph on
 particularmente detección de tumores en ecografías mamarias-
 \emph default
- que actualmente mayoritariamente poseen entidades privadas beneficiando
- a grupos sociales que pertenecen a los estratos más altos.
+.
+ En la actualidad, el cancer es una de las principales causas de muerte
+ a nivel global (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Siegel2019"
+literal "false"
+
+\end_inset
+
+) y, mientas que la causa no depende -
+\emph on
+exclusivamente
+\emph default
+- de la situación socio-económica del individuo, el tratamiento sí.
+ Entre las mujeres, el cancer de mama es el tipo de cancer más común (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "RegistrosdelCancer2019"
+literal "false"
+
+\end_inset
+
+) por lo que la detección temprana es determinante para la reducción de
+ casos fatales.
+ 
 \end_layout
 
 \begin_layout Standard
-Adicionalmente, la reducción de parámetros en las redes neuronales favorece
- otras mejores prácticas en términos éticos y morales.
+Este trabajo escoge una metodología basada en la reducción de parámetros
+ de las redes neuronales ya que fomenta mejores prácticas en términos éticos
+ y morales que las que devienen del grueso de modelos actuales, fundamentadas
+ en la idea de 
+\begin_inset Quotes eld
+\end_inset
+
+a mayor número de parámetros mejores predicciones
+\begin_inset Quotes erd
+\end_inset
+
+.
  Comenzando por la eficiencia energética, la reducción del coste computacional
- del algoritmo requiere de menor energía para ser ejecutada reduciendo:
- las emisiones derivadas de la obtención de dicha energía, el coste monetario
+ del algoritmo requiere menos energía para ser ejecutada reduciendo: las
+ emisiones derivadas de la obtención de dicha energía, el coste monetario
  y los requisitos de hardware.
  Esta vía de desarrollo ha sido tomada en los últimos años por las grandes
  empresas del sector como 
@@ -135,26 +170,95 @@ o
 Google
 \emph default
  que han logrado una Inteligencia Artificial Generativa con mayor potencia
- predictiva y menor número de parámetros haciendo uso de técnicas como el
- Modelo de Expertos
+ predictiva y menor número de parámetros, haciendo uso de técnicas como
+ el Modelos de Mezcla de Expertos (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Eigen2013"
+literal "false"
+
+\end_inset
+
+
 \emph on
-[REF], MoE,
+), MoE,
 \emph default
- estrategias de ajuste fino con eficiencia de parámetros [REF](PaFi, LoRA),
- 
+ estrategias de ajuste fino con eficiencia de parámetros (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Liao2023,Hu2021"
+literal "false"
+
+\end_inset
+
+), 
 \emph on
 PEFT,
 \emph default
- cuantización de parámetros (BitNet[REF] y QLoRA [REFs]) y destilación de
- conocimiento y podado de modelo (EPSD, PFDD, Prune Before Distill).
- El problema es que estas empresas han optado por la optimización únicamente
- con la finalidad de reducir costes y aumentar beneficios -
+ cuantización de parámetros (BitNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Wang2023"
+literal "false"
+
+\end_inset
+
+) y QLoRA (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Dettmers2024"
+literal "false"
+
+\end_inset
+
+)) y destilación de conocimiento y podado de modelo (EPSD (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Chen2024"
+literal "false"
+
+\end_inset
+
+), PFDD (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhou2022"
+literal "false"
+
+\end_inset
+
+), Prune Before Distill (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Park2022"
+literal "false"
+
+\end_inset
+
+)).
+ 
+\end_layout
+
+\begin_layout Standard
+Estas empresas han optado por la optimización únicamente con la finalidad
+ de reducir costes y aumentar beneficios dado que sus avances, generalmente,
+ no son compartidos con la comunidad.
+ Además, la optimización se utiliza como propaganda pro-ecologismo para
+ dar una imagen de concienciación alejada de la realidad -
 \emph on
-y el potencial green-washing-
+green-washing
 \emph default
-.
+-(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Seele2022"
+literal "false"
+
+\end_inset
+
+).
  En consecuencia, la eficiencia energética es necesaria pero no suficiente
- y, por tanto, es necesario un requisito adicional: ser fiel a la filosofía
+ y, por lo tanto, exige un requisito adicional: ser fiel a la filosofía
  
 \emph on
 open-source
@@ -165,37 +269,69 @@ open-source
 Python).
  
 \emph default
-Las entidades mencionadas evitan este concepto por miedo a la competencia
- ofuscando sus avances, evitando la replicación y utilización de sus técnicas
- por terceras partes y, por tanto, lastrando la ciencia que les ha permitido
- implementar y desplegar dichas tecnologías.
- Este trabajo servirá como guía para la replicación de la red neuronal presentad
-a de forma que cualquier entidad o individuo sea capaz de implementarla
+Las entidades mencionadas evitan esta filosofía por temor a la competencia,
+ ora ofuscando sus avances, ora evitando la replicación y utilización de
+ sus técnicas por terceras partes y, por tanto, lastrando la ciencia que
+ les ha permitido implementar y desplegar dichas tecnologías.
+ Este trabajo servirá -
+\emph on
+en parte
+\emph default
+- como guía para la replicación de la red neuronal 
+\emph on
+EFSNet
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) de forma que cualquier entidad o individuo sea capaz de implementarla
  y utilizarla.
- Finalmente, la mejora de eficiencia en términos de número de parámetros
+ 
+\end_layout
+
+\begin_layout Standard
+Finalmente, la mejora de eficiencia en términos de número de parámetros
  permite una disminución en la latencia de la respuesta, tanto es así que
  es posible realizar predicciones en tiempo real.
- La posibilidad de predicciones en tiempo real facilita el uso ya que no
- es necesario hacer capturas de los momentos que el personal médico experto
- considere más relevantes, además suaviza errores debido a que en predicciones
- consecutivas las aberraciones de las predicciones serán diferentes pero
- el conjunto objetivo 
+ La inferencia en tiempo real facilita el uso, aliviando el trabajo de obtener
+ capturas de los momentos que el personal médico experto considere más relevante
+s.
+ Adicionalemente, la posibilidad de realizar predicciones consecutivas suaviza
+ errores debido a que las posibles aberraciones de cada resultado variarán
+ más que las regiones de interés
 \emph on
--tumor-
+ 
 \emph default
- no, y permite una integración sencilla en el 
-\begin_inset Quotes eld
-\end_inset
-
-
+(
+\emph on
+tumor
+\emph default
+).
+ Además, dado sus bajos requerimientos de memoria y computación, permite
+ una integración sencilla en el 
 \emph on
 streaming
-\begin_inset Quotes erd
-\end_inset
-
-
 \emph default
  del ecógrafo.
+ La posesión de esta tecnología por un centro médico facilita también el
+ uso de datos de caracter privado como son los datos médicos.
+ Debido a los requisitos de computación, cualquier centro médico puede entrenar
+ esta red 
+\emph on
+on-premise
+\emph default
+ para diversos casos de uso sin preocuparse de filtraciones o robo de informació
+n por terceras partes.
+ La posibilidad de entrenar y realizar inferencia en privado, sin siquiera
+ necesidad de acceso a internet, añade una capa de protección suficiente
+ que evita procesos burocráticos y reduce el riesgo de incursión en delitos
+ por mala praxis de uno o de terceros.
+ 
 \end_layout
 
 \begin_layout Section
@@ -203,57 +339,124 @@ Propuesta y objetivos
 \end_layout
 
 \begin_layout Standard
-Se propone una red neuronal tipo EFSNet[REF] con 
-\begin_inset Formula $180k$
+Se propone una red neuronal tipo EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
 \end_inset
 
- parámetros entrenada con los datos abiertos de BUSI [REF] para obtener
- un modelo eficiente en el problema de la segmentación semántica de tumores
- en ecografías mamarias que pueda ser ejecutado y reentrenado de forma sencilla
- (
+) con 
+\begin_inset Formula $\simeq180k$
+\end_inset
+
+ parámetros, entrenada con los datos abiertos de BUSI (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "AlDhabyani2020"
+literal "false"
+
+\end_inset
+
+) para obtener un modelo eficiente y en tiempo real ajustado a la tarea
+ de segmentación semántica de tumores en ecografías mamarias.
+ El objetivo es que el modelo presentado pueda ser implementado, ejecutado
+ y entrenado de forma sencilla 
 \emph on
-previo conocimiento técnico
+-previo conocimiento técnico
 \emph default
-) en cualquier centro médico que disponga de un aparato de ultrasonidos
- aplicable a la detección de tumores en mamas y un ordenador.
- La arquitectura EFSNet se fundamenta en la eficiencia vía optimización
- de recursos -
+- en cualquier centro médico que disponga de un aparato de ultrasonidos.
+\end_layout
+
+\begin_layout Standard
+La arquitectura EFSNet se fundamenta en la eficiencia vía optimización de
+ recursos -
 \emph on
 parámetros
 \emph default
-- sacrificando el mínimo desempeño posible en las tareas de visión artificial
- explotando las virtudes de técnicas conocidas como los bloques residuales
- [REF], la regularización 
+- sacrificando el mínimo desempeño posible en tareas de Visión Artificial.
+ Con este fin, explota las virtudes de técnicas conocidas como los bloques
+ residuales (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Szegedy2015,Szegedy2017"
+literal "false"
+
+\end_inset
+
+), la regularización 
 \emph on
 dropout
 \emph default
- [REF], la dilatación en convoluciones [REF] o la normalización por lotes
- -
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Srivastava2014"
+literal "false"
+
+\end_inset
+
+), la dilatación en convoluciones (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Yu2015"
+literal "false"
+
+\end_inset
+
+) o la normalización por lotes, 
 \emph on
 BatchNorm
 \emph default
-- [REF] de una forma inteligente y efectiva.
- Este motivo es fundamental en la elección de esta red neuronal para la
- detección tumores en ecografías mamarias en tiempo real.
- Por otro lado, la reciente presentación de esta arquitectura [AÑO][REF]
+, (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ioffe2015"
+literal "false"
+
+\end_inset
+
+) de una forma inteligente y efectiva.
+ La reciente presentación de esta arquitectura (
+\emph on
+2020)
+\emph default
  junto con sus resultados la sitúa por encima de otras arquitecturas que
- han surgido en esta línea como EFNet, ENet o MobileNet.
- Finalmente, los aspectos novedosos en cuestión de arquitectura han posicionado
- esta red por encima de otras que obtienen la mejora de rendimiento con
- base en la utilización de lenguajes de programación diferentes a 
-\emph on
-Python
-\emph default
- como 
-\emph on
-C
-\emph default
- o 
-\emph on
-Rust 
-\emph default
-para la compilación de modelos pre-entrenados ya que esta técnica de transferenc
-ia de lenguaje sigue siendo aplicable a EFSNet en un futuro.
+ han surgido en esta línea como ESPNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mehta2018"
+literal "false"
+
+\end_inset
+
+), FSSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2019"
+literal "false"
+
+\end_inset
+
+), ENet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "paszke2016enet"
+literal "false"
+
+\end_inset
+
+) o VGGNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Simonyan2014"
+literal "false"
+
+\end_inset
+
+).
+ 
 \end_layout
 
 \begin_layout Standard
@@ -261,9 +464,9 @@ La mejora en la precisión respecto de otros modelos no ha sido el punto
  principal de la investigación.
  Es evidente que otras redes con mayor capacidad y mayor cantidad de datos
  pueden obtener mejores métricas de evaluación.
- En contraparte, la inferencia en tiempo real permite al humano discriminar
- con mayor certeza los posibles errores del modelo mientras que si se hace
- uso de un modelo 
+ En contraparte, la inferencia en tiempo real permite al experto al cargo
+ discriminar con mayor certeza los posibles errores del modelo, mientras
+ que si se hace uso de un modelo 
 \emph on
 pesado
 \emph default
@@ -287,12 +490,12 @@ normal, tumor
 \end_layout
 
 \begin_layout Standard
-Los prinicpales retos que se han debido afrontar han sido: la baja cantidad
+Los principales retos que se han debido afrontar han sido: la baja cantidad
  de muestras disponibles, el desbalance de clases, la calidad del dato y
  la implementación de la red neuronal desde el esquema teórico propuesto
  por los autores.
  A lo largo del trabajo se presentarán soluciones y decisiones tomadas al
- respecto que han hecho viable la obtención de una solución aceptable.
+ respecto de los retos que han permitido la obtención de una solución aceptable.
 \end_layout
 
 \begin_layout Section
@@ -300,7 +503,7 @@ Estructura del documento
 \end_layout
 
 \begin_layout Standard
-La memoria presentada se divide en cinco secciones.
+La memoria presentada se divide en cinco capítulos.
  Una vez vista la 
 \begin_inset Quotes eld
 \end_inset
@@ -313,7 +516,17 @@ Introducción
 \begin_inset Quotes erd
 \end_inset
 
-[REF], la sección actual, se continúa con el 
+ (capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:introduccion"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), el capítulo actual, se continúa con el 
 \begin_inset Quotes eld
 \end_inset
 
@@ -325,12 +538,29 @@ Estado del Arte
 \begin_inset Quotes erd
 \end_inset
 
-[REF] donde se exponen los avances que han dado lugar a la obtención del
- modelo de Inteligencia Artificial presentado, además se realizará una comparaci
-ón teórica de la solución implementada con respecto a otras soluciones propuesta
-s con el fin de contextualizar el trabajo y exponer las ventajas y limitaciones.
- En tercer lugar, se realiza una descripción detallada de la solución implementa
-da en la sección de 
+,(capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:estado-del-arte"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) donde se exponen los avances que han dado lugar a la obtención del modelo
+ de Inteligencia Artificial presentado.
+ Se detallarán diferentes líneas de investigación con sus ventajas y desventajas
+ y se justificará cuáles son las razones que han llevado a implementar la
+ solución presentada.
+ Se describen las posibles opciones a tener en cuenta especificando cuáles
+ se alinean más con el objetivo, siguiendo un enfoque desde una perspectiva
+ general a una específica.
+\end_layout
+
+\begin_layout Standard
+En tercer lugar, se realiza una descripción detallada de la solución implementad
+a en la sección de 
 \begin_inset Quotes eld
 \end_inset
 
@@ -342,12 +572,28 @@ Materiales y Métodos
 \begin_inset Quotes erd
 \end_inset
 
-[REF] en la que se detallan los datos utilizados para el ajuste del modelo,
- sus características y preprocesamiento, y la arquitectura detallada de
- la red neuronal EFSNet junto con metodología de implementación y uso en
- términos algorítmicos, de hardware y de software, de manera que se puedan
- replicar el experimento realizado.
- En la cuarta sección, 
+ (capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Materiales-y-métodos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) en la que se detallan los datos utilizados para el ajuste del modelo,
+ sus características y preprocesamiento, y la arquitectura de la red neuronal
+ EFSNet junto con metodología de implementación y uso en términos algorítmicos,
+ de hardware y de software.
+ En esta sección se especifican los parámetros e hiperparámetros utilizados
+ en cada punto del estudio de manera que se pueda replicar con exactitud
+ el experimento realizado.
+ 
+\end_layout
+
+\begin_layout Standard
+En la cuarta sección, 
 \begin_inset Quotes eld
 \end_inset
 
@@ -359,9 +605,22 @@ Resultados
 \begin_inset Quotes erd
 \end_inset
 
-[REF] se detallarán los resultados numéricos obtenidos exponiendo las fortalezas
+ (capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Resultados"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), se expondrán los resultados numéricos obtenidos, comentando fortalezas
  y debilidades de la aplicación de la EFSNet al conjunto de datos mencionado.
- Finalmente, se cuenta con la sección de 
+ Por otro lado, en esta misma sección se realiza un análisis visual de los
+ resultados a través de los cuales se formulan hipótesis que pueden ser
+ de ayuda en la interpretación de la red neuronal y su convergencia.
+ Finalmente, en la sección de 
 \begin_inset Quotes eld
 \end_inset
 
@@ -373,8 +632,18 @@ Conclusiones
 \begin_inset Quotes erd
 \end_inset
 
- en la que se evalua el cumplimiento de las propuestas y objetivos y se
- establecen vías de desarrollo.
+ (capítulo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Conclusiones-y-trabajos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) se evalúa el cumplimiento de las propuestas y objetivos, y se establecen
+ vías de desarrollo para futuros trabajos.
 \end_layout
 
 \begin_layout Standard
@@ -415,7 +684,7 @@ Agradecimientos
 \begin_inset Quotes erd
 \end_inset
 
- en la que se puede encontrar información adicional sobre otros trabajos,
+; en la que se puede encontrar información adicional sobre otros trabajos,
  procedimientos específicos o personas relevantes para la consecución de
  esta memoria.
 \end_layout

@@ -4,13 +4,13 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass book
 \use_default_options false
 \maintain_unincluded_children false
-\language english
-\language_package none
-\inputencoding auto
-\fontencoding default
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding T1
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -28,24 +28,33 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
-\use_hyperref false
-\papersize default
-\use_geometry false
-\use_package amsmath 1
-\use_package amssymb 0
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
 \use_package cancel 0
 \use_package esint 1
 \use_package mathdots 0
 \use_package mathtools 0
 \use_package mhchem 0
-\use_package stackrel 0
+\use_package stackrel 2
 \use_package stmaryrd 0
 \use_package undertilde 0
-\cite_engine basic
-\cite_engine_type default
-\biblio_style plain
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style unsrtnat
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -57,17 +66,18 @@
 \shortcut idx
 \color #008000
 \end_index
+\headheight 16pt
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
-\paperpagestyle default
+\papersides 2
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -77,16 +87,14 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-chapter{Conclusiones y trabajos futuros}
+\begin_layout Chapter
+Conclusiones y trabajos futuros
 \end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Conclusiones-y-trabajos"
 
 \end_inset
 
@@ -94,24 +102,242 @@ chapter{Conclusiones y trabajos futuros}
 \end_layout
 
 \begin_layout Standard
-Buenos resultados
+
+\lang english
+A la vista de los resultados se concluye que se han cumplido los objetivos
+ deseados.
+ La implementación de EFSNet para la detección de tumores en ecografías
+ mamarias obtiene métricas comparables a modelos del estado del arte reduciendo
+ el número de parámetros en varios órdenes de magnitud[REF tabla].
+ También se cumple la apuesta por la inferencia en tiempo real [REF tabla].
+ Adicionalmente, se han estudiado los errores y aciertos más comunes siendo
+ todos ellos explicables.
 \end_layout
 
 \begin_layout Standard
-Tiempo real sí
-\end_layout
 
-\begin_layout Standard
-## Pruebas
-\end_layout
-
-\begin_layout Standard
-- Dataloader con ruido blanco en las esquinas en vez de siempre negro.
+\lang english
+La herramienta presentada puede ser de gran utilidad en manos de un experto
+ para guiar la búsqueda o alertar de la presencia de posibles tumores.
+ Se demuestra que esta arquitectura brilla en tumores benignos pequeños
+ que son los correspondientes a los primeros estadíos de la afección.
+ Es principalmente por este motivo que el modelo presenta una solución muy
+ útil en detección temprana de la enfermedad.
+ La inferencia en tiempo real unida a la precisión en la detección temprana
+ dota al modelo de robustez eliminando las aberraciones al permitir observar
+ el mismo punto desde distintos ángulos tantas veces como se requiera.
  
 \end_layout
 
 \begin_layout Standard
 
+\lang english
+Se debe mencionar de nuevo en esta sección el mínimo coste computacional
+ requerido (
+\begin_inset Formula $\simeq150Mb$
+\end_inset
+
+) que permite no solo realizar inferencia en un ordenador convencional sino
+ en el propio dispositivo de ultrasonidos de forma que se pueda combinar
+ la máscara con la imagen al mismo tiempo que se realiza la revisión médica.
+ Además de la instantaneidad que aporta el modelo, la sencillez algorítmica
+ de su optimización y la reducida cantidad de datos necesaria para su ajuste
+ permite extender esta solución a otros campos de la biomedicina como la
+ detección de hiperintensidades en la masa cerebral, detección de tumores
+ en otros órganos vía ecografía o resonancia magnética, segmentación de
+ células por microscopía o cualquier otra.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En conjunto, esta solución permite a un centro médico utilizar datos de
+ los pacientes en multitud de casos de uso sin violar las restricciones
+ de protección de datos ya que no es necesaria la utilización de computación
+ externa -
+\emph on
+soluciones cloud
+\emph default
+- para el entrenamiento o la inferencia.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Se deben comentar también los inconvenientes de la solución comentada.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En primer lugar, la red puede dar predicciones erradas por completo -
+\emph on
+sobretodo en tumores de caracter maligno
+\emph default
+- por lo que se aconseja que su uso sea continuo y no depender de una imagen
+ concreta.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En segundo lugar, se han observado una predilección por tumores de cierto
+ tamaño y se ha comentado la posibilidad de haber 
+\begin_inset Quotes eld
+\end_inset
+
+ajustado
+\begin_inset Quotes erd
+\end_inset
+
+ el campo receptivo a la media de tamaño.
+ Esta es la principal diferencia entre el bloque CSDC [REF section] y un
+ bloque de atención usual, y se debe a la componente residual.
+ Las aberraciones en la máscara que genera este hecho pueden reducir la
+ confianza del experto en las predicciones por lo que es necesaria una explicaci
+ón detallada de las caracaterísticas del modelo añadiendo carga de trabajo
+ al personal sanitario previa a la utilización del modelo.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Finalmente, los intercambios de clase entre 
+\emph on
+benigno
+\emph default
+ y 
+\emph on
+maligno
+\emph default
+ pueden ser perjudiciales para el paciente -
+\emph on
+más si el tumor es maligno y se detecta como benigno
+\emph default
+- por lo que se recomienda que esta información se contraste con conocimiento
+ experto y no se deposite toda confianza en la predicción.
+ Es preferible que se utilice el modelo para segmentar 
+\emph on
+normal, tumor
+\emph default
+, y, ante la duda apoyarse en la predicción de la clase del tumor ya que
+ de otra forma puede llegar a sesgar la intuición del profesional al cargo.
+\end_layout
+
+\begin_layout Section
+
+\lang english
+Trabajo futuro
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+A lo largo de la memoria se han comentado varios puntos en los que se podría
+ implementar una mejora.
+ Esta sección sirve como un resumen de todas estas ideas que han podido
+ perderse durante la lectura.
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Generalización de tareas: ajustar esta arquitectura a diferentes tareas
+ de segmentación del campo de la biomedicina de forma independiente.
+ Es interesante conocer cuáles son las fortalezas y debilidades de la metodologí
+a presentada de una forma más general y exacta.
+ Con este proyecto es posible mejorar la interpretabilidad de la red y comprobar
+ si la precisión mostrada se mantiene al ajustar diferentes casos de uso
+ de distintas características, i.e.
+ más datos, formas no circulares, imágenes con 3 canales de color, etc.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Combinación de conjuntos de datos: Una potencial mejora es la combinación
+ de los conjuntos de datos BUSI, UDIAT y OASBUD que son de carácter público
+ para engrosar el número de muestras.
+ Esta vía no es trivial, como se ha comentado cada conjunto de imágenes
+ se ha tomado con un dispostivo diferente y puede resultar complejo homogeneizar
+ el resultado final.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Variación del aumento de datos: Se ha comentado [REF Errores] que la rotación
+ genera zonas negras que son directamente asociadas a la clase normal.
+ Esta característica se propaga a las zonas centrales de los tumores sin
+ textura ni iluminación provocando 
+\begin_inset Quotes eld
+\end_inset
+
+agujeros
+\begin_inset Quotes erd
+\end_inset
+
+ en la segmentación.
+ Se debe probar si, al cambiar estas zonas negras poor ruido blanco u otra
+ distribución se pueden obtener mejores resultados.
+ Adicionalmente, se pueden variar los parámetros de aumentación de imágenes,
+ el orden en que se aplican o los tipos que se han escogido.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Decaimiento de pesos y 
+\emph on
+Dice Loss
+\emph default
+: Para aliviar el problema del desbalance de clases se puede añadir el decaimien
+to de pesos que sugiere el artículo de EFSNet, 
+\begin_inset Formula $w_{d}=4\cdot10^{-4}$
+\end_inset
+
+.
+ Además se propone la utilización de una pérdida tal que 
+\begin_inset Formula $l=0.5\cdot dice+0.5\cdot cce$
+\end_inset
+
+ que se utiliza en multitud de artículos relacionados con el conjunto de
+ datos BUSI.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Surrogación de la pérdida: La aplicación de un modelo 
+\emph on
+discriminador
+\emph default
+ sencillo para surrogar la pérdida del modelo 
+\emph on
+generador, 
+\emph default
+EFSNet, para la implementación de una 
+\emph on
+GAN 
+\emph default
+puede ayudar -
+\emph on
+como en el punto anterior
+\emph default
+- a ajustar el modelo en un conjunto de clases tan desbalanceado como el
+ actual.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+La implementación de los puntos mencionados anteriormente a modo de análisis
+ univariante sobre la solución expuesta en la memoria pueden mejorar enormemente
+ la solución.
 \end_layout
 
 \end_body

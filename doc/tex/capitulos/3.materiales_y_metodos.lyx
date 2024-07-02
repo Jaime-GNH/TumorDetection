@@ -4,13 +4,13 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass book
 \use_default_options false
 \maintain_unincluded_children false
-\language english
-\language_package none
-\inputencoding auto
-\fontencoding default
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding T1
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -28,24 +28,33 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
-\use_hyperref false
-\papersize default
-\use_geometry false
-\use_package amsmath 1
-\use_package amssymb 0
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
 \use_package cancel 0
 \use_package esint 1
 \use_package mathdots 0
 \use_package mathtools 0
 \use_package mhchem 0
-\use_package stackrel 0
+\use_package stackrel 2
 \use_package stmaryrd 0
 \use_package undertilde 0
-\cite_engine basic
-\cite_engine_type default
-\biblio_style plain
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style unsrtnat
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -57,17 +66,18 @@
 \shortcut idx
 \color #008000
 \end_index
+\headheight 16pt
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
-\paperpagestyle default
+\papersides 2
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -77,16 +87,14 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-chapter{Materiales y mÃ©todos}
+\begin_layout Chapter
+Materiales y métodos
 \end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Materiales-y-métodos"
 
 \end_inset
 
@@ -96,24 +104,31 @@ chapter{Materiales y mÃ©todos}
 \begin_layout Section
 
 \series bold
-MATERIALES
+\lang english
+Materiales
 \end_layout
 
 \begin_layout Standard
-En esta sección se exponen los materiales utilizados para la consecución
+
+\lang english
+En esta sección se exponen los materiales utilizados para la elaboración
  del trabajo.
  Se divide en tres partes: software en el que se presenta el lenguaje de
  programación y recursos necesarios, hardware que está dedicado al recurso
- físico utilizado para realizar el trabajo de computación, y, datos que
- versa sobre el origen, calidad y metodologías correspondientes a las imágenes
+ físico utilizado para realizar el trabajo de computación, y datos que versa
+ sobre el origen, calidad y metodologías correspondientes a las imágenes
  que han sido usadas.
 \end_layout
 
 \begin_layout Subsection
+
+\lang english
 Software
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El software utilizado es el lenguaje de programación Python en la versión
  
 \emph on
@@ -130,11 +145,23 @@ literal "false"
 
 \end_inset
 
-) lo que perturbaría las métricas que se presentarán en la sección de Resultados
-[REF].
+) lo que perturbaría las métricas que se presentarán en el capítulo de Resultado
+s (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Resultados"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Las librerías: torch (versión 
 \emph on
 2.1.1+cu
@@ -148,8 +175,8 @@ Las librerías: torch (versión
 4.8.1.78
 \emph default
 ) han sido, principalmente, los módulos de funcionalidades utilizados.
- En primer lugar, con torch se ha implementado la red neuronal EFSNet[REF]
- y el preprocesamiento de datos[REF].
+ En primer lugar, con torch se ha implementado la red neuronal EFSNet y
+ el preprocesamiento de datos.
  Lighning se ha utilizado para facilitar el uso de la red neuronal implementada
  ya que aúna una gran cantidad de métodos asociados al entrenamiento, validación
 , guardado y carga de modelos que aumentan la eficiencia del código y su
@@ -159,12 +186,16 @@ Las librerías: torch (versión
 \end_layout
 
 \begin_layout Subsection
+
+\lang english
 Hardware
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Dado el objetivo del trabajo de facilitar el uso de la herramienta presentada
- en ordenadores convencionales se ha hecho uso de uno -
+ en ordenadores convencionales, se ha hecho uso de uno -
 \emph on
 aunque optimizado para la ciencia de datos
 \emph default
@@ -174,12 +205,14 @@ intel-core i7
 \emph default
 , memoria RAM de 32Gb y una GPU 
 \emph on
-NVidia 4090 RTX
+NVidia GeForce 4060 RTX
 \emph default
  de 8Gb de memoria dedicada y 16Gb de memoria total.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El entrenamiento se ha realizado haciendo uso de la tarjeta gráfica debido
  a la capacidad de paralelización que presenta.
  Debido a la configuración interna se puede observar a lo largo de la memoria
@@ -196,24 +229,40 @@ batch
 \end_layout
 
 \begin_layout Subsection
+
+\lang english
 Datos
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En esa subsección se presenta el origen de los datos, cualidades y transformacio
 nes efectuadas para el uso en el caso presentado.
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Origen
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El conjunto de datos utilizado se denomina 
 \emph on
 Dataset of Breast Ulstrasound Images
 \emph default
-[REF], 
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "AlDhabyani2020"
+literal "false"
+
+\end_inset
+
+), 
 \emph on
 BUSI
 \emph default
@@ -221,38 +270,38 @@ BUSI
 n con fines de investigación y se puede encontrar en 
 \begin_inset CommandInset href
 LatexCommand href
-name "https://scholar.cu.edu.eg/?q=afahmy/pages/dataset"
+name "BUSI-Dataset"
 target "https://scholar.cu.edu.eg/?q=afahmy/pages/dataset"
 literal "false"
 
 \end_inset
 
 .
- Este conjunto de datos está compuesto por imágenes en escala de grises
- de ecografías mamarias asociadas a máscaras binarias y etiquetadas según
- su categoría correspondiente.
- Las imágenes corresponden a 600 impresiones de ecografías de mujeres voluntaria
-s de entre 25 y 75 años de edad utilizando los aparatos 
-\emph on
-LOGIQ E9 ultrasound system 
-\emph default
-y 
-\emph on
-LOGIQ E0 Agile ultrasound system
-\emph default
+ La distribución de categorías se muestra en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Número-de-imágenes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 .
- Se cuenta con 780 imágenes de anchura y altura variable con categorías:
- normal, benigno y maligno.
- La distribución de categorías se muestra en la tabla [REF].
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="2">
 <features tabularvalignment="middle">
@@ -263,6 +312,8 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Clase
 \end_layout
 
@@ -272,6 +323,8 @@ Clase
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Número de imágenes
 \end_layout
 
@@ -283,6 +336,8 @@ Número de imágenes
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 normal
 \end_layout
 
@@ -292,6 +347,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 133
 \end_layout
 
@@ -303,6 +360,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 benigno
 \end_layout
 
@@ -312,6 +371,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 437
 \end_layout
 
@@ -323,6 +384,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 maligno
 \end_layout
 
@@ -332,6 +395,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 210
 \end_layout
 
@@ -343,6 +408,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Total
 \end_layout
 
@@ -352,6 +419,8 @@ Total
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 780
 \end_layout
 
@@ -366,18 +435,25 @@ Total
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Número de imágenes por categoría
-\end_layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Número-de-imágenes"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
 
@@ -387,13 +463,27 @@ Número de imágenes por categoría
 \end_layout
 
 \begin_layout Standard
-Existen otros datasets públicos de imágenes de ecografías mamarias anotadas
- por expertos.
- 
+
+\lang english
+Existen tres principales datasets públicos de imágenes de ecografías mamarias
+ anotadas por expertos:
+\end_layout
+
+\begin_layout Enumerate
+
 \emph on
+\lang english
 BrEaST
 \emph default
-[REF] se trata de un dataset que contiene las mismas clases, es más novedoso
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Pawlowska2024"
+literal "false"
+
+\end_inset
+
+): se trata de un dataset que contiene las mismas clases, es más novedoso
  y asegura una calidad de etiquetado excelente, pero cuenta con 256 ejemplos
  siendo 4 normales, 154 tumores benignos y 98 malignos que pueden resultar
  insuficientes para el ajuste de una red neuronal, además esta es la versión
@@ -408,22 +498,72 @@ BrEaST
 \emph default
 ).
  
+\end_layout
+
+\begin_layout Enumerate
+
 \emph on
+\lang english
 Open Access Series of Breast Ultrasonic Data
 \emph default
 , 
 \emph on
 OASBUD
 \emph default
-,[REF] que únicamente cuenta con 100 imágenes siendo 52 casos malignos y
- 48 benignos correspondientes a 78 mujeres con lo que el problema mencionado
+, (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PiotrzkowskaWroblewska2017"
+literal "false"
+
+\end_inset
+
+): que únicamente cuenta con 100 imágenes siendo 52 casos malignos y 48
+ benignos correspondientes a 78 mujeres con lo que el problema mencionado
  previamente es mayor y, además, deben existir duplicidades.
 \end_layout
 
+\begin_layout Enumerate
+
+\emph on
+\lang english
+Dataset of Breast Ulstrasound Images
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "AlDhabyani2020"
+literal "false"
+
+\end_inset
+
+), 
+\emph on
+BUSI:
+\emph default
+ conjunto de datos compuesto por imágenes en escala de grises de ecografías
+ mamarias asociadas a máscaras binarias y etiquetadas según su categoría
+ correspondiente.
+ Las imágenes corresponden a 600 impresiones de ecografías de mujeres voluntaria
+s de entre 25 y 75 años de edad utilizando los aparatos 
+\emph on
+LOGIQ E9 ultrasound system 
+\emph default
+y 
+\emph on
+LOGIQ E0 Agile ultrasound system
+\emph default
+.
+ Se cuenta con 780 imágenes de anchura y altura variable con categorías:
+ normal, benigno y maligno.
+\end_layout
+
 \begin_layout Standard
-Los datasets mencionados no han sido utilizados simultaneamente ya que las
- imágenes fueron tomadas con aparatos diferentes y se utilizó un preprocesamient
-o específico en cada caso.
+
+\lang english
+Los datasets mencionados no han sido utilizados simultaneamente debido a
+ que las imágenes fueron tomadas con aparatos diferentes y se utilizó un
+ preprocesamiento específico en cada caso.
  Los aparatos de ultrasonidos tienen, como una de sus carácterísticas principale
 s, la frecuencia del ultrasonido producido que define la nitidez y profundidad
  a la que se puede observar.
@@ -431,12 +571,21 @@ s, la frecuencia del ultrasonido producido que define la nitidez y profundidad
  se ha optado por evitar utilizar datos combinados dado que la red neuronal
  puede converger al aprendizaje de características de las imágenes que no
  se correspondan con la determinación de una región tumoral como se ha observado
- en otros casos relacionados con las técnicas de aprendizaje profundo[REF
- wolf-husky].
+ en otros casos relacionados con las técnicas de aprendizaje profundo (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ribeiro2016"
+literal "false"
+
+\end_inset
+
+).
  
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 La elección del dataset 
 \emph on
 BUSI
@@ -451,13 +600,27 @@ BUSI
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Cualidades
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El conjunto de datos se compone por 780 imágenes en escala de grises de
- anchura arbitraria [REF Tabla] y 798 máscaras binarias asociadas por lo
- que hay imágenes con más de una máscara.
+ anchura arbitraria, tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Dimensiones-de-las"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, y 798 máscaras binarias asociadas por lo que hay imágenes con más de una
+ máscara.
  En total se cuenta con 252,305,498 píxeles de los cuales un 7.33% son correspond
 ientes a tumores, 3.71% son de la clase 
 \emph on
@@ -473,12 +636,17 @@ maligno
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="4">
 <features tabularvalignment="middle">
@@ -491,6 +659,8 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Dimension
 \end_layout
 
@@ -500,6 +670,8 @@ Dimension
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Mínimo
 \end_layout
 
@@ -509,6 +681,8 @@ Mínimo
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Máximo
 \end_layout
 
@@ -518,6 +692,8 @@ Máximo
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Media
 \end_layout
 
@@ -529,6 +705,8 @@ Media
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 altura
 \end_layout
 
@@ -538,6 +716,8 @@ altura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 310
 \end_layout
 
@@ -547,6 +727,8 @@ altura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 719
 \end_layout
 
@@ -556,6 +738,8 @@ altura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 501.45
 \end_layout
 
@@ -567,6 +751,8 @@ altura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 anchura
 \end_layout
 
@@ -576,6 +762,8 @@ anchura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 190
 \end_layout
 
@@ -585,6 +773,8 @@ anchura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 1048
 \end_layout
 
@@ -594,6 +784,8 @@ anchura
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 615.68
 \end_layout
 
@@ -608,10 +800,21 @@ anchura
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Dimensiones de las imágenes originales
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Dimensiones-de-las"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -625,6 +828,8 @@ Dimensiones de las imágenes originales
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Las imágenes están organizadas en carpetas cuyo nombre corresponde con la
  clase.
  Cada imagen está nombrada tal que 
@@ -693,24 +898,23 @@ maligno
 \end_layout
 
 \begin_layout Standard
-Existen aberraciones en las imágenes[REF img] como textos, superposiciones,
- pictogramas, medidas y efecto doppler que pueden perturbar el ajuste de
- modelos, además hay imágenes duplicadas con discrepancias en las máscaras
- asociadas, otras correspondientes a la axila y otras con objetos como agujas
- de biopsia[REF BrEaST beef].
-\end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
+\lang english
+\begin_inset Wrap figure
+lines 0
+placement o
+overhang 0in
+width "50col%"
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/other/Aberraciones-BUSI.jpg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/other/Aberraciones-BUSI.jpg
 	lyxscale 10
-	scale 40
+	scale 55
 
 \end_inset
 
@@ -718,10 +922,14 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-En la imagen se muestra una imagen duplicada con texto (
+
+\lang english
+Imagen duplicada con texto (
 \emph on
 RT AXILLA
 \emph default
@@ -729,7 +937,22 @@ RT AXILLA
 \emph on
 verde, rojo
 \emph default
-).[REF BrEaST beef]
+).(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Pawlowska2023"
+literal "false"
+
+\end_inset
+
+)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aberraciones-imagen"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -737,20 +960,59 @@ verde, rojo
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
 
+\begin_layout Standard
+
+\lang english
+Existen aberraciones en las imágenes (véase figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aberraciones-imagen"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) como textos, superposiciones, pictogramas, medidas y efecto doppler que
+ pueden perturbar el ajuste de modelos, además hay imágenes duplicadas con
+ discrepancias en las máscaras asociadas, otras correspondientes a la axila
+ y otras con objetos como agujas de biopsia (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Pawlowska2023"
+literal "false"
+
+\end_inset
+
+).
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Transformaciones iniciales
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En primer lugar, se toman las máscaras que corresponden a una misma imagen
  y se suman sus valores formando una nueva máscara.
  Con lo cuál se obtiene una relación uno a uno de imágenes y máscaras, y
@@ -761,30 +1023,53 @@ En primer lugar, se toman las máscaras que corresponden a una misma imagen
 
  para estandarizar las dimensiones del conjunto y facilitar el entrenamiento
  de la red neuronal.
- Este procedimiento se puede encontrar en la figura [REF].
+ Este procedimiento se puede encontrar en las figuras 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Redimensionado-de-imagen"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Procesamiento-de-máscaras"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/Imagen_original.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Imagen_original.png
+	scale 30
 
 \end_inset
 
@@ -792,9 +1077,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Imagen original
 \end_layout
 
@@ -803,10 +1092,14 @@ Imagen original
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
-\end_layout
 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
 \end_inset
 
 
@@ -816,8 +1109,11 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/Imagen_resized.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Imagen_resized.png
+	scale 30
 
 \end_inset
 
@@ -825,9 +1121,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Imagen redimensionada
 \end_layout
 
@@ -842,10 +1142,21 @@ Imagen redimensionada
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Redimensionado de imagen
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Redimensionado-de-imagen"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -853,30 +1164,35 @@ Redimensionado de imagen
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
+\begin_layout Standard
+
+\lang english
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/Mask_original.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_original.png
+	scale 30
 
 \end_inset
 
@@ -884,9 +1200,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Máscara 1
 \end_layout
 
@@ -898,14 +1218,25 @@ Máscara 1
 \end_inset
 
 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/Mask_original_1.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_original_1.png
+	scale 30
 
 \end_inset
 
@@ -913,9 +1244,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Máscara 2
 \end_layout
 
@@ -927,32 +1262,11 @@ Máscara 2
 \end_inset
 
 
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/Mask_compsed.png
-
+\begin_inset space ~
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Máscara Compuesta
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
+\begin_inset space ~
 \end_inset
 
 
@@ -962,8 +1276,11 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/Mask_compsed_resized.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_compsed.png
+	scale 30
 
 \end_inset
 
@@ -971,16 +1288,43 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Máscara Compuesta y redimensionada.
+
+\lang english
+Composición
 \end_layout
 
 \end_inset
 
 
 \end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_compsed_resized.png
+	scale 30
 
 \end_inset
 
@@ -988,11 +1332,38 @@ Máscara Compuesta y redimensionada.
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
+Redimensionado.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
 Procesamiento de máscaras
-\end_layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Procesamiento-de-máscaras"
 
 \end_inset
 
@@ -1001,22 +1372,6 @@ Procesamiento de máscaras
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Transformaciones iniciales.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -1026,6 +1381,8 @@ Transformaciones iniciales.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Aplicando estas transformaciones se cuenta con 204,472,320 píxeles de los
  cuales un 7.83% son correspondientes a tumores, 3.86% son de la clase 
 \emph on
@@ -1036,11 +1393,11 @@ beningno
 maligno
 \emph default
 .
- Que sigue siendo un conjunto tremendamente desbalanceado de imágenes, pero
- ha está correctamente estandarizado a nivel de dimensiones y duplicidades.
+ Sigue siendo un conjunto tremendamente desbalanceado de imágenes, pero
+ ya está correctamente estandarizado a nivel de dimensiones y duplicidades.
  Es importante unir las máscaras que corresponden a una misma imagen ya
- que, de otro modo se pueden incurrir en dos problemas principales: sobrerrepres
-entación de ciertas imágenes y consecuente sobreajuste de las mismas, y
+ que, de otro modo, se pueden incurrir en dos problemas principales: sobrerrepre
+sentación de ciertas imágenes y consecuente sobreajuste de las mismas, y
  ejemplos con discrepancias en el objetivo -
 \emph on
 un par (imagen, máscara) tiene un conjunto de positivos y la otra 
@@ -1054,7 +1411,9 @@ diferente
 \end_layout
 
 \begin_layout Standard
-Durante el entrenamiento y validación de la red neuronal, se aplicarán distintas
+
+\lang english
+Durante el entrenamiento y validación de la red neuronal, se aplican distintas
  transformaciones consecutivas a las imágenes tras estas transformaciones
  iniciales para realizar un aumento de datos.
 \end_layout
@@ -1062,10 +1421,20 @@ Durante el entrenamiento y validación de la red neuronal, se aplicarán distint
 \begin_layout Section
 
 \series bold
-MÉTODOS
+\lang english
+Métodos
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Métodos"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Los métodos utilizados se pueden dividir en la red neuronal implementada,
  EFSNet, que es una función que transforma una imagen en una máscara, y
  los métodos utilizados para que la función se ajuste al problema definido,
@@ -1073,17 +1442,93 @@ Los métodos utilizados se pueden dividir en la red neuronal implementada,
  algoritmos de optimización.
 \end_layout
 
+\begin_layout Standard
+
+\lang english
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
+
+\lang english
 EFSNet.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:EFSNet."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
+\begin_inset Wrap figure
+lines 0
+placement L
+overhang 0in
+width "50col%"
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/EFSNet.png
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+EFSNet con parámetros por capa en de fondo.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:EFSNet-con-parámetros"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
 La EFSNet, 
 \emph on
 Efficient Fast Semantic Segmentation Network
 \emph default
-,[REF] es una red neuronal convolucional diseñada para obtener inferencias
- de alta calidad con bajo coste computacional en el ámbito de la segmentación
+, (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) es una red neuronal convolucional diseñada para obtener inferencias de
+ alta calidad con bajo coste computacional en el ámbito de la segmentación
  semántica de imágenes.
  Los principales puntos para la reducción de número de parámetros son: las
  convoluciones agrupadas, los bloques factorizados, los bloques de convoluciones
@@ -1092,11 +1537,26 @@ Efficient Fast Semantic Segmentation Network
 CSDC
 \emph default
 ) y los módulos de aumento de resolución con uso de ShuffleNet.
- Esta arquitectura hereda de la investigación en redes neuronales para segmentac
-ión semántica rápida añadiendo las novedades de los bloques CSDC y los módulos
- de aumento de resolución.
- En última estancia es una arquitectura tipo U-Net[REF] con características
- de la ResNet[REF].
+ Esta arquitectura continua con la investigación en redes neuronales para
+ segmentación semántica rápida añadiendo las novedades de los bloques CSDC
+ y los módulos de aumento de resolución.
+ En última estancia es una arquitectura tipo U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
+
+\end_inset
+
+) con características de la ResNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "7780459"
+literal "false"
+
+\end_inset
+
+).
  Se puede dividir en: 
 \begin_inset Quotes eld
 \end_inset
@@ -1151,6 +1611,8 @@ Output
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 La reducción de parámetros en una red neuronal conlleva el problema de la
  falta de información debido a la reducción en la extracción de características.
  Para abordar este problema EFSNet explota varias técnicas de retención
@@ -1159,7 +1621,15 @@ La reducción de parámetros en una red neuronal conlleva el problema de la
 \emph on
 Dropout
 \emph default
-[REF] que evita la especialización de canales, la utilización de conexiones
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Lee2020"
+literal "false"
+
+\end_inset
+
+) que evita la especialización de canales, la utilización de conexiones
  residuales que retiene la información original o las 
 \emph on
 skip-connections
@@ -1185,58 +1655,80 @@ ión por lote (
 \emph on
 BatchNorm
 \emph default
-)[REF] seguidas por las activaciones PReLU[REF] alivian este problema[REF
- BatchNorm ELU vanishing gradients].
+) (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ioffe2015"
+literal "false"
+
+\end_inset
+
+) seguidas por las activaciones PReLU (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "He2015"
+literal "false"
+
+\end_inset
+
+) alivian este problema .
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Shah2016"
+literal "false"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/EFSNet.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-EFSNet con parámetros por capa en de fondo.
-\end_layout
+\lang english
+La EFSNet implementada, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:EFSNet-con-parámetros"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-La EFSNet[REF] implementada tiene 
+, tiene 
 \begin_inset Formula $178,887$
 \end_inset
 
- parámetros totales[REF], todos entrenables, para una imagen de dimensiones
- 
+ parámetros totales (algoritmo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Esquema-de-la-EFSNEt"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) todos entrenables, para una imagen de dimensiones 
 \begin_inset Formula $(256,256,1)$
 \end_inset
 
- y el cómputo de inferencia consume 
+.
+ El cómputo de un paso de inferencia consume 
 \begin_inset Formula $142.67\,Mb$
 \end_inset
 
 .
- El artículo original[REF] asegura que esta arquitectura tiene 
+ El artículo original (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) asegura que esta arquitectura tiene 
 \begin_inset Formula $173k$
 \end_inset
 
@@ -1257,122 +1749,122 @@ La EFSNet[REF] implementada tiene
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float algorithm
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
+\lang english
 \begin_inset listings
+lstparams "numbers=right,numberstyle={\tiny},basicstyle={\tiny},showstringspaces=false"
 inline false
 status open
 
 \begin_layout Plain Layout
 
 ================================================================================
-================================================================================
+========
 \end_layout
 
 \begin_layout Plain Layout
 
-Layer (type (var_name))                                      Input Shape
-               Output Shape              Param #                   Param
- %
-\end_layout
-
-\begin_layout Plain Layout
-
-================================================================================
-================================================================================
-\end_layout
-
-\begin_layout Plain Layout
-
-EFSNetSeg (EFSNetSeg)                                        [1, 1, 256,
- 256]          [1, 3, 256, 256]          --                            
- --
-\end_layout
-
-\begin_layout Plain Layout
-
-├─Encoder (encoder)                                          [1, 1, 256,
- 256]          [1, 64, 64, 64]           --                            
- --
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─InitialBlock (initial_block)                          [1, 1, 256,
- 256]          [1, 16, 128, 128]         166                         0.09%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─DownsamplingBlock (downsampling_block1)               [1, 16, 128,
- 128]         [1, 64, 64, 64]           5,699                       3.17%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─Sequential (factorized_blocks)                        [1, 64, 64,
- 64]           [1, 64, 64, 64]           15,244                      8.47%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─DownsamplingBlock (downsampling_block2)               [1, 64, 64,
- 64]           [1, 128, 32, 32]          30,339                     16.86%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─Sequential (super_sdc_blocks)                         [1, 128, 32,
- 32]          [1, 128, 32, 32]          109,584                    60.91%
-\end_layout
-
-\begin_layout Plain Layout
-
-├─Decoder (decoder)                                          [1, 64, 64,
- 64]           [1, 16, 128, 128]         --                            
- --
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─UpsamplingBlock (upsample_module1)                    [1, 128, 32,
- 32]          [1, 64, 64, 64]           12,418                      6.90%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─Sequential (shufflenet1)                              [1, 64, 64,
- 64]           [1, 64, 64, 64]           4,256                       2.37%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─UpsamplingBlock (upsample_module2)                    [1, 64, 64,
- 64]           [1, 16, 128, 128]         1,314                       0.73%
-\end_layout
-
-\begin_layout Plain Layout
-
-│    └─Sequential (shufflenet2)                              [1, 16, 128,
- 128]         [1, 16, 128, 128]         456                         0.25%
-\end_layout
-
-\begin_layout Plain Layout
-
-├─ConvTranspose2d (segment)                                  [1, 16, 128,
- 128]         [1, 3, 256, 256]          435                         0.24%
+Layer                       Input Shape        Output Shape        Param
+ #    Param %
 \end_layout
 
 \begin_layout Plain Layout
 
 ================================================================================
+========
+\end_layout
+
+\begin_layout Plain Layout
+
+EFSNet                     [N, 1, 256, 256]   [N, 3, 256, 256]         --
+          --
+\end_layout
+
+\begin_layout Plain Layout
+
+|-Encoder                  [N, 1, 256, 256]   [N, 64, 64, 64]          --
+          --
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-InitialBlock        [N, 1, 256, 256]   [N, 16, 128, 128]       166
+       0.09%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-DownsamplingBlock   [N, 16, 128, 128]  [N, 64, 64, 64]       5,699
+       3.17%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-FactorizedBlocks    [N, 64, 64, 64]    [N, 64, 64, 64]      15,244
+       8.47%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-DownsamplingBlock   [N, 64, 64, 64]    [N, 128, 32, 32]     30,339
+      16.86%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-CSDCBlocks          [N, 128, 32, 32]   [N, 128, 32, 32]    109,584
+      60.91%
+\end_layout
+
+\begin_layout Plain Layout
+
+|-Decoder                  [N, 64, 64, 64]    [N, 16, 128, 128]        --
+         --
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-UpsamplingModule    [N, 128, 32, 32]   [N, 64, 64, 64]      12,418
+       6.90%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-ShuffleNets         [N, 64, 64, 64]    [N, 64, 64, 64]       4,256
+       2.37%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-UpsamplingModule    [N, 64, 64, 64]    [N, 16, 128, 128]     1,314
+       0.73%
+\end_layout
+
+\begin_layout Plain Layout
+
+|    |-ShuffleNets         [N, 16, 128, 128]  [N, 16, 128, 128]       456
+       0.25%
+\end_layout
+
+\begin_layout Plain Layout
+
+|-ConvTranspose2d          [N, 16, 128, 128]  [N, 3, 256, 256]        435
+       0.24%
+\end_layout
+
+\begin_layout Plain Layout
+
 ================================================================================
+========
 \end_layout
 
 \end_inset
@@ -1381,10 +1873,21 @@ EFSNetSeg (EFSNetSeg)                                        [1, 1, 256,
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Esquema de la EFSNet con parámetros por bloque.
+
+\lang english
+Esquema de EFSNet con parámetros por bloque.
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Esquema-de-la-EFSNEt"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1398,8 +1901,10 @@ Esquema de la EFSNet con parámetros por bloque.
 \end_layout
 
 \begin_layout Standard
-En las siguientes subsecciones se tomará el siguiente criterio de representación
- de los 
+
+\lang english
+En las figuras de las siguientes subsecciones se tomará el siguiente criterio
+ de representación de los 
 \emph on
 shortcuts
 \emph default
@@ -1410,8 +1915,16 @@ shortcuts
 , con trasnformaciones lineales, se presentan en la rama de la izquierda
  mientras que los caminos principales con mayor número de operaciones se
  presentarán en la rama derecha.
- Muchas de las imágenes presentadas están basadas en el artículo de FSSNet[Ref]
- en el que se especifica que se aplica 
+ Muchas de las imágenes presentadas están basadas en el artículo de FSSNet
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2019"
+literal "false"
+
+\end_inset
+
+) en el que se especifica que se aplica 
 \emph on
 SpatialDropout 
 \emph default
@@ -1424,37 +1937,181 @@ rama derecha
  implementaciones.
 \end_layout
 
+\begin_layout Standard
+
+\lang english
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
+
+\lang english
 Bloque Convolucional.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bloque-Convolucional."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-El bloque convolucional es ampliamente utilizado a lo largo de la arquitectura
- de toda la red.
- Se verá en el bloque inicial[REF section], en el bloque de reducción de
- resolución[REF section], en el bloque factorizado[REF section], en el bloque
- SDC[REF section], en el módulo de aumento de resolución[REF section] y
- en la ShuffleNet[REF section].
+
+\lang english
+El bloque convolucional, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-Convolucional"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, es ampliamente utilizado a lo largo de la arquitectura de toda la red.
+ Se verá en el bloque inicial (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Inicial."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), en el bloque de reducción de resolución (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Downsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), en el bloque factorizado (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Factorizado."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), en el bloque SDC (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-SDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), en el módulo de aumento de resolución (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Módulo-de-Upsampling."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) y en la unidad ShuffleNet (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:ShuffleNet-Unit."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "35col%"
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/ConvolutionalBlock_EFSNet.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Bloque Convolucional
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-Convolucional"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Este bloque se trata de una transformación que disminuye o manteine la altura
+
+\lang english
+Este bloque se trata de una transformación que disminuye o mantiene la altura
  y anchura de la imagen y aumenta o mantiene los canales.
  Está compuesto por el triplete: Convolución2D-BatchNorm2D-PReLU, y tiene
- tres principales razones de ser así.
- En primer lugar, históricamente el diseño de arquitecturas de redes convolucion
-ales han convergido hacia la utilización de bloques definidos por la combinación
- de capas: 
+ tres principales razones de ser así: (i) históricamente el diseño de arquitectu
+ras de redes convolucionales han convergido hacia la utilización de bloques
+ definidos por la combinación de capas: 
 \emph on
 convolucion - normalización - activación - pooling - dropout
 \emph default
 , aunque en este caso el pooling no es utilizado y el dropout se realiza
  fuera del bloque.
- En segundo lugar, utilizar 
+ (ii) utilizar 
 \emph on
 BatchNorm
 \emph default
- permite prescindir del 
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ioffe2015"
+literal "false"
+
+\end_inset
+
+) permite prescindir del 
 \emph on
 bias
 \emph default
@@ -1464,11 +2121,19 @@ bias
 por bloque es despreciable pero en conjunto pueden llegar a ser miles
 \emph default
 -.
- En tercer lugar, la elección de la activación 
+ (iii) La activación 
 \emph on
 PReLU
 \emph default
-[REF] o 
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "He2015"
+literal "false"
+
+\end_inset
+
+) o 
 \emph on
 Parametrized ReLU
 \emph default
@@ -1482,50 +2147,54 @@ Parametrized ReLU
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/ConvolutionalBlock_EFSNet.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Bloque Convolucional
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
+
+\lang english
 Bloque Inicial.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bloque-Inicial."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-El Bloque Inicial de la EFSNet es heredado de la ENet[REF] e inspirado por
- Inception[REF].
+
+\lang english
+El Bloque Inicial de la EFSNet es heredado de la ENet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Paszke2016"
+literal "false"
+
+\end_inset
+
+) e inspirado por Inception (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Szegedy2017"
+literal "false"
+
+\end_inset
+
+).
  Este bloque se compone por dos ramas que se 
 \series bold
 concatenan
 \series default
- al final[REF imagen].
+ al final (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-inicial"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
  La rama de la izquierda efectúa una reducción vía 
 \emph on
 MaxPooling 
@@ -1536,31 +2205,71 @@ de los canales de la imagen de entrada para obtener las mayores intensidades
 \end_inset
 
 , en el caso del trabajo actual únicamente hay un canal mientras que en
- el orginal esta operación actúa sobre los tres canales RGB[REF].
- Esta rama es utiizada para retener información y agilizar el entrenamiento.
- Simultáneamente, la rama de la derecha extrae tantos filtros como sean
- necesarios para llegar a 16 una vez se concatene con la otra rama -
-\emph on
-en nuestro caso 15
-\emph default
-- por medio de un bloque convloucional[REF section] con kernel 
+ el orginal esta operación actúa sobre los tres canales RGB (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+).
+ Esta rama es utilizada para retener información y agilizar el entrenamiento.
+ Simultáneamente, la rama de la derecha aplica un bloque convloucional (subsecci
+ón 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Convolucional."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) con kernel 
 \begin_inset Formula $(3x3)$
 \end_inset
 
- y stride 2.
+ y stride 2 con 
+\begin_inset Formula $N=16-C$
+\end_inset
+
+ filtros con 
+\begin_inset Formula $C$
+\end_inset
+
+ los canales de entrada.
  De esta forma se obtiene una salida, 
 \begin_inset Formula $\hat{x}$
 \end_inset
 
-, con la mitad del tamaño original y 16 canales.
+, con la mitad del tamaño original y 16 canales tras la concatenación de
+ ambas ramas.
  Los canales de salida deben ser potencia de 2 para maximizar la potencia
  de la paralelización utilizando GPU, pero no se ha encontrado una razón
- de por qué 16[REF ENet] y no 4, 8 o 32.
+ de por qué 16 (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Paszke2016"
+literal "false"
+
+\end_inset
+
+) y no 4, 8 o 32.
 \end_layout
 
 \begin_layout Standard
-En los artículos en los que se implementa este bloque incial[REF EFSNet][REF
- ENet] las imágenes de entrada tienen tres canales por lo que las intensidades
+
+\lang english
+En los artículos en los que se implementa este bloque incial (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Paszke2016,Hu2020"
+literal "false"
+
+\end_inset
+
+) las imágenes de entrada tienen tres canales por lo que las intensidades
  de los canales tendrán mayor peso en el mensaje propagado que en el caso
  actual que únicamente tiene uno.
  Para un único canal este bloque es aproximadamente igual a utilizar únicamente
@@ -1572,14 +2281,21 @@ SpatialDropout
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/InitialBlock_Encoder_EFSNet.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/InitialBlock_Encoder_EFSNet.png
+	scale 60
 
 \end_inset
 
@@ -1587,10 +2303,21 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Bloque inicial
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-inicial"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1604,19 +2331,47 @@ Bloque inicial
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Bloque 
 \emph on
 Downsampling
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bloque-Downsampling"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El Bloque 
 \emph on
 Downsampling
 \emph default
-, o de reducción de resolución, es tomado de la arquitectura FSSNet[REF].
- Como se puede observar en la figura [REF img] es un bloque residual formado
- por una parte lineal -
+, o de reducción de resolución, es tomado de la arquitectura FSSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2019"
+literal "false"
+
+\end_inset
+
+).
+ Como se puede observar en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-downsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, es un bloque residual formado por una parte lineal -
 \emph on
 rama izquierda
 \emph default
@@ -1684,26 +2439,53 @@ PReLU.
 \end_layout
 
 \begin_layout Standard
-Las dos características principales de este bloque son, por un lado, la
- rama no lineal que preserva la información y los consecutivos bloques convoluci
-onales que primero reducen las dimensiones, después extraen características
- y terminan por extender los canales reduciendo el coste computacional sobre
- el denominado 
+
+\lang english
+Las dos características principales de este bloque son:
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+La rama no lineal que preserva la información.
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+Los consecutivos bloques convolucionales que primero reducen las dimensiones,
+ después extraen características y terminan por extender los canales reduciendo
+ el coste computacional sobre el denominado 
 \emph on
 bottleneck
 \emph default
- de la ResNet[REF]
+ de la ResNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "7780459"
+literal "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/DownsamplingBlock_EFSNet.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/DownsamplingBlock_EFSNet.png
+	scale 60
 
 \end_inset
 
@@ -1711,10 +2493,21 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Bloque de reducción de dimensionalidad.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-downsampling"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1722,16 +2515,81 @@ Bloque de reducción de dimensionalidad.
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset Newpage pagebreak
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Bloque Factorizado.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bloque-Factorizado."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "50col%"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/FactorizedBlock_Encoder_EFSNet.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Bloque Factorizado
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-Factorizado"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 El bloque factorizado se utliza para la extracción ágil de características.
  Utiliza un 
 \emph on
@@ -1741,8 +2599,18 @@ truco
 \emph on
 Downsampling
 \emph default
-[REF section] en su rama no lineal, pero añade la descomposición del Bloque
- convolucional de kernel 
+ (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Downsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) en su rama no lineal, pero añade la descomposición del Bloque convolucional
+ de kernel 
 \emph on
 
 \begin_inset Formula $(3x3)$
@@ -1771,8 +2639,18 @@ siendo indiferente el orden-
  similar.
  Esta descomposición en factores es la que le da el nombre al bloque.
  Por lo demás, esta rama se comporta igual que la rama no lineal del bloque
- de reducción de resolución[REF section] si mantuviesemos las dimensiones
- de altura y anchura: el primer bloque convolucional de kernel 
+ de reducción de resolución (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Downsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) si mantuviesemos las dimensiones de altura y anchura: el primer bloque
+ convolucional de kernel 
 \begin_inset Formula $(1x1)$
 \end_inset
 
@@ -1791,8 +2669,17 @@ sin activación
 SpatialDropout
 \emph default
 .
- Como se puede observar en la figura [REF Figura] la rama lineal no realiza
- ninguna transformación.
+ Como se puede observar en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-Factorizado"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ la rama lineal no realiza ninguna transformación.
  Finalmente, se 
 \series bold
 suman
@@ -1801,40 +2688,25 @@ suman
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/FactorizedBlock_Encoder_EFSNet.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-EFSNet con parámetros background
-\end_layout
+\lang english
+En FFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2019"
+literal "false"
 
 \end_inset
 
-
-\end_layout
+) y EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-En FFSNet[REF] y EFSNet[REF] se utilizan cuatro bloques factorizados seguidos
- que se denomina 
+) se utilizan cuatro bloques factorizados seguidos que se denomina 
 \emph on
 Bloques Factorizados Continuos
 \emph default
@@ -1844,15 +2716,91 @@ Bloques Factorizados Continuos
 exactamente
 \emph default
 - cuatro bloques factorizados no está justificada y se asume por el comentario
- de los autores respecto a las métricas de validación[REF FSSNet] que ha
- sido determinado experimentalmente a fuerza bruta.
-\end_layout
+ de los autores respecto a las métricas de validación (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2019"
+literal "false"
 
-\begin_layout Subsubsection
-Bloque CSDC.
+\end_inset
+
+) que ha sido determinado experimentalmente a fuerza bruta.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+
+\lang english
+Bloque CSDC.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bloque-CSDC."
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "50col%"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/SuperSDCBlock_Encoder_EFSNet.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Bloque CSDC
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-CSDC"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
 El bloque CSDC, 
 \emph on
 Continuous
@@ -1861,8 +2809,17 @@ Continuous
 \emph on
 Shuffled Dilated Convolution
 \emph default
-, se compone por cuatro bloques SDC[REF section] y se define por un número
- de grupos, 
+, se compone por cuatro bloques SDC (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-SDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) y se define por un número de grupos, 
 \begin_inset Formula $g$
 \end_inset
 
@@ -1889,8 +2846,16 @@ reducir-transformar-expandir
 \begin_inset Quotes erd
 \end_inset
 
-[REF EFSNet] expandiendo el campo receptivo y disminuyendo el número de
- parámetros necesarios.
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) expandiendo el campo receptivo y disminuyendo el número de parámetros
+ necesarios.
  Estos bloques representan el grueso de los parámetros utilizados en la
  arquitectura, un 
 \begin_inset Formula $61.26$
@@ -1909,8 +2874,18 @@ o capas
 \end_layout
 
 \begin_layout Standard
-En el artículo de EFSNet[REF] se obtiene empíricamente la combinación óptima
- de número de bloques SDC y número de bloques CSDC que son 
+
+\lang english
+En el artículo de EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) se obtiene empíricamente la combinación óptima de número de bloques SDC
+ y número de bloques CSDC que son 
 \begin_inset Formula $N_{SDC}=4,\,N_{CSDC}=2$
 \end_inset
 
@@ -1924,6 +2899,8 @@ En el artículo de EFSNet[REF] se obtiene empíricamente la combinación óptima
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El campo receptivo en el último bloque SDC es de 
 \begin_inset Formula $(31x31)$
 \end_inset
@@ -1944,7 +2921,7 @@ El campo receptivo en el último bloque SDC es de
 \begin_inset Formula $(3x3)$
 \end_inset
 
-[REF section] sobre la imagen reducida en un factor 
+ sobre la imagen reducida en un factor 
 \begin_inset Formula $8$
 \end_inset
 
@@ -1953,57 +2930,129 @@ El campo receptivo en el último bloque SDC es de
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/SuperSDCBlock_Encoder_EFSNet.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Super SDC
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
+\lang english
+\begin_inset Newpage pagebreak
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Bloque SDC.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Bloque-SDC."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "50col%"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/SDCBlock_Encoder_EFSNet.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Bloque SDC
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-SDC"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
 El bloque SDC, 
 \emph on
 Shuffled Dilated Convolution
 \emph default
-, es el principal avance propuesto por EFSNet[REF].
+, es el principal avance propuesto por EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+).
  Se basa en la 
 \emph on
 ShuffleNet Unit
 \emph default
-[REF] y continua la idea del bloque 
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ma2018"
+literal "false"
+
+\end_inset
+
+) y continua la idea del bloque 
 \emph on
 downsampling
 \emph default
-[REF section] y del bloque factorizado[REF section] pero añade tres característi
-cas: el 
+ (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Downsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) y del bloque factorizado (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Factorizado."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) pero añade tres características: el 
 \emph on
 barajado
 \emph default
@@ -2011,11 +3060,31 @@ barajado
 \emph on
 Channel-Shuffle
 \emph default
-), las convoluciones dilatadas[Ref] y las convoluciones por grupo.
- 
+), las convoluciones dilatadas (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Yu2015"
+literal "false"
+
+\end_inset
+
+) y las convoluciones por grupo.
+ Este bloque puede observarse esquemáticamente en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-SDC"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Se compone por una rama lineal que sirve de retención de información y una
  rama no lineal compuesta por un bloque convolucional de grupo con kernel
  de tamaño 
@@ -2068,46 +3137,34 @@ Channel Shuffle
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/SDCBlock_Encoder_EFSNet.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Bloque SDC
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
+\lang english
+\begin_inset Newpage pagebreak
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Módulo de 
 \emph on
 Upsampling
 \emph default
 .
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Módulo-de-Upsampling."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 El módulo de 
 \emph on
 Upsampling
@@ -2116,11 +3173,27 @@ Upsampling
 \emph on
 Decoder
 \emph default
- y es uno de los avances propuestos por EFSNet[REF] para disminuir el número
- de parámetros sin perder precisión.
+ y es uno de los avances propuestos por EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) para disminuir el número de parámetros sin perder precisión.
  Se compone de dos ramas con output similares uno procedente del camino
- principal, rama izquierda en la figura [REF imagen], y otro procedente
- de una 
+ principal, rama izquierda en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-Upsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, y otro procedente de una 
 \emph on
 skip connection
 \emph default
@@ -2128,17 +3201,39 @@ skip connection
 \emph on
 downsampling
 \emph default
-[REF] del 
+ (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Downsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) del 
 \emph on
 Encoder
 \emph default
-, rama derecha en la figura [REF].
+, rama derecha en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-Upsampling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  El propósito del módulo es aumentar en un factor 2 las dimensiones de altura
  y anchura de los mapas de entrada.
  
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En la rama de la izquierda, se utiliza un bloque de convolución de kernel
  
 \begin_inset Formula $(1x1)$
@@ -2170,6 +3265,8 @@ stride
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Finalmente, se 
 \series bold
 concatentan 
@@ -2188,14 +3285,21 @@ skip connection
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/UpsampleModule_Decoder_EFSNet.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/UpsampleModule_Decoder_EFSNet.png
+	scale 60
 
 \end_inset
 
@@ -2203,10 +3307,21 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Bloque Upsampling
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-Upsampling"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2214,6 +3329,15 @@ Bloque Upsampling
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset Newpage pagebreak
 \end_inset
 
 
@@ -2222,10 +3346,73 @@ Bloque Upsampling
 \begin_layout Subsubsection
 
 \emph on
+\lang english
 ShuffleNet Unit.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:ShuffleNet-Unit."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "50col%"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/ShuffleNet_Decoder_EFSNet.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Bloque 
+\emph on
+ShuffleNet
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-ShuffleNet"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
 La 
 \emph on
 ShuffleNet Unit
@@ -2241,12 +3428,35 @@ Decoder
 suma
 \series default
  con la rama no lineal de la derecha.
- Está basado en la arquitectura 
+ El esquema de este bloque puede observarse en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-ShuffleNet"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Está basado en la arquitectura 
 \emph on
 bottleneck unit
 \emph default
-[REF Deep Residual Learning for Image Recognition] pero añade tres variaciones
- importantes.
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "7780459"
+literal "false"
+
+\end_inset
+
+) pero añade tres variaciones importantes.
  En primer lugar, la primera y última convolución de kernel 
 \begin_inset Formula $(1x1)$
 \end_inset
@@ -2263,19 +3473,18 @@ Channel Shuffle
 \emph default
 tras la primera convolución para relacionar toda la información y no únicamente
  la de los canales correspondientes a cada grupo.
- La capa 
-\emph on
-Channel Shuffle 
-\emph default
-no se utiliza tras el último bloque convolucional dado que no disminuye
- la precisión.
  En tercer lugar, se intercambia la capa convolucional de extración de caracterí
 sticas con kernel 
 \begin_inset Formula $(3x3)$
 \end_inset
 
  por una capa convolucional en profundidad que reduce el coste computacional.
- Adicionalmente, se hace uso de noramlización por lote (
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Adicionalmente, se hace uso de noramlización por lote (
 \emph on
 BatchNorm
 \emph default
@@ -2292,47 +3501,50 @@ ReLU
 dropout
 \emph default
  en los canales.
+ La capa 
+\emph on
+Channel Shuffle 
+\emph default
+no se utiliza tras el último bloque convolucional dado que no disminuye
+ la precisión.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/diagrams/ShuffleNet_Decoder_EFSNet.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Bloque ShuffleNet
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
+\lang english
+\begin_inset Newpage pagebreak
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Predicción.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Predicción."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-La predicción, como se observa en el diagrama de la figura [EFSNet Image],
- se trata de una convolución transpuesta o deconvoluciónde kernel 
+
+\lang english
+La predicción, como se observa en el diagrama de la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:EFSNet-con-parámetros"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, se trata de una convolución transpuesta o deconvoluciónde kernel 
 \begin_inset Formula $(3x3)$
 \end_inset
 
@@ -2357,6 +3569,8 @@ mapa de probabilidades
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Dada la naturaleza del problema, se puede establecer esta capa final, 
 \begin_inset Formula $x_{s},$
 \end_inset
@@ -2421,10 +3635,14 @@ converge y se sobreajusta antes de que
 \end_layout
 
 \begin_layout Subsection
+
+\lang english
 Entrenamiento y validación.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Esta sección se dedica a definir el método de entrenamiento desde el procesado
  de los datos a la optimización de la red neuronal.
  Para el entrenamiento y validación de la EFSNet se ha dividido el conjunto
@@ -2461,17 +3679,32 @@ con una semilla,
 
 .
  La distribución de imágenes por categoría y conjunto de datos se puede
- observar en la tabla:
+ observar en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Distribución-de-imágenes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float table
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
+
+\lang english
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="4">
 <features tabularvalignment="middle">
@@ -2493,6 +3726,8 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Total
 \end_layout
 
@@ -2502,6 +3737,8 @@ Total
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Entrenamiento
 \end_layout
 
@@ -2511,6 +3748,8 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Validación
 \end_layout
 
@@ -2522,6 +3761,8 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 normal
 \end_layout
 
@@ -2531,6 +3772,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 133
 \end_layout
 
@@ -2540,6 +3783,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 115
 \end_layout
 
@@ -2549,6 +3794,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 18
 \end_layout
 
@@ -2560,6 +3807,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 benigno
 \end_layout
 
@@ -2569,6 +3818,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 437
 \end_layout
 
@@ -2578,6 +3829,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 382
 \end_layout
 
@@ -2587,6 +3840,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 54
 \end_layout
 
@@ -2598,6 +3853,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 maligno
 \end_layout
 
@@ -2607,6 +3864,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 210
 \end_layout
 
@@ -2616,6 +3875,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 182
 \end_layout
 
@@ -2625,6 +3886,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 28
 \end_layout
 
@@ -2636,6 +3899,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 total
 \end_layout
 
@@ -2645,6 +3910,8 @@ total
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 780
 \end_layout
 
@@ -2654,6 +3921,8 @@ total
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 680
 \end_layout
 
@@ -2663,6 +3932,8 @@ total
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 100
 \end_layout
 
@@ -2677,10 +3948,21 @@ total
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Distribución de imágenes por categoría y conjunto de datos.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Distribución-de-imágenes"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2694,24 +3976,31 @@ Distribución de imágenes por categoría y conjunto de datos.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Es evidente que hay una sobre-representación de imágenes de la clase 
 \emph on
 beningo
 \emph default
-, aún así, como se ha visto anteriormente, a nivel de píxel -
+.
+ A nivel de píxel -
 \emph on
 que es la escala objetivo
 \emph default
 \SpecialChar softhyphen
- hay una sobre-representación de 
+ la sobre-representación se da en la clase 
 \emph on
 normal
 \emph default
- sobre 
+ manteniéndose un balance entre las clases 
 \emph on
-benigno y maligno
+benigno 
 \emph default
-, estando las dos últimas igualmente representadas.
+y
+\emph on
+ maligno
+\emph default
+.
  Esto motiva a pensar que los tumores de tipo 
 \emph on
 maligno
@@ -2720,12 +4009,8 @@ maligno
 \emph on
 benignos
 \emph default
- serán menores, además los tumores 
-\emph on
-benignos 
-\emph default
-no suponen una proporción muy grande de la imagen.
- De estas suposiciones se pueden intuir varios 
+ no suponen una proporción muy grande de la imagen.
+ De estas hipótesis se pueden intuir varios 
 \emph on
 mínimos locales
 \emph default
@@ -2739,13 +4024,31 @@ benigno
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Para evitar el sobreajuste y lidiar con el desbalance de clases se han utilizado
- varias técnicas.
- En cuanto a los datos, se han definido un conjunto de transformaciones
- afines aleatorizado y se ha aplicado sobre el conjunto de entrenamiento.
- Por otro lado, se ha pesado la importancia de cada clase en la función
- de pérdidas en función de su representación.
- Finalmente, se utiliza un paso de aprendizaje, 
+ varias técnicas:
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+Se han definido un conjunto de transformaciones afines aleatorizadas sobre
+ los datos del conjunto de entrenamiento.
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+Se ha pesado la importancia de cada clase en la función de pérdidas en función
+ de su representación.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+Se utiliza un paso de aprendizaje, 
 \emph on
 learning rate
 \emph default
@@ -2754,22 +4057,43 @@ learning rate
 \end_layout
 
 \begin_layout Subsubsection
-Aumentación de imágenes.
+
+\lang english
+Aumento de imágenes.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Aumento-de-imágenes."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Se han utilizado una serie de transformaciones aleatorias que aplican a
  las imágenes al ser suministradas a la red para el entrenamiento.
- Estas transformaciones, en orden de aplicación, son las siguientes: redimension
-ado ó recorte aleatorio a 
+ Estas transformaciones, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Transformaciones-de-aumento"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, en orden de aplicación, son las siguientes: redimensionado ó recorte aleatorio
+ a 
 \begin_inset Formula $(256,256,1)$
 \end_inset
 
  con probabilidad 
-\begin_inset Formula $0.5,$
+\begin_inset Formula $0.5$
 \end_inset
 
-rotación con respecto al centro con un ángulo aleatorio 
+, rotación con respecto al centro con un ángulo aleatorio 
 \begin_inset Formula $\theta\in(-\pi,\pi)\,rad$
 \end_inset
 
@@ -2790,51 +4114,73 @@ rotación con respecto al centro con un ángulo aleatorio
 \end_inset
 
 .
- Estas trasnformaciones (exceptuando el redimensionado que es igual que
- en la figura [REF figura]) de forma individual y compuesta pueden verse
- en la figura [REF figura].
- De estas transformaciones únicamente el redimensionado, recorte, rotación
- y volteado horizontal y vertical son aplicados a las máscaras para poder
- aplicar correctamente la función de pérdida[REF section].
- Por otro lado, el conjunto de validación no ha sido alterado ya que sirve
+ Sobre las máscaras únicamente se aplica el redimensionado, recorte, rotación
+ y volteado horizontal y vertical por consistencia.
+ Hacer notar que el conjunto de validación no ha sido alterado ya que sirve
  para evaluar al modelo en el caso real y no en un caso transformado.
  
 \end_layout
 
 \begin_layout Standard
-El método de aumentación conlleva la principal ventaja de engrosar el número
+
+\lang english
+El método de aumento conlleva la principal ventaja de engrosar el número
  de muestras disponibles de forma aleatoria evitando en gran medida un posible
  problema de 
 \emph on
 sobre-ajuste
 \emph default
-, aunque también aporta varias desventajas.
- El redimensionado de la imagen reduce la resolución de la imagen eliminando
- detalles potencialmente valiosos.
- El recorte aleatorio puede dejar fuera las regiones tumorales de interés
+.
+ De igual forma, aporta varias desventajas como:
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+El redimensionado de la imagen reduce su resolución eliminando detalles
+ potencialmente valiosos.
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+El recorte aleatorio puede dejar fuera las regiones tumorales de interés
  aumentando el desbalance favorable a la clase 
 \emph on
 normal
-\emph default
-.
- La rotación añade zonas totalmente oscuras y planas que siempre pertenecen
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+La rotación añade zonas totalmente oscuras y planas que siempre pertenecen
  a la clase 
 \emph on
 normal
 \emph default
- pudiendo sesgar la predicción de zonas similares a esta clase.
- El cambio de brillo y contraste pueden suavizar detalles útiles, enmascarar
+ pudiendo sesgar la predicción de zonas similares a esta clase,.
+\end_layout
+
+\begin_layout Itemize
+
+\lang english
+El cambio de brillo y contraste pueden suavizar detalles útiles, enmascarar
  bordes de las regiones de interés o amplificar diferencias de color que
  pueden implicar un mal ajuste.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -2842,7 +4188,10 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/crop_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/crop_0.png
+	scale 50
+	BoundingBox 0bp 60bp 640bp 420bp
+	clip
 
 \end_inset
 
@@ -2850,9 +4199,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Recorte
 \end_layout
 
@@ -2864,14 +4217,27 @@ Recorte
 \end_inset
 
 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/rotation_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/rotation_0.png
+	scale 50
+	BoundingBox 0bp 60bp 640bp 420bp
+	clip
 
 \end_inset
 
@@ -2879,9 +4245,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Rotación
 \end_layout
 
@@ -2893,14 +4263,25 @@ Rotación
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/brightness_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/brightness_0.png
+	scale 50
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
 
 \end_inset
 
@@ -2908,9 +4289,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Brillo
 \end_layout
 
@@ -2922,14 +4307,27 @@ Brillo
 \end_inset
 
 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/contrast_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/contrast_0.png
+	scale 50
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
 
 \end_inset
 
@@ -2937,9 +4335,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Contraste
 \end_layout
 
@@ -2951,14 +4353,25 @@ Contraste
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/hflip_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/hflip_0.png
+	scale 50
+	BoundingBox 0bp 60bp 640bp 420bp
+	clip
 
 \end_inset
 
@@ -2966,9 +4379,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Volteado horizontal
 \end_layout
 
@@ -2980,14 +4397,27 @@ Volteado horizontal
 \end_inset
 
 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/vertical_flip_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/vertical_flip_0.png
+	scale 50
+	BoundingBox 0bp 60bp 640bp 420bp
+	clip
 
 \end_inset
 
@@ -2995,9 +4425,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Volteado vertical
 \end_layout
 
@@ -3009,14 +4443,25 @@ Volteado vertical
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/dataloader/transform_0.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/transform_0.png
+	scale 70
+	BoundingBox 0bp 60bp 640bp 420bp
+	clip
 
 \end_inset
 
@@ -3024,9 +4469,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Transformación compuesta.
 \end_layout
 
@@ -3041,10 +4490,21 @@ Transformación compuesta.
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Bloque ShuffleNet
+
+\lang english
+Transformaciones de aumento de datos.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Transformaciones-de-aumento"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3058,10 +4518,14 @@ Bloque ShuffleNet
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Función de pérdida.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 La función de pérdida utilizada es la denominada 
 \begin_inset Quotes eld
 \end_inset
@@ -3100,9 +4564,17 @@ BinaryCrossEntropy
 \emph default
 , 
 \emph on
-BCE[REF]
+BCE
 \emph default
-, con peso por clase (
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Mannor2005"
+literal "false"
+
+\end_inset
+
+), con peso por clase (
 \begin_inset CommandInset href
 LatexCommand href
 name "CCE con peso"
@@ -3112,8 +4584,16 @@ literal "false"
 \end_inset
 
 ).
- Los pesos se han definido basándose en la metodología propuesta por ENet[REF]
- tal que 
+ Los pesos se han definido basándose en la metodología propuesta por ENet
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "paszke2016enet"
+literal "false"
+
+\end_inset
+
+) tal que 
 \begin_inset Formula 
 \begin{equation}
 \omega_{c}=\frac{1}{ln\left(c+p_{class}\right)}
@@ -3125,6 +4605,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 donde 
 \begin_inset Formula $c$
 \end_inset
@@ -3138,7 +4620,13 @@ donde
 \end_inset
 
 es la representación de la clase.
- En el conjunto de datos se obtienen los siguientes valores al aplicar la
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En el conjunto de datos se obtienen los siguientes valores al aplicar la
  fórmula sobre el conjunto de entrenamiento sin transformar: 
 \begin_inset Formula $(normal,\,benigno,\,maligno)=(1.51,\,17.27,\,17.24)$
 \end_inset
@@ -3157,12 +4645,34 @@ agresivos
 \begin_inset Formula $(normal,\,benigno,\,maligno)=(1,\,5,\,5)$
 \end_inset
 
- que se han utilizado finalmente.
+ que se han utilizado finalmente como se muestra en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Pesos-CCE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  Esta diferencia se puede deber a la aumentación de imágenes vista en la
- subsección anterior [REF section].
+ subsección anterior (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Aumento-de-imágenes."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
@@ -3170,6 +4680,8 @@ status collapsed
 
 \begin_layout Plain Layout
 \align center
+
+\lang english
 \begin_inset Tabular
 <lyxtabular version="3" rows="4" columns="4">
 <features tabularvalignment="middle">
@@ -3191,6 +4703,8 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 EFNet teórico
 \end_layout
 
@@ -3200,6 +4714,8 @@ EFNet teórico
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 EFNet normalizado
 \end_layout
 
@@ -3209,6 +4725,8 @@ EFNet normalizado
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 Utilizado
 \end_layout
 
@@ -3220,6 +4738,8 @@ Utilizado
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 normal
 \end_layout
 
@@ -3229,6 +4749,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 1.51
 \end_layout
 
@@ -3238,6 +4760,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 1.00
 \end_layout
 
@@ -3247,6 +4771,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 1.00
 \end_layout
 
@@ -3258,6 +4784,8 @@ normal
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 benigno
 \end_layout
 
@@ -3267,6 +4795,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 17.27
 \end_layout
 
@@ -3276,6 +4806,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 11.45
 \end_layout
 
@@ -3285,6 +4817,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 5.00
 \end_layout
 
@@ -3296,6 +4830,8 @@ benigno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 maligno
 \end_layout
 
@@ -3305,6 +4841,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 17.24
 \end_layout
 
@@ -3314,6 +4852,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 11.43
 \end_layout
 
@@ -3323,6 +4863,8 @@ maligno
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 5.00
 \end_layout
 
@@ -3337,10 +4879,21 @@ maligno
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Pesos CCE
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Pesos-CCE"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3354,8 +4907,19 @@ Pesos CCE
 \end_layout
 
 \begin_layout Standard
-Como se comentó en secciones anteriores[REF section] también se ha probado
- la red con dos salidas, una binaria 
+
+\lang english
+Como se ha comentado en la subsección de predicciones (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Predicción."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) también se ha probado la red con dos salidas, una binaria 
 \emph on
 normal/tumor
 \emph default
@@ -3379,15 +4943,34 @@ e.
 \end_layout
 
 \begin_layout Subsubsection
+
+\lang english
 Optimización.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En esta subsección se detalla el algoritmo utilizado para la optimización
  de los pesos de la EFSNet.
  De nuevo, se sigue el procedimiento mostrado en el artículo de referencia
- [REF EFSNet] definiendo un optimizador Adam [REF] con ratio de aprendizaje
- inicial (
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) definiendo un optimizador Adam (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kingma2014"
+literal "false"
+
+\end_inset
+
+) con ratio de aprendizaje inicial (
 \emph on
 learning rate
 \emph default
@@ -3410,13 +4993,31 @@ learning rate
 
  y sin utilizar la variante 
 \emph on
-AMSGRAD[REF].
- 
+AMSGRAD
 \emph default
-Todos estos valores como los demás se han implementado en la librería torch
- tal y como se ha comentado al inicio de la sección[REF].
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Reddi2019"
+literal "false"
+
+\end_inset
+
+)
+\emph on
+.
+
+\emph default
  Los pesos de la red se inicializan con la función Kaiming Uniform, también
- llamada He Uniform, [REF], y se establece la probabilidad de 
+ llamada He Uniform, (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "He2015"
+literal "false"
+
+\end_inset
+
+), y se establece la probabilidad de 
 \emph on
 dropout
 \emph default
@@ -3428,8 +5029,17 @@ dropout
 \end_layout
 
 \begin_layout Standard
-En comparación con la propuesta original del artículo[REF] aquí se especifican
- 
+
+\lang english
+En comparación con la propuesta original del artículo (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) aquí se especifican 
 \begin_inset Formula $\beta_{2}$
 \end_inset
 
@@ -3450,11 +5060,13 @@ En comparación con la propuesta original del artículo[REF] aquí se especifica
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Se define un decaimiento del ratio de aprendizaje polinómico, 
 \begin_inset CommandInset href
 LatexCommand href
-name "https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.PolynomialLR.html"
-target "PolynomialLR"
+name "PolynomialLR"
+target "https://pytoch.org/docs/stable/generated/torch.optim.lr_scheduler.PolynomialLR.html"
 literal "false"
 
 \end_inset
@@ -3475,8 +5087,18 @@ checkpoint
  basado en el mínimo de la función de pérdida en validación que, en este
  caso, se obtuvo en la época 312.
  Las primeras 1000 épocas de entrenamiento se pueden visualizar en la figura
- [REF figura] as partir de las cuales la pérdida en el conjunto de entrenamiento
- y validación convergen a un valor 
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Entrenamiento-de-EFSNet."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, a partir de dicho punto la pérdida en el conjunto de entrenamiento y validació
+n convergen a un valor 
 \begin_inset Quotes eld
 \end_inset
 
@@ -3489,7 +5111,17 @@ estable
 \end_inset
 
 .
- De la figura [REF figura] no se puede extraer una conclusión sobre el 
+ De la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Entrenamiento-de-EFSNet."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ no se puede extraer una conclusión sobre el 
 \emph on
 sobre-ajuste
 \emph default
@@ -3497,9 +5129,9 @@ sobre-ajuste
  han sido aumentadas artificialmente mientras que las del conjunto de validación
  no.
  Por este motivo no podemos afirmar que, aproximadamente, en la época 450
- el modelo empiece a sobreajustar.
- Además esta diferencia explica la diferencia en la velocidad de convergencia
- entre los conjuntos.
+ el modelo empiece a sobre-ajustar.
+ Además esta diferencia en las transformaciones de datos explica la diferencia
+ en la velocidad de convergencia entre los conjuntos.
  El modelo termina con un valor de la función de pérdida 
 \begin_inset Formula $CCE_{w}=0.2734$
 \end_inset
@@ -3507,13 +5139,18 @@ sobre-ajuste
 .
  
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/analysis/train_history.png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/train_history.png
+	width 90text%
 
 \end_inset
 
@@ -3521,11 +5158,22 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Entrenamiento de EFSNet.
  Se muestran las primeras 1000 épocas.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Entrenamiento-de-EFSNet."
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

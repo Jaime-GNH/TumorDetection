@@ -4,13 +4,13 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass book
 \use_default_options false
 \maintain_unincluded_children false
-\language english
-\language_package none
-\inputencoding auto
-\fontencoding default
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding T1
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -28,24 +28,33 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
-\use_hyperref false
-\papersize default
-\use_geometry false
-\use_package amsmath 1
-\use_package amssymb 0
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
 \use_package cancel 0
 \use_package esint 1
 \use_package mathdots 0
 \use_package mathtools 0
 \use_package mhchem 0
-\use_package stackrel 0
+\use_package stackrel 2
 \use_package stmaryrd 0
 \use_package undertilde 0
-\cite_engine basic
-\cite_engine_type default
-\biblio_style plain
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style unsrtnat
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -57,17 +66,18 @@
 \shortcut idx
 \color #008000
 \end_index
+\headheight 16pt
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
-\paperpagestyle default
+\papersides 2
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -77,16 +87,14 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-chapter{Estado del Arte}
+\begin_layout Chapter
+Estado del Arte
 \end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:estado-del-arte"
 
 \end_inset
 
@@ -94,75 +102,1158 @@ chapter{Estado del Arte}
 \end_layout
 
 \begin_layout Standard
-En este capítulo se expondrá el estado actual de la tarea realizada, desde
- el prisma de las arquitecturas de las redes neuronales artificiales.
- Para obtener una visión de conjunto autocompleta que permita el entendimiento
- de lo general y lo particular se realiza un estudio sobre los avances pasados
- que han permitido el estado presente desde el campo más global (
+
+\lang english
+En este capítulo se expondrá el estado actual de la detección de tumores
+ en ecografías mamarias, desde el prisma de las arquitecturas de las redes
+ neuronales artificiales.
+ Para obtener una visión de conjunto holística que permita el entendimiento
+ de lo general y lo particular se realiza un estudio sobre los avances en
+ el campo más global (
 \emph on
 dentro del campo de la Inteligencia Artificial
 \emph default
 ), el denominado como Visión Artificial, hasta el correspondiente al trabajo,
  detección de tumores en ecografías mamarias.
- A medida que se disminuya el enfoque a través de las secciones también
- lo hará el intervalo de tiempo considerado para determinar los hitos de
- ese nivel para mantener la coherencia de la memoria.
-\end_layout
-
-\begin_layout Section
-Visión Artificial
-\end_layout
-
-\begin_layout Enumerate
-Handwritten Digit Recognition With a BackPropagation Network -> Densa
-\end_layout
-
-\begin_layout Enumerate
-Convolutional Networks Can Learn to Generate Affinity Graphs for Image Segmentat
-ion -> CN segmentation
-\end_layout
-
-\begin_layout Enumerate
-ImageNet Classification with Deep Convolutional Neural Networks -> CNN +
- densa
-\end_layout
-
-\begin_layout Enumerate
-Deep Convolutional Neural Networks for Computer-Aided Detection: CNN Architectur
-es, Dataset Characteristics and Transfer Learning -> History of Deep CNN
- for Medical Image Segmentation.
- ImageNet, AlexNet
-\end_layout
-
-\begin_layout Enumerate
-Evolution of Convolutional Neural Network (CNN): Compute vs Memory bandwidth
- for Edge AI 
-\end_layout
-
-\begin_layout Section
-Segmentación semántica
-\end_layout
-
-\begin_layout Section
-Aplicaciones biomédicas
-\end_layout
-
-\begin_layout Enumerate
-Medical Image Segmentation based on U-Net: A Review.
  
 \end_layout
 
-\begin_layout Enumerate
-U-Net and Its Variants for Medical Image Segmentation: A Review of Theory
- and Applications
-\end_layout
-
 \begin_layout Section
-Detección de tumores en ecografías mamarias
+
+\lang english
+Visión Artificial
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Visión-Artificial"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Segformer, DiNat, UNets, EFSNet y sus primos 
+
+\lang english
+En el campo de la Visión Artificial se pueden establecer tres principales
+ vías de desarrollo en cuestión de arquitecturas aplicables a multitud de
+ casos de uso.
+ Desde los primeros hitos de las arquitecturas de redes neuronales como
+ fueron las redes convolucionales (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "LeCun1989,LeCun1995,Krizhevsky2012"
+literal "false"
+
+\end_inset
+
+) y la arquitectura tipo U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
+
+\end_inset
+
+) los métodos han ido actualizándose de varias formas.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En primer lugar, se debe mencionar la utilización de los bloques de atención
+ que desde su invención en 2017 (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Vaswani2017"
+literal "false"
+
+\end_inset
+
+) se han propagado a todos los campos de la Inteligencia Artificial.
+ En el contexto de la Visión Artificial hay multitud de usos de esta metodología
+, desde transformers de visión que asemejan los utilizados en texto (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Dosovitskiy2020,Xie2021,Cao2023,Zhang2023a"
+literal "false"
+
+\end_inset
+
+) a otros con estructura piramidal o jerárquico (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Li2018,Cao2023,Hatamizadeh2023,Wu2024"
+literal "false"
+
+\end_inset
+
+).
+ El mecanismo de atención utilizado por estas arquitecturas favorece una
+ convergencia de gran precisión debido a la capacidad de enfocarse en regiones
+ de interés y tener un campo receptivo que cubre la imagen al completo,
+ además añade interpretabilidad a la arquitectura por medio de los 
+\begin_inset Quotes eld
+\end_inset
+
+pesos de la atención
+\begin_inset Quotes erd
+\end_inset
+
+.
+ En contraposición, aumenta en gran medida el coste computacional necesario,
+ restringiendo el uso de estas redes e incrementando la huella de carbono.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En segundo lugar, se debe comentar la multimodalidad y los modelos 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+para todo
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Por una parte, la multimodalidad consiste en implementar arquitecturas
+ capaces de consumir y predecir diferentes tipos de datos (imagen, texto,
+ audio, ...) por medio de la unión de 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Encoders
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ y 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Decoders
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ pre-entrenados de cada tipo en un mapa de características intermedio (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Akkus2023,Park2023,Shang2024"
+literal "false"
+
+\end_inset
+
+).
+ Por otra parte, los modelos 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+para todo
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ comúnmente denominados modelos fundacionales que tratan de abordar todos
+ los problemas de un mismo caso de uso, i.e.
+ 
+\emph on
+Segment Anything
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kirillov2023"
+literal "false"
+
+\end_inset
+
+).
+ Estas vías de desarrollo quedan fuera del alcance del individuo medio y
+ quedan restringidas al uso por grandes empresas con todo tipo de recursos
+ (
+\emph on
+datos, computación, personal
+\emph default
+) debido a que son los modelos más pesados y costosos de entrenar.
+ La finalidad de estos modelos es obtener una herramienta multi-propósito,
+ pero a costa de esta generalidad disminuyen la precisión en casos concretos
+ por lo que requieren de metodologías adicionales como el Ajuste Fino -
+\emph on
+Fine Tuning
+\emph default
+\SpecialChar softhyphen
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Finalmente, se está avanzando hacia la eficiencia -
+\emph on
+en este y todos los demás campos de la Inteligencia Artificial
+\emph default
+- de las arquitecturas para reducir el coste computacional sin (mucha) pérdida
+ de efectividad.
+ Esta vía es la que más tiempo lleva en desarrollo pues desde los inicios
+ se ha querido optimizar la solución (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Szegedy2015,Szegedy2016,Szegedy2017,8578814"
+literal "false"
+
+\end_inset
+
+), llegando al punto actual en el que las redes neuronales eficientes pueden
+ ser utilizadas en dispositivos móviles , 
+\emph on
+MobileNet
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Howard2017"
+literal "false"
+
+\end_inset
+
+), y otros con bajo nivel de recursos.
+ El trabajo actual hace uso de una de las últimas actualizaciones de esta
+ vía, EFSNet -
+\emph on
+Efficient Fast Segmentation Network
+\emph default
+- (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+), que sigue la línea de ENet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Paszke2016"
+literal "false"
+
+\end_inset
+
+) y ShuffleNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "8578814,Ma2018"
+literal "false"
+
+\end_inset
+
+) para obtener una arquitectura con 
+\begin_inset Formula $\simeq0.18$
+\end_inset
+
+ millones de parámetros y 
+\begin_inset Formula $\simeq150$
+\end_inset
+
+ Mb de peso en inferencia.
+ Evidentemente, hay multitud de otras vías de desarrollo como el uso de
+ grafos (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Bretto2005,Yang2020"
+literal "false"
+
+\end_inset
+
+), los modelos de mezcla de expertos, 
+\emph on
+MoE,
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Pavlitskaya2020"
+literal "false"
+
+\end_inset
+
+); arquitecturas piramidales (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "He2019"
+literal "false"
+
+\end_inset
+
+) o las metodologías 
+\emph on
+profesor-aprendiz
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Guo2023,Huo2023"
+literal "false"
+
+\end_inset
+
+) en las que no se hace hincapié dado que no han presentado mejoras evidentes
+ en los últimos años.
+ Independientemente, son abordajes dignos de mención ya que pueden conformar
+ la nueva punta de lanza en un futuro inmediato.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+De igual forma, se deben mencionar los avances en algoritmos de optimización
+ e inferencia de las arquitecturas de red neuronal.
+ Estos avances cuentan con menor grado de eco mediático y, en multitud de
+ ocasiones, son confundidos con la arquitectura.
+ Primeramente, se debe mencionar la difusión guiada (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ho2020"
+literal "false"
+
+\end_inset
+
+).
+ Esta metodología (compatible con otras) constituye un algoritmo iterativo
+ de eliminación de ruido que, partiendo de una imagen semilla compuesta
+ en su totalidad por ruido blanco, elimina, paso a paso -
+\emph on
+inferencia a inferencia
+\emph default
+-, el ruido para obtener la imagen final.
+ Esta eliminación de ruido está guiada por un conjunto de predictores que
+ evaluarán si el ruido eliminado se acerca o no al objetivo y, generalmente,
+ haciendo uso de bloques de atención.
+ En consecuencia se obtiene una imagen nítida y acorde con el objetivo pero
+ se incrementa el coste computacional tantas veces como pasos de eliminación
+ de ruido se utilicen.
+ Generalmente, esta vía se restringe a la Inteligencia Artificial Generativa
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Betker2023,Esser2024"
+literal "false"
+
+\end_inset
+
+).
+ En segundo lugar, se continúa investigando y mejorando en la metodología
+ 
+\emph on
+GAN
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Goodfellow2014"
+literal "false"
+
+\end_inset
+
+), redes generativas adversarias, que se componen de una red 
+\begin_inset Quotes eld
+\end_inset
+
+generadora
+\begin_inset Quotes erd
+\end_inset
+
+ y una 
+\begin_inset Quotes eld
+\end_inset
+
+discriminadora
+\begin_inset Quotes erd
+\end_inset
+
+ de forma que la primera debe generar la imagen y la segunda debe decidir
+ si ésta es una imagen correcta o no.
+ Es un buen método para surrogar la función de pérdida por medio de la utilizaci
+ón de una red neuronal simple 
+\emph on
+-discriminadora-
+\emph default
+, pero complejiza la implementación de soluciones al tener que optimizar
+ simultáneamente dos modelos.
+ Las 
+\emph on
+GANs
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Goodfellow2014"
+literal "false"
+
+\end_inset
+
+) se han utilizado para todo tipo de casos y es una de las metodologías
+ más comunes en problemas de visión artificial.
+ Si bien la red 
+\begin_inset Quotes eld
+\end_inset
+
+discriminadora
+\begin_inset Quotes erd
+\end_inset
+
+ es simple, la 
+\begin_inset Quotes eld
+\end_inset
+
+generadora
+\begin_inset Quotes erd
+\end_inset
+
+ puede ser todo lo compleja que se quiera por lo que utilizar esta vía para
+ surrogar la pérdida aumenta el coste de la solución para una misma arquitectura
+ 
+\begin_inset Quotes eld
+\end_inset
+
+generadora
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En tercer lugar, la utilización de pasos de aprendizaje variables (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Defazio2023"
+literal "false"
+
+\end_inset
+
+) y/o decaimiento en los pesos (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Krogh1991"
+literal "false"
+
+\end_inset
+
+) añade flexibilidad en el entrenamiento que evita que la optimización converja
+ a un mínimo local aunque, ciertas configuraciones pueden impactar negativamente
+ en el tiempo requerido para el entrenamiento.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En cuarto lugar, mencionar el Aprendizaje Federado (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Bharati2022"
+literal "false"
+
+\end_inset
+
+, que se alza como una metodología novedosa en el entrenamiento de redes
+ neuronales descentralizado, distribuido y colaborativo.
+ Esta metodología permite a un conjunto de entidades compartir un modelo
+ sin compartir los datos y, en los últimos tiempos, ha permitido implementar
+ modelos de alta precisión en campos en los que las entidades por sí mismas
+ no cuentan con la cantidad de datos necesaria para el entrenamiento pero
+ sí en conjunto.
+ Esta vía de desarrollo es prometedora ya que añade una capa de seguridad
+ en los datos (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BuenestadoCortes2022"
+literal "false"
+
+\end_inset
+
+) y reduce la huella de carbono al deduplicar modelos.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Por último, una metodología de optimización altamente utilizada es el ajuste
+ fino, 
+\emph on
+Fine Tuning
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hinton2006"
+literal "false"
+
+\end_inset
+
+), que permite ajustar modelos fundacionales de propósito general -
+\emph on
+y
+\emph default
+ 
+\emph on
+otros
+\emph default
+- a casos específicos como en el caso de MedSAM (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ma2024"
+literal "false"
+
+\end_inset
+
+).
+ El ajuste fino no reduce la complejidad de la arquitectura, es decir, su
+ coste computacional.
+ La ventaja es que la computación de la propagación hacia atrás únicamente
+ se realiza sobre la/las últimas capas de la red neuronal, pero igualmente
+ se debe contar con los recursos para realizar la inferencia del modelo
+ original.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Las líneas de investigación comentadas pueden combinarse entre sí.
+ Varias arquitecturas del estado del arte hacen uso de atención en la arquitectu
+ra U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Oktay2018"
+literal "false"
+
+\end_inset
+
+), o utilizan la difusión para optimizar los resultados de arquitecturas
+ ya conocidas (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Tan2023"
+literal "false"
+
+\end_inset
+
+), o reducen los parámetros de bloques conovolucionales en el 
+\begin_inset Quotes eld
+\end_inset
+
+generador
+\begin_inset Quotes erd
+\end_inset
+
+ de una 
+\emph on
+GAN
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Sarker2021"
+literal "false"
+
+\end_inset
+
+).
+ Es decir, estos avances no son independientes y es necesario obtener una
+ visión general del estado del arte para escoger con tino la metodología
+ para un proyecto concreto.
+ Entendiéndose el proyecto como el conjunto de datos, modelo y despliegue,
+ se deberán ajustar todas las metodologías basándose en los avances actuales.
+\end_layout
+
+\begin_layout Section
+
+\lang english
+Segmentación semántica en aplicaciones biomédicas
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Segmentación-semántica-en"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+El campo de la biomedicina es tremendamente extenso así como lo son las
+ fuentes de datos.
+ Los principales campos de investigación están relacionados con Tomografía
+ Computerizada (CT), Imágenes de Resonancia Magnética (MRI), Imágenes de
+ Ultrasonido (USI), Rayos X, Tomografía de Coherencia Óptica (OCT), Tomografía
+ por Emisión de Positrones (PET) (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Du2020,Siddique2021"
+literal "false"
+
+\end_inset
+
+).
+ Las principales arquitecturas utilizadas en estos campos son aquellas relaciona
+das con la U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
+
+\end_inset
+
+), la CNN clásica (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "LeCun1995"
+literal "false"
+
+\end_inset
+
+), las FCN (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Long2015"
+literal "false"
+
+\end_inset
+
+) y las soluciones tipo 
+\emph on
+GAN
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Goodfellow2014"
+literal "false"
+
+\end_inset
+
+).
+ Estas arquitecturas presentan las mejores métricas de segmentación en problemas
+ como detección de: masa blanca en el cerebro, tumores cerebrales, tumores
+ en mamografías, lesiones por infarto, cancer prostático, cancer de hígado,
+ cancer de pulmón, entre otros muchos (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Siddique2021"
+literal "false"
+
+\end_inset
+
+).
+ Resaltar la arquitectura U-Net que sigue siendo la base más comúnmente
+ utilizada.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Si se restringe el campo a la línea de investigación del trabajo, se puede
+ comprobar la prevalencia de las U-Nets frente a las demás arquitecturas
+ y un reciente desarrollo vertiginoso basado en la atención por dos motivos:
+ su interpretabilidad y su potencia predictiva.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En la detección de tumores en ecografías mamarias se pueden observar tres
+ principales soluciones: 
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Introducción de la atención: Un gran número de artículos actuales hacen
+ uso de la atención para mejorar los modelos recientes.
+ El objetivo principal de esta línea es mejorar la precisión a cualquier
+ costo, es decir, obtener las mejores métricas en las tablas comparativas.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Variaciones de las arquitecturas clásicas: Una línea recurrente es la utilizació
+n de arquitecturas conocidas como U-Net, ResNet o Inception e implementar
+ variaciones y combinaciones.
+ Esta línea trata de variar las arquitecturas actuales añadiendo complejidad,
+ paralelizando tareas o introduciendo algoritmos de optimización que mejoren
+ un resultado previo.
+ De esta manera, se observa una progresión cuasi-estática cuyo objetivo
+ no es ser el mejor modelo si no ser mejor que el anterior por medio de
+ la actualización de puntos específicos.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Reducción de parámetros: La línea de optimización de recursos existe desde
+ el inicio del campo y propone métodos que simulan las transformaciones
+ de otras arquitecturas pero utilizando métodos de menor coste computacional.
+ El objetivo de estas arquitecturas no es mejorar métricas sino mantenerlas.
+ La reducción de parámetros implica directamente la reducción de información
+ disponible por lo que el logro consiste en obtener resultados razonablemente
+ parecidos con un número de parámetros significativamente menor.
+ Esta vía promueve la accesibilidad, reduce la huella de carbono y desliga
+ la técnica de grandes corporaciones.
+ En el trabajo actual se ha optado por esta vía de desarrollo.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Si se enfoca la búsqueda a la tercera vía presentada, la reducción de parámetros
+, se comprueban avances en pequeñas secciones como el uso de modelos pre-entrena
+dos para surrogar la pérdida vía algoritmos semi-supervisados estilo 
+\emph on
+profesor-aprendiz
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Guo2023"
+literal "false"
+
+\end_inset
+
+) y uso de bloques de exprimido y excitación (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2018,Yuan2023,Zhang2023"
+literal "false"
+
+\end_inset
+
+).
+ Mientras que los algoritmos semi-supervisados sí se encuentran entre los
+ últimos avances generales, los bloques de exprimido y excitación están
+ obsoletos.
+ Por este motivo, se ha decidido realizar una actualización de esta línea.
+ 
+\end_layout
+
+\begin_layout Section
+
+\lang english
+Arquitecturas eficientes.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Se ha comentado previamente (secciones 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Visión-Artificial"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Segmentación-semántica-en"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) líneas de investigación en arquitecturas de redes neuronales.
+ En esta sección se detalla la arquitectura utilizada en este trabajo que
+ apuesta por la eficiencia de redes neuronales, haciendo hincapié en los
+ puntos clave necesarios para obtener el modelo EFSNet (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:EFSNet."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) utilizado.
+ Esta red neuronal se fundamenta en las arquitecturas U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
+
+\end_inset
+
+), ResNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "7780459"
+literal "false"
+
+\end_inset
+
+) e Inception (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Szegedy2017"
+literal "false"
+
+\end_inset
+
+), reduciendo cada bloque de capas al mínimo número de parámetros posible.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Las principales aportaciones de esta arquitectura y las arquitecturas de
+ las que hereda se exponen a continuación y se verá su aplicación en más
+ detalle en la sección de Métodos (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Métodos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Normalización por lote, 
+\emph on
+BatchNorm
+\emph default
+, con activación PReLU: La normalización por lote, como su nombre indica,
+ normaliza los valores resultantes de una capa por conjunto de datos de
+ inferencia.
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+Este tipo de normalización permite eliminar el 
+\emph on
+bias
+\emph default
+, o sesgo, de la capa previa ya que el resultado tras esta normalización
+ es el mismo.
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+Si 
+\begin_inset Formula $\hat{x}_{k}=W\cdot x_{k}+b_{k}$
+\end_inset
+
+ es la salida de una capa convolucional sin activación, entonces la normalizació
+n por lote aplica 
+\begin_inset Formula $\hat{x_{k}}'=\left(\hat{x_{k}}-\mathbb{E}(\hat{x}_{k})\right)/\sqrt{Var(\hat{x}_{k})}$
+\end_inset
+
+ donde 
+\begin_inset Formula $\left(\hat{x}_{k}-\mathbb{E}(\hat{x}_{k})\right)=W\cdot x_{k}-\mathbb{E}\left(W\cdot x_{k}\right)$
+\end_inset
+
+ y 
+\begin_inset Formula $Var\left(W\cdot x_{k}+b_{k}\right)=Var\left(W\cdot x_{k}\right)+\varepsilon$
+\end_inset
+
+ con lo que 
+\begin_inset Formula $\hat{x_{k}}'=\left(W\cdot x_{k}-\mathbb{E}\left(W\cdot x_{k}\right)\right)/\sqrt{Var\left(W\cdot x_{k}\right)+\varepsilon}$
+\end_inset
+
+ que no depende del sesgo (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ioffe2015"
+literal "false"
+
+\end_inset
+
+).
+ El parámetro 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+ que se deriva de la varianza del sesgo añade un desplazamiento que será
+ corregido con la introducción de una activación 
+\emph on
+PReLU
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "He2015"
+literal "false"
+
+\end_inset
+
+), 
+\emph on
+Parametrized ReLU
+\emph default
+, que contiene un parámetro entrenable que define la pendiente en la parte
+ negativa de los números reales, 
+\begin_inset Formula $\mathbb{R}^{-}$
+\end_inset
+
+, y se utilizará para compensar el desvío de 
+\emph on
+BatchNorm.
+
+\emph default
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+Con esta combinación se reduce el número de parámetros de tantos como neuronas
+ tenga la capa convolucional previa a uno.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Capas de convolución desagregadas: Se intercambia una capa de convolución
+ usual de tamaño de kernel 
+\begin_inset Formula $k_{s}$
+\end_inset
+
+ y stride 
+\begin_inset Formula $s$
+\end_inset
+
+ por tres capas de convolución consecutivas.
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+La primera aplica el stride, 
+\begin_inset Formula $s$
+\end_inset
+
+, con 
+\begin_inset Formula $k_{0}=(sxs)$
+\end_inset
+
+ para variar la dimensión, la segunda realiza la extracción de características
+ utilizando 
+\begin_inset Formula $k_{1}=k_{s}$
+\end_inset
+
+ y, finalmente, la tercera aumenta la dimensión de los canales utilizando
+ 
+\begin_inset Formula $k_{2}=(1x1)$
+\end_inset
+
+.
+\begin_inset Newline linebreak
+\end_inset
+
+El número de parámetros sin desagregar viene dado por 
+\begin_inset Formula $k_{s}^{2}\cdot C_{in}\cdot C_{out}$
+\end_inset
+
+ mientras que si está desagregado en la forma vista se obtiene 
+\begin_inset Formula $s^{2}\cdot C_{in}^{2}+k_{s}^{2}\cdot C_{in}^{2}+C_{in}\cdot C_{out}=C_{in}\left(C_{in}\left(s^{2}+k_{s}^{2}\right)+C_{out}\right)$
+\end_inset
+
+ con 
+\begin_inset Formula $C_{in}$
+\end_inset
+
+el número de canales de entrada y 
+\begin_inset Formula $C_{out}$
+\end_inset
+
+ el número de canales de salida.
+ Suponiendo 
+\begin_inset Formula $s=2$
+\end_inset
+
+ para una reducción del tamaño original en un factor 2, un 
+\begin_inset Formula $k_{s}=(3x3)$
+\end_inset
+
+ y 
+\begin_inset Formula $C_{out}=sC_{in}=2C_{in}$
+\end_inset
+
+ se tiene sin desagregar: 
+\begin_inset Formula $params_{0}=18\cdot C_{in}^{2}$
+\end_inset
+
+ y desagregado: 
+\begin_inset Formula $params_{1}=15\cdot C_{in}^{2}$
+\end_inset
+
+.
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+Se han supuesto estos parámetros dado que son los utilizados habitualmente
+ en EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) pero se puede comprobar que es extensible a todo caso en que 
+\begin_inset Formula $\left(s^{2}+k_{s}^{2}+f\right)<k_{s}^{2}\cdot f$
+\end_inset
+
+ siendo 
+\begin_inset Formula $f=\frac{C_{out}}{C_{in}}$
+\end_inset
+
+ el factor de aumento en los canales.
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+Debido al punto número 1.
+ no se ha tenido en cuenta el sesgo.
+ 
+\begin_inset Newline linebreak
+\end_inset
+
+Como se verá más adelante, existe una variación denominada bloque factorizado
+ que intercambia la segunda convolución de kernel 
+\begin_inset Formula $k=(3x3)$
+\end_inset
+
+ por dos convoluciones consecutivas de kernels 
+\begin_inset Formula $k_{0}=(1x3)$
+\end_inset
+
+ y 
+\begin_inset Formula $k_{1}=(3x1)$
+\end_inset
+
+ reduciendo aún más el número de parámetros.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Convolución por grupo y barajado de canales: De ShuffleNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ma2018"
+literal "false"
+
+\end_inset
+
+) se adopta la idea de realizar convoluciones sobre grupos de canales que
+ posteriormente son barajados y convolucionados en profundidad para relacionar
+ los grupos.
+ Esta configuración, similar a la anterior, se utiliza para aumentar la
+ riqueza del mapa de características manteniendo un número de parámetros
+ reducido.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Regularización dropout en los canales: Habitualmente se utiliza la regularizació
+n Dropout sobre las neuronas que conforman una capa.
+ En las arquitecturas eficientes se promueve la utilización de dropout sobre
+ los canales, 
+\emph on
+Spatial Dropout
+\emph default
+, (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Lee2020"
+literal "false"
+
+\end_inset
+
+) del mapa de características.
+ De esta forma se impide la especialización de los canales en características
+ concretas forzando a extraer características generales de la imagen.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Bloques residuales y 
+\emph on
+skip-connections
+\emph default
+: Los bloques residuales utilizan una rama lineal que propaga la información
+ sin perturbar a lo largo de un mismo bloque de trasnformación de forma
+ que se genere un contexto global de información a lo largo de la red neuronal.
+ Por otro lado, las 
+\emph on
+skip-connections
+\emph default
+ que conectan bloques del 
+\emph on
+Encoder
+\emph default
+ con bloques del 
+\emph on
+Decoder
+\emph default
+ de las arquitecturas U-Net son utilizados con el mismo propósito pero en
+ un nivel mayor.
+ La combinación de ambas técnicas reduce la pérdida de información y dota
+ de contexto a las diferentes partes de la arquitectura.
+ Utilizando estas técnicas se reduce la carga de computación en los diferentes
+ bloques y partes de la red permitiendo reducir los parámetros sin impactar
+ en la precisión.
+ Adicionalmente, estas conexiones sirven de atajo en la propagación de la
+ pérdida durante el entrenamiento previendo problemas relacionados con el
+ desvanecimiento del gradiente.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Con base en estos 5 puntos principales se estructura la arquitectura utilizada
+ EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+).
 \end_layout
 
 \end_body

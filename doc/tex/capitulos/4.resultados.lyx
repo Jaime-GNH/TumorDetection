@@ -4,13 +4,13 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass book
 \use_default_options false
 \maintain_unincluded_children false
-\language english
-\language_package none
-\inputencoding auto
-\fontencoding default
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding T1
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -28,24 +28,33 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
-\use_hyperref false
-\papersize default
-\use_geometry false
-\use_package amsmath 1
-\use_package amssymb 0
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
 \use_package cancel 0
 \use_package esint 1
 \use_package mathdots 0
 \use_package mathtools 0
 \use_package mhchem 0
-\use_package stackrel 0
+\use_package stackrel 2
 \use_package stmaryrd 0
 \use_package undertilde 0
-\cite_engine basic
-\cite_engine_type default
-\biblio_style plain
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style unsrtnat
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -57,17 +66,18 @@
 \shortcut idx
 \color #008000
 \end_index
+\headheight 16pt
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
-\paperpagestyle default
+\papersides 2
+\paperpagestyle empty
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -77,16 +87,14 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-chapter{Resultados}
+\begin_layout Chapter
+Resultados
 \end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Resultados"
 
 \end_inset
 
@@ -94,8 +102,16 @@ chapter{Resultados}
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En este capítulo se realiza un análisis de resultados.
- En primer lugar, se mostrarán las métricas obtenidas en 
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En primer lugar, se mostrarán las métricas obtenidas en 
 \emph on
 accuracy
 \emph default
@@ -111,18 +127,34 @@ mIoU (mean Intersection over Union
  a los conjuntos de entrenamiento y validación.
  Con este análisis se comprobará el sobre-ajuste obtenido y una visión general
  de la eficiencia del modelo.
- En segundo lugar, se hará un análisis visual de los aciertos y errores
- más comunes en el conjunto de validación detallando las características
- compartidas en cada caso y tratando de razonar las causas de estos.
- Finalmente, se comprueba la viabilidad de utilizar esta red neuronal para
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En segundo lugar, se hará un análisis visual de los aciertos y errores más
+ comunes en el conjunto de validación detallando las características compartidas
+ en cada caso y tratando de razonar las causas de estos.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Finalmente, se comprueba la viabilidad de utilizar esta red neuronal para
  inferencia en tiempo real.
 \end_layout
 
 \begin_layout Section
+
+\lang english
 Métricas
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En las tablas de métricas, tablas [REF, REF], se puede observar un ligero
  sobre-ajuste del modelo en el conjunto de entrenamiento aunque es tan leve
  que puede deberse a una mera fluctuación estadística.
@@ -156,6 +188,8 @@ normal
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Comparando la tabla para las clases: normal, benigno y maligno, tabla [REF
  tabla], con la tabla con la agrupación de benigno y maligno como 
 \emph on
@@ -168,18 +202,25 @@ tumor
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="7">
 <features tabularvalignment="middle">
@@ -195,7 +236,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Conjunto
 \end_layout
 
 \end_inset
@@ -204,6 +245,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{accuracy}$
 \end_inset
 
@@ -216,6 +259,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{dsc}$
 \end_inset
 
@@ -228,6 +273,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{mIoU}$
 \end_inset
 
@@ -240,6 +287,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{IoU_{normal}}$
 \end_inset
 
@@ -252,6 +301,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{IoU_{benigno}}$
 \end_inset
 
@@ -264,6 +315,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{IoU_{maligno}}$
 \end_inset
 
@@ -278,7 +331,9 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-Conjunto de entrenamiento
+
+\lang english
+Entrenamiento
 \end_layout
 
 \end_inset
@@ -287,6 +342,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.24
 \end_layout
 
@@ -296,6 +353,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 71.42
 \end_layout
 
@@ -305,6 +364,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 59.13
 \end_layout
 
@@ -314,6 +375,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.69
 \end_layout
 
@@ -323,6 +386,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 43.06
 \end_layout
 
@@ -332,6 +397,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 39.66
 \end_layout
 
@@ -343,7 +410,9 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-Conjunto de validación
+
+\lang english
+Validación
 \end_layout
 
 \end_inset
@@ -352,6 +421,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.06
 \end_layout
 
@@ -361,6 +432,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 70.44
 \end_layout
 
@@ -370,6 +443,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 58.14
 \end_layout
 
@@ -379,6 +454,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.22
 \end_layout
 
@@ -388,6 +465,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 43.45
 \end_layout
 
@@ -397,6 +476,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 36.74
 \end_layout
 
@@ -411,9 +492,13 @@ Conjunto de validación
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Clases: normal, benigno, maligno.
 \end_layout
 
@@ -428,12 +513,17 @@ Clases: normal, benigno, maligno.
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="8">
 <features tabularvalignment="middle">
@@ -450,7 +540,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Conjunto
 \end_layout
 
 \end_inset
@@ -459,6 +549,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{sens}$
 \end_inset
 
@@ -471,6 +563,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{spec}$
 \end_inset
 
@@ -483,6 +577,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{dst}$
 \end_inset
 
@@ -495,6 +591,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{accuracy}$
 \end_inset
 
@@ -507,6 +605,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{mIoU}$
 \end_inset
 
@@ -519,6 +619,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{IoU_{normal}}$
 \end_inset
 
@@ -531,6 +633,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{IoU_{tumor}}$
 \end_inset
 
@@ -545,7 +649,9 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-Conjunto de entrenamiento
+
+\lang english
+Entrenamiento
 \end_layout
 
 \end_inset
@@ -554,6 +660,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 66.38
 \end_layout
 
@@ -563,6 +671,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 97.45
 \end_layout
 
@@ -572,6 +682,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 82.53
 \end_layout
 
@@ -581,6 +693,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.97
 \end_layout
 
@@ -590,6 +704,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 73.15
 \end_layout
 
@@ -599,6 +715,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.68
 \end_layout
 
@@ -608,6 +726,8 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 51.63
 \end_layout
 
@@ -619,7 +739,9 @@ Conjunto de entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-Conjunto de validación
+
+\lang english
+Validación
 \end_layout
 
 \end_inset
@@ -628,6 +750,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 64.58
 \end_layout
 
@@ -637,6 +761,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 96.77
 \end_layout
 
@@ -646,6 +772,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 79.72
 \end_layout
 
@@ -655,6 +783,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.49
 \end_layout
 
@@ -664,6 +794,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 69.79
 \end_layout
 
@@ -673,6 +805,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.22
 \end_layout
 
@@ -682,6 +816,8 @@ Conjunto de validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 45.36
 \end_layout
 
@@ -696,9 +832,13 @@ Conjunto de validación
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Clases: normal, tumor.
 \end_layout
 
@@ -713,18 +853,18 @@ Clases: normal, tumor.
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Tablas de métricas
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -734,6 +874,8 @@ Tablas de métricas
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En la tabla [REF tabla] se pueden comparar los resultados con otras redes
  neuronales utilizadas para segmentación semántica 
 \emph on
@@ -748,7 +890,12 @@ normal/benigno/malingo
  Se expone también el tamaño de los modelos debido a que en este trabajo
  se ha sacrificado precisión por velocidad y se asumía de principio un peor
  rendimiento.
- En la comparativa observamos que teniendo entre dos y tres órdenes de magnitud
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+En la comparativa observamos que teniendo entre dos y tres órdenes de magnitud
  menos en el número de parámetros respecto a los demás modelos se obtienen
  resultados que no son los mejores pero tampoco se alejan dramáticamente.
  El mayor desvío se encuentra en la sensitividad, 
@@ -771,29 +918,42 @@ normal/benigno/malingo
 \emph on
 con respecto a los demás modelos-.
  
-\emph default
+\end_layout
+
+\begin_layout Standard
+
+\lang english
 Cabe destacar que no existe un criterio de evaluación unificado sobre el
- conjunto, no en las métricas a utilizar y tampoco en el conjunto de datos
- a predecir.
- En cuestión de métricas las más comunes son las presentadas, en cuestión
- de imágenes hay disparidad entre evaluar el modelo únicamente en casos
- con tumor o en todos los casos.
- Personalmente, opino que es necesaria la evaluación sin tumor ya que será
+ conjunto, ni en las métricas a utilizar y ni en el conjunto de datos a
+ predecir.
+ En las tablas [REF tablas] se presentan las métricas más comúnmente encontradas.
+ Los resultados se dividen en dos tablas, [REF tablas], debido a la disparidad
+ entre evaluar el modelo únicamente en casos con tumor o en todos los casos.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Personalmente, opino que es necesaria la evaluación sin tumor ya que será
  la mayoría de los casos, al menos en uso en tiempo real.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Tabular
-<lyxtabular version="3" rows="22" columns="7">
+<lyxtabular version="3" rows="9" columns="5">
 <features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -804,7 +964,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Arquitectura
 \end_layout
 
 \end_inset
@@ -813,30 +973,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{sens_{T}}$
-\end_inset
 
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\bar{spec_{T}}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 \begin_inset Formula $\bar{dsc_{T}}$
 \end_inset
 
@@ -849,6 +987,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{accuracy_{T}}$
 \end_inset
 
@@ -861,6 +1001,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\bar{mIoU_{T}}$
 \end_inset
 
@@ -873,6 +1015,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $\#\,params\,[M]$
 \end_inset
 
@@ -887,6 +1031,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 EFSNet (nuestro)
 \end_layout
 
@@ -897,29 +1043,8 @@ EFSNet (nuestro)
 
 \begin_layout Plain Layout
 
-\bar under
-64.58
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\bar under
-96.77
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\bar under
+\series bold
+\lang english
 79.72
 \end_layout
 
@@ -929,6 +1054,8 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 94.49
 \end_layout
 
@@ -938,6 +1065,8 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 69.79
 \end_layout
 
@@ -947,6 +1076,8 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 0.179
 \end_layout
 
@@ -958,83 +1089,8 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
-LCMUNet [REF]
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-79.96
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-81.43
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-63.99
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-1.490
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 SegNet [(Badrinarayanan et al., 2017)]
 \end_layout
 
@@ -1044,24 +1100,8 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
--
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 68.84
 \end_layout
 
@@ -1071,6 +1111,8 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 96.08
 \end_layout
 
@@ -1080,6 +1122,8 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 60.64
 \end_layout
 
@@ -1089,6 +1133,8 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 14.700
 \end_layout
 
@@ -1100,6 +1146,8 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 UNet [(Ronneberger et al., 2015)]
 \end_layout
 
@@ -1109,24 +1157,8 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
--
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 69.05
 \end_layout
 
@@ -1136,6 +1168,8 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 96.17
 \end_layout
 
@@ -1145,6 +1179,8 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 61.49
 \end_layout
 
@@ -1154,7 +1190,9 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-34.
+
+\lang english
+34.000
 \end_layout
 
 \end_inset
@@ -1165,82 +1203,9 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-Deeplabv3+ 
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-80.71
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-98.15
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-79.14
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-96.37
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-70.51
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-59.339
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Deeplabv3+ 
+\lang english
+Deeplabv3+
 \end_layout
 
 \end_inset
@@ -1251,28 +1216,7 @@ Deeplabv3+
 \begin_layout Plain Layout
 
 \color black
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
+\lang english
 72.25
 \end_layout
 
@@ -1282,6 +1226,8 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 96.26
 \end_layout
 
@@ -1291,6 +1237,8 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 64.88
 \end_layout
 
@@ -1300,6 +1248,8 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 59.339
 \end_layout
 
@@ -1311,92 +1261,9 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-PSPNet
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-78.28
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-\color red
-98.34
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-78.48
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-96.31
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-70.11
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-70.296
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-PSPNet
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
+\lang english
+5PSPNet
 \end_layout
 
 \end_inset
@@ -1407,17 +1274,7 @@ PSPNet
 \begin_layout Plain Layout
 
 \color black
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
+\lang english
 73.12
 \end_layout
 
@@ -1427,6 +1284,8 @@ PSPNet
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 96.22
 \end_layout
 
@@ -1436,6 +1295,8 @@ PSPNet
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 65.23
 \end_layout
 
@@ -1445,6 +1306,8 @@ PSPNet
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 70.296
 \end_layout
 
@@ -1456,329 +1319,9 @@ PSPNet
 \begin_inset Text
 
 \begin_layout Plain Layout
-UResNet
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-79.65
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-98.05
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-77.98
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-96.06
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-69.65
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-93.501
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-MTL-Net
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-78.91
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-98.30
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-77.76
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-96.18
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-69.33
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-93.505
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-RMTL-Net
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-82.54
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-98.00
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-80.04
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-96.41
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-71.93
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-93.506
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-MTL-COSA
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-79.31
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-98.31
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-78.90
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-96.35
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-70.65
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-109.241
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-FCN
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-78.40
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-98.02
+\lang english
+FCN(Long et al., 2015)
 \end_layout
 
 \end_inset
@@ -1789,73 +1332,7 @@ FCN
 \begin_layout Plain Layout
 
 \color black
-76.87
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-96.08
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-67.05
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-134.270
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-FCN1(Long et al., 2015)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
+\lang english
 68.12
 \end_layout
 
@@ -1865,6 +1342,8 @@ FCN1(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 95.85
 \end_layout
 
@@ -1874,6 +1353,8 @@ FCN1(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 59.33
 \end_layout
 
@@ -1883,6 +1364,8 @@ FCN1(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 134.270
 \end_layout
 
@@ -1894,228 +1377,8 @@ FCN1(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
-SHA-MTL
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-81.21
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-97.36
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-81.42
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-95.56
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathcal{O}(100)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Residual-U-Net
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-86.13
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-84.81
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-88.08
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathcal{O}(100)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-SK-U-Net [REF]
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-81.20
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-94.44
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathcal{O}(100)$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 Attention U-Net
 \end_layout
 
@@ -2126,23 +1389,7 @@ Attention U-Net
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 71.71
 \end_layout
 
@@ -2152,6 +1399,8 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 96.20
 \end_layout
 
@@ -2161,6 +1410,8 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 64.42
 \end_layout
 
@@ -2170,147 +1421,8 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
--
-\end_layout
 
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-ESTAN [REF]
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-78.00
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-70.00
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-SaTrasnformer [REF]
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-88.32
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-\color red
-86.34
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color red
-83.12
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 -
 \end_layout
 
@@ -2322,6 +1434,8 @@ SaTrasnformer [REF]
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 RFS-UNet
 \end_layout
 
@@ -2331,24 +1445,8 @@ RFS-UNet
 \begin_inset Text
 
 \begin_layout Plain Layout
--
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
+\lang english
 77.04
 \end_layout
 
@@ -2359,7 +1457,8 @@ RFS-UNet
 
 \begin_layout Plain Layout
 
-\bar under
+\series bold
+\lang english
 96.77
 \end_layout
 
@@ -2370,7 +1469,8 @@ RFS-UNet
 
 \begin_layout Plain Layout
 
-\bar under
+\series bold
+\lang english
 70.47
 \end_layout
 
@@ -2380,6 +1480,8 @@ RFS-UNet
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\lang english
 -
 \end_layout
 
@@ -2394,21 +1496,22 @@ RFS-UNet
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Comparación de modelos en las clases: 
 \emph on
 normal, tumor
 \emph default
 .
- En rojo las métricas encontradas en otros artículos que no detallan si
- el conjunto estudiado contiene o no imágenes sin regiones tumorales.[V-Net,
- Xu.
+ [V-Net, Xu.
  et al, Cho et al].
- Se resaltan en negrita los mejores valores del total y se subrayan las
- mejores métricas de los modelos que seguro han utilizado imágenes sin tumores
- en la validación
+ Se resaltan en negrita los mejores valores del total.
+ Se han utilizado imágenes con y sin tumores presentes.
 \end_layout
 
 \end_inset
@@ -2422,18 +1525,1358 @@ normal, tumor
 \end_layout
 
 \begin_layout Standard
-De la tabla [REF tabla] se puede comprobar que hay una gran disparidad en
- los resultados sin y con imágenes sin tumores obteniendo peores métricas
- en el segundo caso (
+
+\lang english
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Tabular
+<lyxtabular version="3" rows="15" columns="7">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Arquitectura
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\bar{sens_{T}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\bar{spec_{T}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\bar{dsc_{T}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\bar{accuracy_{T}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\bar{mIoU_{T}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\#\,params\,[M]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+EFSNet (nuestro)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+64.41
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+96.79
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+80.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+93.99
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+70.86
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+0.179
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+LCMUNet [REF]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+79.96
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+81.43
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+63.99
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+1.490
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Deeplabv3+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+80.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+98.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+79.14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+96.37
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+70.51
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+59.339
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+PSPNet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+78.28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color black
+\lang english
+98.34
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+78.48
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+96.31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+70.11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+70.296
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+UResNet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+79.65
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+98.05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+77.98
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+96.06
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+69.65
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+93.501
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+MTL-Net
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+78.91
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+98.30
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+77.76
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+96.18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+69.33
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+93.505
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+RMTL-Net
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+82.54
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+98.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+80.04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color black
+\lang english
+96.41
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+71.93
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+93.506
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+MTL-COSA
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+79.31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+98.31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+78.90
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+96.35
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+70.65
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+109.241
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+FCN
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+78.40
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+98.02
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+76.87
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+96.08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+67.05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+134.270
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+SHA-MTL
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+81.21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+97.36
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+81.42
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+95.56
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\mathcal{O}(100)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Residual-U-Net
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+86.13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+84.81
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+88.08
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\mathcal{O}(100)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+SK-U-Net [REF]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+81.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+94.44
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $\mathcal{O}(100)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+ESTAN [REF]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+78.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+70.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+SaTrasnformer [REF]
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color black
+\lang english
+88.32
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color black
+\lang english
+86.34
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\color black
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color black
+\lang english
+83.12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+-
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Comparación de modelos en las clases: 
 \emph on
-véase Deeplabv3+, PSPNet
+normal, tumor
+\emph default
+.[V-Net, Xu.
+ et al, Cho et al].
+ Se resaltan en negrita los mejores valores del total.
+ Se han utilizado imágenes únicamente con presencia de tumores (82/100).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+De las tablas [REF tablas] se puede comprobar que hay una gran disparidad
+ en los resultados.
+ Se obtenien peores métricas si hay imágenes sin tumores (
+\emph on
+véase Deeplabv3+, PSPNet, FCN
 \emph default
  
 \emph on
-y FCN
+y EFSNET(nuestro)
 \emph default
 ).
- Esto sugiere que los modelos presentados 
+ Esto sugiere que los modelos presentados en la tabla [REF tabla] 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2452,40 +2895,52 @@ esperan
 que no es de tal gravedad como un falso negativo
 \emph default
 ).
- Por otro lado, observamos que EFSNet es una arquitectura tremendamente
- competente en comparación con modelos varios órdenes de magnitud mayores
- que explotan otros avances del estado del arte como los bloques de atención.
 \end_layout
 
 \begin_layout Standard
-Se presentan en la figura [REF figura] también las matrices de confusión
- para los conjuntos de entrenamiento y validación y en predicción binaria
- y multiclase de la que se pueden extraer otras métricas en caso de ser
- necesario.
+
+\lang english
+Por otro lado, observamos que EFSNet es una arquitectura tremendamente competent
+e en comparación con modelos varios órdenes de magnitud mayores que explotan
+ otros avances del estado del arte como los bloques de atención.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Se presentan en la figura [REF figura] las matrices de confusión para los
+ conjuntos de entrenamiento y validación.
+ Se han dividido adicionalmente en predicción binaria y multiclase.
+ De esta forma se pueden extraer otras métricas en caso de ser necesario.
  
 \end_layout
 
 \begin_layout Standard
+\align center
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/analysis/full_conf_mat_tr.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/full_conf_mat_tr.png
+	scale 70
+	BoundingBox 80bp 0bp 540bp 460bp
+	clip
 
 \end_inset
 
@@ -2493,9 +2948,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Entrenamiento
 \end_layout
 
@@ -2518,11 +2977,16 @@ Entrenamiento
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/analysis/full_conf_mat_val.svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/full_conf_mat_val.png
+	scale 70
+	BoundingBox 80bp 0bp 540bp 460bp
+	clip
 
 \end_inset
 
@@ -2530,9 +2994,13 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
 Validación
 \end_layout
 
@@ -2547,127 +3015,19 @@ Validación
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Clases: normal, tumor, maligno.
-\end_layout
 
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/analysis/shallow_conf_mat_tr.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Entrenamiento
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/analysis/shallow_conf_mat_val.svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Validación
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Clases: normal, tumor.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
+\lang english
 Matrices de confusión.
+ Clases: normal, tumor, maligno.
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -2677,7 +3037,130 @@ Matrices de confusión.
 \end_layout
 
 \begin_layout Standard
-Los resultados numéricos obtenidos concuerdan con las presuposiciones.
+\align center
+
+\lang english
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/shallow_conf_mat_tr.png
+	scale 70
+	BoundingBox 80bp 0bp 540bp 460bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Entrenamiento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/shallow_conf_mat_val.png
+	scale 70
+	BoundingBox 80bp 0bp 540bp 460bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Validación
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Matrices de confusión.
+ Clases: normal, tumor.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Los resultados numéricos obtenidos concuerdan con las suposiciones.
  Se extrae del análisis y la comparación que EFSNet es una red neuronal
  de bajo coste computacional con una capacidad comparable -
 \emph on
@@ -2685,15 +3168,20 @@ aunque inferior
 \emph default
 - a las arquitecturas más relevantes en el estado del arte de detección
  de tumores en ecografías mamarias vía segmentación semántica.
- Además el reducido número de parámetros permite inferencia en tiempo real
- con baja latencia.
+ Además, el reducido número de parámetros permite inferencia en tiempo real
+ con baja latencia evitando la necesidad de una pre-selección de imágenes
+ y permitiendo el acceso a cualquier individuo.
 \end_layout
 
 \begin_layout Section
+
+\lang english
 Aciertos
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En esta sección se visualizan conjuntos de imágenes con características
  compartidas cuyas máscaras predichas se han acercado más a las originales.
  Estos conjuntos son: imágenes con tumores pequeños, compactos y benignos
@@ -2703,64 +3191,60 @@ En esta sección se visualizan conjuntos de imágenes con características
 \end_layout
 
 \begin_layout Standard
+\align center
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (63).svg
+\align center
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (95).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (437).svg
-
-\end_inset
-
-
-\end_layout
+\lang english
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
+\align center
 
-\begin_layout Plain Layout
-Aciertos en tumores benignos ycompactos.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_normal (44).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (63).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2768,8 +3252,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_normal (101).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (95).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2777,8 +3281,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_normal (103).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (437).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2786,9 +3310,141 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+
+\lang english
+Aciertos en tumores benignos y compactos.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_normal (44).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_normal (101).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_normal (26).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
 Aciertos en imágenes sin presencia de tumores.
 \end_layout
 
@@ -2802,7 +3458,14 @@ Aciertos en imágenes sin presencia de tumores.
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+
+\lang english
 Con base en el mapa de probabilidad de las figuras [REF figuras] donde 
 \begin_inset Formula $(RGB)$
 \end_inset
@@ -2826,6 +3489,8 @@ véase el caso de imágenes sin presencia de tumores, figura [REF figura]
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Se puede concebir conceptualmente esta red como un proceso por el cuál se
  extraen las regiones de interés y, posteriormente, se clasifican.
  Por lo tanto, EFSNet durante el entrenamiento ha convergido a buscar la
@@ -2852,21 +3517,27 @@ Decoder
 \end_layout
 
 \begin_layout Section
+
+\lang english
 Errores
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 En cuanto a errores comunes hay también una serie de conjuntos de imágenes
  cuyas inferencias son erróneas por motivos similares.
- Destacaremos cuatro de ellas: agujeros y derrames en la inferencia de tumores
+ Destacaremos tres de ellas: agujeros y derrames en la inferencia de tumores
  muy grandes y/u homogéneos, mezcla e intercambio de clases 
 \emph on
 benigno, maligno 
 \emph default
-en la máscara final, fallos catastróficos y falsos errores.
+en la máscara final y falsos errores.
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 Los tumores muy grandes y los tumores cuya textura es muy plana (homogéneos)
  determinan un desafío para EFSNet.
  La convergencia de la red neuronal determina que las zonas oscuras y planas,
@@ -2912,14 +3583,60 @@ skip-connection
 \end_layout
 
 \begin_layout Standard
+\align center
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (73).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (73).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2927,8 +3644,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (118).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (118).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2936,8 +3673,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (98).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (10).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2945,10 +3702,147 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Agujeros en las predicciones.
+
+\lang english
+Errores por agujeros en las predicciones.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (350).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (5).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (82).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Errores por derrame en las predicciones.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2962,56 +3856,8 @@ Agujeros en las predicciones.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (427).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (16).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (82).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Derrames en las predicciones.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
+\lang english
 Otro error común que disminuye enormemente el valor de las métricas observadas
  es la mezcla e intercambio de clases en las regiones de interés, figura
  [REF figura].
@@ -3044,14 +3890,60 @@ En la primera sub-imagen de la figura [REF figura intercambio] se observa
 \end_layout
 
 \begin_layout Standard
+\align center
+
+\lang english
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (139).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (234).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3059,8 +3951,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (46).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (26).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3068,8 +3980,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (140).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (140).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3077,10 +4009,14 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Mezcla e intercambio de clase 
+
+\lang english
+Errores por mezcla e intercambio de clase 
 \emph on
 benigno
 \emph default
@@ -3099,23 +4035,51 @@ maligno
 \end_inset
 
 
-\end_layout
+\begin_inset space ~
+\end_inset
 
-\begin_layout Standard
-Por otro lado, se encuentran imágenes que presentan predicciones totalmente
- erróneas combinando uno o más de los fallos vistos anteriormente, figura
- [REF figura].
-\end_layout
 
-\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (97).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (80).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3123,8 +4087,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (127).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (254).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3132,8 +4116,28 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (43).svg
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (321).png
+	width 98text%
+	BoundingBox 0bp 120bp 640bp 380bp
+	clip
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -3141,18 +4145,19 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Mezcla e intercambio de clase 
-\emph on
-benigno
-\emph default
- y 
-\emph on
-maligno
-\emph default
-.
+
+\lang english
+Errores de dudosa veracidad por mala anotación o baja resolución.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3166,7 +4171,9 @@ maligno
 \end_layout
 
 \begin_layout Standard
-Finalmente, existen errores de dudosa veracidad.
+
+\lang english
+Finalmente, existen errores de dudosa veracidad, figura[REF figura].
  Estos errores se presentan en imágenes en la que no se aprecia una relación
  clara entre la máscara y los cambios en la textura y en imágenes con dos
  regiones similares cercanas donde se ha definido como masa tumoral únicamente
@@ -3178,122 +4185,224 @@ Finalmente, existen errores de dudosa veracidad.
  errores.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_malignant (80).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (254).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/imgs/test_result/prediction_benign (321).svg
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Mezcla e intercambio de clase 
-\emph on
-benigno
-\emph default
- y 
-\emph on
-maligno
-\emph default
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
+
+\lang english
 Tiempo Real
 \end_layout
 
 \begin_layout Standard
-Mostrar los resultados de tiempo obtenidos.
- Es utilizable en para tiempo real.
+
+\lang english
+La prueba de inferencia realizada para medir la velocidad de inferencia
+ de EFSNet consiste en la predicción secuencial de 1000 tensores aleatorios
+ de tamaño 
+\begin_inset Formula $\left(1,1,256,256\right)$
+\end_inset
+
+ -
+\emph on
+siendo la primera dimensión el tamaño de batch
+\emph default
+- en 10 rondas independientes.
+ En la tabla [REF tabla] se muestran los resultados.
 \end_layout
 
 \begin_layout Standard
-CUDA
+
+\lang english
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\lang english
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Procesador
 \end_layout
 
-\begin_layout Standard
-10 rondas de 1000 imágenes.
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Tiempo por 1000 imágenes [s]
 \end_layout
 
-\begin_layout Standard
-Time per 1000 images: 
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Inferencia por segundo [fps]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+NVidia RTX 4060 (GPU)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $12.326\ensuremath{\pm}1.030$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-FPS: 
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
 \begin_inset Formula $81.621\ensuremath{\pm}5.906$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset VSpace defskip
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+Intel Core i7 (CPU)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $94.379\pm4.033$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Formula $10.615\pm0.458$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Tiempo de inferencia e inferencia
+\emph on
+ 
+\emph default
+por segundo (FPS)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-CPU
-\end_layout
 
-\begin_layout Standard
-Time per 1000 images: 94.379 
-\begin_inset Formula $\pm$
+\lang english
+A la vista de las métricas mostradas se puede asegurar que EFSNet es un
+ modelo perfectamente válido para tiempo real.
+ Si se utiliza GPU la latencia es despreciable, mientras que si se utiliza
+ CPU se puede tener baja latencia aunque no se 
+\begin_inset Quotes eld
 \end_inset
 
- 4.033 
-\end_layout
 
-\begin_layout Standard
-FPS: 10.615 
-\begin_inset Formula $\pm$
+\emph on
+sentirá
+\emph default
+
+\begin_inset Quotes erd
 \end_inset
 
- 0.458
+ instantáneo.
+ Se debe tener en cuenta que, generalmente, un centro médico suele contar
+ con un clúster o CPD o sistemas de computación en la nube con acceso a
+ una o más GPUs y CPUs de mayor potencia que las aquí utilizadas y el rendimient
+o será aún mayor -
+\emph on
+aunque también innecesario
+\emph default
+-.
 \end_layout
 
 \end_body
