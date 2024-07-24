@@ -102,37 +102,65 @@ name "chap:Resultados"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En este capítulo se realiza un análisis de resultados.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En primer lugar, se mostrarán las métricas obtenidas en 
 \emph on
 accuracy
 \emph default
-[REF], 
+ (ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:accuracy"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), 
 \emph on
-f1 score[REF] 
+dsc (Dice Score Coefficient)
+\emph default
+ (ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:dsc"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+)
+\emph on
+ 
 \emph default
 y 
 \emph on
 mIoU (mean Intersection over Union
 \emph default
-)[REF] para cada subconjunto así como las matrices de confusión asociadas
- a los conjuntos de entrenamiento y validación.
+) (ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:mIoU"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) para cada subconjunto así como las matrices de confusión asociadas a los
+ conjuntos de entrenamiento y validación.
  Con este análisis se comprobará el sobre-ajuste obtenido y una visión general
  de la eficiencia del modelo.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En segundo lugar, se hará un análisis visual de los aciertos y errores más
  comunes en el conjunto de validación detallando las características compartidas
  en cada caso y tratando de razonar las causas de estos.
@@ -140,24 +168,44 @@ En segundo lugar, se hará un análisis visual de los aciertos y errores más
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Finalmente, se comprueba la viabilidad de utilizar esta red neuronal para
  inferencia en tiempo real.
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Métricas
 \end_layout
 
 \begin_layout Standard
+En las tablas de métricas, tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Tablas-de-métricas"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-En las tablas de métricas, tablas [REF, REF], se puede observar un ligero
- sobre-ajuste del modelo en el conjunto de entrenamiento aunque es tan leve
- que puede deberse a una mera fluctuación estadística.
+\end_inset
+
+, se puede observar un ligero sobre-ajuste del modelo en el conjunto de
+ entrenamiento aunque es tan leve que puede deberse a una mera fluctuación
+ estadística.
  Por otro lado, observamos un buen ajuste siendo casi perfecto para la clase
  normal y mejor para la clase 
 \emph on
@@ -168,63 +216,100 @@ benigno
 maligno
 \emph default
 .
- Las métricas de 
-\emph on
-accuracy
-\emph default
-, 
-\emph on
-f1 score 
-\emph default
-y 
-\emph on
-mIoU
-\emph default
- se ven engrosadas por los aciertos de la clase 
-\emph on
-normal
-\emph default
- por lo que no reflejan la realidad de los resultados.
 \end_layout
 
 \begin_layout Standard
+Comparando la tabla para las clases: normal, benigno y maligno, tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Clases:-normal,-benigno,"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-Comparando la tabla para las clases: normal, benigno y maligno, tabla [REF
- tabla], con la tabla con la agrupación de benigno y maligno como 
+\end_inset
+
+, con la tabla con la agrupación de benigno y maligno como 
 \emph on
 tumor
 \emph default
-, tabla [REF tabla] se puede observar una mejora en la segunda.
+, tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Clases:-normal,-tumor."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se puede observar una mejora en la segunda.
  Esta diferencia se debe, principalmente, a tumores bien segmentados pero
  clasificados incorrectamente.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
-\begin_inset Float table
-wide false
-sideways false
-status open
+Tablas de métricas
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Tablas-de-métricas"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
 
 \lang english
+Clases: normal, benigno, maligno.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Clases:-normal,-benigno,"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="7">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -232,7 +317,7 @@ status open
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -245,22 +330,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $\bar{accuracy}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{dsc}$
 \end_inset
 
@@ -273,8 +342,18 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $\bar{accuracy}$
+\end_inset
 
-\lang english
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset Formula $\bar{mIoU}$
 \end_inset
 
@@ -287,8 +366,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{IoU_{normal}}$
 \end_inset
 
@@ -301,8 +378,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{IoU_{benigno}}$
 \end_inset
 
@@ -315,8 +390,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{IoU_{maligno}}$
 \end_inset
 
@@ -327,12 +400,10 @@ Conjunto
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 Entrenamiento
 \end_layout
 
@@ -342,19 +413,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-94.24
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 71.42
 \end_layout
 
@@ -364,8 +422,15 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
+94.24
+\end_layout
 
-\lang english
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 59.13
 \end_layout
 
@@ -375,8 +440,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.69
 \end_layout
 
@@ -386,8 +449,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 43.06
 \end_layout
 
@@ -397,8 +458,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 39.66
 \end_layout
 
@@ -406,12 +465,10 @@ Entrenamiento
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 Validación
 \end_layout
 
@@ -421,19 +478,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-94.06
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 70.44
 \end_layout
 
@@ -443,8 +487,15 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
+94.06
+\end_layout
 
-\lang english
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 58.14
 \end_layout
 
@@ -454,8 +505,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.22
 \end_layout
 
@@ -465,8 +514,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 43.45
 \end_layout
 
@@ -476,8 +523,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 36.74
 \end_layout
 
@@ -491,52 +536,52 @@ Validación
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Clases: normal, benigno, maligno.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
+\align center
 \begin_inset Float table
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
 
 \lang english
+Clases: normal, tumor.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Clases:-normal,-tumor."
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="8">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<lyxtabular version="3" rows="3" columns="6">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -549,36 +594,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $\bar{sens}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $\bar{spec}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{dst}$
 \end_inset
 
@@ -591,8 +606,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{accuracy}$
 \end_inset
 
@@ -605,8 +618,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{mIoU}$
 \end_inset
 
@@ -619,8 +630,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{IoU_{normal}}$
 \end_inset
 
@@ -633,8 +642,6 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{IoU_{tumor}}$
 \end_inset
 
@@ -645,12 +652,10 @@ Conjunto
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 Entrenamiento
 \end_layout
 
@@ -660,30 +665,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-66.38
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-97.45
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 82.53
 \end_layout
 
@@ -693,8 +674,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.97
 \end_layout
 
@@ -704,8 +683,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 73.15
 \end_layout
 
@@ -715,8 +692,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.68
 \end_layout
 
@@ -726,8 +701,6 @@ Entrenamiento
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 51.63
 \end_layout
 
@@ -735,12 +708,10 @@ Entrenamiento
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 Validación
 \end_layout
 
@@ -750,30 +721,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-64.58
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-96.77
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 79.72
 \end_layout
 
@@ -783,8 +730,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.49
 \end_layout
 
@@ -794,8 +739,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 69.79
 \end_layout
 
@@ -805,8 +748,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.22
 \end_layout
 
@@ -816,8 +757,6 @@ Validación
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 45.36
 \end_layout
 
@@ -831,38 +770,6 @@ Validación
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Clases: normal, tumor.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Tablas de métricas
-\end_layout
-
 \end_inset
 
 
@@ -874,93 +781,309 @@ Tablas de métricas
 \end_layout
 
 \begin_layout Standard
+En las tablas 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-En la tabla [REF tabla] se pueden comparar los resultados con otras redes
- neuronales utilizadas para segmentación semántica 
+\end_inset
+
+ y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se pueden comparar los resultados con otras redes neuronales utilizadas
+ para segmentación semántica 
 \emph on
 normal/tumor 
 \emph default
--ya que en la combinación de 
+ya que en la combinación de 
 \emph on
 normal/benigno/malingo
 \emph default
  no hay unicidad o fiabilidad en las métricas de evaluación utilizadas en
- los artículos [V-Net, MSSA-Net].
+ los artículos (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2021,Cho2022,Bansal2023"
+literal "false"
+
+\end_inset
+
+).
  Se expone también el tamaño de los modelos debido a que en este trabajo
  se ha sacrificado precisión por velocidad y se asumía de principio un peor
  rendimiento.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En la comparativa observamos que teniendo entre dos y tres órdenes de magnitud
  menos en el número de parámetros respecto a los demás modelos se obtienen
- resultados que no son los mejores pero tampoco se alejan dramáticamente.
- El mayor desvío se encuentra en la sensitividad, 
-\begin_inset Formula $\bar{sens},$
+ resultados similares.
+ El mayor desvío se encuentra en 
+\emph on
+accuracy
+\emph default
+ (ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:accuracy"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- mientras que el coefficiente de similaridad de Dice, 
+), mientras que el coefficiente de similaridad de Dice, 
 \begin_inset Formula $\bar{dsc}$
 \end_inset
 
-, y la intesección sobre unidad, 
+(ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:dsc"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), y la intesección sobre unidad, 
 \begin_inset Formula $\bar{mIoU}$
 \end_inset
 
-, incluso mejoran modelos como Deeplabv3+, UResNet, FCN o MTL-Net.
- El bajo nivel de la sensitividad indica un alto número de falsos negativo.s
- Por otro lado, el alto valor en DSC e IoU indican que, si se detecta el
- tumor la forma resultante de la máscara se ajusta correctamente a la región
- tumoral -
+(ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:mIoU"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), incluso mejoran modelos como Deeplabv3+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Chen2018"
+literal "false"
+
+\end_inset
+
+), UResNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
+
+\end_inset
+
+), FCN (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Long2015"
+literal "false"
+
+\end_inset
+
+) o MTL-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2023"
+literal "false"
+
+\end_inset
+
+).
+ El alto valor en DSC e IoU indican que, si se detecta el tumor la forma
+ resultante de la máscara se ajusta correctamente a la región tumoral -
 \emph on
 con respecto a los demás modelos-.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Cabe destacar que no existe un criterio de evaluación unificado sobre el
- conjunto, ni en las métricas a utilizar y ni en el conjunto de datos a
- predecir.
- En las tablas [REF tablas] se presentan las métricas más comúnmente encontradas.
- Los resultados se dividen en dos tablas, [REF tablas], debido a la disparidad
- entre evaluar el modelo únicamente en casos con tumor o en todos los casos.
+ conjunto de datos a predecir ni sobre las métricas a utilizar.
+ Debido a la disparidad entre evaluar el modelo únicamente en casos con
+ tumor o en todos los casos los resultados se dividen en dos tablas:
+\end_layout
+
+\begin_layout Enumerate
+Tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: correspondiente a un conjunto de imágenes con y sin tumores presentes.
+\end_layout
+
+\begin_layout Enumerate
+Tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: correspondiente al subconjunto de imágenes que contienen tumores.
+\end_layout
+
+\begin_layout Standard
+Personalmente, opino que es necesaria la introducción de imágenes sin tumores
+ en la evaluación ya que representan la mayoría de los casos a los que se
+ expondrá el modelo si se utiliza en tiempo real.
+\end_layout
+
+\begin_layout Standard
+En las tablas 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se presentan las métricas más comúnmente encontradas aplicadas sobre el
+ conjunto de validación (definido en la subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Entrenamiento-y-validación."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Se asume una distribución estadística similar de categorías en los conjuntos
+ de datos utilizados en los diversos artículos utilizados para realizar
+ la que se observan en la comparativa.
  
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
 
-\lang english
-Personalmente, opino que es necesaria la evaluación sin tumor ya que será
- la mayoría de los casos, al menos en uso en tiempo real.
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Comparación de modelos binaria.
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
 
 \lang english
+Comparación de modelos en las clases: 
+\emph on
+normal, tumor
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2021,Cho2022,Bansal2023"
+literal "false"
+
+\end_inset
+
+).Se resaltan en negrita los mejores valores del total.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Float table
+placement h
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
 
 \lang english
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Conjunto total.
+\end_layout
+
+\end_inset
+
+Imágenes con y sin tumores presentes
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Comparación-de-modelos"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="9" columns="5">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -973,8 +1096,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{dsc_{T}}$
 \end_inset
 
@@ -987,8 +1108,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{accuracy_{T}}$
 \end_inset
 
@@ -1001,8 +1120,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{mIoU_{T}}$
 \end_inset
 
@@ -1015,8 +1132,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\#\,params\,[M]$
 \end_inset
 
@@ -1027,12 +1142,10 @@ Arquitectura
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 EFSNet (nuestro)
 \end_layout
 
@@ -1044,7 +1157,6 @@ EFSNet (nuestro)
 \begin_layout Plain Layout
 
 \series bold
-\lang english
 79.72
 \end_layout
 
@@ -1054,8 +1166,6 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 94.49
 \end_layout
 
@@ -1065,8 +1175,6 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 69.79
 \end_layout
 
@@ -1077,7 +1185,7 @@ EFSNet (nuestro)
 
 \begin_layout Plain Layout
 
-\lang english
+\series bold
 0.179
 \end_layout
 
@@ -1085,13 +1193,19 @@ EFSNet (nuestro)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+SegNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "7803544"
+literal "false"
 
-\lang english
-SegNet [(Badrinarayanan et al., 2017)]
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1100,8 +1214,6 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 68.84
 \end_layout
 
@@ -1111,8 +1223,6 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 96.08
 \end_layout
 
@@ -1122,8 +1232,6 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 60.64
 \end_layout
 
@@ -1133,8 +1241,6 @@ SegNet [(Badrinarayanan et al., 2017)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 14.700
 \end_layout
 
@@ -1142,13 +1248,19 @@ SegNet [(Badrinarayanan et al., 2017)]
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+UNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
 
-\lang english
-UNet [(Ronneberger et al., 2015)]
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1157,8 +1269,6 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 69.05
 \end_layout
 
@@ -1168,8 +1278,6 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 96.17
 \end_layout
 
@@ -1179,8 +1287,6 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 61.49
 \end_layout
 
@@ -1190,8 +1296,6 @@ UNet [(Ronneberger et al., 2015)]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 34.000
 \end_layout
 
@@ -1199,13 +1303,19 @@ UNet [(Ronneberger et al., 2015)]
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+Deeplabv3+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Chen2018"
+literal "false"
 
-\lang english
-Deeplabv3+
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1216,7 +1326,6 @@ Deeplabv3+
 \begin_layout Plain Layout
 
 \color black
-\lang english
 72.25
 \end_layout
 
@@ -1226,8 +1335,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 96.26
 \end_layout
 
@@ -1237,8 +1344,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 64.88
 \end_layout
 
@@ -1248,8 +1353,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 59.339
 \end_layout
 
@@ -1257,13 +1360,19 @@ Deeplabv3+
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+PSPNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhao2017"
+literal "false"
 
-\lang english
-5PSPNet
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1274,7 +1383,6 @@ Deeplabv3+
 \begin_layout Plain Layout
 
 \color black
-\lang english
 73.12
 \end_layout
 
@@ -1284,8 +1392,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 96.22
 \end_layout
 
@@ -1295,8 +1401,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 65.23
 \end_layout
 
@@ -1306,8 +1410,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 70.296
 \end_layout
 
@@ -1315,13 +1417,19 @@ Deeplabv3+
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+FCN (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Long2015"
+literal "false"
 
-\lang english
-FCN(Long et al., 2015)
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1332,7 +1440,6 @@ FCN(Long et al., 2015)
 \begin_layout Plain Layout
 
 \color black
-\lang english
 68.12
 \end_layout
 
@@ -1342,8 +1449,6 @@ FCN(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 95.85
 \end_layout
 
@@ -1353,8 +1458,6 @@ FCN(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 59.33
 \end_layout
 
@@ -1364,8 +1467,6 @@ FCN(Long et al., 2015)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 134.270
 \end_layout
 
@@ -1373,13 +1474,19 @@ FCN(Long et al., 2015)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+Attention U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Oktay2018"
+literal "false"
 
-\lang english
-Attention U-Net
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1388,8 +1495,6 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 71.71
 \end_layout
 
@@ -1399,8 +1504,6 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 96.20
 \end_layout
 
@@ -1410,8 +1513,6 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 64.42
 \end_layout
 
@@ -1421,8 +1522,6 @@ Attention U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 -
 \end_layout
 
@@ -1430,13 +1529,19 @@ Attention U-Net
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+RFS-UNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Cho2022"
+literal "false"
 
-\lang english
-RFS-UNet
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1445,8 +1550,6 @@ RFS-UNet
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 77.04
 \end_layout
 
@@ -1458,7 +1561,6 @@ RFS-UNet
 \begin_layout Plain Layout
 
 \series bold
-\lang english
 96.77
 \end_layout
 
@@ -1470,7 +1572,6 @@ RFS-UNet
 \begin_layout Plain Layout
 
 \series bold
-\lang english
 70.47
 \end_layout
 
@@ -1480,8 +1581,6 @@ RFS-UNet
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 -
 \end_layout
 
@@ -1495,59 +1594,63 @@ RFS-UNet
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
-\lang english
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
-Comparación de modelos en las clases: 
-\emph on
-normal, tumor
-\emph default
-.
- [V-Net, Xu.
- et al, Cho et al].
- Se resaltan en negrita los mejores valores del total.
- Se han utilizado imágenes con y sin tumores presentes.
-\end_layout
+\begin_inset Argument 1
+status open
 
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \lang english
-\begin_inset Float table
-wide false
-sideways false
-status collapsed
+Conjunto con tumor.
+\end_layout
+
+\end_inset
+
+Imágenes únicamente con presencia de tumores (82/100).
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Comparación-de-modelos-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Tabular
-<lyxtabular version="3" rows="15" columns="7">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<lyxtabular version="3" rows="15" columns="5">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1560,36 +1663,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $\bar{sens_{T}}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $\bar{spec_{T}}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{dsc_{T}}$
 \end_inset
 
@@ -1602,8 +1675,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{accuracy_{T}}$
 \end_inset
 
@@ -1616,8 +1687,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\bar{mIoU_{T}}$
 \end_inset
 
@@ -1630,8 +1699,6 @@ Arquitectura
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\#\,params\,[M]$
 \end_inset
 
@@ -1642,12 +1709,10 @@ Arquitectura
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 EFSNet (nuestro)
 \end_layout
 
@@ -1657,30 +1722,6 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-64.41
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-96.79
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
 80.83
 \end_layout
 
@@ -1690,9 +1731,7 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-93.99
+94.99
 \end_layout
 
 \end_inset
@@ -1701,8 +1740,6 @@ EFSNet (nuestro)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 70.86
 \end_layout
 
@@ -1713,7 +1750,7 @@ EFSNet (nuestro)
 
 \begin_layout Plain Layout
 
-\lang english
+\series bold
 0.179
 \end_layout
 
@@ -1721,13 +1758,19 @@ EFSNet (nuestro)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+LCMUNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2023"
+literal "false"
 
-\lang english
-LCMUNet [REF]
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1738,31 +1781,6 @@ LCMUNet [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
-79.96
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 81.43
 \end_layout
 
@@ -1774,7 +1792,6 @@ LCMUNet [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 -
 \end_layout
 
@@ -1786,7 +1803,6 @@ LCMUNet [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 63.99
 \end_layout
 
@@ -1798,7 +1814,6 @@ LCMUNet [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 1.490
 \end_layout
 
@@ -1806,13 +1821,19 @@ LCMUNet [REF]
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+Deeplabv3+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Chen2018"
+literal "false"
 
-\lang english
-Deeplabv3+
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1823,31 +1844,6 @@ Deeplabv3+
 \begin_layout Plain Layout
 
 \color black
-\lang english
-80.71
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-98.15
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 79.14
 \end_layout
 
@@ -1859,7 +1855,6 @@ Deeplabv3+
 \begin_layout Plain Layout
 
 \color black
-\lang english
 96.37
 \end_layout
 
@@ -1871,7 +1866,6 @@ Deeplabv3+
 \begin_layout Plain Layout
 
 \color black
-\lang english
 70.51
 \end_layout
 
@@ -1881,8 +1875,6 @@ Deeplabv3+
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 59.339
 \end_layout
 
@@ -1890,13 +1882,19 @@ Deeplabv3+
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+PSPNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhao2017"
+literal "false"
 
-\lang english
-PSPNet
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1907,32 +1905,6 @@ PSPNet
 \begin_layout Plain Layout
 
 \color black
-\lang english
-78.28
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-\color black
-\lang english
-98.34
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 78.48
 \end_layout
 
@@ -1944,7 +1916,6 @@ PSPNet
 \begin_layout Plain Layout
 
 \color black
-\lang english
 96.31
 \end_layout
 
@@ -1956,7 +1927,6 @@ PSPNet
 \begin_layout Plain Layout
 
 \color black
-\lang english
 70.11
 \end_layout
 
@@ -1966,8 +1936,6 @@ PSPNet
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 70.296
 \end_layout
 
@@ -1975,13 +1943,19 @@ PSPNet
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+UResNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Ronneberger2015"
+literal "false"
 
-\lang english
-UResNet
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -1992,31 +1966,6 @@ UResNet
 \begin_layout Plain Layout
 
 \color black
-\lang english
-79.65
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-98.05
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 77.98
 \end_layout
 
@@ -2028,7 +1977,6 @@ UResNet
 \begin_layout Plain Layout
 
 \color black
-\lang english
 96.06
 \end_layout
 
@@ -2040,7 +1988,6 @@ UResNet
 \begin_layout Plain Layout
 
 \color black
-\lang english
 69.65
 \end_layout
 
@@ -2050,8 +1997,6 @@ UResNet
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 93.501
 \end_layout
 
@@ -2059,13 +2004,19 @@ UResNet
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+MTL-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2023"
+literal "false"
 
-\lang english
-MTL-Net
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2076,31 +2027,6 @@ MTL-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
-78.91
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-98.30
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 77.76
 \end_layout
 
@@ -2112,7 +2038,6 @@ MTL-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
 96.18
 \end_layout
 
@@ -2124,7 +2049,6 @@ MTL-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
 69.33
 \end_layout
 
@@ -2134,8 +2058,6 @@ MTL-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 93.505
 \end_layout
 
@@ -2143,13 +2065,19 @@ MTL-Net
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+RMTL-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2023"
+literal "false"
 
-\lang english
-RMTL-Net
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2160,31 +2088,6 @@ RMTL-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
-82.54
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-98.00
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 80.04
 \end_layout
 
@@ -2197,7 +2100,6 @@ RMTL-Net
 
 \series bold
 \color black
-\lang english
 96.41
 \end_layout
 
@@ -2209,7 +2111,6 @@ RMTL-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
 71.93
 \end_layout
 
@@ -2219,8 +2120,6 @@ RMTL-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 93.506
 \end_layout
 
@@ -2228,13 +2127,19 @@ RMTL-Net
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+MTL-COSA (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2023"
+literal "false"
 
-\lang english
-MTL-COSA
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2245,31 +2150,6 @@ MTL-COSA
 \begin_layout Plain Layout
 
 \color black
-\lang english
-79.31
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-98.31
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 78.90
 \end_layout
 
@@ -2281,7 +2161,6 @@ MTL-COSA
 \begin_layout Plain Layout
 
 \color black
-\lang english
 96.35
 \end_layout
 
@@ -2293,7 +2172,6 @@ MTL-COSA
 \begin_layout Plain Layout
 
 \color black
-\lang english
 70.65
 \end_layout
 
@@ -2303,8 +2181,6 @@ MTL-COSA
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 109.241
 \end_layout
 
@@ -2312,13 +2188,19 @@ MTL-COSA
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+FCN (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Long2015"
+literal "false"
 
-\lang english
-FCN
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2329,31 +2211,6 @@ FCN
 \begin_layout Plain Layout
 
 \color black
-\lang english
-78.40
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-98.02
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 76.87
 \end_layout
 
@@ -2365,7 +2222,6 @@ FCN
 \begin_layout Plain Layout
 
 \color black
-\lang english
 96.08
 \end_layout
 
@@ -2377,7 +2233,6 @@ FCN
 \begin_layout Plain Layout
 
 \color black
-\lang english
 67.05
 \end_layout
 
@@ -2387,8 +2242,6 @@ FCN
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 134.270
 \end_layout
 
@@ -2396,13 +2249,19 @@ FCN
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+SHA-MTL (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2023"
+literal "false"
 
-\lang english
-SHA-MTL
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2413,31 +2272,6 @@ SHA-MTL
 \begin_layout Plain Layout
 
 \color black
-\lang english
-81.21
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
-97.36
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 81.42
 \end_layout
 
@@ -2449,7 +2283,6 @@ SHA-MTL
 \begin_layout Plain Layout
 
 \color black
-\lang english
 95.56
 \end_layout
 
@@ -2461,7 +2294,6 @@ SHA-MTL
 \begin_layout Plain Layout
 
 \color black
-\lang english
 -
 \end_layout
 
@@ -2471,8 +2303,6 @@ SHA-MTL
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\mathcal{O}(100)$
 \end_inset
 
@@ -2483,13 +2313,19 @@ SHA-MTL
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+Residual-U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "7780459"
+literal "false"
 
-\lang english
-Residual-U-Net
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2500,31 +2336,6 @@ Residual-U-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
-86.13
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 84.81
 \end_layout
 
@@ -2536,7 +2347,6 @@ Residual-U-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
 88.08
 \end_layout
 
@@ -2548,7 +2358,6 @@ Residual-U-Net
 \begin_layout Plain Layout
 
 \color black
-\lang english
 -
 \end_layout
 
@@ -2558,8 +2367,6 @@ Residual-U-Net
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\mathcal{O}(100)$
 \end_inset
 
@@ -2570,13 +2377,19 @@ Residual-U-Net
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+SK-U-Net (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Byra2020"
+literal "false"
 
-\lang english
-SK-U-Net [REF]
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2587,31 +2400,6 @@ SK-U-Net [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 81.20
 \end_layout
 
@@ -2623,7 +2411,6 @@ SK-U-Net [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 94.44
 \end_layout
 
@@ -2635,7 +2422,6 @@ SK-U-Net [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 -
 \end_layout
 
@@ -2645,8 +2431,6 @@ SK-U-Net [REF]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $\mathcal{O}(100)$
 \end_inset
 
@@ -2657,13 +2441,19 @@ SK-U-Net [REF]
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+ESTAN (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Shareef2022"
+literal "false"
 
-\lang english
-ESTAN [REF]
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2674,31 +2464,6 @@ ESTAN [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
 78.00
 \end_layout
 
@@ -2710,7 +2475,6 @@ ESTAN [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 -
 \end_layout
 
@@ -2722,7 +2486,6 @@ ESTAN [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 70.00
 \end_layout
 
@@ -2732,8 +2495,6 @@ ESTAN [REF]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 -
 \end_layout
 
@@ -2741,13 +2502,19 @@ ESTAN [REF]
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
+SaTransformer (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Zhang2023a"
+literal "false"
 
-\lang english
-SaTrasnformer [REF]
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2759,32 +2526,6 @@ SaTrasnformer [REF]
 
 \series bold
 \color black
-\lang english
-88.32
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\color black
-\lang english
--
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-\color black
-\lang english
 86.34
 \end_layout
 
@@ -2796,7 +2537,6 @@ SaTrasnformer [REF]
 \begin_layout Plain Layout
 
 \color black
-\lang english
 -
 \end_layout
 
@@ -2809,7 +2549,6 @@ SaTrasnformer [REF]
 
 \series bold
 \color black
-\lang english
 83.12
 \end_layout
 
@@ -2819,8 +2558,6 @@ SaTrasnformer [REF]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 -
 \end_layout
 
@@ -2834,24 +2571,6 @@ SaTrasnformer [REF]
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Comparación de modelos en las clases: 
-\emph on
-normal, tumor
-\emph default
-.[V-Net, Xu.
- et al, Cho et al].
- Se resaltan en negrita los mejores valores del total.
- Se han utilizado imágenes únicamente con presencia de tumores (82/100).
-\end_layout
-
 \end_inset
 
 
@@ -2863,10 +2582,28 @@ normal, tumor
 \end_layout
 
 \begin_layout Standard
+Observando las tablas 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-De las tablas [REF tablas] se puede comprobar que hay una gran disparidad
- en los resultados.
+\end_inset
+
+ y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se puede comprobar que hay una gran disparidad en los resultados para una
+ misma arquitectura.
  Se obtenien peores métricas si hay imágenes sin tumores (
 \emph on
 véase Deeplabv3+, PSPNet, FCN
@@ -2876,7 +2613,17 @@ véase Deeplabv3+, PSPNet, FCN
 y EFSNET(nuestro)
 \emph default
 ).
- Esto sugiere que los modelos presentados en la tabla [REF tabla] 
+ Esto sugiere que los modelos presentados en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2888,312 +2635,148 @@ esperan
 \begin_inset Quotes erd
 \end_inset
 
- que exista tumor en la imagen por lo que se deben utilizar previo análisis
- de un experto una vez detectado el tumor o se podrá incurrir en un falso
- positivo (
+ que exista tumor en la imagen.
+\end_layout
+
+\begin_layout Standard
+En arquitecturas pesadas (
+\begin_inset Formula $Mparams>10$
+\end_inset
+
+) es necesario el análisis previo de un experto y, una vez detectado el
+ tumor, realizar la segmentación de su forma o se podrá incurrir en un falso
+ positivo 
 \emph on
-que no es de tal gravedad como un falso negativo
+-que no es de tal gravedad como un falso negativo
 \emph default
-).
+-.
+ En contraposición, en redes livianas como EFSNet y LCMUNet no es necesario
+ un análisis previo pero sí una evaluación continua de las predicciones.
+ Por ende, las redes neuronales pesadas y livianas no deben utilizarse con
+ el mismo propósito.
+ Las arquitecturas pesadas son excelentes para definir la forma de un tumor
+ previamente detectado y agilizar el trabajo de enmascarado de la imagen.
+ Las arquitecturas livianas son ideales para la detección automática de
+ tumores.
+ En ningún caso, estas arquitecturas pueden ser utilizadas sin supervisión
+ de un experto.
 \end_layout
 
 \begin_layout Standard
+Por otro lado, observamos que EFSNet es una arquitectura muy competente
+ en comparación con modelos varios órdenes de magnitud mayores que explotan
+ otros avances, a priori más potentes, del estado del arte como los bloques
+ de atención.
+ Además nuestra arquitectura mantiene mejor las métricas entre los conjuntos
+ con y sin imágenes sin tumores presentes (tablas 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-Por otro lado, observamos que EFSNet es una arquitectura tremendamente competent
-e en comparación con modelos varios órdenes de magnitud mayores que explotan
- otros avances del estado del arte como los bloques de atención.
+\end_inset
+
+ y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) que otras arquitecturas (DeepLabv3+, PSPNet, FCN).
 \end_layout
 
 \begin_layout Standard
+Se presentan en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Matrices-de-confusión."
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-Se presentan en la figura [REF figura] las matrices de confusión para los
- conjuntos de entrenamiento y validación.
+\end_inset
+
+ las matrices de confusión para los conjuntos de entrenamiento y validación.
  Se han dividido adicionalmente en predicción binaria y multiclase.
  De esta forma se pueden extraer otras métricas en caso de ser necesario.
  
 \end_layout
 
 \begin_layout Standard
-\align center
-
-\lang english
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/full_conf_mat_tr.png
-	scale 70
-	BoundingBox 80bp 0bp 540bp 460bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Entrenamiento
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/full_conf_mat_val.png
-	scale 70
-	BoundingBox 80bp 0bp 540bp 460bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Validación
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Matrices de confusión.
- Clases: normal, tumor, maligno.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-
-\lang english
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/shallow_conf_mat_tr.png
-	scale 70
-	BoundingBox 80bp 0bp 540bp 460bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Entrenamiento
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/shallow_conf_mat_val.png
-	scale 70
-	BoundingBox 80bp 0bp 540bp 460bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Validación
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Matrices de confusión.
- Clases: normal, tumor.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\lang english
 Los resultados numéricos obtenidos concuerdan con las suposiciones.
  Se extrae del análisis y la comparación que EFSNet es una red neuronal
- de bajo coste computacional con una capacidad comparable -
-\emph on
-aunque inferior
-\emph default
-- a las arquitecturas más relevantes en el estado del arte de detección
- de tumores en ecografías mamarias vía segmentación semántica.
+ de bajo coste computacional con una capacidad comparable a las arquitecturas
+ más relevantes en el estado del arte de detección de tumores en ecografías
+ mamarias vía segmentación semántica.
  Además, el reducido número de parámetros permite inferencia en tiempo real
  con baja latencia evitando la necesidad de una pre-selección de imágenes
- y permitiendo el acceso a cualquier individuo.
+ y permitiendo el acceso a cualquier individuo o entidad.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
-
-\lang english
 Aciertos
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Aciertos"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En esta sección se visualizan conjuntos de imágenes con características
  compartidas cuyas máscaras predichas se han acercado más a las originales.
  Estos conjuntos son: imágenes con tumores pequeños, compactos y benignos
- (figura [Ref figura] e imágenes sin presencia de tumores (figura [REF figura]).
+ (figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aciertos-en-tumores"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) e imágenes sin presencia de tumores (figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aciertos-en-imágenes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
  Evidentemente no todas las imágenes de estos conjuntos han sido predichas
  a la perfección pero sí una gran proporción de las mismas.
 \end_layout
 
 \begin_layout Standard
 \align center
-
-\lang english
 \begin_inset Float figure
 placement H
 wide false
@@ -3202,8 +2785,6 @@ status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Box Boxed
 position "t"
 hor_pos "c"
@@ -3224,8 +2805,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3233,8 +2812,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (63).png
 	width 98text%
@@ -3253,8 +2830,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3262,8 +2837,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (95).png
 	width 98text%
@@ -3282,8 +2855,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3291,8 +2862,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (437).png
 	width 98text%
@@ -3310,14 +2879,20 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
 Aciertos en tumores benignos y compactos.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aciertos-en-tumores"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3352,8 +2927,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3361,8 +2934,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_normal (44).png
 	width 98text%
@@ -3381,8 +2952,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3390,8 +2959,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_normal (101).png
 	width 98text%
@@ -3410,8 +2977,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3419,8 +2984,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_normal (26).png
 	width 98text%
@@ -3438,14 +3001,19 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
 Aciertos en imágenes sin presencia de tumores.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aciertos-en-imágenes"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3464,9 +3032,27 @@ Aciertos en imágenes sin presencia de tumores.
 \end_layout
 
 \begin_layout Standard
+Con base en el mapa de probabilidad de las figuras 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aciertos-en-tumores"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-Con base en el mapa de probabilidad de las figuras [REF figuras] donde 
+\end_inset
+
+ y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aciertos-en-imágenes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ donde 
 \begin_inset Formula $(RGB)$
 \end_inset
 
@@ -3481,16 +3067,24 @@ y
 , respectivamente, se puede extraer que la probabilidad asignada es una
  combinación de todos los estados en su base (
 \emph on
-véase el caso de imágenes sin presencia de tumores, figura [REF figura]
+véase el caso de imágenes sin presencia de tumores, figura 
 \emph default
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aciertos-en-imágenes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 ) y únicamente se determina en pequeñas regiones de interés con forma de
  círculo o filamentos generalmente oscuros en el interior e iluminados en
  el exterior.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Se puede concebir conceptualmente esta red como un proceso por el cuál se
  extraen las regiones de interés y, posteriormente, se clasifican.
  Por lo tanto, EFSNet durante el entrenamiento ha convergido a buscar la
@@ -3501,30 +3095,59 @@ mente, evaluarla dejando el resto de la imagen en un estado combinado de
 normal
 \emph default
 .
- Este proceso es el que se busca con la introducción del Bloque CSDC [REF
- section] que está diseñado para emular un mecanismo de atención.
+ Este proceso es el que se busca con la introducción del Bloque CSDC (subsección
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-CSDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) que está diseñado para emular un mecanismo de atención.
  Al enfocar la atención en puntos específicos se facilita la tarea del 
 \emph on
 Decoder
 \emph default
- [REF section] permitiendo reducir el número de parámetros, pero, por otro
- lado se añaden errores adicionales como encontrar regiones de interés que
- no lo son o no encontrar las regiones de interés reales.
+ permitiendo reducir el número de parámetros, pero, por otro lado se añaden
+ errores adicionales como encontrar regiones de interés que no lo son o
+ no encontrar las regiones de interés reales.
  Además, dado que las redes neuronales tienden a la media en sus predicciones
  es complejo generalizar la forma de los tumores y, por tanto, predecir
  filamentos y bordes irregulares.
  
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Errores
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Errores"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En cuanto a errores comunes hay también una serie de conjuntos de imágenes
  cuyas inferencias son erróneas por motivos similares.
  Destacaremos tres de ellas: agujeros y derrames en la inferencia de tumores
@@ -3536,8 +3159,6 @@ en la máscara final y falsos errores.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Los tumores muy grandes y los tumores cuya textura es muy plana (homogéneos)
  determinan un desafío para EFSNet.
  La convergencia de la red neuronal determina que las zonas oscuras y planas,
@@ -3551,20 +3172,57 @@ normal
 \emph default
 .
  Este hecho puede estar asociado a las esquinas generadas por la función
- de rotación en el aumento de datos[REF section] ya que siempre son píxeles
- de valor 0 y de la clase 
+ de rotación en el aumento de datos (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Aumento-de-imágenes."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) ya que siempre son píxeles de valor 0 y de la clase 
 \emph on
 normal
 \emph default
  -
 \emph on
-como se ve en la tercera imagen de la figura [REF figura agujeros]
+como se ve en la tercera imagen de la figura 
 \emph default
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Errores-por-agujeros"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 -.
- Por otro lado, pese a que el bloque CSDC [ref section] emula la atención,
- no la implementa, amplia el campo receptivo si la convergencia así lo determina
- y, como se ha visto anteriormente [REF section] puede llegar a cubrir el
- 
+ Por otro lado, pese a que el bloque CSDC (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-CSDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) emula la atención, no la implementa, amplia el campo receptivo si la convergen
+cia así lo determina y, como se ha visto anteriormente (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-CSDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) puede llegar a cubrir el 
 \begin_inset Formula $97$
 \end_inset
 
@@ -3573,29 +3231,55 @@ como se ve en la tercera imagen de la figura [REF figura agujeros]
 \emph on
 skip-connection
 \emph default
- de las SCD [REF] que lo componen.
- Como se ha visto en la sección de aciertos [REF section], EFSNet toma regiones
- de interés con el tamaño medio de un tumor benigno y compacto por lo que
- en tumores grandes, tomará varias de estas regiones.
+ de las SCD (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-SDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) que lo componen.
+ Como se ha visto en la sección de aciertos, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Aciertos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, EFSNet toma regiones de interés con el tamaño medio de un tumor benigno
+ y compacto por lo que en tumores grandes, tomará varias de estas regiones.
  Se crearán agujeros si una de las regiones cae en una zona oscura y homogénea
  dentro de un tumor significativamente mayor que el tumor benigno medio,
- mientras que, se derramará la forma de la máscara si no encuentra un borde.
+ mientras que, se derramará la forma de la máscara si no encuentra un borde,
+ figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Errores-por-derrame"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \align center
-
-\lang english
 \begin_inset Float figure
-placement H
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Box Boxed
 position "t"
 hor_pos "c"
@@ -3616,8 +3300,6 @@ status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3625,8 +3307,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (73).png
 	width 98text%
@@ -3645,8 +3325,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3654,8 +3332,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (118).png
 	width 98text%
@@ -3674,8 +3350,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3683,8 +3357,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (10).png
 	width 98text%
@@ -3702,14 +3374,19 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
 Errores por agujeros en las predicciones.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Errores-por-agujeros"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3740,12 +3417,10 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3753,8 +3428,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (350).png
 	width 98text%
@@ -3773,8 +3446,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3782,8 +3453,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (5).png
 	width 98text%
@@ -3802,8 +3471,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
@@ -3811,8 +3478,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (82).png
 	width 98text%
@@ -3830,14 +3495,19 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
 Errores por derrame en las predicciones.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Errores-por-derrame"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -3856,11 +3526,19 @@ Errores por derrame en las predicciones.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Otro error común que disminuye enormemente el valor de las métricas observadas
  es la mezcla e intercambio de clases en las regiones de interés, figura
- [REF figura].
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Errores-por-mezcla"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  En este error se determina bien la región del tumor pero se realiza una
  mala predicción del mismo.
  Por lo tanto, si antes se achacaba el fallo al bloque CSDC, ahora se debe
@@ -3883,26 +3561,32 @@ maligno
 tumor.
  
 \emph default
-En la primera sub-imagen de la figura [REF figura intercambio] se observa
- que el campo receptivo efectivo no es grande ni se solapan regiones de
- interés dado que no hay imagen que contenga al mismo tiempo las tres clases.
+En la primera sub-imagen de la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Errores-por-mezcla"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se observa que el campo receptivo efectivo no es grande ni se solapan regiones
+ de interés dado que no hay imagen que contenga al mismo tiempo las tres
+ clases.
  Se deriva que cada región de interés se evalúa independientemente.
 \end_layout
 
 \begin_layout Standard
 \align center
-
-\lang english
 \begin_inset Float figure
-placement H
+placement h
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Box Boxed
 position "t"
 hor_pos "c"
@@ -3919,21 +3603,17 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
 status open
 
 \begin_layout Plain Layout
 \align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
-\lang english
+\begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (234).png
 	width 98text%
@@ -3952,17 +3632,13 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (26).png
 	width 98text%
@@ -3981,17 +3657,13 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (140).png
 	width 98text%
@@ -4009,13 +3681,22 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Errores por mezcla e intercambio de clases.
+\end_layout
+
+\end_inset
+
 Errores por mezcla e intercambio de clase 
 \emph on
 benigno
@@ -4025,6 +3706,13 @@ benigno
 maligno
 \emph default
 .
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Errores-por-mezcla"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4059,17 +3747,13 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_malignant (80).png
 	width 98text%
@@ -4088,17 +3772,13 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (254).png
 	width 98text%
@@ -4117,17 +3797,13 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (321).png
 	width 98text%
@@ -4145,14 +3821,30 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Errores de dudosa veracidad.
+\end_layout
+
+\end_inset
+
 Errores de dudosa veracidad por mala anotación o baja resolución.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Errores-de-dudosa"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4171,29 +3863,57 @@ Errores de dudosa veracidad por mala anotación o baja resolución.
 \end_layout
 
 \begin_layout Standard
+Finalmente, existen errores de dudosa veracidad, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Errores-de-dudosa"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-Finalmente, existen errores de dudosa veracidad, figura[REF figura].
+\end_inset
+
+.
  Estos errores se presentan en imágenes en la que no se aprecia una relación
  clara entre la máscara y los cambios en la textura y en imágenes con dos
  regiones similares cercanas donde se ha definido como masa tumoral únicamente
  una de ambas.
- Dadas las acusaciones vertidas sobre el Dataset BUSI [REF beef] es posible
- que estos errores no lo sean realmente y añadan error a las métricas vistas.
+ Dadas las acusaciones vertidas sobre el Dataset BUSI (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Pawlowska2023"
+literal "false"
+
+\end_inset
+
+) es posible que estos errores no lo sean realmente y añadan error a las
+ métricas vistas.
  Independientemente de si la realidad es ésta o no, se ha detallado previamente
  un procedimiento conceptual de la EFSNet que explica correctamente estos
  errores.
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Tiempo Real
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 La prueba de inferencia realizada para medir la velocidad de inferencia
  de EFSNet consiste en la predicción secuencial de 1000 tensores aleatorios
  de tamaño 
@@ -4205,12 +3925,20 @@ La prueba de inferencia realizada para medir la velocidad de inferencia
 siendo la primera dimensión el tamaño de batch
 \emph default
 - en 10 rondas independientes.
- En la tabla [REF tabla] se muestran los resultados.
+ En la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Tiempo-de-inferencia"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se muestran los resultados.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float table
 placement H
 wide false
@@ -4218,22 +3946,39 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
+Tiempo y frecuencia de inferencia.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Tiempo-de-inferencia"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 Procesador
 \end_layout
 
@@ -4243,9 +3988,7 @@ Procesador
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-Tiempo por 1000 imágenes [s]
+Tiempo por imagen [s]
 \end_layout
 
 \end_inset
@@ -4254,21 +3997,17 @@ Tiempo por 1000 imágenes [s]
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-Inferencia por segundo [fps]
+Imágenes por segundo [fps]
 \end_layout
 
 \end_inset
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 NVidia RTX 4060 (GPU)
 \end_layout
 
@@ -4278,9 +4017,7 @@ NVidia RTX 4060 (GPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $12.326\ensuremath{\pm}1.030$
+\begin_inset Formula $0.01234\ensuremath{\pm}0.00103$
 \end_inset
 
 
@@ -4292,8 +4029,6 @@ NVidia RTX 4060 (GPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $81.621\ensuremath{\pm}5.906$
 \end_inset
 
@@ -4304,12 +4039,10 @@ NVidia RTX 4060 (GPU)
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 Intel Core i7 (CPU)
 \end_layout
 
@@ -4319,9 +4052,7 @@ Intel Core i7 (CPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
-\begin_inset Formula $94.379\pm4.033$
+\begin_inset Formula $0.09438\pm0.00403$
 \end_inset
 
 
@@ -4333,8 +4064,6 @@ Intel Core i7 (CPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Formula $10.615\pm0.458$
 \end_inset
 
@@ -4351,36 +4080,54 @@ Intel Core i7 (CPU)
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Tiempo de inferencia e inferencia
-\emph on
- 
-\emph default
-por segundo (FPS)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
+Además de las métricas presentadas en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Tiempo-de-inferencia"
+plural "false"
+caps "false"
+noprefix "false"
 
-\lang english
-A la vista de las métricas mostradas se puede asegurar que EFSNet es un
- modelo perfectamente válido para tiempo real.
+\end_inset
+
+ el artículo de EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+) asegura una inferencia de 
+\begin_inset Formula $107$
+\end_inset
+
+ FPS utilizando una GPU NVidia Titan Xp sobre los conjuntos de datos CamVid
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Brostow2009"
+literal "false"
+
+\end_inset
+
+) y CityScapes (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Cordts2016"
+literal "false"
+
+\end_inset
+
+).
+ Se puede asegurar que EFSNet es un modelo perfectamente válido para tiempo
+ real.
  Si se utiliza GPU la latencia es despreciable, mientras que si se utiliza
  CPU se puede tener baja latencia aunque no se 
 \begin_inset Quotes eld
@@ -4396,9 +4143,9 @@ sentirá
 
  instantáneo.
  Se debe tener en cuenta que, generalmente, un centro médico suele contar
- con un clúster o CPD o sistemas de computación en la nube con acceso a
- una o más GPUs y CPUs de mayor potencia que las aquí utilizadas y el rendimient
-o será aún mayor -
+ con un clúster de computación o sistemas de computación en la nube con
+ acceso a una o más GPUs y CPUs de mayor potencia que las aquí utilizadas
+ y el rendimiento será aún mayor -
 \emph on
 aunque también innecesario
 \emph default

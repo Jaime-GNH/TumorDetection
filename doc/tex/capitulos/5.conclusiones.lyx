@@ -108,8 +108,38 @@ A la vista de los resultados se concluye que se han cumplido los objetivos
  deseados.
  La implementación de EFSNet para la detección de tumores en ecografías
  mamarias obtiene métricas comparables a modelos del estado del arte reduciendo
- el número de parámetros en varios órdenes de magnitud[REF tabla].
- También se cumple la apuesta por la inferencia en tiempo real [REF tabla].
+ el número de parámetros en varios órdenes de magnitud (tablas 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Comparación-de-modelos-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ También se cumple la apuesta por la inferencia en tiempo real, tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Tiempo-de-inferencia"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  Adicionalmente, se han estudiado los errores y aciertos más comunes siendo
  todos ellos explicables.
 \end_layout
@@ -133,11 +163,11 @@ La herramienta presentada puede ser de gran utilidad en manos de un experto
 
 \lang english
 Se debe mencionar de nuevo en esta sección el mínimo coste computacional
- requerido (
-\begin_inset Formula $\simeq150Mb$
+ requerido, 
+\begin_inset Formula $\simeq143Mb$
 \end_inset
 
-) que permite no solo realizar inferencia en un ordenador convencional sino
+, que permite no solo realizar inferencia en un ordenador convencional sino
  en el propio dispositivo de ultrasonidos de forma que se pueda combinar
  la máscara con la imagen al mismo tiempo que se realiza la revisión médica.
  Además de la instantaneidad que aporta el modelo, la sencillez algorítmica
@@ -171,13 +201,10 @@ Se deben comentar también los inconvenientes de la solución comentada.
 \begin_layout Standard
 
 \lang english
-En primer lugar, la red puede dar predicciones erradas por completo -
-\emph on
-sobretodo en tumores de caracter maligno
-\emph default
-- por lo que se aconseja que su uso sea continuo y no depender de una imagen
- concreta.
- 
+En primer lugar, la red puede incurrir en alucinaciones si la imagen de
+ referencia contiene regiones con diferente brillo o contraste.
+ Se aconseja la inferencia continua, en tiempo real, acompañada del citerio
+ de un experto para descartar posibles errores y afianzar aciertos.
 \end_layout
 
 \begin_layout Standard
@@ -193,8 +220,17 @@ ajustado
 \end_inset
 
  el campo receptivo a la media de tamaño.
- Esta es la principal diferencia entre el bloque CSDC [REF section] y un
- bloque de atención usual, y se debe a la componente residual.
+ Esta es la principal diferencia entre el bloque CSDC (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-CSDC."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) y un bloque de atención usual, y se debe a la componente residual.
  Las aberraciones en la máscara que genera este hecho pueden reducir la
  confianza del experto en las predicciones por lo que es necesaria una explicaci
 ón detallada de las caracaterísticas del modelo añadiendo carga de trabajo
@@ -225,6 +261,24 @@ normal, tumor
 \emph default
 , y, ante la duda apoyarse en la predicción de la clase del tumor ya que
  de otra forma puede llegar a sesgar la intuición del profesional al cargo.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -263,15 +317,26 @@ Combinación de conjuntos de datos: Una potencial mejora es la combinación
  de los conjuntos de datos BUSI, UDIAT y OASBUD que son de carácter público
  para engrosar el número de muestras.
  Esta vía no es trivial, como se ha comentado cada conjunto de imágenes
- se ha tomado con un dispostivo diferente y puede resultar complejo homogeneizar
- el resultado final.
+ se ha tomado con un dispositivo diferente y puede resultar complejo homogeneiza
+r el resultado final.
 \end_layout
 
 \begin_layout Enumerate
 
 \lang english
-Variación del aumento de datos: Se ha comentado [REF Errores] que la rotación
- genera zonas negras que son directamente asociadas a la clase normal.
+Variación del aumento de datos: Se ha comentado en la subsección de Aumento
+ de Datos, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Aumento-de-imágenes."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, que la rotación genera zonas negras que son directamente asociadas a la
+ clase normal.
  Esta característica se propaga a las zonas centrales de los tumores sin
  textura ni iluminación provocando 
 \begin_inset Quotes eld
@@ -281,8 +346,18 @@ agujeros
 \begin_inset Quotes erd
 \end_inset
 
- en la segmentación.
- Se debe probar si, al cambiar estas zonas negras poor ruido blanco u otra
+ en la segmentación, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Errores-por-agujeros"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Se debe probar si, al cambiar estas zonas negras por ruido blanco u otra
  distribución se pueden obtener mejores resultados.
  Adicionalmente, se pueden variar los parámetros de aumentación de imágenes,
  el orden en que se aplican o los tipos que se han escogido.
@@ -296,7 +371,15 @@ Decaimiento de pesos y
 Dice Loss
 \emph default
 : Para aliviar el problema del desbalance de clases se puede añadir el decaimien
-to de pesos que sugiere el artículo de EFSNet, 
+to de pesos que sugiere el artículo de EFSNet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
+
+\end_inset
+
+), 
 \begin_inset Formula $w_{d}=4\cdot10^{-4}$
 \end_inset
 
@@ -312,11 +395,11 @@ to de pesos que sugiere el artículo de EFSNet,
 \begin_layout Enumerate
 
 \lang english
-Surrogación de la pérdida: La aplicación de un modelo 
+Subrogación de la pérdida: La aplicación de un modelo 
 \emph on
 discriminador
 \emph default
- sencillo para surrogar la pérdida del modelo 
+ sencillo para subrogar la pérdida del modelo 
 \emph on
 generador, 
 \emph default
@@ -332,12 +415,43 @@ como en el punto anterior
  actual.
 \end_layout
 
+\begin_layout Enumerate
+
+\lang english
+Segmentación multitarea: Se ha comentado en la subsección de predicción,
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Predicción."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, un método para combinar una segmentación binaria junto con un clasificador
+ de clase.
+ El abordaje naïve que fue implementado deviene en errores pero artículos
+ relacionados con este tipo de solución (MTL-Net y variantes, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Xu2023"
+literal "false"
+
+\end_inset
+
+) implementan técnicas de regularización en la función de pérdida sencillas
+ y efectivas que pueden aplicarse a este modelo.
+\end_layout
+
 \begin_layout Standard
 
 \lang english
 La implementación de los puntos mencionados anteriormente a modo de análisis
- univariante sobre la solución expuesta en la memoria pueden mejorar enormemente
- la solución.
+ univariante sobre la solución expuesta en la memoria se presentan como
+ vías de desarrollo potencialmente beneficiosas en la detección de tumores
+ en ecografías mamarias y otras tareas de segmentación semántica en el campo
+ de la biomedicina.
 \end_layout
 
 \end_body

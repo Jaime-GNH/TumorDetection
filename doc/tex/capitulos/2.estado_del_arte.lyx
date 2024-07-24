@@ -102,8 +102,6 @@ name "chap:estado-del-arte"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En este capítulo se expondrá el estado actual de la detección de tumores
  en ecografías mamarias, desde el prisma de las arquitecturas de las redes
  neuronales artificiales.
@@ -119,8 +117,6 @@ dentro del campo de la Inteligencia Artificial
 \end_layout
 
 \begin_layout Section
-
-\lang english
 Visión Artificial
 \begin_inset CommandInset label
 LatexCommand label
@@ -132,8 +128,6 @@ name "sec:Visión-Artificial"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En el campo de la Visión Artificial se pueden establecer tres principales
  vías de desarrollo en cuestión de arquitecturas aplicables a multitud de
  casos de uso.
@@ -159,8 +153,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En primer lugar, se debe mencionar la utilización de los bloques de atención
  que desde su invención en 2017 (
 \begin_inset CommandInset citation
@@ -171,8 +163,11 @@ literal "false"
 \end_inset
 
 ) se han propagado a todos los campos de la Inteligencia Artificial.
- En el contexto de la Visión Artificial hay multitud de usos de esta metodología
-, desde transformers de visión que asemejan los utilizados en texto (
+\end_layout
+
+\begin_layout Standard
+En el contexto de la Visión Artificial hay multitud de usos de esta metodología,
+ desde transformers de visión que asemejan los utilizados en texto (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Dosovitskiy2020,Xie2021,Cao2023,Zhang2023a"
@@ -207,8 +202,6 @@ pesos de la atención
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En segundo lugar, se debe comentar la multimodalidad y los modelos 
 \begin_inset Quotes eld
 \end_inset
@@ -222,9 +215,13 @@ para todo
 \end_inset
 
 .
- Por una parte, la multimodalidad consiste en implementar arquitecturas
- capaces de consumir y predecir diferentes tipos de datos (imagen, texto,
- audio, ...) por medio de la unión de 
+ 
+\end_layout
+
+\begin_layout Standard
+Por una parte, la multimodalidad consiste en implementar arquitecturas capaces
+ de consumir y predecir diferentes tipos de datos (imagen, texto, audio,
+ ...) por medio de la unión de 
 \begin_inset Quotes eld
 \end_inset
 
@@ -257,7 +254,10 @@ literal "false"
 \end_inset
 
 ).
- Por otra parte, los modelos 
+\end_layout
+
+\begin_layout Standard
+Por otra parte, los modelos 
 \begin_inset Quotes eld
 \end_inset
 
@@ -284,7 +284,11 @@ literal "false"
 \end_inset
 
 ).
- Estas vías de desarrollo quedan fuera del alcance del individuo medio y
+ 
+\end_layout
+
+\begin_layout Standard
+Estas vías de desarrollo quedan fuera del alcance del individuo medio y
  quedan restringidas al uso por grandes empresas con todo tipo de recursos
  (
 \emph on
@@ -303,15 +307,17 @@ Fine Tuning
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Finalmente, se está avanzando hacia la eficiencia -
 \emph on
 en este y todos los demás campos de la Inteligencia Artificial
 \emph default
 - de las arquitecturas para reducir el coste computacional sin (mucha) pérdida
  de efectividad.
- Esta vía es la que más tiempo lleva en desarrollo pues desde los inicios
+ 
+\end_layout
+
+\begin_layout Standard
+Esta vía es la que más tiempo lleva en desarrollo pues desde los inicios
  se ha querido optimizar la solución (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -334,7 +340,11 @@ literal "false"
 \end_inset
 
 ), y otros con bajo nivel de recursos.
- El trabajo actual hace uso de una de las últimas actualizaciones de esta
+ 
+\end_layout
+
+\begin_layout Standard
+El trabajo actual hace uso de una de las últimas actualizaciones de esta
  vía, EFSNet -
 \emph on
 Efficient Fast Segmentation Network
@@ -368,12 +378,16 @@ literal "false"
 \end_inset
 
  millones de parámetros y 
-\begin_inset Formula $\simeq150$
+\begin_inset Formula $\simeq143$
 \end_inset
 
  Mb de peso en inferencia.
- Evidentemente, hay multitud de otras vías de desarrollo como el uso de
- grafos (
+ 
+\end_layout
+
+\begin_layout Standard
+Evidentemente, hay multitud de otras vías de desarrollo como el uso de grafos
+ (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Bretto2005,Yang2020"
@@ -420,13 +434,15 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 De igual forma, se deben mencionar los avances en algoritmos de optimización
  e inferencia de las arquitecturas de red neuronal.
  Estos avances cuentan con menor grado de eco mediático y, en multitud de
  ocasiones, son confundidos con la arquitectura.
- Primeramente, se debe mencionar la difusión guiada (
+ 
+\end_layout
+
+\begin_layout Standard
+Primeramente, se debe mencionar la difusión guiada (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Ho2020"
@@ -458,7 +474,11 @@ literal "false"
 \end_inset
 
 ).
- En segundo lugar, se continúa investigando y mejorando en la metodología
+ 
+\end_layout
+
+\begin_layout Standard
+En segundo lugar, se continúa investigando y mejorando en la metodología
  
 \emph on
 GAN
@@ -489,7 +509,7 @@ discriminadora
 
  de forma que la primera debe generar la imagen y la segunda debe decidir
  si ésta es una imagen correcta o no.
- Es un buen método para surrogar la función de pérdida por medio de la utilizaci
+ Es un buen método para subrogar la función de pérdida por medio de la utilizaci
 ón de una red neuronal simple 
 \emph on
 -discriminadora-
@@ -527,7 +547,7 @@ generadora
 \end_inset
 
  puede ser todo lo compleja que se quiera por lo que utilizar esta vía para
- surrogar la pérdida aumenta el coste de la solución para una misma arquitectura
+ subrogar la pérdida aumenta el coste de la solución para una misma arquitectura
  
 \begin_inset Quotes eld
 \end_inset
@@ -541,8 +561,6 @@ generadora
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En tercer lugar, la utilización de pasos de aprendizaje variables (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -566,8 +584,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En cuarto lugar, mencionar el Aprendizaje Federado (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -597,8 +613,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Por último, una metodología de optimización altamente utilizada es el ajuste
  fino, 
 \emph on
@@ -638,8 +652,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Las líneas de investigación comentadas pueden combinarse entre sí.
  Varias arquitecturas del estado del arte hacen uso de atención en la arquitectu
 ra U-Net (
@@ -659,7 +671,7 @@ literal "false"
 
 \end_inset
 
-), o reducen los parámetros de bloques conovolucionales en el 
+), o reducen los parámetros de bloques convolucionales en el 
 \begin_inset Quotes eld
 \end_inset
 
@@ -688,8 +700,6 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-
-\lang english
 Segmentación semántica en aplicaciones biomédicas
 \begin_inset CommandInset label
 LatexCommand label
@@ -701,11 +711,12 @@ name "sec:Segmentación-semántica-en"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El campo de la biomedicina es tremendamente extenso así como lo son las
  fuentes de datos.
- Los principales campos de investigación están relacionados con Tomografía
+\end_layout
+
+\begin_layout Standard
+Los principales campos de investigación están relacionados con Tomografía
  Computerizada (CT), Imágenes de Resonancia Magnética (MRI), Imágenes de
  Ultrasonido (USI), Rayos X, Tomografía de Coherencia Óptica (OCT), Tomografía
  por Emisión de Positrones (PET) (
@@ -717,8 +728,12 @@ literal "false"
 \end_inset
 
 ).
- Las principales arquitecturas utilizadas en estos campos son aquellas relaciona
-das con la U-Net (
+ 
+\end_layout
+
+\begin_layout Standard
+Las principales arquitecturas utilizadas en estos campos son aquellas relacionad
+as con la U-Net (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Ronneberger2015"
@@ -772,8 +787,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Si se restringe el campo a la línea de investigación del trabajo, se puede
  comprobar la prevalencia de las U-Nets frente a las demás arquitecturas
  y un reciente desarrollo vertiginoso basado en la atención por dos motivos:
@@ -782,15 +795,11 @@ Si se restringe el campo a la línea de investigación del trabajo, se puede
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En la detección de tumores en ecografías mamarias se pueden observar tres
  principales soluciones: 
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Introducción de la atención: Un gran número de artículos actuales hacen
  uso de la atención para mejorar los modelos recientes.
  El objetivo principal de esta línea es mejorar la precisión a cualquier
@@ -798,8 +807,6 @@ Introducción de la atención: Un gran número de artículos actuales hacen
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Variaciones de las arquitecturas clásicas: Una línea recurrente es la utilizació
 n de arquitecturas conocidas como U-Net, ResNet o Inception e implementar
  variaciones y combinaciones.
@@ -812,8 +819,6 @@ n de arquitecturas conocidas como U-Net, ResNet o Inception e implementar
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Reducción de parámetros: La línea de optimización de recursos existe desde
  el inicio del campo y propone métodos que simulan las transformaciones
  de otras arquitecturas pero utilizando métodos de menor coste computacional.
@@ -827,11 +832,9 @@ Reducción de parámetros: La línea de optimización de recursos existe desde
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Si se enfoca la búsqueda a la tercera vía presentada, la reducción de parámetros
 , se comprueban avances en pequeñas secciones como el uso de modelos pre-entrena
-dos para surrogar la pérdida vía algoritmos semi-supervisados estilo 
+dos para subrogar la pérdida vía algoritmos semi-supervisados estilo 
 \emph on
 profesor-aprendiz
 \emph default
@@ -853,21 +856,25 @@ literal "false"
 
 ).
  Mientras que los algoritmos semi-supervisados sí se encuentran entre los
- últimos avances generales, los bloques de exprimido y excitación están
- obsoletos.
- Por este motivo, se ha decidido realizar una actualización de esta línea.
+ últimos avances generales, la utilización de bloques de exprimido y excitación
+ como en sustitución de otros más pesados están obsoletos.
+ Por este motivo, se ha decidido realizar una actualización de la sustitución
+ de bloques convolucionales pesados.
  
 \end_layout
 
 \begin_layout Section
-
-\lang english
 Arquitecturas eficientes.
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Arquitecturas-eficientes."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Se ha comentado previamente (secciones 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -930,8 +937,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Las principales aportaciones de esta arquitectura y las arquitecturas de
  las que hereda se exponen a continuación y se verá su aplicación en más
  detalle en la sección de Métodos (
@@ -948,8 +953,6 @@ noprefix "false"
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Normalización por lote, 
 \emph on
 BatchNorm
@@ -958,7 +961,7 @@ BatchNorm
  normaliza los valores resultantes de una capa por conjunto de datos de
  inferencia.
  
-\begin_inset Newline linebreak
+\begin_inset Newline newline
 \end_inset
 
 Este tipo de normalización permite eliminar el 
@@ -966,74 +969,19 @@ Este tipo de normalización permite eliminar el
 bias
 \emph default
 , o sesgo, de la capa previa ya que el resultado tras esta normalización
- es el mismo.
- 
-\begin_inset Newline linebreak
-\end_inset
-
-Si 
-\begin_inset Formula $\hat{x}_{k}=W\cdot x_{k}+b_{k}$
-\end_inset
-
- es la salida de una capa convolucional sin activación, entonces la normalizació
-n por lote aplica 
-\begin_inset Formula $\hat{x_{k}}'=\left(\hat{x_{k}}-\mathbb{E}(\hat{x}_{k})\right)/\sqrt{Var(\hat{x}_{k})}$
-\end_inset
-
- donde 
-\begin_inset Formula $\left(\hat{x}_{k}-\mathbb{E}(\hat{x}_{k})\right)=W\cdot x_{k}-\mathbb{E}\left(W\cdot x_{k}\right)$
-\end_inset
-
- y 
-\begin_inset Formula $Var\left(W\cdot x_{k}+b_{k}\right)=Var\left(W\cdot x_{k}\right)+\varepsilon$
-\end_inset
-
- con lo que 
-\begin_inset Formula $\hat{x_{k}}'=\left(W\cdot x_{k}-\mathbb{E}\left(W\cdot x_{k}\right)\right)/\sqrt{Var\left(W\cdot x_{k}\right)+\varepsilon}$
-\end_inset
-
- que no depende del sesgo (
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Ioffe2015"
-literal "false"
+ es el mismo (sección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:BatchNorm-y-sesgo"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
 ).
- El parámetro 
-\begin_inset Formula $\varepsilon$
-\end_inset
-
- que se deriva de la varianza del sesgo añade un desplazamiento que será
- corregido con la introducción de una activación 
-\emph on
-PReLU
-\emph default
- (
-\begin_inset CommandInset citation
-LatexCommand citet
-key "He2015"
-literal "false"
-
-\end_inset
-
-), 
-\emph on
-Parametrized ReLU
-\emph default
-, que contiene un parámetro entrenable que define la pendiente en la parte
- negativa de los números reales, 
-\begin_inset Formula $\mathbb{R}^{-}$
-\end_inset
-
-, y se utilizará para compensar el desvío de 
-\emph on
-BatchNorm.
-
-\emph default
  
-\begin_inset Newline linebreak
+\begin_inset Newline newline
 \end_inset
 
 Con esta combinación se reduce el número de parámetros de tantos como neuronas
@@ -1041,8 +989,6 @@ Con esta combinación se reduce el número de parámetros de tantos como neurona
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Capas de convolución desagregadas: Se intercambia una capa de convolución
  usual de tamaño de kernel 
 \begin_inset Formula $k_{s}$
@@ -1054,7 +1000,7 @@ Capas de convolución desagregadas: Se intercambia una capa de convolución
 
  por tres capas de convolución consecutivas.
  
-\begin_inset Newline linebreak
+\begin_inset Newline newline
 \end_inset
 
 La primera aplica el stride, 
@@ -1076,77 +1022,7 @@ La primera aplica el stride,
 \end_inset
 
 .
-\begin_inset Newline linebreak
-\end_inset
-
-El número de parámetros sin desagregar viene dado por 
-\begin_inset Formula $k_{s}^{2}\cdot C_{in}\cdot C_{out}$
-\end_inset
-
- mientras que si está desagregado en la forma vista se obtiene 
-\begin_inset Formula $s^{2}\cdot C_{in}^{2}+k_{s}^{2}\cdot C_{in}^{2}+C_{in}\cdot C_{out}=C_{in}\left(C_{in}\left(s^{2}+k_{s}^{2}\right)+C_{out}\right)$
-\end_inset
-
- con 
-\begin_inset Formula $C_{in}$
-\end_inset
-
-el número de canales de entrada y 
-\begin_inset Formula $C_{out}$
-\end_inset
-
- el número de canales de salida.
- Suponiendo 
-\begin_inset Formula $s=2$
-\end_inset
-
- para una reducción del tamaño original en un factor 2, un 
-\begin_inset Formula $k_{s}=(3x3)$
-\end_inset
-
- y 
-\begin_inset Formula $C_{out}=sC_{in}=2C_{in}$
-\end_inset
-
- se tiene sin desagregar: 
-\begin_inset Formula $params_{0}=18\cdot C_{in}^{2}$
-\end_inset
-
- y desagregado: 
-\begin_inset Formula $params_{1}=15\cdot C_{in}^{2}$
-\end_inset
-
-.
- 
-\begin_inset Newline linebreak
-\end_inset
-
-Se han supuesto estos parámetros dado que son los utilizados habitualmente
- en EFSNet (
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Hu2020"
-literal "false"
-
-\end_inset
-
-) pero se puede comprobar que es extensible a todo caso en que 
-\begin_inset Formula $\left(s^{2}+k_{s}^{2}+f\right)<k_{s}^{2}\cdot f$
-\end_inset
-
- siendo 
-\begin_inset Formula $f=\frac{C_{out}}{C_{in}}$
-\end_inset
-
- el factor de aumento en los canales.
- 
-\begin_inset Newline linebreak
-\end_inset
-
-Debido al punto número 1.
- no se ha tenido en cuenta el sesgo.
- 
-\begin_inset Newline linebreak
+\begin_inset Newline newline
 \end_inset
 
 Como se verá más adelante, existe una variación denominada bloque factorizado
@@ -1163,11 +1039,25 @@ Como se verá más adelante, existe una variación denominada bloque factorizado
 \end_inset
 
  reduciendo aún más el número de parámetros.
+ 
+\begin_inset Newline newline
+\end_inset
+
+La justificación matemática de la reducción de parámetros obtenida se puede
+ comprobar en la sección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Convoluciones-desagregadas"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Convolución por grupo y barajado de canales: De ShuffleNet (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -1185,8 +1075,6 @@ literal "false"
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Regularización dropout en los canales: Habitualmente se utiliza la regularizació
 n Dropout sobre las neuronas que conforman una capa.
  En las arquitecturas eficientes se promueve la utilización de dropout sobre
@@ -1208,14 +1096,12 @@ literal "false"
 \end_layout
 
 \begin_layout Enumerate
-
-\lang english
 Bloques residuales y 
 \emph on
 skip-connections
 \emph default
 : Los bloques residuales utilizan una rama lineal que propaga la información
- sin perturbar a lo largo de un mismo bloque de trasnformación de forma
+ sin perturbar a lo largo de un mismo bloque de transformación de forma
  que se genere un contexto global de información a lo largo de la red neuronal.
  Por otro lado, las 
 \emph on
@@ -1231,7 +1117,10 @@ Decoder
 \emph default
  de las arquitecturas U-Net son utilizados con el mismo propósito pero en
  un nivel mayor.
- La combinación de ambas técnicas reduce la pérdida de información y dota
+\begin_inset Newline newline
+\end_inset
+
+La combinación de ambas técnicas reduce la pérdida de información y dota
  de contexto a las diferentes partes de la arquitectura.
  Utilizando estas técnicas se reduce la carga de computación en los diferentes
  bloques y partes de la red permitiendo reducir los parámetros sin impactar
@@ -1242,8 +1131,6 @@ Decoder
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Con base en estos 5 puntos principales se estructura la arquitectura utilizada
  EFSNet (
 \begin_inset CommandInset citation

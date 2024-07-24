@@ -8,7 +8,7 @@
 \use_default_options false
 \maintain_unincluded_children false
 \language spanish
-\language_package default
+\language_package none
 \inputencoding utf8
 \fontencoding T1
 \font_roman "default" "default"
@@ -102,15 +102,10 @@ name "chap:Materiales-y-métodos"
 \end_layout
 
 \begin_layout Section
-
-\series bold
-\lang english
 Materiales
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En esta sección se exponen los materiales utilizados para la elaboración
  del trabajo.
  Se divide en tres partes: software en el que se presenta el lenguaje de
@@ -121,14 +116,10 @@ En esta sección se exponen los materiales utilizados para la elaboración
 \end_layout
 
 \begin_layout Subsection
-
-\lang english
 Software
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El software utilizado es el lenguaje de programación Python en la versión
  
 \emph on
@@ -160,8 +151,6 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Las librerías: torch (versión 
 \emph on
 2.1.1+cu
@@ -175,25 +164,32 @@ Las librerías: torch (versión
 4.8.1.78
 \emph default
 ) han sido, principalmente, los módulos de funcionalidades utilizados.
- En primer lugar, con torch se ha implementado la red neuronal EFSNet y
- el preprocesamiento de datos.
- Lighning se ha utilizado para facilitar el uso de la red neuronal implementada
+ 
+\end_layout
+
+\begin_layout Standard
+En primer lugar, con torch se ha implementado la red neuronal EFSNet y el
+ preprocesamiento de datos.
+\end_layout
+
+\begin_layout Standard
+Lighning se ha utilizado para facilitar el uso de la red neuronal implementada
  ya que aúna una gran cantidad de métodos asociados al entrenamiento, validación
 , guardado y carga de modelos que aumentan la eficiencia del código y su
  interpretabilidad.
- Finalmente, opencv-python ha sido utilizado para la carga de datos y la
+ 
+\end_layout
+
+\begin_layout Standard
+Finalmente, opencv-python ha sido utilizado para la carga de datos y la
  realización de transformaciones y visualizaciones sencillas.
 \end_layout
 
 \begin_layout Subsection
-
-\lang english
 Hardware
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Dado el objetivo del trabajo de facilitar el uso de la herramienta presentada
  en ordenadores convencionales, se ha hecho uso de uno -
 \emph on
@@ -211,8 +207,6 @@ NVidia GeForce 4060 RTX
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El entrenamiento se ha realizado haciendo uso de la tarjeta gráfica debido
  a la capacidad de paralelización que presenta.
  Debido a la configuración interna se puede observar a lo largo de la memoria
@@ -229,27 +223,35 @@ batch
 \end_layout
 
 \begin_layout Subsection
-
-\lang english
 Datos
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En esa subsección se presenta el origen de los datos, cualidades y transformacio
 nes efectuadas para el uso en el caso presentado.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Origen
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El conjunto de datos utilizado se denomina 
 \emph on
 Dataset of Breast Ulstrasound Images
@@ -291,152 +293,13 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float table
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Clase
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Número de imágenes
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-normal
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-133
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-benigno
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-437
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-maligno
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-210
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Total
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-780
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -457,14 +320,126 @@ name "tab:Número-de-imágenes"
 
 \end_layout
 
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Categoría
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Número de imágenes
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Normal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+133
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Benigno
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+437
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maligno
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+210
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Total
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+780
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Existen tres principales datasets públicos de imágenes de ecografías mamarias
  anotadas por expertos:
 \end_layout
@@ -472,7 +447,6 @@ Existen tres principales datasets públicos de imágenes de ecografías mamarias
 \begin_layout Enumerate
 
 \emph on
-\lang english
 BrEaST
 \emph default
  (
@@ -503,7 +477,6 @@ BrEaST
 \begin_layout Enumerate
 
 \emph on
-\lang english
 Open Access Series of Breast Ultrasonic Data
 \emph default
 , 
@@ -526,7 +499,6 @@ literal "false"
 \begin_layout Enumerate
 
 \emph on
-\lang english
 Dataset of Breast Ulstrasound Images
 \emph default
  (
@@ -559,8 +531,6 @@ LOGIQ E0 Agile ultrasound system
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Los datasets mencionados no han sido utilizados simultaneamente debido a
  que las imágenes fueron tomadas con aparatos diferentes y se utilizó un
  preprocesamiento específico en cada caso.
@@ -584,8 +554,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 La elección del dataset 
 \emph on
 BUSI
@@ -599,15 +567,27 @@ BUSI
  
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Cualidades
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El conjunto de datos se compone por 780 imágenes en escala de grises de
  anchura arbitraria, tabla 
 \begin_inset CommandInset ref
@@ -636,172 +616,12 @@ maligno
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Dimension
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Mínimo
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Máximo
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Media
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-altura
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-310
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-719
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-501.45
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-anchura
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-190
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-1048
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-615.68
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -822,14 +642,142 @@ name "tab:Dimensiones-de-las"
 
 \end_layout
 
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="4">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dimension
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mínimo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Máximo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Media
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Altura
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+310
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+719
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+501.45
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Anchura
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+190
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1048
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+615.68
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Las imágenes están organizadas en carpetas cuyo nombre corresponde con la
  clase.
  Cada imagen está nombrada tal que 
@@ -898,19 +846,13 @@ maligno
 \end_layout
 
 \begin_layout Standard
-
-\lang english
-\begin_inset Wrap figure
-lines 0
-placement o
-overhang 0in
-width "50col%"
-status open
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/other/Aberraciones-BUSI.jpg
 	lyxscale 10
@@ -922,13 +864,22 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Imagen con aberraciones.
+\end_layout
+
+\end_inset
+
 Imagen duplicada con texto (
 \emph on
 RT AXILLA
@@ -960,14 +911,16 @@ name "fig:Aberraciones-imagen"
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Existen aberraciones en las imágenes (véase figura 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -979,9 +932,10 @@ noprefix "false"
 \end_inset
 
 ) como textos, superposiciones, pictogramas, medidas y efecto doppler que
- pueden perturbar el ajuste de modelos, además hay imágenes duplicadas con
- discrepancias en las máscaras asociadas, otras correspondientes a la axila
- y otras con objetos como agujas de biopsia (
+ pueden perturbar el ajuste de modelos.
+ Además, hay imágenes duplicadas con discrepancias en las máscaras asociadas,
+ otras correspondientes a la axila y otras con objetos como agujas de biopsia
+ (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Pawlowska2023"
@@ -990,34 +944,37 @@ literal "false"
 \end_inset
 
 ).
-\begin_inset Newline newline
-\end_inset
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
 
 
-\begin_inset Newline newline
-\end_inset
+\backslash
+FloatBarrier
+\end_layout
 
-
-\begin_inset Newline newline
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Transformaciones iniciales
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En primer lugar, se toman las máscaras que corresponden a una misma imagen
- y se suman sus valores formando una nueva máscara.
- Con lo cuál se obtiene una relación uno a uno de imágenes y máscaras, y
- se aumenta ligeramente la proporción de casos positivos en el conjunto.
- Finalmente se redimensionan las imágenes a 
+ y se suman sus valores formando una nueva máscara, con lo cuál se obtiene
+ una relación uno a uno de imágenes y máscaras, y se aumenta ligeramente
+ la proporción de casos positivos en el conjunto.
+\end_layout
+
+\begin_layout Standard
+Finalmente se redimensionan las imágenes a 
 \begin_inset Formula $(512x512)$
 \end_inset
 
@@ -1047,26 +1004,20 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Imagen_original.png
 	scale 30
@@ -1077,8 +1028,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1109,8 +1058,6 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Imagen_resized.png
 	scale 30
@@ -1121,8 +1068,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1142,8 +1087,6 @@ Imagen redimensionada
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1170,26 +1113,20 @@ name "fig:Redimensionado-de-imagen"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Float figure
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_original.png
 	scale 30
@@ -1200,8 +1137,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1232,8 +1167,6 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_original_1.png
 	scale 30
@@ -1244,8 +1177,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1276,8 +1207,6 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_compsed.png
 	scale 30
@@ -1288,8 +1217,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1320,8 +1247,6 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/Mask_compsed_resized.png
 	scale 30
@@ -1332,8 +1257,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1353,8 +1276,6 @@ Redimensionado.
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1381,8 +1302,6 @@ name "fig:Procesamiento-de-máscaras"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Aplicando estas transformaciones se cuenta con 204,472,320 píxeles de los
  cuales un 7.83% son correspondientes a tumores, 3.86% son de la clase 
 \emph on
@@ -1395,10 +1314,14 @@ maligno
 .
  Sigue siendo un conjunto tremendamente desbalanceado de imágenes, pero
  ya está correctamente estandarizado a nivel de dimensiones y duplicidades.
- Es importante unir las máscaras que corresponden a una misma imagen ya
- que, de otro modo, se pueden incurrir en dos problemas principales: sobrerrepre
-sentación de ciertas imágenes y consecuente sobreajuste de las mismas, y
- ejemplos con discrepancias en el objetivo -
+ 
+\end_layout
+
+\begin_layout Standard
+Es importante unir las máscaras que corresponden a una misma imagen ya que,
+ de otro modo, se pueden incurrir en dos problemas principales: sobrerrepresenta
+ción de ciertas imágenes y consecuente sobreajuste de las mismas, y ejemplos
+ con discrepancias en el objetivo -
 \emph on
 un par (imagen, máscara) tiene un conjunto de positivos y la otra 
 \emph default
@@ -1411,17 +1334,12 @@ diferente
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Durante el entrenamiento y validación de la red neuronal, se aplican distintas
  transformaciones consecutivas a las imágenes tras estas transformaciones
  iniciales para realizar un aumento de datos.
 \end_layout
 
 \begin_layout Section
-
-\series bold
-\lang english
 Métodos
 \begin_inset CommandInset label
 LatexCommand label
@@ -1433,8 +1351,6 @@ name "sec:Métodos"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Los métodos utilizados se pueden dividir en la red neuronal implementada,
  EFSNet, que es una función que transforma una imagen en una máscara, y
  los métodos utilizados para que la función se ajuste al problema definido,
@@ -1443,17 +1359,22 @@ Los métodos utilizados se pueden dividir en la red neuronal implementada,
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
-\begin_inset Newpage pagebreak
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsection
-
-\lang english
 EFSNet.
 \begin_inset CommandInset label
 LatexCommand label
@@ -1465,21 +1386,51 @@ name "subsec:EFSNet."
 \end_layout
 
 \begin_layout Standard
+La EFSNet, 
+\emph on
+Efficient Fast Semantic Segmentation Network
+\emph default
+, (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hu2020"
+literal "false"
 
-\lang english
-\begin_inset Wrap figure
-lines 0
-placement L
-overhang 0in
-width "50col%"
-status collapsed
+\end_inset
+
+), figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:EFSNet-con-parámetros"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, es una red neuronal convolucional diseñada para obtener inferencias de
+ alta calidad con bajo coste computacional en el ámbito de la segmentación
+ semántica de imágenes.
+ Los principales puntos para la reducción de número de parámetros son: las
+ convoluciones agrupadas, los bloques factorizados, los bloques de convoluciones
+ barajadas dilatadas consecutivas (
+\emph on
+CSDC
+\emph default
+) y los módulos de aumento de resolución con uso de ShuffleNet.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
 \begin_layout Plain Layout
-
-\lang english
+\align center
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/EFSNet.png
-	scale 35
+	height 80pheight%
 
 \end_inset
 
@@ -1487,8 +1438,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1509,35 +1458,13 @@ name "fig:EFSNet-con-parámetros"
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
 
-\end_inset
-
-La EFSNet, 
-\emph on
-Efficient Fast Semantic Segmentation Network
-\emph default
-, (
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Hu2020"
-literal "false"
-
-\end_inset
-
-) es una red neuronal convolucional diseñada para obtener inferencias de
- alta calidad con bajo coste computacional en el ámbito de la segmentación
- semántica de imágenes.
- Los principales puntos para la reducción de número de parámetros son: las
- convoluciones agrupadas, los bloques factorizados, los bloques de convoluciones
- barajadas dilatadas consecutivas (
-\emph on
-CSDC
-\emph default
-) y los módulos de aumento de resolución con uso de ShuffleNet.
- Esta arquitectura continua con la investigación en redes neuronales para
+\begin_layout Standard
+Esta arquitectura continúa con la investigación en redes neuronales para
  segmentación semántica rápida añadiendo las novedades de los bloques CSDC
  y los módulos de aumento de resolución.
  En última estancia es una arquitectura tipo U-Net (
@@ -1557,7 +1484,11 @@ literal "false"
 \end_inset
 
 ).
- Se puede dividir en: 
+ 
+\end_layout
+
+\begin_layout Standard
+Se puede dividir en: 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1611,8 +1542,6 @@ Output
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 La reducción de parámetros en una red neuronal conlleva el problema de la
  falta de información debido a la reducción en la extracción de características.
  Para abordar este problema EFSNet explota varias técnicas de retención
@@ -1684,8 +1613,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 La EFSNet implementada, figura 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1749,8 +1676,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float algorithm
 wide false
 sideways false
@@ -1759,110 +1684,92 @@ status open
 \begin_layout Plain Layout
 
 \family typewriter
-\lang english
 \begin_inset listings
 lstparams "numbers=right,numberstyle={\tiny},basicstyle={\tiny},showstringspaces=false"
 inline false
 status open
 
 \begin_layout Plain Layout
-
 ================================================================================
 ========
 \end_layout
 
 \begin_layout Plain Layout
-
 Layer                       Input Shape        Output Shape        Param
  #    Param %
 \end_layout
 
 \begin_layout Plain Layout
-
 ================================================================================
 ========
 \end_layout
 
 \begin_layout Plain Layout
-
 EFSNet                     [N, 1, 256, 256]   [N, 3, 256, 256]         --
           --
 \end_layout
 
 \begin_layout Plain Layout
-
 |-Encoder                  [N, 1, 256, 256]   [N, 64, 64, 64]          --
           --
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-InitialBlock        [N, 1, 256, 256]   [N, 16, 128, 128]       166
        0.09%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-DownsamplingBlock   [N, 16, 128, 128]  [N, 64, 64, 64]       5,699
        3.17%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-FactorizedBlocks    [N, 64, 64, 64]    [N, 64, 64, 64]      15,244
        8.47%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-DownsamplingBlock   [N, 64, 64, 64]    [N, 128, 32, 32]     30,339
       16.86%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-CSDCBlocks          [N, 128, 32, 32]   [N, 128, 32, 32]    109,584
       60.91%
 \end_layout
 
 \begin_layout Plain Layout
-
 |-Decoder                  [N, 64, 64, 64]    [N, 16, 128, 128]        --
          --
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-UpsamplingModule    [N, 128, 32, 32]   [N, 64, 64, 64]      12,418
        6.90%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-ShuffleNets         [N, 64, 64, 64]    [N, 64, 64, 64]       4,256
        2.37%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-UpsamplingModule    [N, 64, 64, 64]    [N, 16, 128, 128]     1,314
        0.73%
 \end_layout
 
 \begin_layout Plain Layout
-
 |    |-ShuffleNets         [N, 16, 128, 128]  [N, 16, 128, 128]       456
        0.25%
 \end_layout
 
 \begin_layout Plain Layout
-
 |-ConvTranspose2d          [N, 16, 128, 128]  [N, 3, 256, 256]        435
        0.24%
 \end_layout
 
 \begin_layout Plain Layout
-
 ================================================================================
 ========
 \end_layout
@@ -1873,8 +1780,6 @@ EFSNet                     [N, 1, 256, 256]   [N, 3, 256, 256]         --
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1901,8 +1806,6 @@ name "alg:Esquema-de-la-EFSNEt"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En las figuras de las siguientes subsecciones se tomará el siguiente criterio
  de representación de los 
 \emph on
@@ -1938,17 +1841,29 @@ rama derecha
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
-\begin_inset Newpage pagebreak
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Bloque Convolucional.
 \begin_inset CommandInset label
 LatexCommand label
@@ -1960,8 +1875,51 @@ name "subsec:Bloque-Convolucional."
 \end_layout
 
 \begin_layout Standard
+\begin_inset Wrap figure
+lines 0
+placement l
+overhang 0in
+width "30col%"
+status open
+
+\begin_layout Plain Layout
+\align center
 
 \lang english
+\begin_inset Graphics
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/ConvolutionalBlock_EFSNet.png
+	width 25col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang english
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\lang english
+Bloque Convolucional
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bloque-Convolucional"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 El bloque convolucional, figura 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2034,72 +1992,30 @@ noprefix "false"
 \end_inset
 
 ).
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Wrap figure
-lines 0
-placement l
-overhang 0in
-width "35col%"
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/ConvolutionalBlock_EFSNet.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Bloque Convolucional
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Bloque-Convolucional"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Este bloque se trata de una transformación que disminuye o mantiene la altura
  y anchura de la imagen y aumenta o mantiene los canales.
  Está compuesto por el triplete: Convolución2D-BatchNorm2D-PReLU, y tiene
- tres principales razones de ser así: (i) históricamente el diseño de arquitectu
-ras de redes convolucionales han convergido hacia la utilización de bloques
- definidos por la combinación de capas: 
+ tres principales razones de ser así.
+ 
+\end_layout
+
+\begin_layout Standard
+En primer lugar, históricamente el diseño de arquitecturas de redes convoluciona
+les han convergido hacia la utilización de bloques definidos por la combinación
+ de capas: 
 \emph on
 convolucion - normalización - activación - pooling - dropout
 \emph default
 , aunque en este caso el pooling no es utilizado y el dropout se realiza
  fuera del bloque.
- (ii) utilizar 
+ 
+\end_layout
+
+\begin_layout Standard
+En segundo lugar, utilizar 
 \emph on
 BatchNorm
 \emph default
@@ -2115,13 +2031,26 @@ literal "false"
 \emph on
 bias
 \emph default
- de la capa de convolución reduciendo tantos parámetros como neuronas tenga
- dicha capa -
+ de la capa de convolución (sección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:BatchNorm-y-sesgo"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) reduciendo tantos parámetros como neuronas tenga dicha capa -
 \emph on
 por bloque es despreciable pero en conjunto pueden llegar a ser miles
 \emph default
 -.
- (iii) La activación 
+ 
+\end_layout
+
+\begin_layout Standard
+En tercer lugar, la activación 
 \emph on
 PReLU
 \emph default
@@ -2138,7 +2067,7 @@ literal "false"
 Parametrized ReLU
 \emph default
  aborda el problema del desvanecimiento del gradiente y añade un parámetro
- entrenable que se corresponde con la pendiente de la parte negativa,
+ entrenable que se corresponde con la pendiente de la parte negativa, 
 \begin_inset Formula $\mathbb{R^{-}}$
 \end_inset
 
@@ -2147,9 +2076,23 @@ Parametrized ReLU
  
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Bloque Inicial.
 \begin_inset CommandInset label
 LatexCommand label
@@ -2161,8 +2104,6 @@ name "subsec:Bloque-Inicial."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El Bloque Inicial de la EFSNet es heredado de la ENet (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -2195,7 +2136,11 @@ noprefix "false"
 \end_inset
 
 ).
- La rama de la izquierda efectúa una reducción vía 
+ 
+\end_layout
+
+\begin_layout Standard
+La rama de la izquierda efectúa una reducción vía 
 \emph on
 MaxPooling 
 \emph default
@@ -2215,8 +2160,12 @@ literal "false"
 
 ).
  Esta rama es utilizada para retener información y agilizar el entrenamiento.
- Simultáneamente, la rama de la derecha aplica un bloque convloucional (subsecci
-ón 
+ 
+\end_layout
+
+\begin_layout Standard
+Simultáneamente, la rama de la derecha aplica un bloque convolucional (subsecció
+n 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Bloque-Convolucional."
@@ -2259,9 +2208,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
-En los artículos en los que se implementa este bloque incial (
+En los artículos en los que se implementa este bloque inicial (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Paszke2016,Hu2020"
@@ -2281,8 +2228,6 @@ SpatialDropout
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
 placement H
 wide false
@@ -2291,8 +2236,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/InitialBlock_Encoder_EFSNet.png
 	scale 60
@@ -2303,8 +2246,6 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -2330,9 +2271,23 @@ name "fig:Bloque-inicial"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Bloque 
 \emph on
 Downsampling
@@ -2346,8 +2301,6 @@ name "subsec:Bloque-Downsampling"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El Bloque 
 \emph on
 Downsampling
@@ -2361,7 +2314,11 @@ literal "false"
 \end_inset
 
 ).
- Como se puede observar en la figura 
+ 
+\end_layout
+
+\begin_layout Standard
+Como se puede observar en la figura 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Bloque-downsampling"
@@ -2380,7 +2337,10 @@ rama izquierda
 rama derecha
 \emph default
 -.
- La parte lineal se compone por una agregación 
+\end_layout
+
+\begin_layout Standard
+La parte lineal se compone por una agregación 
 \emph on
 MaxPooling
 \emph default
@@ -2388,7 +2348,17 @@ MaxPooling
 \begin_inset Formula $(2x2)$
 \end_inset
 
- seguida por un bloque convolucional[REF section] de
+ seguida por un bloque convolucional (subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Bloque-Convolucional."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) de
 \emph on
  
 \emph default
@@ -2401,7 +2371,10 @@ tamaño de kernel
 sin activación
 \series default
 .
- La rama no lineal utiliza una primera convolución de tamaño de kernel 
+\end_layout
+
+\begin_layout Standard
+La rama no lineal utiliza una primera convolución de tamaño de kernel 
 \begin_inset Formula $(2x2)$
 \end_inset
 
@@ -2425,7 +2398,10 @@ stride
 sin activación
 \series default
  que multiplica en un factor 4 el tamaño de los canales que obtiene de entrada.
- Finalmente, se aplica un 
+\end_layout
+
+\begin_layout Standard
+Finalmente, se aplica un 
 \emph on
 SpatialDropout
 \emph default
@@ -2439,23 +2415,11 @@ PReLU.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
-Las dos características principales de este bloque son:
-\end_layout
-
-\begin_layout Itemize
-
-\lang english
-La rama no lineal que preserva la información.
-\end_layout
-
-\begin_layout Itemize
-
-\lang english
-Los consecutivos bloques convolucionales que primero reducen las dimensiones,
- después extraen características y terminan por extender los canales reduciendo
- el coste computacional sobre el denominado 
+Las dos características principales de este bloque son: la rama no lineal
+ que preserva la información, y los consecutivos bloques convolucionales
+ que primero reducen las dimensiones, después extraen características y
+ terminan por extender los canales reduciendo el coste computacional sobre
+ el denominado 
 \emph on
 bottleneck
 \emph default
@@ -2471,8 +2435,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
 placement H
 wide false
@@ -2481,8 +2443,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/DownsamplingBlock_EFSNet.png
 	scale 60
@@ -2493,8 +2453,6 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -2521,17 +2479,29 @@ name "fig:Bloque-downsampling"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
 
-\lang english
-\begin_inset Newpage pagebreak
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Bloque Factorizado.
 \begin_inset CommandInset label
 LatexCommand label
@@ -2543,8 +2513,6 @@ name "subsec:Bloque-Factorizado."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Wrap figure
 lines 0
 placement l
@@ -2590,7 +2558,17 @@ name "fig:Bloque-Factorizado"
 
 \end_inset
 
-El bloque factorizado se utliza para la extracción ágil de características.
+El bloque factorizado, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-Factorizado"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, se utliza para la extracción ágil de características.
  Utiliza un 
 \emph on
 truco
@@ -2635,10 +2613,13 @@ sin activación
 siendo indiferente el orden-
 \emph default
 .
- Este añadido aumenta a velocidad de entrenamiento y conlleva una operación
+ Este añadido aumenta la velocidad de entrenamiento y conlleva una operación
  similar.
  Esta descomposición en factores es la que le da el nombre al bloque.
- Por lo demás, esta rama se comporta igual que la rama no lineal del bloque
+\end_layout
+
+\begin_layout Standard
+Por lo demás, esta rama se comporta igual que la rama no lineal del bloque
  de reducción de resolución (subsección 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2688,8 +2669,6 @@ suman
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En FFSNet (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -2728,17 +2707,29 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
 
-\lang english
-\begin_inset Newpage pagebreak
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Bloque CSDC.
 \begin_inset CommandInset label
 LatexCommand label
@@ -2750,8 +2741,6 @@ name "subsec:Bloque-CSDC."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Wrap figure
 lines 0
 placement l
@@ -2809,6 +2798,16 @@ Continuous
 \emph on
 Shuffled Dilated Convolution
 \emph default
+, figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bloque-CSDC"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 , se compone por cuatro bloques SDC (subsección 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2874,8 +2873,6 @@ o capas
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En el artículo de EFSNet (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -2899,8 +2896,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El campo receptivo en el último bloque SDC es de 
 \begin_inset Formula $(31x31)$
 \end_inset
@@ -2930,17 +2925,29 @@ El campo receptivo en el último bloque SDC es de
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
 
-\lang english
-\begin_inset Newpage pagebreak
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Bloque SDC.
 \begin_inset CommandInset label
 LatexCommand label
@@ -2952,8 +2959,6 @@ name "subsec:Bloque-SDC."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Wrap figure
 lines 0
 placement l
@@ -3083,8 +3088,6 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Se compone por una rama lineal que sirve de retención de información y una
  rama no lineal compuesta por un bloque convolucional de grupo con kernel
  de tamaño 
@@ -3118,7 +3121,11 @@ sin activación
 sin activación
 \series default
  para aumentar los canales y un dropout final en los canales.
- En el paso final se 
+ 
+\end_layout
+
+\begin_layout Standard
+En el paso final se 
 \series bold
 suman
 \series default
@@ -3137,17 +3144,29 @@ Channel Shuffle
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
 
-\lang english
-\begin_inset Newpage pagebreak
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Módulo de 
 \emph on
 Upsampling
@@ -3163,8 +3182,6 @@ name "subsec:Módulo-de-Upsampling."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El módulo de 
 \emph on
 Upsampling
@@ -3232,8 +3249,6 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En la rama de la izquierda, se utiliza un bloque de convolución de kernel
  
 \begin_inset Formula $(1x1)$
@@ -3245,7 +3260,10 @@ te se aplica un algoritmo de
  interpolación bilineal
 \series default
  para aumentar en un factor dos la altura y anchura del mapa.
- En la rama derecha se aplica un bloque convolucional de kernel 
+\end_layout
+
+\begin_layout Standard
+En la rama derecha se aplica un bloque convolucional de kernel 
 \begin_inset Formula $(1x1)$
 \end_inset
 
@@ -3265,8 +3283,6 @@ stride
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Finalmente, se 
 \series bold
 concatentan 
@@ -3285,8 +3301,6 @@ skip connection
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float figure
 placement H
 wide false
@@ -3295,11 +3309,9 @@ status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/diagrams/UpsampleModule_Decoder_EFSNet.png
-	scale 60
+	scale 50
 
 \end_inset
 
@@ -3307,8 +3319,6 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -3335,9 +3345,23 @@ name "fig:Bloque-Upsampling"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
 
-\lang english
-\begin_inset Newpage pagebreak
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
 \end_inset
 
 
@@ -3346,7 +3370,6 @@ name "fig:Bloque-Upsampling"
 \begin_layout Subsubsection
 
 \emph on
-\lang english
 ShuffleNet Unit.
 \begin_inset CommandInset label
 LatexCommand label
@@ -3358,8 +3381,6 @@ name "subsec:ShuffleNet-Unit."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Wrap figure
 lines 0
 placement l
@@ -3407,12 +3428,6 @@ name "fig:Bloque-ShuffleNet"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-
-\lang english
 La 
 \emph on
 ShuffleNet Unit
@@ -3422,7 +3437,7 @@ ShuffleNet Unit
 Decoder
 \emph default
 .
- Es un bloque de tipo residual con una rama sin trasnformaciones a la izquierda
+ Es un bloque de tipo residual con una rama sin transformaciones a la izquierda
  que se 
 \series bold
 suma
@@ -3442,8 +3457,6 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Está basado en la arquitectura 
 \emph on
 bottleneck unit
@@ -3457,7 +3470,11 @@ literal "false"
 \end_inset
 
 ) pero añade tres variaciones importantes.
- En primer lugar, la primera y última convolución de kernel 
+ 
+\end_layout
+
+\begin_layout Standard
+En primer lugar, la primera y última convolución de kernel 
 \begin_inset Formula $(1x1)$
 \end_inset
 
@@ -3467,14 +3484,22 @@ literal "false"
 grupos
 \series default
  para crear mapas más amplios reduciendo el coste.
- En segundo lugar, se añade una capa de barajado de canales 
+ 
+\end_layout
+
+\begin_layout Standard
+En segundo lugar, se añade una capa de barajado de canales 
 \emph on
 Channel Shuffle 
 \emph default
 tras la primera convolución para relacionar toda la información y no únicamente
  la de los canales correspondientes a cada grupo.
- En tercer lugar, se intercambia la capa convolucional de extración de caracterí
-sticas con kernel 
+ 
+\end_layout
+
+\begin_layout Standard
+En tercer lugar, se intercambia la capa convolucional de extración de caracterís
+ticas con kernel 
 \begin_inset Formula $(3x3)$
 \end_inset
 
@@ -3482,8 +3507,6 @@ sticas con kernel
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Adicionalmente, se hace uso de noramlización por lote (
 \emph on
 BatchNorm
@@ -3510,17 +3533,13 @@ no se utiliza tras el último bloque convolucional dado que no disminuye
 \end_layout
 
 \begin_layout Standard
-
-\lang english
-\begin_inset Newpage pagebreak
+\begin_inset Newpage clearpage
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Predicción.
 \begin_inset CommandInset label
 LatexCommand label
@@ -3532,11 +3551,9 @@ name "subsec:Predicción."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 La predicción, como se observa en el diagrama de la figura 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand vref
 reference "fig:EFSNet-con-parámetros"
 plural "false"
 caps "false"
@@ -3569,8 +3586,6 @@ mapa de probabilidades
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Dada la naturaleza del problema, se puede establecer esta capa final, 
 \begin_inset Formula $x_{s},$
 \end_inset
@@ -3634,15 +3649,34 @@ converge y se sobreajusta antes de que
  
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Entrenamiento y validación.
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Entrenamiento-y-validación."
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Esta sección se dedica a definir el método de entrenamiento desde el procesado
  de los datos a la optimización de la red neuronal.
  Para el entrenamiento y validación de la EFSNet se ha dividido el conjunto
@@ -3693,263 +3727,13 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float table
-placement h
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Tabular
-<lyxtabular version="3" rows="5" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Total
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Entrenamiento
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Validación
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-normal
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-133
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-115
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-18
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-benigno
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-437
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-382
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-54
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-maligno
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-210
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-182
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-28
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-total
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-780
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-680
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-100
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -3970,14 +3754,218 @@ name "tab:Distribución-de-imágenes"
 
 \end_layout
 
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Categoría
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Total
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Entrenamiento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Validación
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Normal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+133
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+115
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+18
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Benigno
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+437
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+382
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+54
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maligno
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+210
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+182
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Total
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+780
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+680
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Es evidente que hay una sobre-representación de imágenes de la clase 
 \emph on
 beningo
@@ -4024,30 +4012,22 @@ benigno
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Para evitar el sobreajuste y lidiar con el desbalance de clases se han utilizado
  varias técnicas:
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 Se han definido un conjunto de transformaciones afines aleatorizadas sobre
  los datos del conjunto de entrenamiento.
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 Se ha pesado la importancia de cada clase en la función de pérdidas en función
  de su representación.
  
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 Se utiliza un paso de aprendizaje, 
 \emph on
 learning rate
@@ -4056,9 +4036,23 @@ learning rate
  
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Aumento de imágenes.
 \begin_inset CommandInset label
 LatexCommand label
@@ -4070,8 +4064,6 @@ name "subsec:Aumento-de-imágenes."
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Se han utilizado una serie de transformaciones aleatorias que aplican a
  las imágenes al ser suministradas a la red para el entrenamiento.
  Estas transformaciones, figura 
@@ -4084,8 +4076,11 @@ noprefix "false"
 
 \end_inset
 
-, en orden de aplicación, son las siguientes: redimensionado ó recorte aleatorio
- a 
+, en orden de aplicación, son las siguientes: 
+\end_layout
+
+\begin_layout Enumerate
+Redimensionado ó recorte aleatorio a 
 \begin_inset Formula $(256,256,1)$
 \end_inset
 
@@ -4093,37 +4088,62 @@ noprefix "false"
 \begin_inset Formula $0.5$
 \end_inset
 
-, rotación con respecto al centro con un ángulo aleatorio 
+.
+\end_layout
+
+\begin_layout Enumerate
+Rotación con respecto al centro con un ángulo aleatorio 
 \begin_inset Formula $\theta\in(-\pi,\pi)\,rad$
 \end_inset
 
-, cambio de brillo en un factor 
+.
+\end_layout
+
+\begin_layout Enumerate
+Cambio de brillo en un factor 
 \begin_inset Formula $b\in(0.75,1.25)$
 \end_inset
 
-, cambio de contraste en un factor 
+.
+\end_layout
+
+\begin_layout Enumerate
+Cambio de contraste en un factor 
 \begin_inset Formula $c\in(0.75,1.25)$
 \end_inset
 
-, volteado horizontal con una probabilidad de 
+.
+\end_layout
+
+\begin_layout Enumerate
+Volteado horizontal con una probabilidad de 
 \begin_inset Formula $p_{vh}=0.25$
 \end_inset
 
- y volteado vertical con una probabilidad 
+.
+\end_layout
+
+\begin_layout Enumerate
+Volteado vertical con una probabilidad 
 \begin_inset Formula $p_{vv}=0.25$
 \end_inset
 
 .
- Sobre las máscaras únicamente se aplica el redimensionado, recorte, rotación
- y volteado horizontal y vertical por consistencia.
- Hacer notar que el conjunto de validación no ha sido alterado ya que sirve
+ 
+\end_layout
+
+\begin_layout Standard
+Sobre las máscaras únicamente se aplica el redimensionado, recorte, rotación
+ y volteado vertical y horizontal por consistencia.
+\end_layout
+
+\begin_layout Standard
+Hacer notar que el conjunto de validación no ha sido alterado ya que sirve
  para evaluar al modelo en el caso real y no en un caso transformado.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 El método de aumento conlleva la principal ventaja de engrosar el número
  de muestras disponibles de forma aleatoria evitando en gran medida un posible
  problema de 
@@ -4135,15 +4155,11 @@ sobre-ajuste
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 El redimensionado de la imagen reduce su resolución eliminando detalles
  potencialmente valiosos.
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 El recorte aleatorio puede dejar fuera las regiones tumorales de interés
  aumentando el desbalance favorable a la clase 
 \emph on
@@ -4151,8 +4167,6 @@ normal
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 La rotación añade zonas totalmente oscuras y planas que siempre pertenecen
  a la clase 
 \emph on
@@ -4162,354 +4176,20 @@ normal
 \end_layout
 
 \begin_layout Itemize
-
-\lang english
 El cambio de brillo y contraste pueden suavizar detalles útiles, enmascarar
  bordes de las regiones de interés o amplificar diferencias de color que
  pueden implicar un mal ajuste.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-\align center
 
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
 
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/crop_0.png
-	scale 50
-	BoundingBox 0bp 60bp 640bp 420bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Recorte
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/rotation_0.png
-	scale 50
-	BoundingBox 0bp 60bp 640bp 420bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Rotación
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/brightness_0.png
-	scale 50
-	BoundingBox 0bp 120bp 640bp 380bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Brillo
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/contrast_0.png
-	scale 50
-	BoundingBox 0bp 120bp 640bp 380bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Contraste
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/hflip_0.png
-	scale 50
-	BoundingBox 0bp 60bp 640bp 420bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Volteado horizontal
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/vertical_flip_0.png
-	scale 50
-	BoundingBox 0bp 60bp 640bp 420bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Volteado vertical
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-
-\lang english
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/dataloader/transform_0.png
-	scale 70
-	BoundingBox 0bp 60bp 640bp 420bp
-	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Transformación compuesta.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\lang english
-Transformaciones de aumento de datos.
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Transformaciones-de-aumento"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\backslash
+FloatBarrier
 \end_layout
 
 \end_inset
@@ -4518,14 +4198,10 @@ name "fig:Transformaciones-de-aumento"
 \end_layout
 
 \begin_layout Subsubsection
-
-\lang english
 Función de pérdida.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 La función de pérdida utilizada es la denominada 
 \begin_inset Quotes eld
 \end_inset
@@ -4542,7 +4218,17 @@ Entropía cruzada categórica
 \emph on
 CCE
 \emph default
-, la extensión a 
+ (ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:CCE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), la extensión a 
 \begin_inset Formula $N$
 \end_inset
 
@@ -4605,8 +4291,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 donde 
 \begin_inset Formula $c$
 \end_inset
@@ -4624,17 +4308,19 @@ es la representación de la clase.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En el conjunto de datos se obtienen los siguientes valores al aplicar la
- fórmula sobre el conjunto de entrenamiento sin transformar: 
-\begin_inset Formula $(normal,\,benigno,\,maligno)=(1.51,\,17.27,\,17.24)$
-\end_inset
-
+ fórmula sobre el conjunto de entrenamiento sin transformar:
+\emph on
+ (normal, benigno, maligno) = (1.51, 17.27, 17.24)
+\emph default
  que normalizados por la clase dominante quedan: 
-\begin_inset Formula $(normal,\,benigno,\,maligno)=(1,\,11.45,\,11.43)$
-\end_inset
-
+\emph on
+(normal, benigno, maligno)
+\emph default
+ = 
+\emph on
+(1, 11.45, 11.43)
+\emph default
 .
  Empíricamente se ha observado que estos valores son excesivamente 
 \emph on
@@ -4642,9 +4328,9 @@ agresivos
 \emph default
  preponderando las clases menos representadas.
  Disminuyendo el peso gradualmente se ha llegado a los pesos 
-\begin_inset Formula $(normal,\,benigno,\,maligno)=(1,\,5,\,5)$
-\end_inset
-
+\emph on
+(normal, benigno, maligno) = (1, 5, 5)
+\emph default
  que se han utilizado finalmente como se muestra en la tabla 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4671,8 +4357,6 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset Float table
 wide false
 sideways false
@@ -4680,207 +4364,6 @@ status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="4">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-EFNet teórico
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-EFNet normalizado
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-Utilizado
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-normal
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-1.51
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-1.00
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-1.00
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-benigno
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-17.27
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-11.45
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-5.00
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-maligno
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-17.24
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-11.43
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\lang english
-5.00
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -4899,6 +4382,170 @@ name "tab:Pesos-CCE"
 \end_inset
 
 
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Categoría
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EFNet teórico
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EFNet normalizado
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Utilizado
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Normal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.51
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Benigno
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17.27
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11.45
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.00
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maligno
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17.24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11.43
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5.00
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4907,8 +4554,6 @@ name "tab:Pesos-CCE"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Como se ha comentado en la subsección de predicciones (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4942,15 +4587,27 @@ e.
  resultados.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+FloatBarrier
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Optimización.
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En esta subsección se detalla el algoritmo utilizado para la optimización
  de los pesos de la EFSNet.
  De nuevo, se sigue el procedimiento mostrado en el artículo de referencia
@@ -5029,8 +4686,6 @@ dropout
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 En comparación con la propuesta original del artículo (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -5060,8 +4715,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Se define un decaimiento del ratio de aprendizaje polinómico, 
 \begin_inset CommandInset href
 LatexCommand href
@@ -5138,16 +4791,17 @@ sobre-ajuste
 
 .
  
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
-
-\lang english
 \begin_inset Graphics
 	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/analysis/train_history.png
 	width 90text%
@@ -5158,13 +4812,22 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\lang english
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
 \lang english
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+Entrenamiento de EFSNet.
+\end_layout
+
+\end_inset
+
 Entrenamiento de EFSNet.
  Se muestran las primeras 1000 épocas.
 \begin_inset CommandInset label

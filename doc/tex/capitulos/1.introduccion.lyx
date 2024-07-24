@@ -109,15 +109,23 @@ Motivación
 El trabajo que a continuación se presenta es una clara apuesta por la eficiencia
  y optimización de las técnicas comúnmente utilizadas en Inteligencia Artificial
  en el campo de la biomedicina.
- Esta apuesta se fundamenta en la accesibilidad por parte de grupos sociales
- y entidades médicas con bajo nivel de recursos a técnicas avanzadas de
- diagnóstico de enfermedades -
+ 
+\end_layout
+
+\begin_layout Standard
+Esta apuesta se fundamenta en la accesibilidad por parte de entidades médicas
+ y grupos sociales con bajo nivel de recursos a técnicas avanzadas de diagnóstic
+o de enfermedades -
 \emph on
 particularmente detección de tumores en ecografías mamarias-
 \emph default
 .
- En la actualidad, el cancer es una de las principales causas de muerte
- a nivel global (
+ 
+\end_layout
+
+\begin_layout Standard
+En la actualidad, el cancer es una de las principales causas de muerte a
+ nivel global (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Siegel2019"
@@ -130,7 +138,7 @@ literal "false"
 exclusivamente
 \emph default
 - de la situación socio-económica del individuo, el tratamiento sí.
- Entre las mujeres, el cancer de mama es el tipo de cancer más común (
+ Entre las mujeres, el cancer de mama es el tipo de cáncer más común (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "RegistrosdelCancer2019"
@@ -145,7 +153,7 @@ literal "false"
 
 \begin_layout Standard
 Este trabajo escoge una metodología basada en la reducción de parámetros
- de las redes neuronales ya que fomenta mejores prácticas en términos éticos
+ de las redes neuronales, ya que fomenta mejores prácticas en términos éticos
  y morales que las que devienen del grueso de modelos actuales, fundamentadas
  en la idea de 
 \begin_inset Quotes eld
@@ -156,11 +164,18 @@ a mayor número de parámetros mejores predicciones
 \end_inset
 
 .
- Comenzando por la eficiencia energética, la reducción del coste computacional
+\end_layout
+
+\begin_layout Standard
+Comenzando por la eficiencia energética, la reducción del coste computacional
  del algoritmo requiere menos energía para ser ejecutada reduciendo: las
  emisiones derivadas de la obtención de dicha energía, el coste monetario
  y los requisitos de hardware.
- Esta vía de desarrollo ha sido tomada en los últimos años por las grandes
+ 
+\end_layout
+
+\begin_layout Standard
+Esta vía de desarrollo ha sido tomada en los últimos años por las grandes
  empresas del sector como 
 \emph on
 OpenAI, Meta 
@@ -267,13 +282,18 @@ open-source
  (
 \emph on
 Python).
- 
-\emph default
+\end_layout
+
+\begin_layout Standard
 Las entidades mencionadas evitan esta filosofía por temor a la competencia,
  ora ofuscando sus avances, ora evitando la replicación y utilización de
  sus técnicas por terceras partes y, por tanto, lastrando la ciencia que
  les ha permitido implementar y desplegar dichas tecnologías.
- Este trabajo servirá -
+ 
+\end_layout
+
+\begin_layout Standard
+Este trabajo servirá -
 \emph on
 en parte
 \emph default
@@ -301,7 +321,10 @@ Finalmente, la mejora de eficiencia en términos de número de parámetros
  La inferencia en tiempo real facilita el uso, aliviando el trabajo de obtener
  capturas de los momentos que el personal médico experto considere más relevante
 s.
- Adicionalemente, la posibilidad de realizar predicciones consecutivas suaviza
+\end_layout
+
+\begin_layout Standard
+Adicionalmente, la posibilidad de realizar predicciones consecutivas suaviza
  errores debido a que las posibles aberraciones de cada resultado variarán
  más que las regiones de interés
 \emph on
@@ -318,8 +341,12 @@ tumor
 streaming
 \emph default
  del ecógrafo.
- La posesión de esta tecnología por un centro médico facilita también el
- uso de datos de caracter privado como son los datos médicos.
+ 
+\end_layout
+
+\begin_layout Standard
+La posesión de esta tecnología por un centro médico facilita también el
+ uso de datos de carácter privado como son los datos médicos.
  Debido a los requisitos de computación, cualquier centro médico puede entrenar
  esta red 
 \emph on
@@ -348,7 +375,7 @@ literal "false"
 \end_inset
 
 ) con 
-\begin_inset Formula $\simeq180k$
+\begin_inset Formula $\simeq179k$
 \end_inset
 
  parámetros, entrenada con los datos abiertos de BUSI (
@@ -504,7 +531,11 @@ Estructura del documento
 
 \begin_layout Standard
 La memoria presentada se divide en cinco capítulos.
- Una vez vista la 
+ 
+\end_layout
+
+\begin_layout Standard
+Una vez vista la 
 \begin_inset Quotes eld
 \end_inset
 
@@ -560,7 +591,7 @@ noprefix "false"
 
 \begin_layout Standard
 En tercer lugar, se realiza una descripción detallada de la solución implementad
-a en la sección de 
+a en el capítulo de 
 \begin_inset Quotes eld
 \end_inset
 
@@ -586,14 +617,14 @@ noprefix "false"
  sus características y preprocesamiento, y la arquitectura de la red neuronal
  EFSNet junto con metodología de implementación y uso en términos algorítmicos,
  de hardware y de software.
- En esta sección se especifican los parámetros e hiperparámetros utilizados
+ En este capítulo se especifican los parámetros e hiperparámetros utilizados
  en cada punto del estudio de manera que se pueda replicar con exactitud
  el experimento realizado.
  
 \end_layout
 
 \begin_layout Standard
-En la cuarta sección, 
+En el cuarto capítulo, 
 \begin_inset Quotes eld
 \end_inset
 
@@ -617,10 +648,14 @@ noprefix "false"
 
 ), se expondrán los resultados numéricos obtenidos, comentando fortalezas
  y debilidades de la aplicación de la EFSNet al conjunto de datos mencionado.
- Por otro lado, en esta misma sección se realiza un análisis visual de los
- resultados a través de los cuales se formulan hipótesis que pueden ser
- de ayuda en la interpretación de la red neuronal y su convergencia.
- Finalmente, en la sección de 
+ Por otro lado, en esta misma sección, se realiza un análisis visual de
+ los resultados a través de los cuales se formulan hipótesis que pueden
+ ser de ayuda en la interpretación de la red neuronal y su convergencia.
+ 
+\end_layout
+
+\begin_layout Standard
+Finalmente, en la sección de 
 \begin_inset Quotes eld
 \end_inset
 
@@ -642,12 +677,12 @@ noprefix "false"
 
 \end_inset
 
-) se evalúa el cumplimiento de las propuestas y objetivos, y se establecen
+), se evalúa el cumplimiento de las propuestas y objetivos, y se establecen
  vías de desarrollo para futuros trabajos.
 \end_layout
 
 \begin_layout Standard
-Las secciones principales mencionadas están acomapañadas de las secciones
+Las secciones principales mencionadas están acompañadas de las secciones
  de: 
 \begin_inset Quotes eld
 \end_inset
