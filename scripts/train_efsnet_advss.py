@@ -7,6 +7,7 @@ import torch.optim as optim
 import torch.nn.functional as torch_fun
 import torch.backends.cudnn as cudnn
 from sklearn.model_selection import train_test_split
+from time import perf_counter
 import os
 
 from TumorDetection.utils.dict_classes import DataPathDir, ReportingPathDir, Device
@@ -14,7 +15,6 @@ from TumorDetection.data.loader import DataPathLoader
 from TumorDetection.data.dataset import TorchDatasetSeg
 from TumorDetection.models.efsnet import EFSNetSeg
 from TumorDetection.models.adv_semi_seg.discriminator import FCDiscriminator
-from TumorDetection.models.adv_semi_seg.losses import CrossEntropy2d, BCEWithLogitsLoss2d
 
 DEVICE = Device.device
 TEST_SIZE = 100
@@ -22,11 +22,14 @@ TEST_SIZE = 100
 MODEL_NAME = 'EFSNet_ADVSS'
 INPUT_SIZE = (256, 256)
 NUM_CLASSES = 3
+CLASS_WEIGHT = torch.as_tensor([1., 5., 5.],
+                               device=DEVICE)
 BATCH_SIZE = 16
 ITER_SIZE = 1
 LEARNING_RATE = 2.5e-4
 MOMENTUM = 0.9
 NUM_STEPS = 20000
+SAVE_EVERY_NSTEPS = 1000
 POWER = 0.9
 RANDOM_SEED = 1234
 WEIGHT_DECAY = 0.0005
@@ -34,9 +37,9 @@ WEIGHT_DECAY = 0.0005
 LEARNING_RATE_D = 1e-4
 LAMBDA_ADV_PRED = 0.1
 
-PARTIAL_DATA = 0.5
+PARTIAL_DATA = 0.75
 
-SEMI_START = 5000
+SEMI_START = 2500
 LAMBDA_SEMI = 0.1
 MASK_T = 0.2
 
@@ -45,16 +48,17 @@ SEMI_START_ADV = 0
 D_REMAIN = True
 
 
-def loss_calc(pred, label, gpu):
+def loss_calc(pred, label):
     """
     This function returns cross entropy loss for semantic segmentation
     """
-    # out shape batch_size x channels x h x w -> batch_size x channels x h x w
-    # label shape h x w x 1 x batch_size  -> batch_size x 1 x h x w
-    label = Variable(label.long())
-    criterion = CrossEntropy2d().cuda(gpu)
+    criterion = torch.nn.CrossEntropyLoss(
+            ignore_index=-100,
+            weight=torch.as_tensor(CLASS_WEIGHT,
+                                   device=DEVICE)
+    )
 
-    return criterion(pred, label)
+    return criterion(pred, label.to(DEVICE))
 
 
 def lr_poly(base_lr, iter_, max_iter, power):
@@ -89,7 +93,7 @@ def make_d_label(label, ignore_mask):
     ignore_mask = np.expand_dims(ignore_mask, axis=1)
     d_label = np.ones(ignore_mask.shape) * label
     d_label[ignore_mask] = 255
-    d_label = Variable(torch.FloatTensor(d_label))
+    d_label = Variable(torch.FloatTensor(d_label).to(DEVICE))
     return d_label
 
 
@@ -165,12 +169,13 @@ def main():
     optimizer_d.zero_grad()
 
     # loss/ bilinear upsampling
-    bce_loss = BCEWithLogitsLoss2d()
+    bce_loss = torch.nn.BCEWithLogitsLoss()
     interp = nn.Upsample(size=(input_size[1], input_size[0]), mode='bilinear', align_corners=True)
 
     # labels for adversarial training
     pred_label = 0
     gt_label = 1
+    init_time = perf_counter()
 
     for i_iter in range(NUM_STEPS):
 
@@ -225,19 +230,19 @@ def main():
                     semi_ignore_mask = (d_out_sigmoid < MASK_T)
 
                     semi_gt = pred.data.cpu().numpy().argmax(axis=1)
-                    semi_gt[semi_ignore_mask] = 255
+                    semi_gt[semi_ignore_mask] = 0
 
                     semi_ratio = 1.0 - float(semi_ignore_mask.sum()) / semi_ignore_mask.size
-                    print('semi ratio: {:.4f}'.format(semi_ratio))
+                    # print('semi ratio: {:.4f}'.format(semi_ratio))
 
                     if semi_ratio == 0.0:
                         loss_semi_value += 0
                     else:
-                        semi_gt = torch.FloatTensor(semi_gt)
+                        semi_gt = torch.from_numpy(semi_gt).to(torch.long).to(DEVICE)
 
-                        loss_semi = LAMBDA_SEMI * loss_calc(pred, semi_gt, gpu)
+                        loss_semi = LAMBDA_SEMI * loss_calc(pred, semi_gt)
                         loss_semi = loss_semi / ITER_SIZE
-                        loss_semi_value += loss_semi.data.cpu().numpy()[0] / LAMBDA_SEMI
+                        loss_semi_value += loss_semi.data.cpu().numpy() / LAMBDA_SEMI
                         loss_semi += loss_semi_adv
                         loss_semi.backward()
 
@@ -258,7 +263,7 @@ def main():
             ignore_mask = (labels.numpy() == 255)
             pred = interp(model(images))
 
-            loss_seg = loss_calc(pred, labels, gpu)
+            loss_seg = loss_calc(pred, labels)
 
             d_out = interp(discr(torch_fun.softmax(pred, dim=1)))
 
@@ -307,31 +312,41 @@ def main():
 
             d_out = interp(discr(d_gt_v))
             # noinspection PyUnresolvedReferences
-            loss_d = bce_loss(d_out, make_d_label(gt_label, ignore_mask_gt).to(DEVICE))
+            loss_d = bce_loss(d_out, make_d_label(gt_label, ignore_mask_gt))
             loss_d = loss_d / ITER_SIZE / 2
             loss_d.backward()
             loss_d_value += loss_d.data.cpu().numpy()
 
         optimizer.step()
         optimizer_d.step()
-
+        et = perf_counter() - init_time
         print(
             'iter = {0:8d}/{1:8d},'
             ' loss_seg = {2:.3f},'
             ' loss_adv_p = {3:.3f}, '
             'loss_D = {4:.3f}, '
             'loss_semi = {5:.3f}, '
-            'loss_semi_adv = {6:.3f}'.format(
+            'loss_semi_adv = {6:.3f}, '
+            'elapsed_time = {7:.3f}, '
+            'mean_iter_time = {8:.3f}'.format(
                 i_iter, NUM_STEPS, loss_seg_value, loss_adv_pred_value,
                 loss_d_value, loss_semi_value,
-                loss_semi_adv_value))
+                loss_semi_adv_value, et, et/(i_iter + 1)))
+
+        if i_iter % SAVE_EVERY_NSTEPS == 0 and i_iter > 0:
+            print('save model ...')
+            torch.save(model.state_dict(), os.path.join(ReportingPathDir.dir_path, 'adv_ss',
+                                                        MODEL_NAME + f'_snap{1 + (i_iter // SAVE_EVERY_NSTEPS)}.pt'))
+            torch.save(discr.state_dict(), os.path.join(ReportingPathDir.dir_path, 'adv_ss',
+                                                        MODEL_NAME +
+                                                        f'_snap{1 + (i_iter // SAVE_EVERY_NSTEPS)}_discr.pt'))
 
         if i_iter >= NUM_STEPS - 1:
             print('save model ...')
             torch.save(model.state_dict(), os.path.join(ReportingPathDir.dir_path, 'adv_ss',
-                                                        MODEL_NAME + '.pth'))
+                                                        MODEL_NAME + '.pt'))
             torch.save(discr.state_dict(), os.path.join(ReportingPathDir.dir_path, 'adv_ss',
-                                                        MODEL_NAME + '_discr.pth'))
+                                                        MODEL_NAME + '_discr.pt'))
             break
 
 

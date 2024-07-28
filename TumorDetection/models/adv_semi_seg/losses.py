@@ -6,10 +6,10 @@ from torch.autograd import Variable
 
 class CrossEntropy2d(nn.Module):
 
-    def __init__(self, size_average=True, ignore_label=255):
+    def __init__(self, ignore_label=255, reduction='mean'):
         super(CrossEntropy2d, self).__init__()
-        self.size_average = size_average
         self.ignore_label = ignore_label
+        self.reduction = reduction
 
     def forward(self, predict, target, weight=None):
         """
@@ -32,16 +32,17 @@ class CrossEntropy2d(nn.Module):
             return Variable(torch.zeros(1))
         predict = predict.transpose(1, 2).transpose(2, 3).contiguous()
         predict = predict[target_mask.view(n, h, w, 1).repeat(1, 1, 1, c)].view(-1, c)
-        loss = torch_fun.cross_entropy(predict, target, weight=weight, size_average=self.size_average)
+        loss = torch_fun.cross_entropy(predict, target, weight=weight,
+                                       reduction=self.reduction)
         return loss
 
 
 class BCEWithLogitsLoss2d(nn.Module):
 
-    def __init__(self, size_average=True, ignore_label=255):
+    def __init__(self, ignore_label=255, reduction='mean'):
         super(BCEWithLogitsLoss2d, self).__init__()
-        self.size_average = size_average
         self.ignore_label = ignore_label
+        self.reduction = reduction
 
     def forward(self, predict, target, weight=None):
         """
@@ -64,5 +65,5 @@ class BCEWithLogitsLoss2d(nn.Module):
             return Variable(torch.zeros(1))
         predict = predict[target_mask]
         loss = torch_fun.binary_cross_entropy_with_logits(predict, target, weight=weight,
-                                                          size_average=self.size_average)
+                                                          reduction=self.reduction)
         return loss
