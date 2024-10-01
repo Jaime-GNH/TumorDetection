@@ -89,9 +89,6 @@
 
 \begin_layout Chapter
 Introducción
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:introduccion"
@@ -103,6 +100,13 @@ name "chap:introduccion"
 
 \begin_layout Section
 Motivación
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Motivación"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -115,16 +119,12 @@ El trabajo que a continuación se presenta es una clara apuesta por la eficienci
 \begin_layout Standard
 Esta apuesta se fundamenta en la accesibilidad por parte de entidades médicas
  y grupos sociales con bajo nivel de recursos a técnicas avanzadas de diagnóstic
-o de enfermedades -
-\emph on
-particularmente detección de tumores en ecografías mamarias-
-\emph default
-.
+o de enfermedades, particularmente, detección de tumores en ecografías mamarias.
  
 \end_layout
 
 \begin_layout Standard
-En la actualidad, el cancer es una de las principales causas de muerte a
+En la actualidad, el cáncer es una de las principales causas de muerte a
  nivel global (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -133,12 +133,9 @@ literal "false"
 
 \end_inset
 
-) y, mientas que la causa no depende -
-\emph on
-exclusivamente
-\emph default
-- de la situación socio-económica del individuo, el tratamiento sí.
- Entre las mujeres, el cancer de mama es el tipo de cáncer más común (
+) y, mientas que la causa no depende exclusivamente de la situación socio-económ
+ica del individuo, el tratamiento sí.
+ Entre las mujeres, el cáncer de mama es el tipo de cáncer más común (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "RegistrosdelCancer2019"
@@ -196,7 +193,20 @@ literal "false"
 
 
 \emph on
-), MoE,
+), 
+\emph default
+
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "MoE"
+description "Mixture of Experts"
+literal "false"
+
+\end_inset
+
+
+\emph on
+MoE,
 \emph default
  estrategias de ajuste fino con eficiencia de parámetros (
 \begin_inset CommandInset citation
@@ -207,6 +217,15 @@ literal "false"
 \end_inset
 
 ), 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "PEFT"
+description "Parameter Efficient Fine Tuning"
+literal "false"
+
+\end_inset
+
+
 \emph on
 PEFT,
 \emph default
@@ -218,7 +237,16 @@ literal "false"
 
 \end_inset
 
-) y QLoRA (
+) y 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "QLoRA"
+description "Quantized Low Rank Adaptation"
+literal "false"
+
+\end_inset
+
+QLoRA (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Dettmers2024"
@@ -234,7 +262,16 @@ literal "false"
 
 \end_inset
 
-), PFDD (
+), 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "PFDD"
+description "Progressive Feature Distribution Distillation"
+literal "false"
+
+\end_inset
+
+PFDD (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Zhou2022"
@@ -259,11 +296,11 @@ Estas empresas han optado por la optimización únicamente con la finalidad
  de reducir costes y aumentar beneficios dado que sus avances, generalmente,
  no son compartidos con la comunidad.
  Además, la optimización se utiliza como propaganda pro-ecologismo para
- dar una imagen de concienciación alejada de la realidad -
+ dar una imagen de concienciación alejada de la realidad (
 \emph on
 green-washing
 \emph default
--(
+) (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Seele2022"
@@ -293,11 +330,16 @@ Las entidades mencionadas evitan esta filosofía por temor a la competencia,
 \end_layout
 
 \begin_layout Standard
-Este trabajo servirá -
-\emph on
-en parte
-\emph default
-- como guía para la replicación de la red neuronal 
+Este trabajo servirá de guía para la replicación de la red neuronal 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "EFSNet"
+description "Efficient Fast Semantic Segmentation Network"
+literal "false"
+
+\end_inset
+
+
 \emph on
 EFSNet
 \emph default
@@ -363,6 +405,13 @@ n por terceras partes.
 
 \begin_layout Section
 Propuesta y objetivos
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Propuesta-y-objetivos"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -378,7 +427,8 @@ literal "false"
 \begin_inset Formula $\simeq179k$
 \end_inset
 
- parámetros, entrenada con los datos abiertos de BUSI (
+ parámetros (suma de pesos y sesgo), entrenada con los datos abiertos de
+ BUSI (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "AlDhabyani2020"
@@ -389,20 +439,14 @@ literal "false"
 ) para obtener un modelo eficiente y en tiempo real ajustado a la tarea
  de segmentación semántica de tumores en ecografías mamarias.
  El objetivo es que el modelo presentado pueda ser implementado, ejecutado
- y entrenado de forma sencilla 
-\emph on
--previo conocimiento técnico
-\emph default
-- en cualquier centro médico que disponga de un aparato de ultrasonidos.
+ y entrenado de forma sencilla (previo conocimiento técnico) en cualquier
+ centro médico que disponga de un aparato de ultrasonidos.
 \end_layout
 
 \begin_layout Standard
 La arquitectura EFSNet se fundamenta en la eficiencia vía optimización de
- recursos -
-\emph on
-parámetros
-\emph default
-- sacrificando el mínimo desempeño posible en tareas de Visión Artificial.
+ recursos sacrificando el mínimo desempeño posible en tareas de Visión Artificia
+l.
  Con este fin, explota las virtudes de técnicas conocidas como los bloques
  residuales (
 \begin_inset CommandInset citation
@@ -499,11 +543,11 @@ pesado
 \emph default
  habrá que elegir previamente qué imagen o conjunto de imágenes son de interés.
  Por lo tanto, la posible comparación de métricas no es honesta.
- Conociendo este hecho, se ha apostado por obtener la mejor precisión -
+ Conociendo este hecho, se ha apostado por obtener la mejor precisión (
 \emph on
 accuracy
 \emph default
-- posible para la segmentación semántica de las imágenes en las categorías:
+) posible para la segmentación semántica de las imágenes en las categorías:
  
 \emph on
 normal, benigno, maligno,
@@ -547,7 +591,18 @@ Introducción
 \begin_inset Quotes erd
 \end_inset
 
- (capítulo 
+ (capítulo
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:introduccion"
@@ -569,7 +624,18 @@ Estado del Arte
 \begin_inset Quotes erd
 \end_inset
 
-,(capítulo 
+ (capítulo
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:estado-del-arte"
@@ -603,7 +669,18 @@ Materiales y Métodos
 \begin_inset Quotes erd
 \end_inset
 
- (capítulo 
+ (capítulo
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:Materiales-y-métodos"
@@ -636,7 +713,18 @@ Resultados
 \begin_inset Quotes erd
 \end_inset
 
- (capítulo 
+ (capítulo
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:Resultados"
@@ -667,7 +755,18 @@ Conclusiones
 \begin_inset Quotes erd
 \end_inset
 
- (capítulo 
+ (capítulo
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\end_layout
+
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:Conclusiones-y-trabajos"

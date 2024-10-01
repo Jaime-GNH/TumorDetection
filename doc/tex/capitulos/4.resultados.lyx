@@ -122,6 +122,15 @@ noprefix "false"
 \end_inset
 
 ), 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "DSC"
+description "Dice Score Coefficient"
+literal "false"
+
+\end_inset
+
+
 \emph on
 dsc (Dice Score Coefficient)
 \emph default
@@ -140,6 +149,15 @@ noprefix "false"
  
 \emph default
 y 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "MIOU"
+description "Mean Intersection over Union"
+literal "false"
+
+\end_inset
+
+
 \emph on
 mIoU (mean Intersection over Union
 \emph default
@@ -261,7 +279,7 @@ status collapsed
 \begin_layout Plain Layout
 
 \lang english
-Tablas de métricas
+Tablas de métricas.
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Tablas-de-métricas"
@@ -366,7 +384,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{IoU_{normal}}$
+\begin_inset Formula $\bar{IoU}_{normal}$
 \end_inset
 
 
@@ -378,7 +396,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{IoU_{benigno}}$
+\begin_inset Formula $\bar{IoU}_{benigno}$
 \end_inset
 
 
@@ -390,7 +408,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{IoU_{maligno}}$
+\begin_inset Formula $\bar{IoU}_{maligno}$
 \end_inset
 
 
@@ -594,7 +612,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{dst}$
+\begin_inset Formula $\bar{dsc}_{T}$
 \end_inset
 
 
@@ -606,7 +624,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{accuracy}$
+\begin_inset Formula $\bar{accuracy}_{T}$
 \end_inset
 
 
@@ -618,7 +636,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{mIoU}$
+\begin_inset Formula $\bar{mIoU}_{T}$
 \end_inset
 
 
@@ -630,7 +648,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{IoU_{normal}}$
+\begin_inset Formula $\bar{IoU}_{normal}$
 \end_inset
 
 
@@ -642,7 +660,7 @@ Conjunto
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\bar{IoU_{tumor}}$
+\begin_inset Formula $\bar{IoU}_{tumor}$
 \end_inset
 
 
@@ -847,7 +865,7 @@ noprefix "false"
 \begin_inset Formula $\bar{dsc}$
 \end_inset
 
-(ecuación 
+ (ecuación 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:dsc"
@@ -861,7 +879,7 @@ noprefix "false"
 \begin_inset Formula $\bar{mIoU}$
 \end_inset
 
-(ecuación 
+ (ecuación 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:mIoU"
@@ -905,9 +923,10 @@ literal "false"
 
 ).
  El alto valor en DSC e IoU indican que, si se detecta el tumor la forma
- resultante de la máscara se ajusta correctamente a la región tumoral -
+ resultante de la máscara se ajusta correctamente a la región tumoral (con
+ respecto a los demás modelos)
 \emph on
-con respecto a los demás modelos-.
+.
  
 \end_layout
 
@@ -995,7 +1014,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -1019,12 +1038,15 @@ normal, tumor
  (
 \begin_inset CommandInset citation
 LatexCommand citet
-key "Xu2021,Cho2022,Bansal2023"
+key "Xu2021,Cho2022,Bansal2023,Cai2024"
 literal "false"
 
 \end_inset
 
-).Se resaltan en negrita los mejores valores del total.
+).
+ Se resaltan en negrita los mejores valores del total.
+ Los guiones indican que no se ha encontrado el valor correspondiente para
+ la arquitectura.
 \end_layout
 
 \end_inset
@@ -1038,7 +1060,7 @@ literal "false"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -1075,7 +1097,7 @@ name "tab:Comparación-de-modelos"
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="12" columns="5">
 <features booktabs="true" tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -1187,6 +1209,118 @@ EFSNet (nuestro)
 
 \series bold
 0.179
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SC-UNeXt (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Cai2024"
+literal "false"
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+75.29
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+97.09
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+63.66
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.460
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UNeXt (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Valanarasu2022"
+literal "false"
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+72.97
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+95.29
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+61.15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.470
 \end_layout
 
 \end_inset
@@ -1354,6 +1488,61 @@ literal "false"
 
 \begin_layout Plain Layout
 59.339
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TransUnet (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Chen2021"
+literal "false"
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+68.94
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+93.97
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+57.79
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+66.810
 \end_layout
 
 \end_inset
@@ -1559,8 +1748,6 @@ literal "false"
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\series bold
 96.77
 \end_layout
 
@@ -2317,7 +2504,7 @@ literal "false"
 \begin_inset Text
 
 \begin_layout Plain Layout
-Residual-U-Net (
+Residual U-Net (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "7780459"
@@ -2645,13 +2832,14 @@ En arquitecturas pesadas (
 
 ) es necesario el análisis previo de un experto y, una vez detectado el
  tumor, realizar la segmentación de su forma o se podrá incurrir en un falso
- positivo 
+ positivo
 \emph on
--que no es de tal gravedad como un falso negativo
+, 
 \emph default
--.
- En contraposición, en redes livianas como EFSNet y LCMUNet no es necesario
- un análisis previo pero sí una evaluación continua de las predicciones.
+que no es de tal gravedad como un falso negativo.
+ En contraposición, en redes livianas como EFSNet, LCMUNet, UneXt y SC-UNeXt
+ no es necesario un análisis previo pero sí una evaluación continua de las
+ predicciones.
  Por ende, las redes neuronales pesadas y livianas no deben utilizarse con
  el mismo propósito.
  Las arquitecturas pesadas son excelentes para definir la forma de un tumor
@@ -2749,7 +2937,7 @@ name "sec:Aciertos"
 \begin_layout Standard
 En esta sección se visualizan conjuntos de imágenes con características
  compartidas cuyas máscaras predichas se han acercado más a las originales.
- Estos conjuntos son: imágenes con tumores pequeños, compactos y benignos
+ Estos conjuntos son: imágenes con tumores benignos pequeños y/o compactos
  (figura 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2813,7 +3001,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (63).png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (135).png
 	width 98text%
 	BoundingBox 0bp 120bp 640bp 380bp
 	clip
@@ -2863,7 +3051,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (437).png
+	filename C:/Users/User/Git/TumorDetection/doc/tex/imagenes/test_result/prediction_benign (98).png
 	width 98text%
 	BoundingBox 0bp 120bp 640bp 380bp
 	clip
@@ -2884,7 +3072,7 @@ status open
 \begin_layout Plain Layout
 
 \lang english
-Aciertos en tumores benignos y compactos.
+Aciertos en tumores benignos pequeños y/o compactos.
  
 \begin_inset CommandInset label
 LatexCommand label
@@ -3184,13 +3372,9 @@ noprefix "false"
 
 ) ya que siempre son píxeles de valor 0 y de la clase 
 \emph on
-normal
+normal,
 \emph default
- -
-\emph on
-como se ve en la tercera imagen de la figura 
-\emph default
-
+ tal y como se ve en la tercera imagen de la figura 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Errores-por-agujeros"
@@ -3200,7 +3384,7 @@ noprefix "false"
 
 \end_inset
 
--.
+.
  Por otro lado, pese a que el bloque CSDC (subsección 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3276,7 +3460,7 @@ noprefix "false"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -3296,14 +3480,14 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -3417,7 +3601,7 @@ separation "3pt"
 shadowsize "4pt"
 framecolor "black"
 backgroundcolor "none"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -3920,11 +4104,7 @@ La prueba de inferencia realizada para medir la velocidad de inferencia
 \begin_inset Formula $\left(1,1,256,256\right)$
 \end_inset
 
- -
-\emph on
-siendo la primera dimensión el tamaño de batch
-\emph default
-- en 10 rondas independientes.
+ (siendo la primera dimensión el tamaño de batch) en 10 rondas independientes.
  En la tabla 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4017,10 +4197,50 @@ NVidia RTX 4060 (GPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.01234\ensuremath{\pm}0.00103$
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.01234
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\ensuremath{\pm}$
 \end_inset
 
 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.00103
 \end_layout
 
 \end_inset
@@ -4029,10 +4249,50 @@ NVidia RTX 4060 (GPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $81.621\ensuremath{\pm}5.906$
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+81.621
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\ensuremath{\pm}$
 \end_inset
 
 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+5.906
 \end_layout
 
 \end_inset
@@ -4052,10 +4312,50 @@ Intel Core i7 (CPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0.09438\pm0.00403$
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.09438
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\pm$
 \end_inset
 
 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.00403
 \end_layout
 
 \end_inset
@@ -4064,10 +4364,50 @@ Intel Core i7 (CPU)
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $10.615\pm0.458$
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10.615
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\pm$
 \end_inset
 
 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.458
 \end_layout
 
 \end_inset
@@ -4108,7 +4448,16 @@ literal "false"
 \begin_inset Formula $107$
 \end_inset
 
- FPS utilizando una GPU NVidia Titan Xp sobre los conjuntos de datos CamVid
+ 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "FPS"
+description "Frames Per Second"
+literal "false"
+
+\end_inset
+
+fps utilizando una GPU NVidia Titan Xp sobre los conjuntos de datos CamVid
  (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -4145,11 +4494,7 @@ sentirá
  Se debe tener en cuenta que, generalmente, un centro médico suele contar
  con un clúster de computación o sistemas de computación en la nube con
  acceso a una o más GPUs y CPUs de mayor potencia que las aquí utilizadas
- y el rendimiento será aún mayor -
-\emph on
-aunque también innecesario
-\emph default
--.
+ y el rendimiento será aún mayor (aunque también innecesario).
 \end_layout
 
 \end_body

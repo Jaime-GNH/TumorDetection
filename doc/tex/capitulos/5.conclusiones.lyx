@@ -167,9 +167,10 @@ Se debe mencionar de nuevo en esta sección el mínimo coste computacional
 \begin_inset Formula $\simeq143Mb$
 \end_inset
 
-, que permite no solo realizar inferencia en un ordenador convencional sino
- en el propio dispositivo de ultrasonidos de forma que se pueda combinar
- la máscara con la imagen al mismo tiempo que se realiza la revisión médica.
+ de memoria RAM, que permite no solo realizar inferencia en un ordenador
+ convencional sino en el propio dispositivo de ultrasonidos de forma que
+ se pueda combinar la máscara con la imagen al mismo tiempo que se realiza
+ la revisión médica.
  Además de la instantaneidad que aporta el modelo, la sencillez algorítmica
  de su optimización y la reducida cantidad de datos necesaria para su ajuste
  permite extender esta solución a otros campos de la biomedicina como la
@@ -184,11 +185,7 @@ Se debe mencionar de nuevo en esta sección el mínimo coste computacional
 En conjunto, esta solución permite a un centro médico utilizar datos de
  los pacientes en multitud de casos de uso sin violar las restricciones
  de protección de datos ya que no es necesaria la utilización de computación
- externa -
-\emph on
-soluciones cloud
-\emph default
-- para el entrenamiento o la inferencia.
+ externa (soluciones cloud) para el entrenamiento o la inferencia.
 \end_layout
 
 \begin_layout Standard
@@ -210,7 +207,7 @@ En primer lugar, la red puede incurrir en alucinaciones si la imagen de
 \begin_layout Standard
 
 \lang english
-En segundo lugar, se han observado una predilección por tumores de cierto
+En segundo lugar, se ha observado una predilección por tumores de cierto
  tamaño y se ha comentado la posibilidad de haber 
 \begin_inset Quotes eld
 \end_inset
@@ -249,12 +246,10 @@ benigno
 \emph on
 maligno
 \emph default
- pueden ser perjudiciales para el paciente -
-\emph on
-más si el tumor es maligno y se detecta como benigno
-\emph default
-- por lo que se recomienda que esta información se contraste con conocimiento
- experto y no se deposite toda confianza en la predicción.
+ pueden ser perjudiciales para el paciente (más si el tumor es maligno y
+ se detecta como benigno) por lo que se recomienda que esta información
+ se contraste con conocimiento experto y no se deposite toda confianza en
+ la predicción.
  Es preferible que se utilice el modelo para segmentar 
 \emph on
 normal, tumor
@@ -300,22 +295,61 @@ A lo largo de la memoria se han comentado varios puntos en los que se podría
 \begin_layout Enumerate
 
 \lang english
-Generalización de tareas: ajustar esta arquitectura a diferentes tareas
- de segmentación del campo de la biomedicina de forma independiente.
- Es interesante conocer cuáles son las fortalezas y debilidades de la metodologí
-a presentada de una forma más general y exacta.
- Con este proyecto es posible mejorar la interpretabilidad de la red y comprobar
- si la precisión mostrada se mantiene al ajustar diferentes casos de uso
- de distintas características, i.e.
- más datos, formas no circulares, imágenes con 3 canales de color, etc.
+Aprendizaje semi-supervisado utilizando 
+\emph on
+GAN
+\emph default
+: utilización de un modelo adversario para realizar aprendizaje semi-supervisado
+ utilizando EFSNet como modelo generador.
+ Esta técnica permite obtener un modelo con menor incertidumbre en el mapa
+ de probabilidades de la segmentación deviniendo en unas predicciones más
+ detalladas y sólidas.
+ En las últimas semanas de desarrollo del proyecto se ha indagado en este
+ campo.
+ En el apéndice 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:ADV_S4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ se puede encontrar un conato de ampliación del trabajo siguiendo el artículo
+ 
+\emph on
+Adversarial Learning with Semi-Supervised Semantic Segmentation
+\emph default
+ (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Hung2018"
+literal "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Enumerate
 
 \lang english
-Combinación de conjuntos de datos: Una potencial mejora es la combinación
- de los conjuntos de datos BUSI, UDIAT y OASBUD que son de carácter público
- para engrosar el número de muestras.
+Generalización de tareas y despliegue de modelos: ajustar esta arquitectura
+ a diferentes tareas de segmentación del campo de la biomedicina de forma
+ independiente.
+ Aprovechar el bajo coste computacional y la alta velocidad de esta arquitectura
+ para desplegar modelos en dispositivos móviles o aparatos médicos de forma
+ que este trabajo teórico vea una o varias aplicaciones prácticas que combinen
+ calidad y accesibilidad.
+\end_layout
+
+\begin_layout Enumerate
+
+\lang english
+Combinación de conjuntos de datos: una potencial mejora es la combinación
+ de los conjuntos de datos BUSI, UDIAT, BrEaST y OASBUD que son de carácter
+ público para engrosar el número de muestras.
  Esta vía no es trivial, como se ha comentado cada conjunto de imágenes
  se ha tomado con un dispositivo diferente y puede resultar complejo homogeneiza
 r el resultado final.
@@ -324,7 +358,7 @@ r el resultado final.
 \begin_layout Enumerate
 
 \lang english
-Variación del aumento de datos: Se ha comentado en la subsección de Aumento
+Variación del aumento de datos: se ha comentado en la subsección de Aumento
  de Datos, 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -370,7 +404,7 @@ Decaimiento de pesos y
 \emph on
 Dice Loss
 \emph default
-: Para aliviar el problema del desbalance de clases se puede añadir el decaimien
+: para aliviar el problema del desbalance de clases se puede añadir el decaimien
 to de pesos que sugiere el artículo de EFSNet (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -395,30 +429,7 @@ literal "false"
 \begin_layout Enumerate
 
 \lang english
-Subrogación de la pérdida: La aplicación de un modelo 
-\emph on
-discriminador
-\emph default
- sencillo para subrogar la pérdida del modelo 
-\emph on
-generador, 
-\emph default
-EFSNet, para la implementación de una 
-\emph on
-GAN 
-\emph default
-puede ayudar -
-\emph on
-como en el punto anterior
-\emph default
-- a ajustar el modelo en un conjunto de clases tan desbalanceado como el
- actual.
-\end_layout
-
-\begin_layout Enumerate
-
-\lang english
-Segmentación multitarea: Se ha comentado en la subsección de predicción,
+Segmentación multitarea: se ha comentado en la subsección de predicción,
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -442,6 +453,13 @@ literal "false"
 
 ) implementan técnicas de regularización en la función de pérdida sencillas
  y efectivas que pueden aplicarse a este modelo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

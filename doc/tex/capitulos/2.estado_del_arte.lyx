@@ -297,12 +297,11 @@ datos, computación, personal
 ) debido a que son los modelos más pesados y costosos de entrenar.
  La finalidad de estos modelos es obtener una herramienta multi-propósito,
  pero a costa de esta generalidad disminuyen la precisión en casos concretos
- por lo que requieren de metodologías adicionales como el Ajuste Fino -
+ por lo que requieren de metodologías adicionales como el Ajuste Fino (
 \emph on
 Fine Tuning
 \emph default
-\SpecialChar softhyphen
-.
+).
  
 \end_layout
 
@@ -345,11 +344,7 @@ literal "false"
 
 \begin_layout Standard
 El trabajo actual hace uso de una de las últimas actualizaciones de esta
- vía, EFSNet -
-\emph on
-Efficient Fast Segmentation Network
-\emph default
-- (
+ vía, EFSNet (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Hu2020"
@@ -459,8 +454,8 @@ inferencia a inferencia
 \emph default
 -, el ruido para obtener la imagen final.
  Esta eliminación de ruido está guiada por un conjunto de predictores que
- evaluarán si el ruido eliminado se acerca o no al objetivo y, generalmente,
- haciendo uso de bloques de atención.
+ evaluarán si el ruido eliminado se acerca o no al objetivo.
+ Comúnmente se hace uso de bloques de atención.
  En consecuencia se obtiene una imagen nítida y acorde con el objetivo pero
  se incrementa el coste computacional tantas veces como pasos de eliminación
  de ruido se utilicen.
@@ -481,6 +476,15 @@ literal "false"
 En segundo lugar, se continúa investigando y mejorando en la metodología
  
 \emph on
+
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "GAN"
+description "Generative Adversarial Networks"
+literal "false"
+
+\end_inset
+
 GAN
 \emph default
  (
@@ -717,9 +721,52 @@ El campo de la biomedicina es tremendamente extenso así como lo son las
 
 \begin_layout Standard
 Los principales campos de investigación están relacionados con Tomografía
- Computerizada (CT), Imágenes de Resonancia Magnética (MRI), Imágenes de
- Ultrasonido (USI), Rayos X, Tomografía de Coherencia Óptica (OCT), Tomografía
- por Emisión de Positrones (PET) (
+ Computerizada (
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "CT"
+description "Computerized Tomography"
+literal "false"
+
+\end_inset
+
+CT), Imágenes de Resonancia Magnética (
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "MRI"
+description "Magnetic Resonance Imaging"
+literal "false"
+
+\end_inset
+
+MRI), Imágenes de Ultrasonido (
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "USI"
+description "UltraSound Imaging"
+literal "false"
+
+\end_inset
+
+USI), Rayos X, Tomografía de Coherencia Óptica (OCT
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "OCT"
+description "Optical Coherence Tomography"
+literal "false"
+
+\end_inset
+
+), Tomografía por Emisión de Positrones (
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "PET"
+description "Positron Emission Tomography"
+literal "false"
+
+\end_inset
+
+PET) (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Du2020,Siddique2021"
@@ -741,7 +788,16 @@ literal "false"
 
 \end_inset
 
-), la CNN clásica (
+), la 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "CNN"
+description "Convolutional Neural Network"
+literal "false"
+
+\end_inset
+
+CNN clásica (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "LeCun1995"
@@ -749,7 +805,16 @@ literal "false"
 
 \end_inset
 
-), las FCN (
+), las 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "FCN"
+description "Fully Convolutional Network"
+literal "false"
+
+\end_inset
+
+FCN (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "Long2015"
@@ -808,8 +873,16 @@ Introducción de la atención: Un gran número de artículos actuales hacen
 
 \begin_layout Enumerate
 Variaciones de las arquitecturas clásicas: Una línea recurrente es la utilizació
-n de arquitecturas conocidas como U-Net, ResNet o Inception e implementar
- variaciones y combinaciones.
+n de arquitecturas conocidas como U-Net, 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "ResNet"
+description "Residual Network"
+literal "false"
+
+\end_inset
+
+ResNet o Inception e implementar variaciones y combinaciones.
  Esta línea trata de variar las arquitecturas actuales añadiendo complejidad,
  paralelizando tareas o introduciendo algoritmos de optimización que mejoren
  un resultado previo.
@@ -864,7 +937,7 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Arquitecturas eficientes.
+Arquitecturas eficientes
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Arquitecturas-eficientes."
@@ -955,11 +1028,28 @@ noprefix "false"
 \begin_layout Enumerate
 Normalización por lote, 
 \emph on
+
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "BatchNorm"
+description "Batch Normalization"
+literal "false"
+
+\end_inset
+
 BatchNorm
 \emph default
-, con activación PReLU: La normalización por lote, como su nombre indica,
- normaliza los valores resultantes de una capa por conjunto de datos de
- inferencia.
+, con activación 
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "PReLU"
+description "Parametrized Rectified Linear Unit"
+literal "false"
+
+\end_inset
+
+PReLU: La normalización por lote, como su nombre indica, normaliza los valores
+ resultantes de una capa por conjunto de datos de inferencia.
  
 \begin_inset Newline newline
 \end_inset
@@ -1126,8 +1216,8 @@ La combinación de ambas técnicas reduce la pérdida de información y dota
  bloques y partes de la red permitiendo reducir los parámetros sin impactar
  en la precisión.
  Adicionalmente, estas conexiones sirven de atajo en la propagación de la
- pérdida durante el entrenamiento previendo problemas relacionados con el
- desvanecimiento del gradiente.
+ pérdida durante el entrenamiento previniendo problemas relacionados con
+ el desvanecimiento del gradiente.
 \end_layout
 
 \begin_layout Standard
