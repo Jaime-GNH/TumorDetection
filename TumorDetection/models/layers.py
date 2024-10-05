@@ -4,7 +4,7 @@ import torch
 import torch.nn.functional as tfn
 
 
-class ConvBlock(torch.nn.Module):
+class BaseBlock(torch.nn.Module):
     """
     Convolutional + BatchNorm + Activation Block.
     """
@@ -116,7 +116,7 @@ class InitialBlock(torch.nn.Module):
         :param device: Device to use for computation.
         """
         super().__init__()
-        self.cb11 = ConvBlock(in_channels=in_channels, out_channels=16-in_channels, kernel_size=(3, 3),
+        self.cb11 = BaseBlock(in_channels=in_channels, out_channels=16 - in_channels, kernel_size=(3, 3),
                               stride=2, padding=1, dilation=1, bias=bias, device=device)
         # self.spr11 = torch.nn.Dropout2d(p=dr_rate)
         self.mxp21 = torch.nn.MaxPool2d(kernel_size=(2, 2))
@@ -149,14 +149,14 @@ class DownsamplingBlock(torch.nn.Module):
         super().__init__()
         self.mxp11 = torch.nn.MaxPool2d(kernel_size=(2, 2))
         # self.bn11 = torch.nn.BatchNorm2d(in_channels, device=device)
-        self.cb11 = ConvBlock(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb11 = BaseBlock(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, bias=bias, device=device, use_act=False)
 
-        self.cb21 = ConvBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(2, 2),
+        self.cb21 = BaseBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(2, 2),
                               padding=0, stride=2, dilation=1, bias=bias, device=device)
-        self.cb22 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 3),
+        self.cb22 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 3),
                               padding='same', stride=1, dilation=1, bias=bias, device=device)
-        self.cb23 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb23 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
                               padding='same', stride=1, dilation=1, bias=bias, device=device, use_act=False)
         self.spr21 = torch.nn.Dropout2d(p=dr_rate)
 
@@ -197,15 +197,15 @@ class FactorizedBlock(torch.nn.Module):
         :param device: Device to use for computation.
         """
         super().__init__()
-        self.cb11 = ConvBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(1, 1),
+        self.cb11 = BaseBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(1, 1),
                               padding='same', stride=1, dilation=1, bias=bias, device=device)
-        self.cb12 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(1, 3),
+        self.cb12 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(1, 3),
                               padding='same', stride=1, dilation=1, bias=bias, device=device, use_act=False)
 
-        self.cb13 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 1),
+        self.cb13 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 1),
                               padding='same', stride=1, dilation=1, bias=bias, device=device)
 
-        self.cb14 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb14 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
                               padding='same', stride=1, dilation=1, bias=bias, device=device, use_act=False)
         self.spr11 = torch.nn.Dropout2d(p=dr_rate)
 
@@ -246,14 +246,14 @@ class SDCBlock(torch.nn.Module):
         """
         super().__init__()
         self.groups = groups
-        self.cb11 = ConvBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(1, 1),
+        self.cb11 = BaseBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(1, 1),
                               stride=1, groups=groups, padding='same', dilation=1, bias=bias, device=device)
 
-        self.cb12 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 3),
+        self.cb12 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 3),
                               stride=1, padding='same', dilation=dilation, bias=bias, device=device,
                               use_act=False)
 
-        self.cb13 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb13 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, groups=groups, bias=bias, device=device,
                               use_act=False)
         self.spr11 = torch.nn.Dropout2d(p=dr_rate)
@@ -323,13 +323,13 @@ class UpsamplingBlock(torch.nn.Module):
         :param device: Device to use for computation.
         """
         super().__init__()
-        self.cb11 = ConvBlock(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb11 = BaseBlock(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, bias=bias, device=device,
                               use_act=False)
 
-        self.cb21 = ConvBlock(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb21 = BaseBlock(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, bias=bias, device=device)
-        self.ct21 = ConvBlock(in_channels=out_channels, out_channels=out_channels, kernel_size=(2, 2),
+        self.ct21 = BaseBlock(in_channels=out_channels, out_channels=out_channels, kernel_size=(2, 2),
                               stride=2, padding=0, dilation=1, bias=bias, device=device,
                               transpose=True, use_act=False, use_batchnorm=False)
         self.act_f = torch.nn.PReLU(device=device)
@@ -368,14 +368,12 @@ class ShuffleNet(torch.nn.Module):
         """
         super().__init__()
         self.groups = groups
-        self.cb11 = ConvBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(1, 1),
-                              stride=1, padding='same', dilation=1, groups=groups, bias=bias, device=device,
-                              use_act=False)
-        self.act11 = torch.nn.ReLU()
+        self.cb11 = BaseBlock(in_channels=in_channels, out_channels=out_channels // 4, kernel_size=(1, 1),
+                              stride=1, padding='same', dilation=1, groups=groups, bias=bias, device=device)
         self.scb11 = SeparableConv2d(in_channels=out_channels // 4, out_channels=out_channels // 4, kernel_size=(3, 3),
                                      bias=False, device=device)
         self.bn11 = torch.nn.BatchNorm2d(out_channels // 4, device=device)
-        self.cb12 = ConvBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
+        self.cb12 = BaseBlock(in_channels=out_channels // 4, out_channels=out_channels, kernel_size=(1, 1),
                               stride=1, padding='same', dilation=1, groups=groups, bias=bias, device=device,
                               use_act=False)
         self.spr11 = torch.nn.Dropout2d(p=dr_rate)
@@ -389,7 +387,6 @@ class ShuffleNet(torch.nn.Module):
         """
         # PATH
         x1 = self.cb11(x)
-        x1 = self.act11(x1)
         x1 = channel_shuffle(x1, self.groups)
         x1 = self.scb11(x1)
         x1 = self.bn11(x1)
