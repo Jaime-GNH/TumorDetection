@@ -44,6 +44,13 @@ for k in range(KFOLD):
                               range_brightness=None,
                               vertical_flip_prob=None,
                               horizontal_flip_prob=None)
+        test_td = TorchDataset(test_paths,
+                               crop_prob=None,
+                               rotation_degrees=None,
+                               range_contrast=None,
+                               range_brightness=None,
+                               vertical_flip_prob=None,
+                               horizontal_flip_prob=None)
 
         # BUILD MODEL
         lighningmodel = LightningModel(model=EFSNet(device=DEVICE,
@@ -61,7 +68,8 @@ for k in range(KFOLD):
                 train_batch_size=BATCH_SIZE,
                 val_batch_size=TEST_SIZE,
                 train_data=tr_td,
-                test_data=val_td,
+                validation_data=val_td,
+                test_data=test_td,
                 from_checkpoint=True,
                 validate_model=True,
                 test_model=False)

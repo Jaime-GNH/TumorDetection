@@ -84,7 +84,8 @@ class Trainer(BaseClass):
 
     def __call__(self, model: Union[pl.LightningModule, torch.nn.Module, type],
                  train_data: Union[Dataset, DataLoader],
-                 test_data: Union[Dataset, DataLoader],
+                 validation_data: Union[Dataset, DataLoader],
+                 test_data: Optional[Union[Dataset, DataLoader]] = None,
                  lightningmodel_cls: Optional[type] = None,
                  lightningmodel_params: Optional[dict] = None,
                  torchmodel_params: Optional[dict] = None,
@@ -96,7 +97,8 @@ class Trainer(BaseClass):
         Trainer main function.
         :param model: Neural Network to use.
         :param train_data: Train data to be fed
-        :param test_data: Test/Validation data to evaluate.
+        :param validation_data: Validation data to evaluate.
+        :param test_data: Test data to evaluate.
         :param lightningmodel_cls: LightningModule Class if using a torch.nn.Module or type
         :param lightningmodel_params: Parameters for LightningModule for initializing if needed
         :param torchmodel_params: Parameters for Torch Neural Network for initializing if needed
@@ -142,11 +144,11 @@ class Trainer(BaseClass):
                                     batch_size=train_batch_size,
                                     drop_last=True,
                                     shuffle=True)
-        if isinstance(test_data, Dataset):
-            test_data = DataLoader(test_data,
-                                   batch_size=val_batch_size,
-                                   drop_last=True,
-                                   shuffle=False)
+        if isinstance(validation_data, Dataset):
+            validation_data = DataLoader(validation_data,
+                                         batch_size=val_batch_size,
+                                         drop_last=True,
+                                         shuffle=False)
         if from_checkpoint:
             model = load_model(self.ckpt_dir, self.model_name, model)
 
@@ -165,18 +167,25 @@ class Trainer(BaseClass):
             if validate_model:
                 if self.verbose > 0:
                     print('Validating model...')
-                self.trainer.validate(model, test_data, verbose=self.verbose > 0)
+                self.trainer.validate(model, validation_data, verbose=self.verbose > 0)
             if self.verbose > 0:
                 print('Training model...')
             self.trainer.fit(model,
                              train_dataloaders=train_data,
-                             val_dataloaders=test_data)
+                             val_dataloaders=validation_data)
         torch.save(model,
                    os.path.join(self.ckpt_dir, self.model_name + '.pt'))
         model = load_ckpt(self.ckpt_dir,
                           self.model_name,
                           model)
         if test_model:
+            if not test_data:
+                test_data = validation_data
+            if isinstance(test_data, Dataset):
+                test_data = DataLoader(test_data,
+                                       batch_size=val_batch_size,
+                                       drop_last=True,
+                                       shuffle=False)
             with warnings.catch_warnings():
                 warnings.filterwarnings('ignore', '.*does not have many workers.*')
                 self.trainer.test(model,
