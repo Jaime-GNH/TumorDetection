@@ -12,8 +12,8 @@ import os
 
 from TumorDetection.utils.dict_classes import DataPathDir, ReportingPathDir, Device
 from TumorDetection.data.loader import DataPathLoader
-from TumorDetection.data.dataset import TorchDatasetSeg
-from TumorDetection.models.efsnet import EFSNetSeg
+from TumorDetection.data.dataset import TorchDataset
+from TumorDetection.models.efsnet import EFSNet
 from TumorDetection.models.adv_semi_seg.discriminator import FCDiscriminator
 
 DEVICE = Device.device
@@ -107,8 +107,8 @@ def main():
     gpu = 0
     losses_gen = float('inf')
     # create network
-    model = EFSNetSeg(input_shape=(1, h, w),
-                      device=DEVICE)
+    model = EFSNet(input_shape=(1, h, w),
+                   device=DEVICE)
 
     model.train()
     model.cuda(gpu)
@@ -123,20 +123,20 @@ def main():
     paths = dp()
     tr_paths, _ = train_test_split(paths, test_size=TEST_SIZE,
                                    random_state=0, shuffle=True)
-    tr_td = TorchDatasetSeg(tr_paths,
+    tr_td = TorchDataset(tr_paths,
+                         crop_prob=0.5,
+                         rotation_degrees=180,
+                         range_contrast=(0.75, 1.25),
+                         range_brightness=(0.75, 1.25),
+                         vertical_flip_prob=0.25,
+                         horizontal_flip_prob=0.25)
+    tr_gt_td = TorchDataset(tr_paths,
                             crop_prob=0.5,
                             rotation_degrees=180,
                             range_contrast=(0.75, 1.25),
                             range_brightness=(0.75, 1.25),
                             vertical_flip_prob=0.25,
                             horizontal_flip_prob=0.25)
-    tr_gt_td = TorchDatasetSeg(tr_paths,
-                               crop_prob=0.5,
-                               rotation_degrees=180,
-                               range_contrast=(0.75, 1.25),
-                               range_brightness=(0.75, 1.25),
-                               vertical_flip_prob=0.25,
-                               horizontal_flip_prob=0.25)
 
     partial_size = int(PARTIAL_DATA * len(tr_td))
     train_ids = list(range(len(tr_td)))
