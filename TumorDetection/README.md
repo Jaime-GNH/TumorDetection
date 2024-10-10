@@ -1,14 +1,14 @@
 # TumorDetection
 
 Python Module with the implementation of a Semantic Segmentation Network for tumor detection in 
-breast ultrasound images with an [EFSNet](models/efsnet.py) architecture.
+breast ultrasound images with an [EFSNet](models/efsnet/efsnet.py) architecture.
 
 
 ## Structure
 
 [core](core): Scripts with the final implementation for easy uses. *❗Not yet*  
 [data](data): Scripts for data manipulation like loading and creating dataloaders for using the model.  
-[models](models): Implementation of [EFSNet](models/efsnet.py) and its layers as well as [utilites](models/utils) 
+[models](models): Implementation of [EFSNet](models/efsnet/efsnet.py) and its layers as well as [utilites](models/utils) 
 for use.  
 [utils](utils): Configurations and miscelanea.
 
@@ -27,7 +27,7 @@ in real-time.
 
 The approach actually is a clasifier + binary segmentation model due to the image dataset.
 
-The classification learns `normal, benign, malignant` images from the encoder part of the [model](models/efsnet.py)
+The classification learns `normal, benign, malignant` images from the encoder part of the [model](models/efsnet/efsnet.py)
 while the binary segmentation model performs a segmentation of any kind of tumor wheter is beignant or not. This 
 combination of predictions covers all cases due to there is no image in the dataset that has both benign and malignant 
 tumors.

@@ -1,23 +1,24 @@
 import os
-from typing import Any
-from sklearn.model_selection import train_test_split
+from typing import Any, Tuple
 
 from TumorDetection.data.loader import DataPathLoader
 from TumorDetection.data.dataset import TorchDataset
-from TumorDetection.utils.dict_classes import DataPathDir, ReportingPathDir, Verbosity, Device
+from TumorDetection.data.split_data import stratified_split
+from TumorDetection.utils.dict_classes import DataPathDir, ReportingPathDir, ClassValues, Verbosity, Device
 from TumorDetection.models.efsnet import EFSNet
 from TumorDetection.models.utils.lightning_model import LightningModel
 from TumorDetection.models.utils.trainer import Trainer
 
-MODEL_NAME: str = 'EFSNet_base'
-DESCRIPTION: str = 'EFSNet base'
+MODEL_NAME: str = 'EFSNet'
+DESCRIPTION: str = 'EFSNet'
+CLASSES: Tuple[str, ...] = tuple(ClassValues.to_dict())
 VERBOSE: int = Verbosity.get('verbose')
 DEVICE: Any = Device.get('device')
 EPOCHS: int = 2500
 IGNORE_INDEX: int = 0
 BATCH_SIZE: int = 64
-VAL_SIZE: int = 50
-TEST_SIZE: int = 50
+VAL_SIZE: int = BATCH_SIZE
+TEST_SIZE: int = BATCH_SIZE
 KFOLD: int = 5
 
 # GET DATA
@@ -25,10 +26,9 @@ dp = DataPathLoader(DataPathDir.get('dir_path'))
 paths = dp()
 for k in range(KFOLD):
     if not os.path.exists(os.path.join(ReportingPathDir.get('dir_path'), 'ckpt', MODEL_NAME + f'_k{k}.pt')):
-        tr_paths, val_paths = train_test_split(paths, test_size=TEST_SIZE + VAL_SIZE,
-                                               random_state=k, shuffle=True)
-        val_paths, test_paths = train_test_split(val_paths, test_size=TEST_SIZE,
-                                                 random_state=k, shuffle=True)
+        tr_paths, val_paths, test_paths = stratified_split(paths=paths, classes=tuple(ClassValues.to_dict()),
+                                                           test_size=TEST_SIZE, val_size=VAL_SIZE,
+                                                           random_state=k, shuffle=True)
 
         tr_td = TorchDataset(tr_paths,
                              crop_prob=0.5,
@@ -72,4 +72,4 @@ for k in range(KFOLD):
                 test_data=test_td,
                 from_checkpoint=True,
                 validate_model=True,
-                test_model=False)
+                test_model=True)
